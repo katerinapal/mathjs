@@ -1,6 +1,4 @@
-var assert = require('assert'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index');
+import assert from "assert";
 
 describe('sort', function() {
 

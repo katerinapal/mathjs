@@ -1,12 +1,11 @@
-var assert = require('assert');
-var math = require('../../../index');
-var Matrix = math.type.Matrix;
-var DenseMatrix = math.type.DenseMatrix;
-var SparseMatrix = math.type.SparseMatrix;
-var Complex = math.type.Complex;
-var Range = math.type.Range;
-
-var index = math.index;
+import assert from "assert";
+import { index } from "../../../index";
+var math = index;
+var Matrix = index.type.Matrix;
+var DenseMatrix = index.type.DenseMatrix;
+var SparseMatrix = index.type.SparseMatrix;
+var Complex = index.type.Complex;
+var Range = index.type.Range;
 
 describe('DenseMatrix', function() {
 
@@ -300,7 +299,7 @@ describe('DenseMatrix', function() {
 
     it('should resize the matrix with uninitialized default value', function() {
       var m = new DenseMatrix([]);
-      m.resize([3], math.uninitialized);
+      m.resize([3], index.uninitialized);
       assert.deepEqual(m.valueOf(), arr(uninit, uninit, uninit));
     });
     
@@ -359,7 +358,7 @@ describe('DenseMatrix', function() {
       assert.throws(function () { m.get([1.2, 2]); });
       assert.throws(function () { m.get([1,-2]); });
       assert.throws(function () { m.get(1,1); });
-      assert.throws(function () { m.get(math.index(1,1)); });
+      assert.throws(function () { m.get(index.index(1,1)); });
       assert.throws(function () { m.get([[1,1]]); });
     });
   });
@@ -399,7 +398,7 @@ describe('DenseMatrix', function() {
       assert.throws(function() { m.set([2.5,0], 5); });
       assert.throws(function() { m.set([1], 5); });
       assert.throws(function() { m.set([-1, 1], 5); });
-      assert.throws(function() { m.set(math.index(new Range(0,0)), 5); });
+      assert.throws(function() { m.set(index.index(new Range(0,0)), 5); });
     });
   });
   
@@ -409,7 +408,7 @@ describe('DenseMatrix', function() {
       var m;
 
       // get 1-dimensional
-      m = new DenseMatrix(math.range(0,10));
+      m = new DenseMatrix(index.range(0,10));
       assert.deepEqual(m.size(), [10]);
       assert.deepEqual(m.subset(index(new Range(2, 5))).valueOf(), [2,3,4]);
 
@@ -436,7 +435,7 @@ describe('DenseMatrix', function() {
     });
 
     it('should squeeze the output when index contains a scalar', function() {
-      var m = new DenseMatrix(math.range(0,10));
+      var m = new DenseMatrix(index.range(0,10));
       assert.deepEqual(m.subset(index(1)), 1);
       assert.deepEqual(m.subset(index(new Range(1,2))), new DenseMatrix([1]));
 
@@ -474,7 +473,7 @@ describe('DenseMatrix', function() {
 
     it('should set the given subset', function() {
       // set 1-dimensional
-      var m = new DenseMatrix(math.range(0,7));
+      var m = new DenseMatrix(index.range(0,7));
       m.subset(index(new Range(2,4)), [20,30]);
       assert.deepEqual(m, new DenseMatrix([0,1,20,30,4,5,6]));
       m.subset(index(4), 40);
@@ -529,7 +528,7 @@ describe('DenseMatrix', function() {
       // a single value
       var i = new DenseMatrix();
       defaultValue = 0;
-      i.subset(math.index(2, 1), 6, defaultValue);
+      i.subset(index.index(2, 1), 6, defaultValue);
       assert.deepEqual(i, new DenseMatrix([[0, 0], [0, 0], [0, 6]]));
     });
 
@@ -665,7 +664,7 @@ describe('DenseMatrix', function() {
       var m = new DenseMatrix([[1,2,3], [4,5,6]]);
       var m2 = m.map(
         function (value, index, obj) {
-          return math.clone([value, index, obj === m]);
+          return index.clone([value, index, obj === m]);
         }
       );
 
@@ -724,7 +723,7 @@ describe('DenseMatrix', function() {
       var output = [];
       m.forEach(
         function (value, index, obj) {
-          output.push(math.clone([value, index, obj === m]));
+          output.push(index.clone([value, index, obj === m]));
         }
       );
       assert.deepEqual(output, [
@@ -879,7 +878,7 @@ describe('DenseMatrix', function() {
     
     it('should create matrix (n x n), matrix vector value', function () {
 
-      var m = DenseMatrix.diagonal([3, 3], math.matrix([1, 2, 3]));
+      var m = DenseMatrix.diagonal([3, 3], index.matrix([1, 2, 3]));
 
       assert.deepEqual(m._size, [3, 3]);
       assert.deepEqual(
@@ -893,7 +892,7 @@ describe('DenseMatrix', function() {
 
     it('should create matrix (n x n), matrix vector value, k > 0', function () {
 
-      var m = DenseMatrix.diagonal([3, 3], math.matrix([1, 2]), 1);
+      var m = DenseMatrix.diagonal([3, 3], index.matrix([1, 2]), 1);
 
       assert.deepEqual(m._size, [3, 3]);
       assert.deepEqual(
@@ -907,7 +906,7 @@ describe('DenseMatrix', function() {
 
     it('should create matrix (n x n), matrix vector value, k < 0', function () {
 
-      var m = DenseMatrix.diagonal([3, 3], math.matrix([1, 2]), -1);
+      var m = DenseMatrix.diagonal([3, 3], index.matrix([1, 2]), -1);
 
       assert.deepEqual(m._size, [3, 3]);
       assert.deepEqual(

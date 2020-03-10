@@ -1,11 +1,12 @@
-// test SymbolNode
-var assert = require('assert');
-var approx = require('../../../tools/approx');
-var math = require('../../../index');
-var Node = math.expression.node.Node;
-var ConstantNode = math.expression.node.ConstantNode;
-var OperatorNode = math.expression.node.OperatorNode;
-var ParenthesisNode = math.expression.node.ParenthesisNode;
+import assert from "assert";
+import * as toolsapprox from "../../../tools/approx";
+import { index } from "../../../index";
+var approx = toolsapprox;
+var math = index;
+var Node = index.expression.node.Node;
+var ConstantNode = index.expression.node.ConstantNode;
+var OperatorNode = index.expression.node.OperatorNode;
+var ParenthesisNode = index.expression.node.ParenthesisNode;
 
 describe('ParenthesisNode', function() {
 
@@ -113,9 +114,9 @@ describe('ParenthesisNode', function() {
   });
 
   it ('should get the content of a ParenthesisNode', function () {
-    var c = new math.expression.node.ConstantNode(1);
-    var p1 = new math.expression.node.ParenthesisNode(c);
-    var p2 = new math.expression.node.ParenthesisNode(p1);
+    var c = new index.expression.node.ConstantNode(1);
+    var p1 = new index.expression.node.ParenthesisNode(c);
+    var p2 = new index.expression.node.ParenthesisNode(p1);
 
     assert.equal(p1.content, c);
     assert.equal(p1.getContent(), c);
@@ -133,9 +134,9 @@ describe('ParenthesisNode', function() {
   });
 
   it ('should stringify a ParenthesisNode when not in keep mode', function () {
-    var c = new math.expression.node.ConstantNode(1);
+    var c = new index.expression.node.ConstantNode(1);
 
-    var p = new math.expression.node.ParenthesisNode(c);
+    var p = new index.expression.node.ParenthesisNode(c);
 
     assert.equal(p.toString({parenthesis: 'all'}), '1');
     assert.equal(p.toString({parenthesis: 'auto'}), '1');
@@ -148,8 +149,8 @@ describe('ParenthesisNode', function() {
       }
     };
 
-    var c = new math.expression.node.ConstantNode(1);
-    var n = new math.expression.node.ParenthesisNode(c);
+    var c = new index.expression.node.ConstantNode(1);
+    var n = new index.expression.node.ParenthesisNode(c);
 
     assert.equal(n.toString({handler: customFunction}), '[1]');
   });
@@ -163,9 +164,9 @@ describe('ParenthesisNode', function() {
   });
 
   it ('should LaTeX a ParenthesisNode when not in keep mode', function () {
-    var c = new math.expression.node.ConstantNode(1);
+    var c = new index.expression.node.ConstantNode(1);
 
-    var p = new math.expression.node.ParenthesisNode(c);
+    var p = new index.expression.node.ParenthesisNode(c);
 
     assert.equal(p.toTex({parenthesis: 'all'}), '1');
     assert.equal(p.toTex({parenthesis: 'auto'}), '1');
@@ -178,8 +179,8 @@ describe('ParenthesisNode', function() {
       }
     };
 
-    var c = new math.expression.node.ConstantNode(1);
-    var n = new math.expression.node.ParenthesisNode(c);
+    var c = new index.expression.node.ConstantNode(1);
+    var n = new index.expression.node.ParenthesisNode(c);
 
     assert.equal(n.toTex({handler: customFunction}), '\\left[1\\right]');
   });

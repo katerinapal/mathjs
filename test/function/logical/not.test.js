@@ -1,14 +1,14 @@
-// test not
-var assert = require('assert');
-var math = require('../../../index');
-var bignumber = math.bignumber;
-var complex = math.complex;
-var matrix = math.matrix;
-var unit = math.unit;
-var not = math.not;
-var FunctionNode = math.expression.node.FunctionNode;
-var ConstantNode = math.expression.node.ConstantNode;
-var SymbolNode = math.expression.node.SymbolNode;
+import assert from "assert";
+import { index } from "../../../index";
+var math = index;
+var bignumber = index.bignumber;
+var complex = index.complex;
+var matrix = index.matrix;
+var unit = index.unit;
+var not = index.not;
+var FunctionNode = index.expression.node.FunctionNode;
+var ConstantNode = index.expression.node.ConstantNode;
+var SymbolNode = index.expression.node.SymbolNode;
 
 describe('not', function () {
 

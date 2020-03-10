@@ -1,6 +1,7 @@
-var assert = require('assert');
-var math = require('../../../index');
-var Matrix = math.type.Matrix;
+import assert from "assert";
+import { index } from "../../../index";
+var math = index;
+var Matrix = index.type.Matrix;
 
 describe('matrix', function() {
 

@@ -1,6 +1,4 @@
-var assert = require('assert'),
-    math = require('../index'),
-    approx = require('../tools/approx');
+import assert from "assert";
 
 describe('constants', function() {
 

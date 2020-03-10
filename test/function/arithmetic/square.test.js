@@ -1,12 +1,12 @@
-// test square
-var assert = require('assert');
-var math = require('../../../index');
-var unit = math.unit;
-var bignumber = math.bignumber;
-var fraction = math.fraction;
-var matrix = math.matrix;
-var range = math.range;
-var square = math.square;
+import assert from "assert";
+import { index } from "../../../index";
+var math = index;
+var unit = index.unit;
+var bignumber = index.bignumber;
+var fraction = index.fraction;
+var matrix = index.matrix;
+var range = index.range;
+var square = index.square;
 
 describe('square', function() {
   it('should return the square of a boolean', function () {
@@ -32,7 +32,7 @@ describe('square', function() {
 
   it('should return the square of a fraction', function() {
     var a = fraction(0.5);
-    assert(square(a) instanceof math.type.Fraction);
+    assert(square(a) instanceof index.type.Fraction);
     assert.equal(square(a).toString(), '0.25');
     assert.equal(a.toString(), '0.5');
   });
@@ -43,15 +43,15 @@ describe('square', function() {
   });
 
   it('should return the square of a complex number', function() {
-    assert.deepEqual(square(math.complex('2i')), math.complex('-4'));
-    assert.deepEqual(square(math.complex('2+3i')), math.complex('-5+12i'));
-    assert.deepEqual(square(math.complex('2')), math.complex('4'));
+    assert.deepEqual(square(index.complex('2i')), index.complex('-4'));
+    assert.deepEqual(square(index.complex('2+3i')), index.complex('-5+12i'));
+    assert.deepEqual(square(index.complex('2')), index.complex('4'));
   });
 
   it('should return the square of a unit', function() {
-    assert.equal(square(math.unit('4 cm')).toString(), '16 cm^2');
-    assert.equal(square(math.unit('-2 cm')).toString(), '4 cm^2');
-    assert.equal(square(math.unit('0 cm')).toString(), '0 cm^2');
+    assert.equal(square(index.unit('4 cm')).toString(), '16 cm^2');
+    assert.equal(square(index.unit('-2 cm')).toString(), '4 cm^2');
+    assert.equal(square(index.unit('0 cm')).toString(), '0 cm^2');
   });
 
   it('should throw an error when used with a string', function() {
@@ -65,7 +65,7 @@ describe('square', function() {
   });
 
   it('should LaTeX square', function () {
-    var expression = math.parse('square(4)');
+    var expression = index.parse('square(4)');
     assert.equal(expression.toTex(), '\\left(4\\right)^2');
   });
 

@@ -1,11 +1,13 @@
-var assert = require('assert');
-var approx = require('../../../tools/approx');
-var math = require('../../../index');
-var BigNumber = math.type.BigNumber;
-var Complex = math.type.Complex;
-var DenseMatrix = math.type.DenseMatrix;
-var Unit = math.type.Unit;
-var std = math.std;
+import assert from "assert";
+import { toolsapprox } from "../../../tools/approx";
+import { index } from "../../../index";
+var approx = toolsapprox;
+var math = index;
+var BigNumber = index.type.BigNumber;
+var Complex = index.type.Complex;
+var DenseMatrix = index.type.DenseMatrix;
+var Unit = index.type.Unit;
+var std = index.std;
 
 describe('std', function() {
 
@@ -16,16 +18,16 @@ describe('std', function() {
 
   it('should return the standard deviation of big numbers', function() {
     assert.deepEqual(std(new BigNumber(2),new BigNumber(4),new BigNumber(6)),
-        new math.type.BigNumber(2));
+        new index.type.BigNumber(2));
   });
 
   it('should return the standard deviation of complex numbers', function() {
     //
-    approx.deepEqual(std(new Complex(2,4), new Complex(4,2)), new Complex(1.41421,-1.41421));
+    toolsapprox.deepEqual(std(new Complex(2,4), new Complex(4,2)), new Complex(1.41421,-1.41421));
   });
 
   it('should return the standard deviation of mixed numbers and complex numbers', function() {
-    approx.deepEqual(std(2, new Complex(6,4)), new Complex(2.82842,2.82842));
+    toolsapprox.deepEqual(std(2, new Complex(6,4)), new Complex(2.82842,2.82842));
   });
 
   it('should return the standard deviation from an array', function() {
@@ -82,7 +84,7 @@ describe('std', function() {
   });
 
   it('should LaTeX std', function () {
-    var expression = math.parse('std(1,2,3)');
+    var expression = index.parse('std(1,2,3)');
     assert.equal(expression.toTex(), '\\mathrm{std}\\left(1,2,3\\right)');
   });
 

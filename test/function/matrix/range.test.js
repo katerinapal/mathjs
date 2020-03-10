@@ -1,10 +1,4 @@
-var assert = require('assert'),
-    approx = require('../../../tools/approx'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    range = math.range,
-    matrix = math.matrix,
-    bignumber = math.bignumber;
+import assert from "assert";
 
 describe('range', function() {
 

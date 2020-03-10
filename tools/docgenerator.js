@@ -1,14 +1,8 @@
-/**
- * This is a little tool to generate reference documentation of all math.js
- * functions under ./lib/functions. This is NO generic solution.
- *
- * The tool can parse documentation information from the block comment in the
- * functions code, and generate a markdown file with the documentation.
- */
-var fs = require('fs');
-var glob = require('glob');
-var mkdirp = require('mkdirp');
-var gutil = require('gulp-util');
+import fs from "fs";
+import glob from "glob";
+import mkdirp from "mkdirp";
+import gulputil from "gulp-util";
+var gutil = {};
 
 // special cases for function syntax
 var SYNTAX = {

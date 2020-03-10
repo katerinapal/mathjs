@@ -1,12 +1,13 @@
-// test RangeNode
-var assert = require('assert');
-var approx = require('../../../tools/approx');
-var math = require('../../../index');
-var Node = math.expression.node.Node;
-var ConstantNode = math.expression.node.ConstantNode;
-var SymbolNode = math.expression.node.SymbolNode;
-var RangeNode = math.expression.node.RangeNode;
-var OperatorNode = math.expression.node.OperatorNode;
+import assert from "assert";
+import * as toolsapprox from "../../../tools/approx";
+import { index } from "../../../index";
+var approx = toolsapprox;
+var math = index;
+var Node = index.expression.node.Node;
+var ConstantNode = index.expression.node.ConstantNode;
+var SymbolNode = index.expression.node.SymbolNode;
+var RangeNode = index.expression.node.RangeNode;
+var OperatorNode = index.expression.node.OperatorNode;
 
 describe('RangeNode', function() {
 
@@ -51,7 +52,7 @@ describe('RangeNode', function() {
     var n = new RangeNode(start, end, step);
 
     var expr = n.compile();
-    assert.deepEqual(expr.eval(), math.matrix([0, 2, 4, 6, 8, 10]));
+    assert.deepEqual(expr.eval(), index.matrix([0, 2, 4, 6, 8, 10]));
   });
 
   it ('should filter a RangeNode', function () {
@@ -303,8 +304,8 @@ describe('RangeNode', function() {
   });
 
   it ('should respect the \'all\' parenthesis option', function () {
-    assert.equal(math.parse('1:2:3').toString({parenthesis: 'all'}), '(1):(2):(3)');
-    assert.equal(math.parse('1:2:3').toTex({parenthesis: 'all'}), '\\left(1\\right):\\left(2\\right):\\left(3\\right)');
+    assert.equal(index.parse('1:2:3').toString({parenthesis: 'all'}), '(1):(2):(3)');
+    assert.equal(index.parse('1:2:3').toTex({parenthesis: 'all'}), '\\left(1\\right):\\left(2\\right):\\left(3\\right)');
   });
 
   it ('should LaTeX a RangeNode without step', function () {

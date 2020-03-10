@@ -1,17 +1,19 @@
-// test parse
-var assert = require('assert');
-var approx = require('../../tools/approx');
-var math = require('../../index');
-var ArgumentsError = require('../../lib/error/ArgumentsError');
-var parse = math.expression.parse;
-var ConditionalNode = math.expression.node.ConditionalNode;
-var OperatorNode = math.expression.node.OperatorNode;
-var RangeNode = math.expression.node.RangeNode;
-var Complex = math.type.Complex;
-var Matrix = math.type.Matrix;
-var Range = math.type.Range;
-var Unit = math.type.Unit;
-var ResultSet = math.type.ResultSet;
+import assert from "assert";
+import { toolsapprox } from "../../tools/approx";
+import { index } from "../../index";
+import { ArgumentsError as liberrorArgumentsError_ArgumentsError } from "../../lib/error/ArgumentsError";
+var approx = toolsapprox;
+var math = index;
+var ArgumentsError = liberrorArgumentsError_ArgumentsError;
+var parse = index.expression.parse;
+var ConditionalNode = index.expression.node.ConditionalNode;
+var OperatorNode = index.expression.node.OperatorNode;
+var RangeNode = index.expression.node.RangeNode;
+var Complex = index.type.Complex;
+var Matrix = index.type.Matrix;
+var Range = index.type.Range;
+var Unit = index.type.Unit;
+var ResultSet = index.type.ResultSet;
 
 /**
  * Helper function to parse an expression and immediately evaluate its results
@@ -26,7 +28,7 @@ function parseAndEval(expr, scope) {
 describe('parse', function() {
 
   it('should parse a single expression', function() {
-    approx.equal(parse('2 + 6 / 3').compile().eval(), 4);
+    toolsapprox(parse('2 + 6 / 3').compile().eval(), 4);
   });
 
   it('should parse an empty expression', function() {
@@ -42,9 +44,9 @@ describe('parse', function() {
 
   it('should parse a matrix with expressions', function() {
     var scope = {};
-    assert.deepEqual(parse(math.matrix(['a=3', 'b=4', 'a*b'])).map(function (node) {
+    assert.deepEqual(parse(index.matrix(['a=3', 'b=4', 'a*b'])).map(function (node) {
       return node.compile().eval(scope);
-    }), math.matrix([3, 4, 12]));
+    }), index.matrix([3, 4, 12]));
   });
 
   it('should parse an array with an empty expression', function() {
@@ -54,34 +56,34 @@ describe('parse', function() {
   });
 
   it('should parse an array with an empty expression', function() {
-    assert.deepEqual(parse(math.matrix([''])).map(function (node) {
+    assert.deepEqual(parse(index.matrix([''])).map(function (node) {
       return node.compile().eval();
-    }), math.matrix([undefined]));
+    }), index.matrix([undefined]));
   });
 
   it('should parse unicode characters', function() {
     // http://unicode-table.com/en
     var scope = {};
 
-    math.eval('\u00E9 = 2', scope); // Latin Small Letter E with Acute
+    index.eval('\u00E9 = 2', scope); // Latin Small Letter E with Acute
     assert.strictEqual(scope['\u00E9'], 2);
 
-    math.eval('\u03A6 = 3', scope); // Greek Capital Letter Phi
+    index.eval('\u03A6 = 3', scope); // Greek Capital Letter Phi
     assert.strictEqual(scope['\u03A6'], 3);
 
-    math.eval('\u03A9 = 4', scope); // Greek Capital Letter Omega
+    index.eval('\u03A9 = 4', scope); // Greek Capital Letter Omega
     assert.strictEqual(scope['\u03A9'], 4);
 
-    math.eval('k\u00F6ln = 5', scope); // Combination of latin and unicode
+    index.eval('k\u00F6ln = 5', scope); // Combination of latin and unicode
     assert.strictEqual(scope['k\u00F6ln'], 5);
 
     // test unicode characters in the astral plane (surrogate pairs
-    math.eval('\uD835\uDD38 = 1', scope); // double struck capital A
+    index.eval('\uD835\uDD38 = 1', scope); // double struck capital A
     assert.strictEqual(scope['\uD835\uDD38'], 1);
 
     // should not allow the "holes"
     assert.throws(function () {
-      math.eval('\uD835\uDCA3 = 1', scope);
+      index.eval('\uD835\uDCA3 = 1', scope);
     })
 
   });
@@ -144,12 +146,12 @@ describe('parse', function() {
     });
 
     it('should spread a matrix over multiple lines', function() {
-      assert.deepEqual(parse('[\n1\n,\n2\n]').compile().eval(), math.matrix([1, 2]));
+      assert.deepEqual(parse('[\n1\n,\n2\n]').compile().eval(), index.matrix([1, 2]));
     });
 
     it('should spread a range over multiple lines', function() {
-      assert.deepEqual(parse('2:\n4').compile().eval(), math.matrix([2,3,4]));
-      assert.deepEqual(parse('2:\n2:\n6').compile().eval(), math.matrix([2,4,6]));
+      assert.deepEqual(parse('2:\n4').compile().eval(), index.matrix([2,3,4]));
+      assert.deepEqual(parse('2:\n2:\n6').compile().eval(), index.matrix([2,4,6]));
     });
 
     it('should spread an index over multiple lines', function() {
@@ -177,14 +179,14 @@ describe('parse', function() {
   });
 
   it('should throw an error if called with wrong number of arguments', function() {
-    assert.throws(function () {parse();}, ArgumentsError);
-    assert.throws(function () {parse(1,2,3);}, ArgumentsError);
+    assert.throws(function () {parse();}, liberrorArgumentsError_ArgumentsError);
+    assert.throws(function () {parse(1,2,3);}, liberrorArgumentsError_ArgumentsError);
     assert.throws(function () {parse([1, 2]);}, TypeError);
   });
 
   it('should throw an error if called with a wrong type of argument', function() {
     assert.throws(function () {parse(23);}, TypeError);
-    assert.throws(function () {parse(math.unit('5cm'));}, TypeError);
+    assert.throws(function () {parse(index.unit('5cm'));}, TypeError);
     assert.throws(function () {parse(new Complex(2,3));}, TypeError);
     assert.throws(function () {parse(true);}, TypeError);
   });
@@ -235,7 +237,7 @@ describe('parse', function() {
     });
 
     it('should parse a number followed by e', function() {
-      approx.equal(parseAndEval('2e'), 2 * Math.E);
+      toolsapprox(parseAndEval('2e'), 2 * Math.E);
     });
 
     it('should throw an error with invalid numbers', function() {
@@ -261,12 +263,12 @@ describe('parse', function() {
   describe('bignumber', function () {
 
     it('should parse bignumbers', function() {
-      assert.deepEqual(parseAndEval('bignumber(0.1)'), math.bignumber(0.1));
-      assert.deepEqual(parseAndEval('bignumber("1.2e500")'), math.bignumber('1.2e500'));
+      assert.deepEqual(parseAndEval('bignumber(0.1)'), index.bignumber(0.1));
+      assert.deepEqual(parseAndEval('bignumber("1.2e500")'), index.bignumber('1.2e500'));
     });
 
     it('should output bignumbers if default number type is bignumber', function() {
-      var bigmath = math.create({
+      var bigmath = index.create({
         number: 'BigNumber'
       });
 
@@ -279,11 +281,11 @@ describe('parse', function() {
   describe('fraction', function () {
 
     it('should output fractions if default number type is fraction', function() {
-      var fmath = math.create({
+      var fmath = index.create({
         number: 'Fraction'
       });
 
-      assert(fmath.parse('0.1').compile().eval() instanceof math.type.Fraction);
+      assert(fmath.parse('0.1').compile().eval() instanceof index.type.Fraction);
       assert.equal(fmath.parse('1/3').compile().eval().toString(), '0.(3)');
       assert.equal(fmath.parse('0.1+0.2').compile().eval().toString(), '0.3');
     });
@@ -356,49 +358,49 @@ describe('parse', function() {
     });
 
     it('should correctly parse negative temperatures', function () {
-      approx.deepEqual(parseAndEval('-6 celsius'), new Unit(-6, 'celsius'));
-      approx.deepEqual(parseAndEval('--6 celsius'), new Unit(6, 'celsius'));
-      approx.deepEqual(parseAndEval('-6 celsius to fahrenheit'),
+      toolsapprox.deepEqual(parseAndEval('-6 celsius'), new Unit(-6, 'celsius'));
+      toolsapprox.deepEqual(parseAndEval('--6 celsius'), new Unit(6, 'celsius'));
+      toolsapprox.deepEqual(parseAndEval('-6 celsius to fahrenheit'),
           new Unit(21.2, 'fahrenheit').to('fahrenheit'));
     });
 
     it('should convert units', function() {
       var scope = {};
-      approx.deepEqual(parseAndEval('(5.08 cm * 1000) to inch', scope),
-          math.unit(2000, 'inch').to('inch'));
-      approx.deepEqual(parseAndEval('a = (5.08 cm * 1000) to mm', scope),
-          math.unit(50800, 'mm').to('mm'));
-      approx.deepEqual(parseAndEval('a to inch', scope),
-          math.unit(2000, 'inch').to('inch'));
+      toolsapprox.deepEqual(parseAndEval('(5.08 cm * 1000) to inch', scope),
+          index.unit(2000, 'inch').to('inch'));
+      toolsapprox.deepEqual(parseAndEval('a = (5.08 cm * 1000) to mm', scope),
+          index.unit(50800, 'mm').to('mm'));
+      toolsapprox.deepEqual(parseAndEval('a to inch', scope),
+          index.unit(2000, 'inch').to('inch'));
 
-      approx.deepEqual(parseAndEval('10 celsius to fahrenheit'),
-          math.unit(50, 'fahrenheit').to('fahrenheit'));
-      approx.deepEqual(parseAndEval('20 celsius to fahrenheit'),
-          math.unit(68, 'fahrenheit').to('fahrenheit'));
-      approx.deepEqual(parseAndEval('50 fahrenheit to celsius'),
-          math.unit(10, 'celsius').to('celsius'));
+      toolsapprox.deepEqual(parseAndEval('10 celsius to fahrenheit'),
+          index.unit(50, 'fahrenheit').to('fahrenheit'));
+      toolsapprox.deepEqual(parseAndEval('20 celsius to fahrenheit'),
+          index.unit(68, 'fahrenheit').to('fahrenheit'));
+      toolsapprox.deepEqual(parseAndEval('50 fahrenheit to celsius'),
+          index.unit(10, 'celsius').to('celsius'));
     });
 
     it('should evaluate operator "to" with correct precedence ', function () {
-      approx.deepEqual(parseAndEval('5.08 cm * 1000 to inch'),
+      toolsapprox.deepEqual(parseAndEval('5.08 cm * 1000 to inch'),
           new Unit(2000, 'inch').to('inch'));
     });
 
     it('should evaluate operator "in" (alias of "to") ', function () {
-      approx.deepEqual(parseAndEval('5.08 cm in inch'),
+      toolsapprox.deepEqual(parseAndEval('5.08 cm in inch'),
           new Unit(2, 'inch').to('inch'));
     });
 
     it('should evaluate unit "in" (should not conflict with operator "in")', function () {
-      approx.deepEqual(parseAndEval('2 in'),          new Unit(2, 'in'));
-      approx.deepEqual(parseAndEval('5.08 cm in in'), new Unit(2, 'in').to('in'));
-      approx.deepEqual(parseAndEval('5 in in in'),    new Unit(5, 'in').to('in'));
-      approx.deepEqual(parseAndEval('2 in to meter'), new Unit(2, 'inch').to('meter'));
-      approx.deepEqual(parseAndEval('2 in in meter'), new Unit(2, 'inch').to('meter'));
-      approx.deepEqual(parseAndEval('a in inch', {a: new Unit(5.08, 'cm')}), new Unit(2, 'inch').to('inch'));
-      approx.deepEqual(parseAndEval('(2+3) in'), new Unit(5, 'in'));
-      approx.deepEqual(parseAndEval('a in', {a: 5}), new Unit(5, 'in'));
-      approx.deepEqual(parseAndEval('0.5in + 1.5in to cm'), new Unit(5.08, 'cm').to('cm'));
+      toolsapprox.deepEqual(parseAndEval('2 in'),          new Unit(2, 'in'));
+      toolsapprox.deepEqual(parseAndEval('5.08 cm in in'), new Unit(2, 'in').to('in'));
+      toolsapprox.deepEqual(parseAndEval('5 in in in'),    new Unit(5, 'in').to('in'));
+      toolsapprox.deepEqual(parseAndEval('2 in to meter'), new Unit(2, 'inch').to('meter'));
+      toolsapprox.deepEqual(parseAndEval('2 in in meter'), new Unit(2, 'inch').to('meter'));
+      toolsapprox.deepEqual(parseAndEval('a in inch', {a: new Unit(5.08, 'cm')}), new Unit(2, 'inch').to('inch'));
+      toolsapprox.deepEqual(parseAndEval('(2+3) in'), new Unit(5, 'in'));
+      toolsapprox.deepEqual(parseAndEval('a in', {a: 5}), new Unit(5, 'in'));
+      toolsapprox.deepEqual(parseAndEval('0.5in + 1.5in to cm'), new Unit(5.08, 'cm').to('cm'));
     });
   });
 
@@ -420,49 +422,49 @@ describe('parse', function() {
 
       var m = parseAndEval('[1,2,3;4,5,6]');
       assert.deepEqual(m.size(), [2,3]);
-      assert.deepEqual(m, math.matrix([[1,2,3],[4,5,6]]));
+      assert.deepEqual(m, index.matrix([[1,2,3],[4,5,6]]));
 
       var b = parseAndEval('[5, 6; 1, 1]');
       assert.deepEqual(b.size(), [2,2]);
-      assert.deepEqual(b, math.matrix([[5,6],[1,1]]));
+      assert.deepEqual(b, index.matrix([[5,6],[1,1]]));
 
       // from 1 to n dimensions
-      assert.deepEqual(parseAndEval('[ ]'), math.matrix([]));
-      assert.deepEqual(parseAndEval('[1,2,3]'), math.matrix([1,2,3]));
-      assert.deepEqual(parseAndEval('[1;2;3]'), math.matrix([[1],[2],[3]]));
-      assert.deepEqual(parseAndEval('[[1,2],[3,4]]'), math.matrix([[1,2],[3,4]]));
-      assert.deepEqual(parseAndEval('[[[1],[2]],[[3],[4]]]'), math.matrix([[[1],[2]],[[3],[4]]]));
+      assert.deepEqual(parseAndEval('[ ]'), index.matrix([]));
+      assert.deepEqual(parseAndEval('[1,2,3]'), index.matrix([1,2,3]));
+      assert.deepEqual(parseAndEval('[1;2;3]'), index.matrix([[1],[2],[3]]));
+      assert.deepEqual(parseAndEval('[[1,2],[3,4]]'), index.matrix([[1,2],[3,4]]));
+      assert.deepEqual(parseAndEval('[[[1],[2]],[[3],[4]]]'), index.matrix([[[1],[2]],[[3],[4]]]));
     });
 
     it('should parse an empty matrix', function() {
-      assert.deepEqual(parseAndEval('[]'), math.matrix([]));
+      assert.deepEqual(parseAndEval('[]'), index.matrix([]));
     });
 
     it('should get a matrix subset', function() {
       var scope = {
-        a: math.matrix([
+        a: index.matrix([
           [1,2,3],
           [4,5,6],
           [7,8,9]
         ])
       };
-      assert.deepEqual(parseAndEval('a[2, :]', scope),        math.matrix([[4,5,6]]));
-      assert.deepEqual(parseAndEval('a[2, :2]', scope),       math.matrix([[4,5]]));
-      assert.deepEqual(parseAndEval('a[2, :end-1]', scope),   math.matrix([[4,5]]));
-      assert.deepEqual(parseAndEval('a[2, 2:]', scope),       math.matrix([[5,6]]));
-      assert.deepEqual(parseAndEval('a[2, 2:3]', scope),      math.matrix([[5,6]]));
-      assert.deepEqual(parseAndEval('a[2, 1:2:3]', scope),    math.matrix([[4,6]]));
-      assert.deepEqual(parseAndEval('a[:, 2]', scope),        math.matrix([[2],[5],[8]]));
-      assert.deepEqual(parseAndEval('a[:2, 2]', scope),       math.matrix([[2],[5]]));
-      assert.deepEqual(parseAndEval('a[:end-1, 2]', scope),   math.matrix([[2],[5]]));
-      assert.deepEqual(parseAndEval('a[2:, 2]', scope),       math.matrix([[5],[8]]));
-      assert.deepEqual(parseAndEval('a[2:3, 2]', scope),      math.matrix([[5],[8]]));
-      assert.deepEqual(parseAndEval('a[1:2:3, 2]', scope),    math.matrix([[2],[8]]));
+      assert.deepEqual(parseAndEval('a[2, :]', scope),        index.matrix([[4,5,6]]));
+      assert.deepEqual(parseAndEval('a[2, :2]', scope),       index.matrix([[4,5]]));
+      assert.deepEqual(parseAndEval('a[2, :end-1]', scope),   index.matrix([[4,5]]));
+      assert.deepEqual(parseAndEval('a[2, 2:]', scope),       index.matrix([[5,6]]));
+      assert.deepEqual(parseAndEval('a[2, 2:3]', scope),      index.matrix([[5,6]]));
+      assert.deepEqual(parseAndEval('a[2, 1:2:3]', scope),    index.matrix([[4,6]]));
+      assert.deepEqual(parseAndEval('a[:, 2]', scope),        index.matrix([[2],[5],[8]]));
+      assert.deepEqual(parseAndEval('a[:2, 2]', scope),       index.matrix([[2],[5]]));
+      assert.deepEqual(parseAndEval('a[:end-1, 2]', scope),   index.matrix([[2],[5]]));
+      assert.deepEqual(parseAndEval('a[2:, 2]', scope),       index.matrix([[5],[8]]));
+      assert.deepEqual(parseAndEval('a[2:3, 2]', scope),      index.matrix([[5],[8]]));
+      assert.deepEqual(parseAndEval('a[1:2:3, 2]', scope),    index.matrix([[2],[8]]));
     });
 
     it('should get a matrix subset of a matrix subset', function() {
       var scope = {
-        a: math.matrix([
+        a: index.matrix([
           [1,2,3],
           [4,5,6],
           [7,8,9]
@@ -473,28 +475,28 @@ describe('parse', function() {
 
     it('should parse matrix resizings', function() {
       var scope = {};
-      assert.deepEqual(parseAndEval('a = []', scope),    math.matrix([]));
-      assert.deepEqual(parseAndEval('a[1:3,1] = [1;2;3]', scope), math.matrix([[1],[2],[3]]));
-      assert.deepEqual(parseAndEval('a[:,2] = [4;5;6]', scope), math.matrix([[4],[5],[6]]));
-      assert.deepEqual(scope.a, math.matrix([[1,4],[2,5],[3,6]]));
+      assert.deepEqual(parseAndEval('a = []', scope),    index.matrix([]));
+      assert.deepEqual(parseAndEval('a[1:3,1] = [1;2;3]', scope), index.matrix([[1],[2],[3]]));
+      assert.deepEqual(parseAndEval('a[:,2] = [4;5;6]', scope), index.matrix([[4],[5],[6]]));
+      assert.deepEqual(scope.a, index.matrix([[1,4],[2,5],[3,6]]));
 
-      assert.deepEqual(parseAndEval('a = []', scope),    math.matrix([]));
+      assert.deepEqual(parseAndEval('a = []', scope),    index.matrix([]));
       assert.strictEqual(parseAndEval('a[1,3] = 3', scope), 3);
-      assert.deepEqual(scope.a, math.matrix([[0,0,3]]));
-      assert.deepEqual(parseAndEval('a[2,:] = [[4,5,6]]', scope), math.matrix([[4,5,6]]));
-      assert.deepEqual(scope.a, math.matrix([[0,0,3],[4,5,6]]));
+      assert.deepEqual(scope.a, index.matrix([[0,0,3]]));
+      assert.deepEqual(parseAndEval('a[2,:] = [[4,5,6]]', scope), index.matrix([[4,5,6]]));
+      assert.deepEqual(scope.a, index.matrix([[0,0,3],[4,5,6]]));
 
-      assert.deepEqual(parseAndEval('a = []', scope),    math.matrix([]));
+      assert.deepEqual(parseAndEval('a = []', scope),    index.matrix([]));
       assert.strictEqual(parseAndEval('a[3,1] = 3', scope), 3);
-      assert.deepEqual(scope.a, math.matrix([[0],[0],[3]]));
-      assert.deepEqual(parseAndEval('a[:,2] = [4;5;6]', scope), math.matrix([[4],[5],[6]]));
-      assert.deepEqual(scope.a, math.matrix([[0,4],[0,5],[3,6]]));
+      assert.deepEqual(scope.a, index.matrix([[0],[0],[3]]));
+      assert.deepEqual(parseAndEval('a[:,2] = [4;5;6]', scope), index.matrix([[4],[5],[6]]));
+      assert.deepEqual(scope.a, index.matrix([[0,4],[0,5],[3,6]]));
 
-      assert.deepEqual(parseAndEval('a = []', scope),    math.matrix([]));
-      assert.deepEqual(parseAndEval('a[1,1:3] = [[1,2,3]]', scope), math.matrix([[1,2,3]]));
-      assert.deepEqual(scope.a, math.matrix([[1,2,3]]));
-      assert.deepEqual(parseAndEval('a[2,:] = [[4,5,6]]', scope), math.matrix([[4,5,6]]));
-      assert.deepEqual(scope.a, math.matrix([[1,2,3],[4,5,6]]));
+      assert.deepEqual(parseAndEval('a = []', scope),    index.matrix([]));
+      assert.deepEqual(parseAndEval('a[1,1:3] = [[1,2,3]]', scope), index.matrix([[1,2,3]]));
+      assert.deepEqual(scope.a, index.matrix([[1,2,3]]));
+      assert.deepEqual(parseAndEval('a[2,:] = [[4,5,6]]', scope), index.matrix([[4,5,6]]));
+      assert.deepEqual(scope.a, index.matrix([[1,2,3],[4,5,6]]));
     });
 
     it('should get/set the matrix correctly', function() {
@@ -502,14 +504,14 @@ describe('parse', function() {
       parseAndEval('a=[1,2;3,4]', scope);
       parseAndEval('a[1,1] = 100', scope);
       assert.deepEqual(scope.a.size(), [2,2]);
-      assert.deepEqual(scope.a, math.matrix([[100,2],[3,4]]));
+      assert.deepEqual(scope.a, index.matrix([[100,2],[3,4]]));
       parseAndEval('a[2:3,2:3] = [10,11;12,13]', scope);
       assert.deepEqual(scope.a.size(), [3,3]);
-      assert.deepEqual(scope.a, math.matrix([[100, 2, 0],[3,10,11],[0,12,13]]));
+      assert.deepEqual(scope.a, index.matrix([[100, 2, 0],[3,10,11],[0,12,13]]));
       var a = scope.a;
       // note: after getting subset, uninitialized elements are replaced by elements with an undefined value
-      assert.deepEqual(a.subset(math.index(new Range(0,3), new Range(0,2))), math.matrix([[100,2],[3,10],[0,12]]));
-      assert.deepEqual(parseAndEval('a[1:3,1:2]', scope), math.matrix([[100,2],[3,10],[0,12]]));
+      assert.deepEqual(a.subset(index.index(new Range(0,3), new Range(0,2))), index.matrix([[100,2],[3,10],[0,12]]));
+      assert.deepEqual(parseAndEval('a[1:3,1:2]', scope), index.matrix([[100,2],[3,10],[0,12]]));
 
       scope.b = [[1,2],[3,4]];
       assert.deepEqual(parseAndEval('b[1,:]', scope), [[1, 2]]);
@@ -517,11 +519,11 @@ describe('parse', function() {
 
     it('should get/set the matrix correctly for 3d matrices', function() {
       var scope = {};
-      assert.deepEqual(parseAndEval('f=[1,2;3,4]', scope), math.matrix([[1,2],[3,4]]));
-      assert.deepEqual(parseAndEval('size(f)', scope), math.matrix([2,2]));
+      assert.deepEqual(parseAndEval('f=[1,2;3,4]', scope), index.matrix([[1,2],[3,4]]));
+      assert.deepEqual(parseAndEval('size(f)', scope), index.matrix([2,2]));
 
       parseAndEval('f[:,:,2]=[5,6;7,8]', scope);
-      assert.deepEqual(scope.f, math.matrix([
+      assert.deepEqual(scope.f, index.matrix([
         [
           [1,5],
           [2,6]
@@ -532,22 +534,22 @@ describe('parse', function() {
         ]
       ]));
 
-      assert.deepEqual(parseAndEval('size(f)', scope), math.matrix([2,2,2]));
-      assert.deepEqual(parseAndEval('f[:,:,1]', scope), math.matrix([[[1],[2]],[[3],[4]]]));
-      assert.deepEqual(parseAndEval('f[:,:,2]', scope), math.matrix([[[5],[6]],[[7],[8]]]));
-      assert.deepEqual(parseAndEval('f[:,2,:]', scope), math.matrix([[[2,6]],[[4,8]]]));
-      assert.deepEqual(parseAndEval('f[2,:,:]', scope), math.matrix([[[3,7],[4,8]]]));
+      assert.deepEqual(parseAndEval('size(f)', scope), index.matrix([2,2,2]));
+      assert.deepEqual(parseAndEval('f[:,:,1]', scope), index.matrix([[[1],[2]],[[3],[4]]]));
+      assert.deepEqual(parseAndEval('f[:,:,2]', scope), index.matrix([[[5],[6]],[[7],[8]]]));
+      assert.deepEqual(parseAndEval('f[:,2,:]', scope), index.matrix([[[2,6]],[[4,8]]]));
+      assert.deepEqual(parseAndEval('f[2,:,:]', scope), index.matrix([[[3,7],[4,8]]]));
 
       parseAndEval('a=diag([1,2,3,4])', scope);
-      assert.deepEqual(parseAndEval('a[3:end, 3:end]', scope), math.matrix([[3,0],[0,4]]));
+      assert.deepEqual(parseAndEval('a[3:end, 3:end]', scope), index.matrix([[3,0],[0,4]]));
       parseAndEval('a[3:end, 2:end]=9*ones(2,3)', scope);
-      assert.deepEqual(scope.a, math.matrix([
+      assert.deepEqual(scope.a, index.matrix([
         [1,0,0,0],
         [0,2,0,0],
         [0,9,9,9],
         [0,9,9,9]
       ]));
-      assert.deepEqual(parseAndEval('a[2:end-1, 2:end-1]', scope), math.matrix([[2,0],[9,9]]));
+      assert.deepEqual(parseAndEval('a[2:end-1, 2:end-1]', scope), index.matrix([[2,0],[9,9]]));
     });
 
     it('should merge nested matrices', function() {
@@ -560,20 +562,20 @@ describe('parse', function() {
       var scope = {};
       parseAndEval('a=[1,2;3,4]', scope);
       parseAndEval('b=[5,6;7,8]', scope);
-      assert.deepEqual(parseAndEval('c=concat(a,b)', scope), math.matrix([[1,2,5,6],[3,4,7,8]]));
-      assert.deepEqual(parseAndEval('c=concat(a,b,1)', scope), math.matrix([[1,2],[3,4],[5,6],[7,8]]));
-      assert.deepEqual(parseAndEval('c=concat(concat(a,b), concat(b,a), 1)', scope), math.matrix([[1,2,5,6],[3,4,7,8],[5,6,1,2],[7,8,3,4]]));
-      assert.deepEqual(parseAndEval('c=concat([[1,2]], [[3,4]], 1)', scope), math.matrix([[1,2],[3,4]]));
-      assert.deepEqual(parseAndEval('c=concat([[1,2]], [[3,4]], 2)', scope), math.matrix([[1,2,3,4]]));
-      assert.deepEqual(parseAndEval('c=concat([[1]], [2;3], 1)', scope), math.matrix([[1],[2],[3]]));
-      assert.deepEqual(parseAndEval('d=1:3', scope), math.matrix([1,2,3]));
-      assert.deepEqual(parseAndEval('concat(d,d)', scope), math.matrix([1,2,3,1,2,3]));
-      assert.deepEqual(parseAndEval('e=1+d', scope), math.matrix([2,3,4]));
-      assert.deepEqual(parseAndEval('size(e)', scope), math.matrix([3]));
-      assert.deepEqual(parseAndEval('concat(e,e)', scope), math.matrix([2,3,4,2,3,4]));
-      assert.deepEqual(parseAndEval('[[],[]]', scope), math.matrix([[],[]]));
+      assert.deepEqual(parseAndEval('c=concat(a,b)', scope), index.matrix([[1,2,5,6],[3,4,7,8]]));
+      assert.deepEqual(parseAndEval('c=concat(a,b,1)', scope), index.matrix([[1,2],[3,4],[5,6],[7,8]]));
+      assert.deepEqual(parseAndEval('c=concat(concat(a,b), concat(b,a), 1)', scope), index.matrix([[1,2,5,6],[3,4,7,8],[5,6,1,2],[7,8,3,4]]));
+      assert.deepEqual(parseAndEval('c=concat([[1,2]], [[3,4]], 1)', scope), index.matrix([[1,2],[3,4]]));
+      assert.deepEqual(parseAndEval('c=concat([[1,2]], [[3,4]], 2)', scope), index.matrix([[1,2,3,4]]));
+      assert.deepEqual(parseAndEval('c=concat([[1]], [2;3], 1)', scope), index.matrix([[1],[2],[3]]));
+      assert.deepEqual(parseAndEval('d=1:3', scope), index.matrix([1,2,3]));
+      assert.deepEqual(parseAndEval('concat(d,d)', scope), index.matrix([1,2,3,1,2,3]));
+      assert.deepEqual(parseAndEval('e=1+d', scope), index.matrix([2,3,4]));
+      assert.deepEqual(parseAndEval('size(e)', scope), index.matrix([3]));
+      assert.deepEqual(parseAndEval('concat(e,e)', scope), index.matrix([2,3,4,2,3,4]));
+      assert.deepEqual(parseAndEval('[[],[]]', scope), index.matrix([[],[]]));
       assert.deepEqual(parseAndEval('[[],[]]', scope).size(), [2, 0]);
-      assert.deepEqual(parseAndEval('size([[],[]])', scope), math.matrix([2, 0]));
+      assert.deepEqual(parseAndEval('size([[],[]])', scope), index.matrix([2, 0]));
     });
 
     it('should execute map on an array with one based indices', function () {
@@ -587,7 +589,7 @@ describe('parse', function() {
           return value + 1;
         }
       };
-      var res = math.eval('map(A, callback)', scope);
+      var res = index.eval('map(A, callback)', scope);
       assert.deepEqual(res, [2,3,4]);
 
       assert.deepEqual(logs, [[1, [1]], [2, [2]], [3, [3]]]);
@@ -596,7 +598,7 @@ describe('parse', function() {
     it('should execute map on a Matrix with one based indices', function () {
       var logs = [];
       var scope = {
-        A: math.matrix([1,2,3]),
+        A: index.matrix([1,2,3]),
         callback: function (value, index, matrix) {
           assert.strictEqual(matrix, scope.A);
           // note: we don't copy index, index should be a new Array for every call of callback
@@ -604,8 +606,8 @@ describe('parse', function() {
           return value + 1;
         }
       };
-      var res = math.eval('map(A, callback)', scope);
-      assert.deepEqual(res, math.matrix([2,3,4]));
+      var res = index.eval('map(A, callback)', scope);
+      assert.deepEqual(res, index.matrix([2,3,4]));
 
       assert.deepEqual(logs, [[1, [1]], [2, [2]], [3, [3]]]);
     });
@@ -620,7 +622,7 @@ describe('parse', function() {
           logs.push([value, index]);
         }
       };
-      math.eval('forEach(A, callback)', scope);
+      index.eval('forEach(A, callback)', scope);
 
       assert.deepEqual(logs, [[1, [1]], [2, [2]], [3, [3]]]);
     });
@@ -628,14 +630,14 @@ describe('parse', function() {
     it('should execute forEach on a Matrix with one based indices', function () {
       var logs = [];
       var scope = {
-        A: math.matrix([1,2,3]),
+        A: index.matrix([1,2,3]),
         callback: function (value, index, matrix) {
           assert.strictEqual(matrix, scope.A);
           // note: we don't copy index, index should be a new Array for every call of callback
           logs.push([value, index]);
         }
       };
-      math.eval('forEach(A, callback)', scope);
+      index.eval('forEach(A, callback)', scope);
 
       assert.deepEqual(logs, [[1, [1]], [2, [2]], [3, [3]]]);
     });
@@ -765,9 +767,9 @@ describe('parse', function() {
     });
 
     it('should invoke a function on an object with the right context', function () {
-      approx.equal(parseAndEval('(2.54 cm).toNumeric("inch")'), 1);
-      assert.deepEqual(parseAndEval('bignumber(2).plus(3)'), math.bignumber(5));
-      assert.deepEqual(parseAndEval('bignumber(2)["plus"](3)'), math.bignumber(5));
+      toolsapprox(parseAndEval('(2.54 cm).toNumeric("inch")'), 1);
+      assert.deepEqual(parseAndEval('bignumber(2).plus(3)'), index.bignumber(5));
+      assert.deepEqual(parseAndEval('bignumber(2)["plus"](3)'), index.bignumber(5));
     });
 
     it('should invoke toString on some object', function () {
@@ -849,8 +851,8 @@ describe('parse', function() {
 
     it('should parse constants', function() {
       assert.deepEqual(parseAndEval('i'), new Complex(0, 1));
-      approx.equal(parseAndEval('pi'), Math.PI);
-      approx.equal(parseAndEval('e'), Math.E);
+      toolsapprox(parseAndEval('pi'), Math.PI);
+      toolsapprox(parseAndEval('e'), Math.E);
     });
 
   });
@@ -863,7 +865,7 @@ describe('parse', function() {
       assert.equal(parseAndEval('a + 2', scope), 2.75);
       assert.equal(parseAndEval('a = 2', scope), 2);
       assert.equal(parseAndEval('a + 2', scope), 4);
-      approx.equal(parseAndEval('pi * 2', scope), 6.283185307179586);
+      toolsapprox(parseAndEval('pi * 2', scope), 6.283185307179586);
     });
 
     it('should throw an error on undefined symbol', function() {
@@ -881,7 +883,7 @@ describe('parse', function() {
       assert.equal(scope.c, 4.5);
       assert.equal(scope.d, 4.5);
       assert.equal(scope.e, 4.5);
-      assert.deepEqual(parseAndEval('a = [1,2,f=3]', scope), math.matrix([1,2,3]));
+      assert.deepEqual(parseAndEval('a = [1,2,f=3]', scope), index.matrix([1,2,3]));
       assert.equal(scope.f, 3);
       assert.equal(parseAndEval('2 + (g = 3 + 4)', scope), 9);
       assert.equal(scope.g, 7);
@@ -911,7 +913,7 @@ describe('parse', function() {
       assert.deepEqual(parseAndEval('sqrt(-4)'), new Complex(0, 2));
       assert.equal(parseAndEval('abs(-4.2)'), 4.2);
       assert.equal(parseAndEval('add(2, 3)'), 5);
-      approx.deepEqual(parseAndEval('1+exp(pi*i)'), new Complex(0, 0));
+      toolsapprox.deepEqual(parseAndEval('1+exp(pi*i)'), new Complex(0, 0));
       assert.equal(parseAndEval('unequal(2, 3)'), true);
     });
 
@@ -977,10 +979,10 @@ describe('parse', function() {
 
   describe ('parentheses', function () {
     it('should parse parentheses overriding the default precedence', function () {
-      approx.equal(parseAndEval('2 - (2 - 2)'), 2);
-      approx.equal(parseAndEval('2 - ((2 - 2) - 2)'), 4);
-      approx.equal(parseAndEval('3 * (2 + 3)'), 15);
-      approx.equal(parseAndEval('(2 + 3) * 3'), 15);
+      toolsapprox(parseAndEval('2 - (2 - 2)'), 2);
+      toolsapprox(parseAndEval('2 - ((2 - 2) - 2)'), 4);
+      toolsapprox(parseAndEval('3 * (2 + 3)'), 15);
+      toolsapprox(parseAndEval('(2 + 3) * 3'), 15);
     });
 
     it('should throw an error in case of unclosed parentheses', function () {
@@ -991,8 +993,8 @@ describe('parse', function() {
   describe ('operators', function () {
 
     it('should parse operations', function() {
-      approx.equal(parseAndEval('(2+3)/4'), 1.25);
-      approx.equal(parseAndEval('2+3/4'), 2.75);
+      toolsapprox(parseAndEval('(2+3)/4'), 1.25);
+      toolsapprox(parseAndEval('2+3/4'), 2.75);
       assert.equal(parse('0 + 2').toString(), '0 + 2');
     });
 
@@ -1008,37 +1010,37 @@ describe('parse', function() {
 
     it('should parse dotDivide ./', function() {
       assert.equal(parseAndEval('4./2'), 2);
-      assert.deepEqual(parseAndEval('4./[2,4]'), math.matrix([2,1]));
+      assert.deepEqual(parseAndEval('4./[2,4]'), index.matrix([2,1]));
       assert.equal(parseAndEval('4 ./ 2'), 2);
       assert.equal(parseAndEval('8 ./ 2 / 2'), 2);
 
-      assert.deepEqual(parseAndEval('[1,2,3] ./ [1,2,3]'), math.matrix([1,1,1]));
+      assert.deepEqual(parseAndEval('[1,2,3] ./ [1,2,3]'), index.matrix([1,1,1]));
     });
 
     it('should parse dotMultiply .*', function() {
-      approx.deepEqual(parseAndEval('2.*3'), 6);
-      approx.deepEqual(parseAndEval('2e3.*3'), 6e3);
-      approx.deepEqual(parseAndEval('2 .* 3'), 6);
-      approx.deepEqual(parseAndEval('4 .* 2'), 8);
-      approx.deepEqual(parseAndEval('8 .* 2 .* 2'), 32);
+      toolsapprox.deepEqual(parseAndEval('2.*3'), 6);
+      toolsapprox.deepEqual(parseAndEval('2e3.*3'), 6e3);
+      toolsapprox.deepEqual(parseAndEval('2 .* 3'), 6);
+      toolsapprox.deepEqual(parseAndEval('4 .* 2'), 8);
+      toolsapprox.deepEqual(parseAndEval('8 .* 2 .* 2'), 32);
       assert.deepEqual(parseAndEval('a=3; a.*4'), new ResultSet([12]));
 
-      assert.deepEqual(parseAndEval('[1,2,3] .* [1,2,3]'), math.matrix([1,4,9]));
+      assert.deepEqual(parseAndEval('[1,2,3] .* [1,2,3]'), index.matrix([1,4,9]));
     });
 
     it('should parse dotPower .^', function() {
-      approx.deepEqual(parseAndEval('2.^3'), 8);
-      approx.deepEqual(parseAndEval('2 .^ 3'), 8);
-      approx.deepEqual(parseAndEval('-2.^2'), -4);  // -(2^2)
-      approx.deepEqual(parseAndEval('2.^3.^4'), 2.41785163922926e+24); // 2^(3^4)
+      toolsapprox.deepEqual(parseAndEval('2.^3'), 8);
+      toolsapprox.deepEqual(parseAndEval('2 .^ 3'), 8);
+      toolsapprox.deepEqual(parseAndEval('-2.^2'), -4);  // -(2^2)
+      toolsapprox.deepEqual(parseAndEval('2.^3.^4'), 2.41785163922926e+24); // 2^(3^4)
 
-      assert.deepEqual(parseAndEval('[2,3] .^ [2,3]'), math.matrix([4,27]));
+      assert.deepEqual(parseAndEval('[2,3] .^ [2,3]'), index.matrix([4,27]));
     });
 
     it('should parse equal ==', function() {
       assert.strictEqual(parseAndEval('2 == 3'), false);
       assert.strictEqual(parseAndEval('2 == 2'), true);
-      assert.deepEqual(parseAndEval('[2,3] == [2,4]'), math.matrix([true, false]));
+      assert.deepEqual(parseAndEval('[2,3] == [2,4]'), index.matrix([true, false]));
     });
 
     it('should parse larger >', function() {
@@ -1054,16 +1056,16 @@ describe('parse', function() {
     });
 
     it('should parse mod %', function() {
-      approx.equal(parseAndEval('8 % 3'), 2);
+      toolsapprox(parseAndEval('8 % 3'), 2);
     });
 
     it('should parse operator mod', function() {
-      approx.equal(parseAndEval('8 mod 3'), 2);
+      toolsapprox(parseAndEval('8 mod 3'), 2);
     });
 
     it('should parse multiply *', function() {
-      approx.equal(parseAndEval('4 * 2'), 8);
-      approx.equal(parseAndEval('8 * 2 * 2'), 32);
+      toolsapprox(parseAndEval('4 * 2'), 8);
+      toolsapprox(parseAndEval('8 * 2 * 2'), 32);
     });
 
     it('should parse implicit multiplication', function() {
@@ -1102,8 +1104,8 @@ describe('parse', function() {
       assert.equal(parseAndEval('2^(3)(a)', {a:2}), 16);
       assert.equal(parseAndEval('sqrt(2a)', {a:2}), 2);
 
-      assert.deepEqual(parseAndEval('[2, 3] 2'), math.matrix([4, 6]));
-      assert.deepEqual(parseAndEval('[2, 3] a', {a:2}), math.matrix([4, 6]));
+      assert.deepEqual(parseAndEval('[2, 3] 2'), index.matrix([4, 6]));
+      assert.deepEqual(parseAndEval('[2, 3] a', {a:2}), index.matrix([4, 6]));
       assert.deepEqual(parseAndEval('A [2,2]', {A: [[1,2], [3,4]]}), 4);          // index
       assert.deepEqual(parseAndEval('(A) [2,2]', {A: [[1,2], [3,4]]}), 4);        // index
 
@@ -1133,17 +1135,17 @@ describe('parse', function() {
     });
 
     it('should throw an error when having an implicit multiplication between two numbers', function() {
-      assert.throws(function () { math.parse('2 3'); }, /Unexpected part "3"/);
-      assert.throws(function () { math.parse('2 * 3 4'); }, /Unexpected part "4"/);
-      assert.throws(function () { math.parse('2 * 3 4 * 5'); }, /Unexpected part "4"/);
-      assert.throws(function () { math.parse('2 / 3 4 5'); }, /Unexpected part "4"/);
-      assert.throws(function () { math.parse('2 + 3 4'); }, /Unexpected part "4"/);
+      assert.throws(function () { index.parse('2 3'); }, /Unexpected part "3"/);
+      assert.throws(function () { index.parse('2 * 3 4'); }, /Unexpected part "4"/);
+      assert.throws(function () { index.parse('2 * 3 4 * 5'); }, /Unexpected part "4"/);
+      assert.throws(function () { index.parse('2 / 3 4 5'); }, /Unexpected part "4"/);
+      assert.throws(function () { index.parse('2 + 3 4'); }, /Unexpected part "4"/);
     });
 
     it('should parse pow ^', function() {
-      approx.equal(parseAndEval('2^3'), 8);
-      approx.equal(parseAndEval('-2^2'), -4);  // -(2^2)
-      approx.equal(parseAndEval('2^3^4'), 2.41785163922926e+24); // 2^(3^4)
+      toolsapprox(parseAndEval('2^3'), 8);
+      toolsapprox(parseAndEval('-2^2'), -4);  // -(2^2)
+      toolsapprox(parseAndEval('2^3^4'), 2.41785163922926e+24); // 2^(3^4)
     });
 
     it('should parse smaller <', function() {
@@ -1357,7 +1359,7 @@ describe('parse', function() {
     it('should parse unequal !=', function() {
       assert.strictEqual(parseAndEval('2 != 3'), true);
       assert.strictEqual(parseAndEval('2 != 2'), false);
-      assert.deepEqual(parseAndEval('[2,3] != [2,4]'), math.matrix([false, true]));
+      assert.deepEqual(parseAndEval('[2,3] != [2,4]'), index.matrix([false, true]));
     });
 
     it('should parse conditional expression a ? b : c', function() {
@@ -1373,7 +1375,7 @@ describe('parse', function() {
 
     it('should lazily evaluate conditional expression a ? b : c', function() {
       var scope = {};
-      math.parse('true ? (a = 2) : (b = 2)').compile().eval(scope);
+      index.parse('true ? (a = 2) : (b = 2)').compile().eval(scope);
       assert.deepEqual(scope, {a: 2});
     });
 
@@ -1383,47 +1385,47 @@ describe('parse', function() {
 
     it('should parse : (range)', function() {
       assert.ok(parseAndEval('2:5') instanceof Matrix);
-      assert.deepEqual(parseAndEval('2:5'), math.matrix([2,3,4,5]));
-      assert.deepEqual(parseAndEval('10:-2:0'), math.matrix([10,8,6,4,2,0]));
-      assert.deepEqual(parseAndEval('2:4.0'), math.matrix([2,3,4]));
-      assert.deepEqual(parseAndEval('2:4.5'), math.matrix([2,3,4]));
-      assert.deepEqual(parseAndEval('2:4.1'), math.matrix([2,3,4]));
-      assert.deepEqual(parseAndEval('2:3.9'), math.matrix([2,3]));
-      assert.deepEqual(parseAndEval('2:3.5'), math.matrix([2,3]));
-      assert.deepEqual(parseAndEval('3:-1:0.5'), math.matrix([3,2,1]));
-      assert.deepEqual(parseAndEval('3:-1:0.5'), math.matrix([3,2,1]));
-      assert.deepEqual(parseAndEval('3:-1:0.1'), math.matrix([3,2,1]));
-      assert.deepEqual(parseAndEval('3:-1:-0.1'), math.matrix([3,2,1,0]));
+      assert.deepEqual(parseAndEval('2:5'), index.matrix([2,3,4,5]));
+      assert.deepEqual(parseAndEval('10:-2:0'), index.matrix([10,8,6,4,2,0]));
+      assert.deepEqual(parseAndEval('2:4.0'), index.matrix([2,3,4]));
+      assert.deepEqual(parseAndEval('2:4.5'), index.matrix([2,3,4]));
+      assert.deepEqual(parseAndEval('2:4.1'), index.matrix([2,3,4]));
+      assert.deepEqual(parseAndEval('2:3.9'), index.matrix([2,3]));
+      assert.deepEqual(parseAndEval('2:3.5'), index.matrix([2,3]));
+      assert.deepEqual(parseAndEval('3:-1:0.5'), index.matrix([3,2,1]));
+      assert.deepEqual(parseAndEval('3:-1:0.5'), index.matrix([3,2,1]));
+      assert.deepEqual(parseAndEval('3:-1:0.1'), index.matrix([3,2,1]));
+      assert.deepEqual(parseAndEval('3:-1:-0.1'), index.matrix([3,2,1,0]));
     });
 
     it('should parse to', function() {
-      approx.deepEqual(parseAndEval('2.54 cm to inch'), math.unit(1, 'inch').to('inch'));
-      approx.deepEqual(parseAndEval('2.54 cm + 2 inch to foot'), math.unit(0.25, 'foot').to('foot'));
+      toolsapprox.deepEqual(parseAndEval('2.54 cm to inch'), index.unit(1, 'inch').to('inch'));
+      toolsapprox.deepEqual(parseAndEval('2.54 cm + 2 inch to foot'), index.unit(0.25, 'foot').to('foot'));
     });
 
     it('should parse in', function() {
-      approx.deepEqual(parseAndEval('2.54 cm in inch'), math.unit(1, 'inch').to('inch'));
+      toolsapprox.deepEqual(parseAndEval('2.54 cm in inch'), index.unit(1, 'inch').to('inch'));
     });
 
     it('should parse factorial !', function() {
       assert.deepEqual(parseAndEval('5!'), 120);
-      assert.deepEqual(parseAndEval('[1,2,3,4]!'), math.matrix([1,2,6,24]));
+      assert.deepEqual(parseAndEval('[1,2,3,4]!'), index.matrix([1,2,6,24]));
       assert.deepEqual(parseAndEval('4!+2'), 26);
       assert.deepEqual(parseAndEval('4!-2'), 22);
       assert.deepEqual(parseAndEval('4!*2'), 48);
       assert.deepEqual(parseAndEval('3!!'), 720);
-      assert.deepEqual(parseAndEval('[1,2;3,1]!\'!'), math.matrix([[1, 720], [2, 1]]));
+      assert.deepEqual(parseAndEval('[1,2;3,1]!\'!'), index.matrix([[1, 720], [2, 1]]));
       assert.deepEqual(parseAndEval('[4,5]![2]'), 120); // index [2]
     });
 
     it('should parse transpose \'', function() {
       assert.deepEqual(parseAndEval('23\''), 23);
-      assert.deepEqual(parseAndEval('[1,2,3;4,5,6]\''), math.matrix([[1,4],[2,5],[3,6]]));
+      assert.deepEqual(parseAndEval('[1,2,3;4,5,6]\''), index.matrix([[1,4],[2,5],[3,6]]));
       assert.ok(parseAndEval('[1,2,3;4,5,6]\'') instanceof Matrix);
-      assert.deepEqual(parseAndEval('[1:5]'), math.matrix([[1,2,3,4,5]]));
-      assert.deepEqual(parseAndEval('[1:5]\''), math.matrix([[1],[2],[3],[4],[5]]));
-      assert.deepEqual(parseAndEval('size([1:5])'), math.matrix([1, 5]));
-      assert.deepEqual(parseAndEval('[1,2;3,4]\''), math.matrix([[1,3],[2,4]]));
+      assert.deepEqual(parseAndEval('[1:5]'), index.matrix([[1,2,3,4,5]]));
+      assert.deepEqual(parseAndEval('[1:5]\''), index.matrix([[1],[2],[3],[4],[5]]));
+      assert.deepEqual(parseAndEval('size([1:5])'), index.matrix([1, 5]));
+      assert.deepEqual(parseAndEval('[1,2;3,4]\''), index.matrix([[1,3],[2,4]]));
     });
 
     describe('operator precedence', function() {
@@ -1506,7 +1508,7 @@ describe('parse', function() {
       });
 
       it('should respect precedence of transpose', function () {
-        var node = math.parse('a + b\'');
+        var node = index.parse('a + b\'');
         assert(node instanceof OperatorNode);
         assert.equal(node.op, '+');
         assert.equal(node.args[0].toString(), 'a');
@@ -1514,7 +1516,7 @@ describe('parse', function() {
       });
 
       it('should respect precedence of transpose (2)', function () {
-        var node = math.parse('a ^ b\'');
+        var node = index.parse('a ^ b\'');
         assert(node instanceof OperatorNode);
         assert.equal(node.op, '^');
         assert.equal(node.args[0].toString(), 'a');
@@ -1527,8 +1529,8 @@ describe('parse', function() {
         assert.equal(parseAndEval('3 ? 2 + 4 : 2 - 1'), 6);
         assert.deepEqual(parseAndEval('3 ? true : false; 22'), new ResultSet([22]));
         assert.deepEqual(parseAndEval('3 ? 5cm to m : 5cm in mm'), new Unit(5, 'cm').to('m'));
-        assert.deepEqual(parseAndEval('2 == 4-2 ? [1,2] : false'), math.matrix([1,2]));
-        assert.deepEqual(parseAndEval('false ? 1:2:6'), math.matrix([2,3,4,5,6]));
+        assert.deepEqual(parseAndEval('2 == 4-2 ? [1,2] : false'), index.matrix([1,2]));
+        assert.deepEqual(parseAndEval('false ? 1:2:6'), index.matrix([2,3,4,5,6]));
       });
 
       it('should respect precedence between left/right shift and relational operators', function () {
@@ -1569,7 +1571,7 @@ describe('parse', function() {
       });
 
       it('should respect precedence of conditional operator and logical or', function () {
-        var node = math.parse('1 or 0 ? 2 or 3 : 0 or 0');
+        var node = index.parse('1 or 0 ? 2 or 3 : 0 or 0');
         assert(node instanceof ConditionalNode);
         assert.equal(node.condition.toString(), '1 or 0');
         assert.equal(node.trueExpr.toString(), '2 or 3');
@@ -1578,7 +1580,7 @@ describe('parse', function() {
       });
 
       it('should respect precedence of conditional operator and relational operators', function () {
-        var node = math.parse('a == b ? a > b : a < b');
+        var node = index.parse('a == b ? a > b : a < b');
         assert(node instanceof ConditionalNode);
         assert.equal(node.condition.toString(), 'a == b');
         assert.equal(node.trueExpr.toString(), 'a > b');
@@ -1586,7 +1588,7 @@ describe('parse', function() {
       });
 
       it('should respect precedence of conditional operator and range operator', function () {
-        var node = math.parse('a ? b : c : d');
+        var node = index.parse('a ? b : c : d');
         assert(node instanceof ConditionalNode);
         assert.equal(node.condition.toString(), 'a');
         assert.equal(node.trueExpr.toString(), 'b');
@@ -1594,7 +1596,7 @@ describe('parse', function() {
       });
 
       it('should respect precedence of conditional operator and range operator (2)', function () {
-        var node = math.parse('a ? (b : c) : (d : e)');
+        var node = index.parse('a ? (b : c) : (d : e)');
         assert(node instanceof ConditionalNode);
         assert.equal(node.condition.toString(), 'a');
         assert.equal(node.trueExpr.toString(), '(b:c)');
@@ -1602,7 +1604,7 @@ describe('parse', function() {
       });
 
       it('should respect precedence of conditional operator and range operator (2)', function () {
-        var node = math.parse('a ? (b ? c : d) : (e ? f : g)');
+        var node = index.parse('a ? (b ? c : d) : (e ? f : g)');
         assert(node instanceof ConditionalNode);
         assert.equal(node.condition.toString(), 'a');
         assert.equal(node.trueExpr.toString(), '(b ? c : d)');
@@ -1610,28 +1612,28 @@ describe('parse', function() {
       });
 
       it('should respect precedence of range operator and relational operators', function () {
-        var node = math.parse('a:b == c:d');
+        var node = index.parse('a:b == c:d');
         assert(node instanceof OperatorNode);
         assert.equal(node.args[0].toString(), 'a:b');
         assert.equal(node.args[1].toString(), 'c:d');
       });
 
       it('should respect precedence of range operator and operator plus and minus', function () {
-        var node = math.parse('a + b : c - d');
+        var node = index.parse('a + b : c - d');
         assert(node instanceof RangeNode);
         assert.equal(node.start.toString(), 'a + b');
         assert.equal(node.end.toString(), 'c - d');
       });
 
       it('should respect precedence of "to" operator and relational operators', function () {
-        var node = math.parse('a == b to c');
+        var node = index.parse('a == b to c');
         assert(node instanceof OperatorNode);
         assert.equal(node.args[0].toString(), 'a');
         assert.equal(node.args[1].toString(), 'b to c');
       });
 
       it('should respect precedence of "to" operator and relational operators (2)', function () {
-        var node = math.parse('a to b == c');
+        var node = index.parse('a to b == c');
         assert(node instanceof OperatorNode);
         assert.equal(node.args[0].toString(), 'a to b');
         assert.equal(node.args[1].toString(), 'c');
@@ -1644,38 +1646,38 @@ describe('parse', function() {
 
   describe('functions', function () {
     it('should evaluate function "mod"', function () {
-      approx.equal(parseAndEval('mod(8, 3)'), 2);
+      toolsapprox(parseAndEval('mod(8, 3)'), 2);
 
     });
 
     it('should evaluate function "to" ', function () {
-      approx.deepEqual(parseAndEval('to(5.08 cm * 1000, inch)'),
-          math.unit(2000, 'inch').to('inch'));
+      toolsapprox.deepEqual(parseAndEval('to(5.08 cm * 1000, inch)'),
+          index.unit(2000, 'inch').to('inch'));
     });
 
     it('should evaluate function "sort" with a custom sort function', function () {
       var scope = {};
       parseAndEval('sortByLength(a, b) = size(a)[1] - size(b)[1]', scope);
       assert.deepEqual(parseAndEval('sort(["Langdon", "Tom", "Sara"], sortByLength)', scope),
-          math.matrix(["Tom", "Sara", "Langdon"]));
+          index.matrix(["Tom", "Sara", "Langdon"]));
     });
 
     it('should evaluate function "filter" with a custom test function', function () {
       var scope = {};
       parseAndEval('isPositive(x) = x > 0', scope);
       assert.deepEqual(parseAndEval('filter([6, -2, -1, 4, 3], isPositive)', scope),
-          math.matrix([6, 4, 3]));
+          index.matrix([6, 4, 3]));
     });
 
     it('should evaluate function "filter" with a custom test equation', function () {
       assert.deepEqual(parseAndEval('filter([6, -2, -1, 4, 3], x > 0)'),
-          math.matrix([6, 4, 3]));
+          index.matrix([6, 4, 3]));
     });
 
   });
 
   describe('bignumber', function () {
-    var bigmath = math.create({
+    var bigmath = index.create({
       number: 'BigNumber'
     });
     var BigNumber = bigmath.type.BigNumber;
@@ -1695,11 +1697,11 @@ describe('parse', function() {
     });
 
     it('should work with mixed numbers and bignumbers', function() {
-      approx.equal(bigmath.eval('pi + 1'), 4.141592653589793);
+      toolsapprox(bigmath.eval('pi + 1'), 4.141592653589793);
     });
 
     it('should evaluate functions not supporting bignumbers', function() {
-      approx.equal(bigmath.eval('sin(0.1)'), 0.09983341664682815);
+      toolsapprox(bigmath.eval('sin(0.1)'), 0.09983341664682815);
     });
 
     it('should create a range from bignumbers', function() {
@@ -1790,10 +1792,10 @@ describe('parse', function() {
       assert.throws(function () { n.compile().eval(scope); });
       parse('qq=[1,2;3,4]').compile().eval(scope);
       n.compile().eval(scope);
-      assert.deepEqual(scope.qq, math.matrix([[33,2],[3,4]]));
+      assert.deepEqual(scope.qq, index.matrix([[33,2],[3,4]]));
       parse('qq=[4]').compile().eval(scope);
       n.compile().eval(scope);
-      assert.deepEqual(scope.qq, math.matrix([[33]]));
+      assert.deepEqual(scope.qq, index.matrix([[33]]));
       delete scope.qq;
       assert.throws(function () { n.compile().eval(scope); });
     });
@@ -1809,36 +1811,36 @@ describe('parse', function() {
 
     it('should return IndexErrors with one based indices', function () {
       // functions throw a zero-based error
-      assert.throws(function () {math.subset([1,2,3], math.index(4));}, /Index out of range \(4 > 2\)/);
-      assert.throws(function () {math.subset([1,2,3], math.index(-2));}, /Index out of range \(-2 < 0\)/);
+      assert.throws(function () {index.subset([1,2,3], index.index(4));}, /Index out of range \(4 > 2\)/);
+      assert.throws(function () {index.subset([1,2,3], index.index(-2));}, /Index out of range \(-2 < 0\)/);
 
       // evaluation via parser throws one-based error
-      assert.throws(function () {math.eval('A[4]', {A:[1,2,3]});}, /Index out of range \(4 > 3\)/);
-      assert.throws(function () {math.eval('A[-2]', {A: [1,2,3]});}, /IndexError: Index out of range \(-2 < 1\)/);
+      assert.throws(function () {index.eval('A[4]', {A:[1,2,3]});}, /Index out of range \(4 > 3\)/);
+      assert.throws(function () {index.eval('A[-2]', {A: [1,2,3]});}, /IndexError: Index out of range \(-2 < 1\)/);
     });
 
     it('should return DimensionErrors with one based indices (subset)', function () {
       // TODO: it would be more clear when all errors where DimensionErrors
 
       // functions throw a zero-based error
-      assert.throws(function () {math.subset([1,2,3], math.index(1,1));}, /DimensionError: Dimension mismatch \(2 != 1\)/);
+      assert.throws(function () {index.subset([1,2,3], index.index(1,1));}, /DimensionError: Dimension mismatch \(2 != 1\)/);
 
       // evaluation via parser throws one-based error
-      assert.throws(function () {math.eval('A[1,1]', {A: [1,2,3]});}, /DimensionError: Dimension mismatch \(2 != 1\)/);
+      assert.throws(function () {index.eval('A[1,1]', {A: [1,2,3]});}, /DimensionError: Dimension mismatch \(2 != 1\)/);
     });
 
     it('should return DimensionErrors with one based indices (concat)', function () {
       // TODO: it would be more clear when all errors where DimensionErrors
 
       // functions throw a zero-based error
-      assert.throws(function () {math.concat([1,2], [[3,4]]);}, /DimensionError: Dimension mismatch \(1 != 2\)/);
-      assert.throws(function () {math.concat([[1,2]], [[3,4]], 2);}, /IndexError: Index out of range \(2 > 1\)/);
-      assert.throws(function () {math.concat([[1,2]], [[3,4]], -1);}, /IndexError: Index out of range \(-1 < 0\)/);
+      assert.throws(function () {index.concat([1,2], [[3,4]]);}, /DimensionError: Dimension mismatch \(1 != 2\)/);
+      assert.throws(function () {index.concat([[1,2]], [[3,4]], 2);}, /IndexError: Index out of range \(2 > 1\)/);
+      assert.throws(function () {index.concat([[1,2]], [[3,4]], -1);}, /IndexError: Index out of range \(-1 < 0\)/);
 
       // evaluation via parser throws one-based error
-      assert.throws(function () {math.eval('concat([1,2], [[3,4]])');}, /DimensionError: Dimension mismatch \(1 != 2\)/);
-      assert.throws(function () {math.eval('concat([[1,2]], [[3,4]], 3)');}, /IndexError: Index out of range \(3 > 2\)/);
-      assert.throws(function () {math.eval('concat([[1,2]], [[3,4]], 0)');}, /IndexError: Index out of range \(0 < 1\)/);
+      assert.throws(function () {index.eval('concat([1,2], [[3,4]])');}, /DimensionError: Dimension mismatch \(1 != 2\)/);
+      assert.throws(function () {index.eval('concat([[1,2]], [[3,4]], 3)');}, /IndexError: Index out of range \(3 > 2\)/);
+      assert.throws(function () {index.eval('concat([[1,2]], [[3,4]], 0)');}, /IndexError: Index out of range \(0 < 1\)/);
     });
 
     it('should return DimensionErrors with one based indices (max)', function () {
@@ -1848,11 +1850,11 @@ describe('parse', function() {
       // TODO
 
       // evaluation via parser throws one-based error
-      assert.deepEqual(math.eval('max([[1,2], [3,4]])'), 4);
-      assert.deepEqual(math.eval('max([[1,2], [3,4]], 1)'), math.matrix([3, 4]));
-      assert.deepEqual(math.eval('max([[1,2], [3,4]], 2)'), math.matrix([2, 4]));
-      assert.throws(function () {math.eval('max([[1,2], [3,4]], 3)');}, /IndexError: Index out of range \(3 > 2\)/);
-      assert.throws(function () {math.eval('max([[1,2], [3,4]], 0)');}, /IndexError: Index out of range \(0 < 1\)/);
+      assert.deepEqual(index.eval('max([[1,2], [3,4]])'), 4);
+      assert.deepEqual(index.eval('max([[1,2], [3,4]], 1)'), index.matrix([3, 4]));
+      assert.deepEqual(index.eval('max([[1,2], [3,4]], 2)'), index.matrix([2, 4]));
+      assert.throws(function () {index.eval('max([[1,2], [3,4]], 3)');}, /IndexError: Index out of range \(3 > 2\)/);
+      assert.throws(function () {index.eval('max([[1,2], [3,4]], 0)');}, /IndexError: Index out of range \(0 < 1\)/);
     });
 
     it('should return DimensionErrors with one based indices (min)', function () {
@@ -1862,11 +1864,11 @@ describe('parse', function() {
       // TODO
 
       // evaluation via parser throws one-based error
-      assert.deepEqual(math.eval('min([[1,2], [3,4]])'), 1);
-      assert.deepEqual(math.eval('min([[1,2], [3,4]], 1)'), math.matrix([1, 2]));
-      assert.deepEqual(math.eval('min([[1,2], [3,4]], 2)'), math.matrix([1, 3]));
-      assert.throws(function () {math.eval('min([[1,2], [3,4]], 3)');}, /IndexError: Index out of range \(3 > 2\)/);
-      assert.throws(function () {math.eval('min([[1,2], [3,4]], 0)');}, /IndexError: Index out of range \(0 < 1\)/);
+      assert.deepEqual(index.eval('min([[1,2], [3,4]])'), 1);
+      assert.deepEqual(index.eval('min([[1,2], [3,4]], 1)'), index.matrix([1, 2]));
+      assert.deepEqual(index.eval('min([[1,2], [3,4]], 2)'), index.matrix([1, 3]));
+      assert.throws(function () {index.eval('min([[1,2], [3,4]], 3)');}, /IndexError: Index out of range \(3 > 2\)/);
+      assert.throws(function () {index.eval('min([[1,2], [3,4]], 0)');}, /IndexError: Index out of range \(0 < 1\)/);
     });
 
     it('should return DimensionErrors with one based indices (mean)', function () {
@@ -1876,11 +1878,11 @@ describe('parse', function() {
       // TODO
 
       // evaluation via parser throws one-based error
-      assert.deepEqual(math.eval('mean([[1,2], [3,4]])'), 2.5);
-      assert.deepEqual(math.eval('mean([[1,2], [3,4]], 1)'), math.matrix([2, 3]));
-      assert.deepEqual(math.eval('mean([[1,2], [3,4]], 2)'), math.matrix([1.5, 3.5]));
-      assert.throws(function () {math.eval('mean([[1,2], [3,4]], 3)');}, /IndexError: Index out of range \(3 > 2\)/);
-      assert.throws(function () {math.eval('mean([[1,2], [3,4]], 0)');}, /IndexError: Index out of range \(0 < 1\)/);
+      assert.deepEqual(index.eval('mean([[1,2], [3,4]])'), 2.5);
+      assert.deepEqual(index.eval('mean([[1,2], [3,4]], 1)'), index.matrix([2, 3]));
+      assert.deepEqual(index.eval('mean([[1,2], [3,4]], 2)'), index.matrix([1.5, 3.5]));
+      assert.throws(function () {index.eval('mean([[1,2], [3,4]], 3)');}, /IndexError: Index out of range \(3 > 2\)/);
+      assert.throws(function () {index.eval('mean([[1,2], [3,4]], 0)');}, /IndexError: Index out of range \(0 < 1\)/);
     });
 
   });
@@ -1907,7 +1909,7 @@ describe('parse', function() {
       function CustomNode (args) {
         this.args = args;
       }
-      CustomNode.prototype = new math.expression.node.Node();
+      CustomNode.prototype = new index.expression.node.Node();
       CustomNode.prototype.toString = function () {
         return 'CustomNode';
       };

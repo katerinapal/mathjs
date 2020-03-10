@@ -1,12 +1,4 @@
-// test equal
-var assert = require('assert'),
-    math = require('../../../index'),
-    bignumber = math.bignumber,
-    complex = math.complex,
-    matrix = math.matrix,
-    sparse = math.sparse,
-    unit = math.unit,
-    equal = math.equal;
+import assert from "assert";
 
 describe('equal', function() {
 

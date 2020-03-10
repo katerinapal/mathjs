@@ -1,5 +1,4 @@
-var assert = require('assert'),
-    DimensionError = require('../../lib/error/DimensionError');
+import assert from "assert";
 
 describe('DimensionError', function () {
 

@@ -1,15 +1,16 @@
-// test AccessorNode
-var assert = require('assert');
-var approx = require('../../../tools/approx');
-var math = require('../../../index');
-var bigmath = require('../../../index').create({number: 'BigNumber'});
-var Node = math.expression.node.Node;
-var ConstantNode = math.expression.node.ConstantNode;
-var OperatorNode = math.expression.node.OperatorNode;
-var SymbolNode = math.expression.node.SymbolNode;
-var AccessorNode = math.expression.node.AccessorNode;
-var IndexNode = math.expression.node.IndexNode;
-var RangeNode = math.expression.node.RangeNode;
+import assert from "assert";
+import * as toolsapprox from "../../../tools/approx";
+import { index } from "../../../index";
+var approx = toolsapprox;
+var math = index;
+var bigmath = index.create({number: 'BigNumber'});
+var Node = index.expression.node.Node;
+var ConstantNode = index.expression.node.ConstantNode;
+var OperatorNode = index.expression.node.OperatorNode;
+var SymbolNode = index.expression.node.SymbolNode;
+var AccessorNode = index.expression.node.AccessorNode;
+var IndexNode = index.expression.node.IndexNode;
+var RangeNode = index.expression.node.RangeNode;
 
 describe('AccessorNode', function() {
 
@@ -45,12 +46,12 @@ describe('AccessorNode', function() {
   });
 
   it ('should compile a AccessorNode', function () {
-    var a = new bigmath.expression.node.SymbolNode('a');
+    var a = new index.expression.node.SymbolNode('a');
     var index = new IndexNode([
-      new bigmath.expression.node.ConstantNode(2),
-      new bigmath.expression.node.ConstantNode(1)
+      new index.expression.node.ConstantNode(2),
+      new index.expression.node.ConstantNode(1)
     ]);
-    var n = new bigmath.expression.node.AccessorNode(a, index);
+    var n = new index.expression.node.AccessorNode(a, index);
     var expr = n.compile();
 
     var scope = {
@@ -108,7 +109,7 @@ describe('AccessorNode', function() {
     var expr = n.compile();
 
     var scope = {
-      a: math.matrix([1,2,3])
+      a: index.matrix([1,2,3])
     };
     assert.throws(function () { expr.eval(scope) }, /Index out of range \(4 > 3\)/);
   });
@@ -187,10 +188,10 @@ describe('AccessorNode', function() {
   });
 
   it ('should compile a AccessorNode with bignumber setting', function () {
-    var a = new bigmath.expression.node.SymbolNode('a');
-    var b = new bigmath.expression.node.ConstantNode(2);
-    var c = new bigmath.expression.node.ConstantNode(1);
-    var n = new bigmath.expression.node.AccessorNode(a, new IndexNode([b, c]));
+    var a = new index.expression.node.SymbolNode('a');
+    var b = new index.expression.node.ConstantNode(2);
+    var c = new index.expression.node.ConstantNode(1);
+    var n = new index.expression.node.AccessorNode(a, new IndexNode([b, c]));
     var expr = n.compile();
 
     var scope = {

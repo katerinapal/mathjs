@@ -1,10 +1,4 @@
-var assert = require('assert'),
-    math = require('../../../index'),
-    subset = math.subset,
-    matrix = math.matrix,
-    Range = math.type.Range,
-    Set = math.type.Set,
-    index = math.index;
+import assert from "assert";
 
 describe('subset', function() {
 

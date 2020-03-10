@@ -1,4 +1,4 @@
-var assert = require('assert');
+import assert from "assert";
 
 var EPSILON = 0.0001;
 
@@ -11,14 +11,7 @@ function isNumber (value) {
   return (value instanceof Number || typeof value === 'number');
 }
 
-/**
- * Test whether two values are approximately equal. Tests whether the difference
- * between the two numbers is smaller than a fraction of their max value.
- * @param {Number} a
- * @param {Number} b
- * @param {Number} [epsilon]
- */
-exports.equal = function equal(a, b, epsilon) {
+var equal_exportedObj = function equal(a, b, epsilon) {
   if (epsilon === undefined) {
     epsilon = EPSILON;
   }
@@ -48,13 +41,7 @@ exports.equal = function equal(a, b, epsilon) {
   }
 };
 
-/**
- * Test whether all values in two objects or arrays are approximately equal.
- * Will deep compare all values of Arrays and Objects element wise.
- * @param {*} a
- * @param {*} b
- */
-exports.deepEqual = function deepEqual(a, b) {
+var deepEqual_exportedObj = function deepEqual(a, b) {
   var prop, i, len;
 
   if (Array.isArray(a) && Array.isArray(b)) {
@@ -79,6 +66,9 @@ exports.deepEqual = function deepEqual(a, b) {
     }
   }
   else {
-    exports.equal(a, b);
+    equal_exportedObj(a, b);
   }
 };
+
+export { equal_exportedObj as equal };
+export { deepEqual_exportedObj as deepEqual };

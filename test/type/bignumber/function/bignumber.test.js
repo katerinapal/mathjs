@@ -1,8 +1,4 @@
-var assert = require('assert'),
-    error = require('../../../../lib/error/index'),
-    math = require('../../../../index'),
-    bignumber = math.bignumber,
-    BigNumber = math.type.BigNumber;
+import assert from "assert";
 
 describe('bignumber', function() {
 

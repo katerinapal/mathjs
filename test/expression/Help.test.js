@@ -1,7 +1,7 @@
-// test Help
-var assert = require('assert');
-var math = require('../../index');
-var Help = math.type.Help;
+import assert from "assert";
+import { index } from "../../index";
+var math = index;
+var Help = index.type.Help;
 
 describe('help', function() {
   var doc = {
@@ -31,7 +31,7 @@ describe('help', function() {
 
   it('should throw an error when constructed without new operator', function() {
     assert.throws(function () {
-      Help(math.expression.docs.sin);
+      Help(index.expression.docs.sin);
     }, /Constructor must be called with the new operator/)
   });
 

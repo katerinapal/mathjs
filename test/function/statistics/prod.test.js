@@ -1,10 +1,11 @@
-var assert = require('assert');
-var math = require('../../../index');
-var BigNumber = math.type.BigNumber;
-var Complex = math.type.Complex;
-var DenseMatrix = math.type.DenseMatrix;
-var Unit = math.type.Unit;
-var prod = math.prod;
+import assert from "assert";
+import { index } from "../../../index";
+var math = index;
+var BigNumber = index.type.BigNumber;
+var Complex = index.type.Complex;
+var DenseMatrix = index.type.DenseMatrix;
+var Unit = index.type.Unit;
+var prod = index.prod;
 
 describe('prod', function() {
 
@@ -65,7 +66,7 @@ describe('prod', function() {
   });
 
   it('should LaTeX prod', function () {
-    var expression = math.parse('prod(1,2,3)');
+    var expression = index.parse('prod(1,2,3)');
     assert.equal(expression.toTex(), '\\mathrm{prod}\\left(1,2,3\\right)');
   });
 

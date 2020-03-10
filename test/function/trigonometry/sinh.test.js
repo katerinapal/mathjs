@@ -1,12 +1,15 @@
-var assert = require('assert');
-var error = require('../../../lib/error/index');
-var math = require('../../../index');
-var approx = require('../../../tools/approx');
-var complex = math.complex;
-var matrix = math.matrix;
-var unit = math.unit;
-var sinh = math.sinh;
-var bigmath = math.create({number: 'BigNumber', precision: 20});
+import assert from "assert";
+import * as liberrorindex from "../../../lib/error/index";
+import { index } from "../../../index";
+import { toolsapprox } from "../../../tools/approx";
+var error = liberrorindex;
+var math = index;
+var approx = toolsapprox;
+var complex = index.complex;
+var matrix = index.matrix;
+var unit = index.unit;
+var sinh = index.sinh;
+var bigmath = index.create({number: 'BigNumber', precision: 20});
 
 var EPSILON = 1e-14;
 
@@ -22,14 +25,14 @@ describe('sinh', function() {
   });
 
   it('should return the sinh of a number', function() {
-    approx.equal(sinh(-2), -3.62686040784701876766821398280126170488634201232113572130, EPSILON);
-    approx.equal(sinh(-0.5), -0.52109530549374736162242562641149155910592898261148052794, EPSILON);
-    approx.equal(sinh(0), 0, EPSILON);
-    approx.equal(sinh(0.3), 0.304520293447142618958435267005095229098024232680179727377, EPSILON);
-    approx.equal(sinh(0.5), 0.521095305493747361622425626411491559105928982611480527946, EPSILON);
-    approx.equal(sinh(0.8), 0.888105982187623006574717573189756980559709596888150052610, EPSILON);
-    approx.equal(sinh(1), 1.175201193643801456882381850595600815155717981334095870229, EPSILON);
-    approx.equal(sinh(2), 3.626860407847018767668213982801261704886342012321135721309, EPSILON);
+    toolsapprox(sinh(-2), -3.62686040784701876766821398280126170488634201232113572130, EPSILON);
+    toolsapprox(sinh(-0.5), -0.52109530549374736162242562641149155910592898261148052794, EPSILON);
+    toolsapprox(sinh(0), 0, EPSILON);
+    toolsapprox(sinh(0.3), 0.304520293447142618958435267005095229098024232680179727377, EPSILON);
+    toolsapprox(sinh(0.5), 0.521095305493747361622425626411491559105928982611480527946, EPSILON);
+    toolsapprox(sinh(0.8), 0.888105982187623006574717573189756980559709596888150052610, EPSILON);
+    toolsapprox(sinh(1), 1.175201193643801456882381850595600815155717981334095870229, EPSILON);
+    toolsapprox(sinh(2), 3.626860407847018767668213982801261704886342012321135721309, EPSILON);
   });
 
   if (!/v0\.10|v0\.12/.test(process.version)) {
@@ -67,19 +70,19 @@ describe('sinh', function() {
   });
 
   it('should return the sinh of a complex number', function() {
-    approx.deepEqual(sinh(complex('1')), complex(1.1752011936438014, 0), EPSILON);
-    approx.deepEqual(sinh(complex('i')), complex(0, 0.8414709848079), EPSILON);
-    approx.deepEqual(sinh(complex('2 + i')), complex(1.9596010414216, 3.1657785132162), EPSILON);
+    toolsapprox.deepEqual(sinh(complex('1')), complex(1.1752011936438014, 0), EPSILON);
+    toolsapprox.deepEqual(sinh(complex('i')), complex(0, 0.8414709848079), EPSILON);
+    toolsapprox.deepEqual(sinh(complex('2 + i')), complex(1.9596010414216, 3.1657785132162), EPSILON);
   });
 
   it('should return the sinh of an angle', function() {
-    approx.equal(sinh(unit('90deg')), 2.3012989023073, EPSILON);
-    approx.equal(sinh(unit('-45deg')), -0.86867096148601, EPSILON);
+    toolsapprox(sinh(unit('90deg')), 2.3012989023073, EPSILON);
+    toolsapprox(sinh(unit('-45deg')), -0.86867096148601, EPSILON);
 
-    assert(sinh(unit(math.bignumber(90), 'deg')).isBigNumber);
-    approx.equal(sinh(unit(math.bignumber(90), 'deg')).toNumber(), 2.3012989023073, EPSILON);
+    assert(sinh(unit(index.bignumber(90), 'deg')).isBigNumber);
+    toolsapprox(sinh(unit(index.bignumber(90), 'deg')).toNumber(), 2.3012989023073, EPSILON);
 
-    approx.deepEqual(sinh(unit(complex('2 + i'), 'rad')), complex(1.9596010414216, 3.1657785132162), EPSILON);
+    toolsapprox.deepEqual(sinh(unit(complex('2 + i'), 'rad')), complex(1.9596010414216, 3.1657785132162), EPSILON);
   });
 
   it('should throw an error if called with an invalid unit', function() {
@@ -93,11 +96,11 @@ describe('sinh', function() {
   var sinh123 = [1.1752011936438014, 3.626860407847, 10.01787492741];
 
   it('should return the sinh of each element of an array', function() {
-    approx.deepEqual(sinh([1,2,3]), sinh123, EPSILON);
+    toolsapprox.deepEqual(sinh([1,2,3]), sinh123, EPSILON);
   });
 
   it('should return the sinh of each element of a matrix', function() {
-    approx.deepEqual(sinh(matrix([1,2,3])), matrix(sinh123), EPSILON);
+    toolsapprox.deepEqual(sinh(matrix([1,2,3])), matrix(sinh123), EPSILON);
   });
 
   it('should throw an error in case of invalid number of arguments', function() {
@@ -106,7 +109,7 @@ describe('sinh', function() {
   });
 
   it('should LaTeX sinh', function () {
-    var expression = math.parse('sinh(1)');
+    var expression = index.parse('sinh(1)');
     assert.equal(expression.toTex(), '\\sinh\\left(1\\right)');
   });
 });

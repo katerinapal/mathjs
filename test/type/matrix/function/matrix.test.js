@@ -1,7 +1,4 @@
-// test matrix construction
-var assert = require('assert'),
-    math = require('../../../../index'),
-    matrix = math.matrix;
+import assert from "assert";
 
 describe('matrix', function() {
 

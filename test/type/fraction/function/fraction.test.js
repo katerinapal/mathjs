@@ -1,30 +1,32 @@
-var assert = require('assert');
-var math = require('../../../../index');
-var Fraction = require('fraction.js');
+import assert from "assert";
+import { index } from "../../../../index";
+import fraction from "fraction.js";
+var math = index;
+var Fraction = {};
 
 describe('fraction', function () {
 
   it('should create a fraction', function () {
-    equalFraction(math.fraction(1,3), new Fraction(1, 3));
-    equalFraction(math.fraction(0.3), new Fraction(0.3));
-    equalFraction(math.fraction('1/3'), new Fraction(1,3));
-    equalFraction(math.fraction({n: 1, d: 3}), new Fraction(1,3));
+    equalFraction(index.fraction(1,3), new Fraction(1, 3));
+    equalFraction(index.fraction(0.3), new Fraction(0.3));
+    equalFraction(index.fraction('1/3'), new Fraction(1,3));
+    equalFraction(index.fraction({n: 1, d: 3}), new Fraction(1,3));
   });
 
   it('should create a fraction from a BigNumber', function () {
-    var b = math.bignumber(2).div(3);
-    var f = math.fraction(b);
+    var b = index.bignumber(2).div(3);
+    var f = index.fraction(b);
     equalFraction(f, new Fraction('0.6666666666666666666666666666666666666666666666666666666666666667'));
   });
 
   it('should clone a fraction', function () {
-    var a = math.fraction(1,3);
-    var b = math.fraction(a);
+    var a = index.fraction(1,3);
+    var b = index.fraction(a);
     assert.strictEqual(a, b); // b === a as fractions are supposed to be immutable
   });
 
   it('should create a fraction for all elements in an array', function () {
-    var arr = math.fraction([0.2, 0.25, 0.125]);
+    var arr = index.fraction([0.2, 0.25, 0.125]);
     assert(Array.isArray(arr));
     assert.equal(arr.length, 3);
 
@@ -34,7 +36,7 @@ describe('fraction', function () {
   });
 
   it('should create a fraction for all elements in a Matrix', function () {
-    var mat = math.fraction(math.matrix([0.2, 0.25, 0.125]));
+    var mat = index.fraction(index.matrix([0.2, 0.25, 0.125]));
     assert.strictEqual(mat.isMatrix, true);
 
     var arr = mat.toArray();
@@ -44,9 +46,9 @@ describe('fraction', function () {
   });
 
   it('should throw an error in case of NaN or Infinity', function () {
-    assert.throws(function () {math.fraction(Infinity)}, /Error: Infinity cannot be represented as a fraction/);
-    assert.throws(function () {math.fraction(-Infinity)}, /Error: -Infinity cannot be represented as a fraction/);
-    assert.throws(function () {math.fraction(NaN)}, /Error: NaN cannot be represented as a fraction/);
+    assert.throws(function () {index.fraction(Infinity)}, /Error: Infinity cannot be represented as a fraction/);
+    assert.throws(function () {index.fraction(-Infinity)}, /Error: -Infinity cannot be represented as a fraction/);
+    assert.throws(function () {index.fraction(NaN)}, /Error: NaN cannot be represented as a fraction/);
   });
 
 });

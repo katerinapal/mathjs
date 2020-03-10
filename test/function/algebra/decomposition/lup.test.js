@@ -1,7 +1,4 @@
-// test lup
-var assert = require('assert'),
-    approx = require('../../../../tools/approx'),
-    math = require('../../../../index');
+import assert from "assert";
 
 describe('lup', function () {
 

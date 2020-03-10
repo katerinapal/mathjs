@@ -1,9 +1,4 @@
-// test inv
-var assert = require('assert'),
-    approx = require('../../../tools/approx'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    inv = math.inv;
+import assert from "assert";
 
 describe('inv', function() {
 

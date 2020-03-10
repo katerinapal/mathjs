@@ -1,8 +1,9 @@
-// test chain
-var assert = require('assert');
-var approx = require('../../../tools/approx');
-var math = require('../../../index');
-var Chain = math.type.Chain;
+import assert from "assert";
+import * as toolsapprox from "../../../tools/approx";
+import { index } from "../../../index";
+var approx = toolsapprox;
+var math = index;
+var Chain = index.type.Chain;
 
 describe('Chain', function() {
 
@@ -12,30 +13,30 @@ describe('Chain', function() {
   });
 
   it('should have a property isChain', function () {
-    var a = new math.type.Chain(5);
+    var a = new index.type.Chain(5);
     assert.strictEqual(a.isChain, true);
   });
 
   it('should have a property type', function () {
-    var a = new math.type.Chain(5);
+    var a = new index.type.Chain(5);
     assert.strictEqual(a.type, 'Chain');
   });
 
   it('should not contain constants, only functions', function() {
     assert(typeof Chain.pi, 'undefined');
 
-    var chain = new Chain(math.bignumber(3));
+    var chain = new Chain(index.bignumber(3));
 
     assert(typeof chain.pi, 'undefined');
     assert(typeof chain.sin, 'function');
   });
 
   it('should chain operations with matrices', function() {
-    assert.deepEqual(new Chain(math.matrix([[1,2],[3,4]]))
-        .subset(math.index(0,0), 8)
-        .multiply(3).done(), math.matrix([[24, 6], [9, 12]]));
+    assert.deepEqual(new Chain(index.matrix([[1,2],[3,4]]))
+        .subset(index.index(0,0), 8)
+        .multiply(3).done(), index.matrix([[24, 6], [9, 12]]));
     assert.deepEqual(new Chain([[1,2],[3,4]])
-        .subset(math.index(0,0), 8)
+        .subset(index.index(0,0), 8)
         .multiply(3).done(), [[24, 6], [9, 12]]);
   });
 
@@ -56,7 +57,7 @@ describe('Chain', function() {
   });
 
   it('should create a proxy for imported functions', function() {
-    math.import({hello: function (a) { return a + '!'}});
+    index.import({hello: function (a) { return a + '!'}});
     var a = new Chain('hello').hello().done();
     assert.strictEqual(a, 'hello!');
   });

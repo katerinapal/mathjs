@@ -1,12 +1,4 @@
-// test larger
-var assert = require('assert'),
-    math = require('../../../index'),
-    bignumber = math.bignumber,
-    complex = math.complex,
-    matrix = math.matrix,
-    sparse = math.sparse,
-    unit = math.unit,
-    larger = math.larger;
+import assert from "assert";
 
 describe('larger', function() {
 

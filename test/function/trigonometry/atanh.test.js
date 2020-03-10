@@ -1,16 +1,19 @@
-var assert = require('assert');
-var error = require('../../../lib/error/index');
-var math = require('../../../index');
-var approx = require('../../../tools/approx');
-var pi = math.pi;
-var atanh = math.atanh;
-var tanh = math.tanh;
-var complex = math.complex;
-var matrix = math.matrix;
-var unit = math.unit;
-var bigmath = math.create({number: 'BigNumber', precision: 20});
-var biggermath = math.create({precision: 21});
-var predmath = math.create({predictable: true});
+import assert from "assert";
+import * as liberrorindex from "../../../lib/error/index";
+import { index } from "../../../index";
+import { toolsapprox } from "../../../tools/approx";
+var error = liberrorindex;
+var math = index;
+var approx = toolsapprox;
+var pi = index.pi;
+var atanh = index.atanh;
+var tanh = index.tanh;
+var complex = index.complex;
+var matrix = index.matrix;
+var unit = index.unit;
+var bigmath = index.create({number: 'BigNumber', precision: 20});
+var biggermath = index.create({precision: 21});
+var predmath = index.create({predictable: true});
 var atanhBig = bigmath.atanh;
 var Big = bigmath.bignumber;
 
@@ -25,16 +28,16 @@ describe('atanh', function() {
   });
 
   it('should return the hyperbolic arctan of a number', function() {
-    approx.deepEqual(atanh(-2), complex(-0.54930614433405485, pi / 2));
-    approx.deepEqual(atanh(2),  complex(0.54930614433405485, -pi / 2));
+    toolsapprox.deepEqual(atanh(-2), complex(-0.54930614433405485, pi / 2));
+    toolsapprox.deepEqual(atanh(2),  complex(0.54930614433405485, -pi / 2));
     //assert.ok(isNaN(atanh(-2)));
     //assert.ok(isNaN(atanh(2)));
 
-    approx.equal(atanh(-1), -Infinity);
-    approx.equal(atanh(-0.5), -0.54930614433405484569762261846);
-    approx.equal(atanh(0), 0);
-    approx.equal(atanh(0.5), 0.54930614433405484569762261846);
-    approx.equal(atanh(1), Infinity);
+    toolsapprox(atanh(-1), -Infinity);
+    toolsapprox(atanh(-0.5), -0.54930614433405484569762261846);
+    toolsapprox(atanh(0), 0);
+    toolsapprox(atanh(0.5), 0.54930614433405484569762261846);
+    toolsapprox(atanh(1), Infinity);
   });
 
 
@@ -58,10 +61,10 @@ describe('atanh', function() {
   });
 
   it('should be the inverse function of hyperbolic tan', function() {
-    approx.equal(atanh(tanh(-1)), -1);
-    approx.equal(atanh(tanh(0)), 0);
-    approx.equal(atanh(tanh(0.1)), 0.1);
-    approx.equal(atanh(tanh(0.5)), 0.5);
+    toolsapprox(atanh(tanh(-1)), -1);
+    toolsapprox(atanh(tanh(0)), 0);
+    toolsapprox(atanh(tanh(0.1)), 0.1);
+    toolsapprox(atanh(tanh(0.5)), 0.5);
   });
 
   it('should be the inverse function of bignumber tanh', function() {
@@ -79,17 +82,17 @@ describe('atanh', function() {
   });
 
   it('should return the arctanh of a complex number', function() {
-    approx.deepEqual(atanh(complex('2+3i')), complex(0.1469466662255, 1.33897252229449));
-    approx.deepEqual(atanh(complex('2-3i')), complex(0.1469466662255, -1.33897252229449));
-    approx.deepEqual(atanh(complex('-2+3i')), complex(-0.1469466662255, 1.33897252229449));
-    approx.deepEqual(atanh(complex('-2-3i')), complex(-0.1469466662255, -1.33897252229449));
-    approx.deepEqual(atanh(complex('1+i')), complex(0.402359478108525, 1.01722196789785137));
-    approx.deepEqual(atanh(complex('i')), complex(0, pi / 4));
+    toolsapprox.deepEqual(atanh(complex('2+3i')), complex(0.1469466662255, 1.33897252229449));
+    toolsapprox.deepEqual(atanh(complex('2-3i')), complex(0.1469466662255, -1.33897252229449));
+    toolsapprox.deepEqual(atanh(complex('-2+3i')), complex(-0.1469466662255, 1.33897252229449));
+    toolsapprox.deepEqual(atanh(complex('-2-3i')), complex(-0.1469466662255, -1.33897252229449));
+    toolsapprox.deepEqual(atanh(complex('1+i')), complex(0.402359478108525, 1.01722196789785137));
+    toolsapprox.deepEqual(atanh(complex('i')), complex(0, pi / 4));
 
-    approx.deepEqual(atanh(complex('2')), complex(0.54930614433405485, -pi / 2));
+    toolsapprox.deepEqual(atanh(complex('2')), complex(0.54930614433405485, -pi / 2));
     assert.deepEqual(atanh(complex('1')), complex(Infinity, 0));
     assert.deepEqual(atanh(complex('0')), complex(0, 0));
-    approx.deepEqual(atanh(complex('-2')), complex(-0.54930614433405485, pi / 2));
+    toolsapprox.deepEqual(atanh(complex('-2')), complex(-0.54930614433405485, pi / 2));
   });
 
   it('should throw an error if called with a unit', function() {
@@ -113,7 +116,7 @@ describe('atanh', function() {
   });
 
   it('should LaTeX atanh', function () {
-    var expression = math.parse('atanh(0.5)');
+    var expression = index.parse('atanh(0.5)');
     assert.equal(expression.toTex(), '\\tanh^{-1}\\left(0.5\\right)');
   });
 
