@@ -1,13 +1,16 @@
+import assert_moduleDefault from "assert";
+import { mathjs as indexjs } from "../../index";
+import { approx as approxjs } from "../../tools/approx";
 // test import
-var assert = require('assert');
-var mathjs = require('../../index');
-var approx = require('../../tools/approx');
+var assert = {};
+var mathjs = indexjs;
+var approx = approxjs;
 
 describe('import', function() {
   var math = null;
 
   beforeEach(function() {
-    math = mathjs.create();
+    math = indexjs.create();
     math.import({
       myvalue: 42,
       hello: function (name) {
@@ -112,7 +115,7 @@ describe('import', function() {
     assert.deepEqual(math.a, 24);
 
     math.import({pi: 24}, {silent: true});
-    approx.equal(math.pi, Math.PI); // pi was ignored
+    approxjs(math.pi, Math.PI); // pi was ignored
   });
 
   it('should import a boolean', function () {

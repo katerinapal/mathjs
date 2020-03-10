@@ -1,12 +1,15 @@
+import assert_moduleDefault from "assert";
+import * as approxjs from "../../../tools/approx";
+import { math as indexjs } from "../../../index";
 // test OperatorNode
-var assert = require('assert');
-var approx = require('../../../tools/approx');
-var math = require('../../../index');
-var Node = math.expression.node.Node;
-var ConstantNode = math.expression.node.ConstantNode;
-var SymbolNode = math.expression.node.SymbolNode;
-var OperatorNode = math.expression.node.OperatorNode;
-var ConditionalNode = math.expression.node.ConditionalNode;
+var assert = {};
+var approx = approxjs;
+var math = indexjs;
+var Node = indexjs.expression.node.Node;
+var ConstantNode = indexjs.expression.node.ConstantNode;
+var SymbolNode = indexjs.expression.node.SymbolNode;
+var OperatorNode = indexjs.expression.node.OperatorNode;
+var ConditionalNode = indexjs.expression.node.ConditionalNode;
 
 describe('OperatorNode', function() {
 
@@ -229,44 +232,44 @@ describe('OperatorNode', function() {
     });
 
     it ('should stringify left associative OperatorNodes that are associative with another Node', function () {
-      assert.equal(math.parse('(a+b)+c').toString({parenthesis: 'auto'}), 'a + b + c');
-      assert.equal(math.parse('a+(b+c)').toString({parenthesis: 'auto'}), 'a + b + c');
-      assert.equal(math.parse('(a+b)-c').toString({parenthesis: 'auto'}), 'a + b - c');
-      assert.equal(math.parse('a+(b-c)').toString({parenthesis: 'auto'}), 'a + b - c');
+      assert.equal(indexjs.parse('(a+b)+c').toString({parenthesis: 'auto'}), 'a + b + c');
+      assert.equal(indexjs.parse('a+(b+c)').toString({parenthesis: 'auto'}), 'a + b + c');
+      assert.equal(indexjs.parse('(a+b)-c').toString({parenthesis: 'auto'}), 'a + b - c');
+      assert.equal(indexjs.parse('a+(b-c)').toString({parenthesis: 'auto'}), 'a + b - c');
 
-      assert.equal(math.parse('(a*b)*c').toString({parenthesis: 'auto'}), 'a * b * c');
-      assert.equal(math.parse('a*(b*c)').toString({parenthesis: 'auto'}), 'a * b * c');
-      assert.equal(math.parse('(a*b)/c').toString({parenthesis: 'auto'}), 'a * b / c');
-      assert.equal(math.parse('a*(b/c)').toString({parenthesis: 'auto'}), 'a * b / c');
+      assert.equal(indexjs.parse('(a*b)*c').toString({parenthesis: 'auto'}), 'a * b * c');
+      assert.equal(indexjs.parse('a*(b*c)').toString({parenthesis: 'auto'}), 'a * b * c');
+      assert.equal(indexjs.parse('(a*b)/c').toString({parenthesis: 'auto'}), 'a * b / c');
+      assert.equal(indexjs.parse('a*(b/c)').toString({parenthesis: 'auto'}), 'a * b / c');
     });
 
     it ('should stringify left associative OperatorNodes that are not associative with another Node', function () {
-      assert.equal(math.parse('(a-b)-c').toString({parenthesis: 'auto'}), 'a - b - c');
-      assert.equal(math.parse('a-(b-c)').toString({parenthesis: 'auto'}), 'a - (b - c)');
-      assert.equal(math.parse('(a-b)+c').toString({parenthesis: 'auto'}), 'a - b + c');
-      assert.equal(math.parse('a-(b+c)').toString({parenthesis: 'auto'}), 'a - (b + c)');
+      assert.equal(indexjs.parse('(a-b)-c').toString({parenthesis: 'auto'}), 'a - b - c');
+      assert.equal(indexjs.parse('a-(b-c)').toString({parenthesis: 'auto'}), 'a - (b - c)');
+      assert.equal(indexjs.parse('(a-b)+c').toString({parenthesis: 'auto'}), 'a - b + c');
+      assert.equal(indexjs.parse('a-(b+c)').toString({parenthesis: 'auto'}), 'a - (b + c)');
 
-      assert.equal(math.parse('(a/b)/c').toString({parenthesis: 'auto'}), 'a / b / c');
-      assert.equal(math.parse('a/(b/c)').toString({parenthesis: 'auto'}), 'a / (b / c)');
-      assert.equal(math.parse('(a/b)*c').toString({parenthesis: 'auto'}), 'a / b * c');
-      assert.equal(math.parse('a/(b*c)').toString({parenthesis: 'auto'}), 'a / (b * c)');
+      assert.equal(indexjs.parse('(a/b)/c').toString({parenthesis: 'auto'}), 'a / b / c');
+      assert.equal(indexjs.parse('a/(b/c)').toString({parenthesis: 'auto'}), 'a / (b / c)');
+      assert.equal(indexjs.parse('(a/b)*c').toString({parenthesis: 'auto'}), 'a / b * c');
+      assert.equal(indexjs.parse('a/(b*c)').toString({parenthesis: 'auto'}), 'a / (b * c)');
     });
 
     it ('should stringify right associative OperatorNodes that are not associative with another Node', function () {
-      assert.equal(math.parse('(a^b)^c').toString({parenthesis: 'auto'}), '(a ^ b) ^ c');
-      assert.equal(math.parse('a^(b^c)').toString({parenthesis: 'auto'}), 'a ^ b ^ c');
+      assert.equal(indexjs.parse('(a^b)^c').toString({parenthesis: 'auto'}), '(a ^ b) ^ c');
+      assert.equal(indexjs.parse('a^(b^c)').toString({parenthesis: 'auto'}), 'a ^ b ^ c');
     });
 
     it ('should stringify unary OperatorNodes containing a binary OperatorNode', function () {
-      assert.equal(math.parse('(a*b)!').toString(), '(a * b)!');
-      assert.equal(math.parse('-(a*b)').toString(), '-(a * b)');
-      assert.equal(math.parse('-(a+b)').toString(), '-(a + b)');
+      assert.equal(indexjs.parse('(a*b)!').toString(), '(a * b)!');
+      assert.equal(indexjs.parse('-(a*b)').toString(), '-(a * b)');
+      assert.equal(indexjs.parse('-(a+b)').toString(), '-(a + b)');
     });
 
     it ('should stringify unary OperatorNodes containing a unary OperatorNode', function () {
-      assert.equal(math.parse('(-a)!').toString({parenthesis: 'auto'}), '(-a)!');
-      assert.equal(math.parse('-(a!)').toString({parenthesis: 'auto'}), '-a!');
-      assert.equal(math.parse('-(-a)').toString({parenthesis: 'auto'}), '-(-a)');
+      assert.equal(indexjs.parse('(-a)!').toString({parenthesis: 'auto'}), '(-a)!');
+      assert.equal(indexjs.parse('-(a!)').toString({parenthesis: 'auto'}), '-a!');
+      assert.equal(indexjs.parse('-(-a)').toString({parenthesis: 'auto'}), '-(-a)');
     });
   });
 
@@ -315,12 +318,12 @@ describe('OperatorNode', function() {
   });
 
   it ('should respect the \'all\' parenthesis option', function () {
-    assert.equal(math.parse('1+1+1').toString({parenthesis: 'all'}), '(1 + 1) + 1' );
-    assert.equal(math.parse('1+1+1').toTex({parenthesis: 'all'}), '\\left(1+1\\right)+1' );
+    assert.equal(indexjs.parse('1+1+1').toString({parenthesis: 'all'}), '(1 + 1) + 1' );
+    assert.equal(indexjs.parse('1+1+1').toTex({parenthesis: 'all'}), '\\left(1+1\\right)+1' );
   });
 
   it ('should correctly LaTeX fractions in \'all\' parenthesis mode', function () {
-    assert.equal(math.parse('1/2/3').toTex({parenthesis: 'all'}), '\\frac{\\left(\\frac{1}{2}\\right)}{3}');
+    assert.equal(indexjs.parse('1/2/3').toTex({parenthesis: 'all'}), '\\frac{\\left(\\frac{1}{2}\\right)}{3}');
   });
 
   it ('should LaTeX an OperatorNode', function () {
@@ -502,18 +505,18 @@ describe('OperatorNode', function() {
 
   it ('should LaTeX simple expressions in \'auto\' mode', function () {
     //this covers a bug that was triggered previously
-    assert.equal(math.parse('1+(1+1)').toTex({parenthesis: 'auto'}), '1+1+1');
+    assert.equal(indexjs.parse('1+(1+1)').toTex({parenthesis: 'auto'}), '1+1+1');
   });
 
   it ('should stringify implicit multiplications', function () {
-    var a = math.parse('4a');
-    var b = math.parse('4 a');
-    var c = math.parse('a b');
-    var d = math.parse('2a b');
-    var e = math.parse('a b c');
-    var f = math.parse('(2+3)a');
-    var g = math.parse('(2+3)2');
-    var h = math.parse('2(3+4)');
+    var a = indexjs.parse('4a');
+    var b = indexjs.parse('4 a');
+    var c = indexjs.parse('a b');
+    var d = indexjs.parse('2a b');
+    var e = indexjs.parse('a b c');
+    var f = indexjs.parse('(2+3)a');
+    var g = indexjs.parse('(2+3)2');
+    var h = indexjs.parse('2(3+4)');
 
     assert.equal(a.toString(), a.toString({implicit: 'hide'}));
     assert.equal(a.toString({implicit: 'hide'}), '4 a');
@@ -549,14 +552,14 @@ describe('OperatorNode', function() {
   });
 
   it ('should LaTeX implicit multiplications', function () {
-    var a = math.parse('4a');
-    var b = math.parse('4 a');
-    var c = math.parse('a b');
-    var d = math.parse('2a b');
-    var e = math.parse('a b c');
-    var f = math.parse('(2+3)a');
-    var g = math.parse('(2+3)2');
-    var h = math.parse('2(3+4)');
+    var a = indexjs.parse('4a');
+    var b = indexjs.parse('4 a');
+    var c = indexjs.parse('a b');
+    var d = indexjs.parse('2a b');
+    var e = indexjs.parse('a b c');
+    var f = indexjs.parse('(2+3)a');
+    var g = indexjs.parse('(2+3)2');
+    var h = indexjs.parse('2(3+4)');
 
     assert.equal(a.toTex(), a.toTex({implicit: 'hide'}));
     assert.equal(a.toTex({implicit: 'hide'}), '4~ a');

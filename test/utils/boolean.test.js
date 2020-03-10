@@ -1,23 +1,26 @@
+import assert_moduleDefault from "assert";
+import * as approxjs from "../../tools/approx";
+import { boolean as booleanjs } from "../../lib/utils/boolean";
 // test boolean utils
-var assert = require('assert'),
-    approx = require('../../tools/approx'),
-    boolean = require('../../lib/utils/boolean');
+var assert = {},
+    approx = approxjs,
+    boolean = booleanjs;
 
 describe ('boolean', function () {
 
   it('isBoolean', function() {
-    assert.equal(boolean.isBoolean(true), true);
-    assert.equal(boolean.isBoolean(false), true);
-    assert.equal(boolean.isBoolean(Boolean(false)), true);
-    assert.equal(boolean.isBoolean('hi'), false);
-    assert.equal(boolean.isBoolean(23), false);
-    assert.equal(boolean.isBoolean([]), false);
-    assert.equal(boolean.isBoolean({}), false);
-    assert.equal(boolean.isBoolean(new Date()), false);
+    assert.equal(booleanjs(true), true);
+    assert.equal(booleanjs(false), true);
+    assert.equal(booleanjs(Boolean(false)), true);
+    assert.equal(booleanjs('hi'), false);
+    assert.equal(booleanjs(23), false);
+    assert.equal(booleanjs([]), false);
+    assert.equal(booleanjs({}), false);
+    assert.equal(booleanjs(new Date()), false);
 
     // we don't support non primitive Boolean anymore
-    assert.equal(boolean.isBoolean(new Boolean(true)), false);
-    assert.equal(boolean.isBoolean(new Boolean(false)), false);
+    assert.equal(booleanjs(new Boolean(true)), false);
+    assert.equal(booleanjs(new Boolean(false)), false);
   });
 
 });

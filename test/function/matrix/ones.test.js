@@ -1,9 +1,12 @@
+import assert_moduleDefault from "assert";
+import * as indexjs from "../../../lib/error/index";
+import { math as indexjs } from "../../../index";
 // test ones
-var assert = require('assert'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    ones = math.ones,
-    matrix = math.matrix;
+var assert = {},
+    error = indexjs,
+    math = indexjs,
+    ones = indexjs.ones,
+    matrix = indexjs.matrix;
 
 describe('ones', function() {
 
@@ -38,8 +41,8 @@ describe('ones', function() {
   });
 
   it('should create a matrix with bignumber ones', function () {
-    var one = math.bignumber(1);
-    var three = math.bignumber(3);
+    var one = indexjs.bignumber(1);
+    var three = indexjs.bignumber(3);
     assert.deepEqual(ones(three), matrix([one,one,one]));
     assert.deepEqual(ones([three]), [one,one,one]);
   });
@@ -66,13 +69,13 @@ describe('ones', function() {
 
   it('should create a matrix with ones with the same size as original matrix', function () {
     var a = matrix([[1, 2, 3], [4, 5, 6]]);
-    assert.deepEqual(ones(math.size(a)).size(), a.size());
+    assert.deepEqual(ones(indexjs.size(a)).size(), a.size());
   });
 
   // TODO: test with invalid input
 
   it('should LaTeX ones', function () {
-    var expression = math.parse('ones(2)');
+    var expression = indexjs.parse('ones(2)');
     assert.equal(expression.toTex(), '\\mathrm{ones}\\left(2\\right)');
   });
 

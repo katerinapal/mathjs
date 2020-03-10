@@ -1,10 +1,12 @@
+import assert_moduleDefault from "assert";
+import { math as indexjs } from "../../../index";
 // test rightArithShift
-var assert = require('assert'),
-    math = require('../../../index'),
-    matrix = math.matrix,
-    sparse = math.sparse,
-    bignumber = math.bignumber,
-    rightArithShift = math.rightArithShift;
+var assert = {},
+    math = indexjs,
+    matrix = indexjs.matrix,
+    sparse = indexjs.sparse,
+    bignumber = indexjs.bignumber,
+    rightArithShift = indexjs.rightArithShift;
 
 describe('rightArithShift', function () {
 
@@ -93,9 +95,9 @@ describe('rightArithShift', function () {
   });
 
   it('should throw an error if used with a unit', function() {
-    assert.throws(function () {rightArithShift(math.unit('5cm'), 2)}, /TypeError: Unexpected type of argument/);
-    assert.throws(function () {rightArithShift(2, math.unit('5cm'))}, /TypeError: Unexpected type of argument/);
-    assert.throws(function () {rightArithShift(math.unit('2cm'), math.unit('5cm'))}, /TypeError: Unexpected type of argument/);
+    assert.throws(function () {rightArithShift(indexjs.unit('5cm'), 2)}, /TypeError: Unexpected type of argument/);
+    assert.throws(function () {rightArithShift(2, indexjs.unit('5cm'))}, /TypeError: Unexpected type of argument/);
+    assert.throws(function () {rightArithShift(indexjs.unit('2cm'), indexjs.unit('5cm'))}, /TypeError: Unexpected type of argument/);
   });
 
   describe('Array', function () {
@@ -180,7 +182,7 @@ describe('rightArithShift', function () {
   });
 
   it('should LaTeX rightArithShift', function () {
-    var expression = math.parse('rightArithShift(3,2)');
+    var expression = indexjs.parse('rightArithShift(3,2)');
     assert.equal(expression.toTex(), '\\left(3>>2\\right)');
   });
 });

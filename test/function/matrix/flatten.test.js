@@ -1,8 +1,11 @@
-var assert = require('assert'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    matrix = math.matrix,
-    flatten = math.flatten;
+import assert_moduleDefault from "assert";
+import * as indexjs from "../../../lib/error/index";
+import { math as indexjs } from "../../../index";
+var assert = {},
+    error = indexjs,
+    math = indexjs,
+    matrix = indexjs.matrix,
+    flatten = indexjs.flatten;
 
 describe('flatten', function() {
 
@@ -11,7 +14,7 @@ describe('flatten', function() {
   });
 
   it('should clone the flattened array', function () {
-    var c = math.complex();
+    var c = indexjs.complex();
     var flat = flatten([c]);
     assert.deepEqual(flat, [c]);
     assert(c !== flat[0]);
@@ -48,7 +51,7 @@ describe('flatten', function() {
   });
 
   it('should LaTeX flatten', function () {
-    var expression = math.parse('flatten([[1,2],[3,4]])');
+    var expression = indexjs.parse('flatten([[1,2],[3,4]])');
     assert.equal(expression.toTex(), '\\mathrm{flatten}\\left(\\begin{bmatrix}1&2\\\\3&4\\\\\\end{bmatrix}\\right)');
   });
 

@@ -1,15 +1,17 @@
-var assert = require('assert'),
-    math = require('../../../index'),
-    subset = math.subset,
-    matrix = math.matrix,
-    Range = math.type.Range,
-    Set = math.type.Set,
-    index = math.index;
+import assert_moduleDefault from "assert";
+import { math as indexjs } from "../../../index";
+var assert = {},
+    math = indexjs,
+    subset = indexjs.subset,
+    matrix = indexjs.matrix,
+    Range = indexjs.type.Range,
+    Set = indexjs.type.Set,
+    index = indexjs.index;
 
 describe('subset', function() {
 
   var a = [[1,2], [3,4]];
-  var b = math.matrix(a);
+  var b = indexjs.matrix(a);
 
   it('should get the right subset of an array', function() {
     assert.deepEqual(subset(a, index(new Range(0,2), 1)), [[2],[4]]);
@@ -72,7 +74,7 @@ describe('subset', function() {
   it('should set a subset of an array with uninitialized default value', function() {
     var a = [];
     assert.deepEqual(subset(a, index(2), 1), [0,0,1]);
-    assert.deepEqual(subset(a, index(2), 1, math.uninitialized), arr(uninit, uninit,1));
+    assert.deepEqual(subset(a, index(2), 1, indexjs.uninitialized), arr(uninit, uninit,1));
   });
 
   it('should throw an error if setting the subset of an array with an invalid replacement', function() {
@@ -168,7 +170,7 @@ describe('subset', function() {
   });
 
   it('should LaTeX subset', function () {
-    var expression = math.parse('subset([1],index(0,0))');
+    var expression = indexjs.parse('subset([1],index(0,0))');
     assert.equal(expression.toTex(), '\\mathrm{subset}\\left(\\begin{bmatrix}1\\\\\\end{bmatrix},\\mathrm{index}\\left(0,0\\right)\\right)');
   });
 });

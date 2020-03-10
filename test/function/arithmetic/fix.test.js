@@ -1,14 +1,17 @@
+import assert_moduleDefault from "assert";
+import { approx as approxjs } from "../../../tools/approx";
+import { math as indexjs } from "../../../index";
 // test fix
-var assert = require('assert');
-var approx = require('../../../tools/approx');
-var math = require('../../../index');
-var bignumber = math.bignumber;
-var complex = math.complex;
-var fraction = math.fraction;
-var matrix = math.matrix;
-var unit = math.unit;
-var range = math.range;
-var fix = math.fix;
+var assert = {};
+var approx = approxjs;
+var math = indexjs;
+var bignumber = indexjs.bignumber;
+var complex = indexjs.complex;
+var fraction = indexjs.fraction;
+var matrix = indexjs.matrix;
+var unit = indexjs.unit;
+var range = indexjs.range;
+var fix = indexjs.fix;
 
 describe('fix', function() {
   it('should round booleans correctly', function () {
@@ -17,21 +20,21 @@ describe('fix', function() {
   });
 
   it('should round null', function () {
-    assert.equal(math.ceil(null), 0);
+    assert.equal(indexjs.ceil(null), 0);
   });
 
   it('should round numbers correctly', function() {
-    approx.equal(fix(0), 0);
-    approx.equal(fix(1), 1);
-    approx.equal(fix(1.3), 1);
-    approx.equal(fix(1.8), 1);
-    approx.equal(fix(2), 2);
-    approx.equal(fix(-1), -1);
-    approx.equal(fix(-1.3), -1);
-    approx.equal(fix(-1.8), -1);
-    approx.equal(fix(-2), -2);
-    approx.equal(fix(-2.1), -2);
-    approx.equal(fix(math.pi), 3);
+    approxjs(fix(0), 0);
+    approxjs(fix(1), 1);
+    approxjs(fix(1.3), 1);
+    approxjs(fix(1.8), 1);
+    approxjs(fix(2), 2);
+    approxjs(fix(-1), -1);
+    approxjs(fix(-1.3), -1);
+    approxjs(fix(-1.8), -1);
+    approxjs(fix(-2), -2);
+    approxjs(fix(-2.1), -2);
+    approxjs(fix(indexjs.pi), 3);
   });
 
   it('should round big numbers correctly', function() {
@@ -49,15 +52,15 @@ describe('fix', function() {
 
   it('should round complex numbers correctly', function() {
     // complex
-    approx.deepEqual(fix(complex(0, 0)), complex(0, 0));
-    approx.deepEqual(fix(complex(1.3, 1.8)), complex(1, 1));
-    approx.deepEqual(fix(math.i), complex(0, 1));
-    approx.deepEqual(fix(complex(-1.3, -1.8)), complex(-1, -1));
+    approxjs.deepEqual(fix(complex(0, 0)), complex(0, 0));
+    approxjs.deepEqual(fix(complex(1.3, 1.8)), complex(1, 1));
+    approxjs.deepEqual(fix(indexjs.i), complex(0, 1));
+    approxjs.deepEqual(fix(complex(-1.3, -1.8)), complex(-1, -1));
   });
 
   it('should round fractions correctly', function() {
     var a = fraction('2/3');
-    assert(fix(a) instanceof math.type.Fraction);
+    assert(fix(a) instanceof indexjs.type.Fraction);
     assert.equal(a.toString(), '0.(6)');
 
     assert.equal(fix(fraction(0)).toString(), '0');
@@ -83,8 +86,8 @@ describe('fix', function() {
 
   it('should correctly round all values of a matrix element-wise', function() {
     // matrix, array, range
-    approx.deepEqual(fix([1.2, 3.4, 5.6, 7.8, 10.0]), [1, 3, 5, 7, 10]);
-    approx.deepEqual(fix(matrix([1.2, 3.4, 5.6, 7.8, 10.0])), matrix([1, 3, 5, 7, 10]));
+    approxjs.deepEqual(fix([1.2, 3.4, 5.6, 7.8, 10.0]), [1, 3, 5, 7, 10]);
+    approxjs.deepEqual(fix(matrix([1.2, 3.4, 5.6, 7.8, 10.0])), matrix([1, 3, 5, 7, 10]));
   });
 
   it('should throw an error in case of invalid number of arguments', function() {
@@ -93,7 +96,7 @@ describe('fix', function() {
   });
 
   it('should LaTeX fix', function () {
-    var expression = math.parse('fix(0.6)');
+    var expression = indexjs.parse('fix(0.6)');
     assert.equal(expression.toTex(), '\\mathrm{fix}\\left(0.6\\right)');
   });
 

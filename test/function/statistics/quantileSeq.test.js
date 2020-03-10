@@ -1,8 +1,11 @@
-var assert = require('assert'),
-    approx = require('../../../tools/approx'),
-    math = require('../../../index'),
-    bignumber = math.bignumber,
-    quantileSeq = math.quantileSeq;
+import assert_moduleDefault from "assert";
+import { approx as approxjs } from "../../../tools/approx";
+import { math as indexjs } from "../../../index";
+var assert = {},
+    approx = approxjs,
+    math = indexjs,
+    bignumber = indexjs.bignumber,
+    quantileSeq = indexjs.quantileSeq;
 
 describe('quantileSeq', function() {
 
@@ -15,10 +18,10 @@ describe('quantileSeq', function() {
     assert.equal(quantileSeq(lst, 0.25, false), 2.325);
     assert.equal(quantileSeq(lst, 0.3), 2.45);
     assert.equal(quantileSeq(lst, 0.4), 2.7);
-    approx.equal(quantileSeq(lst, 0.5), 2.9);
+    approxjs(quantileSeq(lst, 0.5), 2.9);
     assert.equal(quantileSeq(lst, 0.6), 3.1);
     assert.equal(quantileSeq(lst, 0.7), 3.2);
-    approx.equal(quantileSeq(lst, 0.75), 3.25);
+    approxjs(quantileSeq(lst, 0.75), 3.25);
     assert.equal(quantileSeq(lst, 0.8), 3.3);
     assert.equal(quantileSeq(lst, 0.9), 3.5);
     assert.equal(quantileSeq(lst, 1), 3.7);
@@ -32,10 +35,10 @@ describe('quantileSeq', function() {
     assert.equal(quantileSeq(lst, 0.25, true), 2.325);
     assert.equal(quantileSeq(lst, 0.3, true), 2.45);
     assert.equal(quantileSeq(lst, 0.4, true), 2.7);
-    approx.equal(quantileSeq(lst, 0.5, true), 2.9);
+    approxjs(quantileSeq(lst, 0.5, true), 2.9);
     assert.equal(quantileSeq(lst, 0.6, true), 3.1);
     assert.equal(quantileSeq(lst, 0.7, true), 3.2);
-    approx.equal(quantileSeq(lst, 0.75, true), 3.25);
+    approxjs(quantileSeq(lst, 0.75, true), 3.25);
     assert.equal(quantileSeq(lst, 0.8, true), 3.3);
     assert.equal(quantileSeq(lst, 0.9, true), 3.5);
     assert.equal(quantileSeq(lst, 1, true), 3.7);
@@ -60,7 +63,7 @@ describe('quantileSeq', function() {
 
   // FIXME: should return the quantileSeq of an array of bignumbers with number probability
   it.skip('should return the quantileSeq of an array of bignumbers with number probability', function() {
-    approx.equal(quantileSeq([bignumber(0.5377),bignumber(1.8339),bignumber(-2.2588),bignumber(0.8622),
+    approxjs(quantileSeq([bignumber(0.5377),bignumber(1.8339),bignumber(-2.2588),bignumber(0.8622),
                               bignumber(0.3188),bignumber(-1.3077),bignumber(-0.4336),bignumber(0.3426),
                               bignumber(3.5784),bignumber(2.7694)],0.3),
                               0.09308);
@@ -74,36 +77,36 @@ describe('quantileSeq', function() {
   });
 
   it('should return the quantileSeq of units', function() {
-    assert.deepEqual(quantileSeq([math.unit('5mm'), math.unit('15mm'), math.unit('10mm')], 0.5), math.unit('10mm'));
+    assert.deepEqual(quantileSeq([indexjs.unit('5mm'), indexjs.unit('15mm'), indexjs.unit('10mm')], 0.5), indexjs.unit('10mm'));
   });
 
   it('should return the quantileSeq from an 1d matrix', function() {
-    assert.equal(quantileSeq(math.matrix([2,4,6,8,10,12,14]), 0.25), 5);
+    assert.equal(quantileSeq(indexjs.matrix([2,4,6,8,10,12,14]), 0.25), 5);
   });
 
   it('should return the quantileSeq from a 2d array', function() {
-    approx.equal(quantileSeq([
+    approxjs(quantileSeq([
       [3.7, 2.7, 3.3],
       [1.3, 2.2, 3.1]
     ], 0.75), 3.25);
   });
 
   it('should return the quantileSeq from an ascending 2d array', function() {
-    approx.equal(quantileSeq([
+    approxjs(quantileSeq([
       [1.3, 2.2, 2.7],
       [3.1, 3.3, 3.7]
     ], 0.75, true), 3.25);
   });
 
   it('should return the quantileSeq from a 2d matrix', function() {
-    approx.equal(quantileSeq(math.matrix([
+    approxjs(quantileSeq(indexjs.matrix([
       [3.7, 2.7, 3.3],
       [1.3, 2.2, 3.1]
     ]), 0.75), 3.25);
   });
 
   it('should return the quantileSeq from an ascending 2d matrix', function() {
-    approx.equal(quantileSeq(math.matrix([
+    approxjs(quantileSeq(indexjs.matrix([
       [1.3, 2.2, 2.7],
       [3.1, 3.3, 3.7]
     ]), 0.75, true), 3.25);
@@ -111,8 +114,8 @@ describe('quantileSeq', function() {
 
   it('should return list quantiles for list of number probabilities', function() {
     var lst = [3.7, 2.7, 3.3, 1.3, 2.2, 3.1];
-    approx.deepEqual(quantileSeq(lst, [0.25, 0.5, 0.75]), [2.325, 2.9, 3.25]);
-    approx.deepEqual(quantileSeq(lst, [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]),
+    approxjs.deepEqual(quantileSeq(lst, [0.25, 0.5, 0.75]), [2.325, 2.9, 3.25]);
+    approxjs.deepEqual(quantileSeq(lst, [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]),
                      [1.75, 2.2, 2.45, 2.7, 2.9, 3.1, 3.2, 3.3, 3.5]);
   });
 
@@ -127,15 +130,15 @@ describe('quantileSeq', function() {
 
   it('should return list quantiles for list of number and BigNumber probabilities', function() {
     var lst = [3.7, 2.7, 3.3, 1.3, 2.2, 3.1];
-    approx.deepEqual(quantileSeq(lst, [0.25, bignumber(0.5), 0.75]), [2.325, 2.9, 3.25]);
-    approx.deepEqual(quantileSeq(lst, [0.1, 0.2, bignumber(0.3), 0.4, 0.5, 0.6, 0.7, bignumber(0.8), 0.9]),
+    approxjs.deepEqual(quantileSeq(lst, [0.25, bignumber(0.5), 0.75]), [2.325, 2.9, 3.25]);
+    approxjs.deepEqual(quantileSeq(lst, [0.1, 0.2, bignumber(0.3), 0.4, 0.5, 0.6, 0.7, bignumber(0.8), 0.9]),
                      [1.75, 2.2, 2.45, 2.7, 2.9, 3.1, 3.2, 3.3, 3.5]);
   });
 
   it('should return the evenly number spaced quantiles of an array', function() {
     var lst = [3.7, 2.7, 3.3, 1.3, 2.2, 3.1];
-    approx.deepEqual(quantileSeq(lst, 3), [2.325, 2.9, 3.25]);
-    approx.deepEqual(quantileSeq(lst, 9), [1.75, 2.2, 2.45, 2.7, 2.9, 3.1, 3.2, 3.3, 3.5]);
+    approxjs.deepEqual(quantileSeq(lst, 3), [2.325, 2.9, 3.25]);
+    approxjs.deepEqual(quantileSeq(lst, 9), [1.75, 2.2, 2.45, 2.7, 2.9, 3.1, 3.2, 3.3, 3.5]);
   });
 
   it('should return the evenly BigNumber spaced quantiles of an array', function() {
@@ -151,12 +154,12 @@ describe('quantileSeq', function() {
   });
 
   it('should throw an error if called with unsupported type of arguments', function() {
-    assert.throws(function () {quantileSeq([2,4,6,8,10,12,14], 0.25, 10)}, math.error.UnsupportedTypeError);
-    assert.throws(function () {quantileSeq([2,4,6,8,10,12,14], [0.25, 2])}, math.error.UnsuppoError);
-    assert.throws(function () {quantileSeq('A', 'C', 'B')}, math.error.UnsupportedTypeError);
-    assert.throws(function () {quantileSeq(true, false, true)}, math.error.UnsupportedTypeError);
-    assert.throws(function () {quantileSeq(0, 'B')}, math.error.UnsupportedTypeError);
-    assert.throws(function () {quantileSeq(math.complex(2,3), math.complex(-1,2))}, TypeError);
+    assert.throws(function () {quantileSeq([2,4,6,8,10,12,14], 0.25, 10)}, indexjs.error.UnsupportedTypeError);
+    assert.throws(function () {quantileSeq([2,4,6,8,10,12,14], [0.25, 2])}, indexjs.error.UnsuppoError);
+    assert.throws(function () {quantileSeq('A', 'C', 'B')}, indexjs.error.UnsupportedTypeError);
+    assert.throws(function () {quantileSeq(true, false, true)}, indexjs.error.UnsupportedTypeError);
+    assert.throws(function () {quantileSeq(0, 'B')}, indexjs.error.UnsupportedTypeError);
+    assert.throws(function () {quantileSeq(indexjs.complex(2,3), indexjs.complex(-1,2))}, TypeError);
   });
 
   it('should throw error for bad probabilities and splits', function() {

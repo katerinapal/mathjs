@@ -1,12 +1,14 @@
+import assert_moduleDefault from "assert";
+import { math as indexjs } from "../../../index";
 // test smaller
-var assert = require('assert'),
-    math = require('../../../index'),
-    bignumber = math.bignumber,
-    complex = math.complex,
-    matrix = math.matrix,
-    sparse = math.sparse,
-    unit = math.unit,
-    smaller = math.smaller;
+var assert = {},
+    math = indexjs,
+    bignumber = indexjs.bignumber,
+    complex = indexjs.complex,
+    matrix = indexjs.matrix,
+    sparse = indexjs.sparse,
+    unit = indexjs.unit,
+    smaller = indexjs.smaller;
 
 describe('smaller', function() {
 
@@ -87,14 +89,14 @@ describe('smaller', function() {
   });
 
   it('should compare two fractions', function() {
-    assert.strictEqual(smaller(math.fraction(3), math.fraction(2)).valueOf(), false);
-    assert.strictEqual(smaller(math.fraction(2), math.fraction(3)).valueOf(), true);
-    assert.strictEqual(smaller(math.fraction(3), math.fraction(3)).valueOf(), false);
+    assert.strictEqual(smaller(indexjs.fraction(3), indexjs.fraction(2)).valueOf(), false);
+    assert.strictEqual(smaller(indexjs.fraction(2), indexjs.fraction(3)).valueOf(), true);
+    assert.strictEqual(smaller(indexjs.fraction(3), indexjs.fraction(3)).valueOf(), false);
   });
 
   it('should compare mixed fractions and numbers', function() {
-    assert.strictEqual(smaller(1, math.fraction(1,3)), false);
-    assert.strictEqual(smaller(math.fraction(2), 2), false);
+    assert.strictEqual(smaller(1, indexjs.fraction(1,3)), false);
+    assert.strictEqual(smaller(indexjs.fraction(2), 2), false);
   });
 
   it('should compare two measures of the same unit correctly', function() {
@@ -105,13 +107,13 @@ describe('smaller', function() {
   });
 
   it('should apply configuration option epsilon', function() {
-    var mymath = math.create();
+    var mymath = indexjs.create();
     assert.equal(mymath.smaller(0.991, 1), true);
-    assert.equal(mymath.smaller(math.bignumber(0.991), math.bignumber(1)), true);
+    assert.equal(mymath.smaller(indexjs.bignumber(0.991), indexjs.bignumber(1)), true);
 
     mymath.config({epsilon: 1e-2});
     assert.equal(mymath.smaller(0.991, 1), false);
-    assert.equal(mymath.smaller(math.bignumber(0.991), math.bignumber(1)), false);
+    assert.equal(mymath.smaller(indexjs.bignumber(0.991), indexjs.bignumber(1)), false);
   });
 
   it('should throw an error if comparing a unit and a number', function() {
@@ -119,7 +121,7 @@ describe('smaller', function() {
   });
 
   it('should throw an error for two measures of different units', function() {
-    assert.throws(function () {smaller(math.unit(5, 'km'), math.unit(100, 'gram'));});
+    assert.throws(function () {smaller(indexjs.unit(5, 'km'), indexjs.unit(100, 'gram'));});
   });
 
   it('should throw an error if comparing a unit and a bignumber', function() {
@@ -201,8 +203,8 @@ describe('smaller', function() {
     assert.throws(function () {smaller(complex(1,1), complex(1,2));}, TypeError);
     assert.throws(function () {smaller(complex(2,1), 3);}, TypeError);
     assert.throws(function () {smaller(3, complex(2,4));}, TypeError);
-    assert.throws(function () {smaller(math.bignumber(3), complex(2,4));}, TypeError);
-    assert.throws(function () {smaller(complex(2,4), math.bignumber(3));}, TypeError);
+    assert.throws(function () {smaller(indexjs.bignumber(3), complex(2,4));}, TypeError);
+    assert.throws(function () {smaller(complex(2,4), indexjs.bignumber(3));}, TypeError);
   });
 
   it('should throw an error with two matrices of different sizes', function () {
@@ -215,7 +217,7 @@ describe('smaller', function() {
   });
 
   it('should LaTeX smaller', function () {
-    var expression = math.parse('smaller(1,2)');
+    var expression = indexjs.parse('smaller(1,2)');
     assert.equal(expression.toTex(), '\\left(1<2\\right)');
   });
 

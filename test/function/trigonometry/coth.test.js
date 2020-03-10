@@ -1,31 +1,35 @@
-var assert = require('assert'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    approx = require('../../../tools/approx'),
-    pi = math.pi,
-    complex = math.complex,
-    matrix = math.matrix,
-    unit = math.unit,
-    coth = math.coth,
-    bigmath = math.create({precision: 20}),
-    biggermath = math.create({number: 'BigNumber', precision: 21});
+import assert_moduleDefault from "assert";
+import * as indexjs from "../../../lib/error/index";
+import { math as indexjs } from "../../../index";
+import { approx as approxjs } from "../../../tools/approx";
+var assert = {},
+    error = indexjs,
+    math = indexjs,
+    approx = approxjs,
+    pi = indexjs.pi,
+    complex = indexjs.complex,
+    matrix = indexjs.matrix,
+    unit = indexjs.unit,
+    coth = indexjs.coth,
+    bigmath = indexjs.create({precision: 20}),
+    biggermath = indexjs.create({number: 'BigNumber', precision: 21});
 
 describe('coth', function() {
   it('should return the coth of a boolean', function () {
-    approx.equal(coth(true), 1.3130352854993);
-    approx.equal(coth(false), Number.POSITIVE_INFINITY);
+    approxjs(coth(true), 1.3130352854993);
+    approxjs(coth(false), Number.POSITIVE_INFINITY);
   });
 
   it('should return the coth of null', function () {
-    approx.equal(coth(null), Number.POSITIVE_INFINITY);
+    approxjs(coth(null), Number.POSITIVE_INFINITY);
   });
 
   it('should return the coth of a number', function() {
-    approx.equal(coth(0), Number.POSITIVE_INFINITY);
-    approx.equal(coth(pi), 1.0037418731973);
-    approx.equal(coth(1), 1.3130352854993);
-    approx.equal(coth(2), 1.0373147207275);
-    approx.equal(coth(3), 1.0049698233137);
+    approxjs(coth(0), Number.POSITIVE_INFINITY);
+    approxjs(coth(pi), 1.0037418731973);
+    approxjs(coth(1), 1.3130352854993);
+    approxjs(coth(2), 1.0373147207275);
+    approxjs(coth(3), 1.0049698233137);
   });
 
   it('should return the coth of a bignumber', function() {
@@ -41,19 +45,19 @@ describe('coth', function() {
   });
 
   it('should return the coth of a complex number', function() {
-    approx.deepEqual(coth(complex('1')), complex(1.3130352854993, 0));
-    approx.deepEqual(coth(complex('i')), complex(0, -0.64209261593433));
-    approx.deepEqual(coth(complex('2 + i')), complex(0.98432922645819, -0.032797755533753));
+    approxjs.deepEqual(coth(complex('1')), complex(1.3130352854993, 0));
+    approxjs.deepEqual(coth(complex('i')), complex(0, -0.64209261593433));
+    approxjs.deepEqual(coth(complex('2 + i')), complex(0.98432922645819, -0.032797755533753));
   });
 
   it('should return the coth of an angle', function() {
-    approx.equal(coth(unit('90deg')), 1.0903314107274);
-    approx.equal(coth(unit('-45deg')), -1.5248686188221);
+    approxjs(coth(unit('90deg')), 1.0903314107274);
+    approxjs(coth(unit('-45deg')), -1.5248686188221);
 
-    assert(coth(unit(math.bignumber(90), 'deg')).isBigNumber);
-    approx.equal(coth(unit(math.bignumber(90), 'deg')).toNumber(), 1.0903314107274);
+    assert(coth(unit(indexjs.bignumber(90), 'deg')).isBigNumber);
+    approxjs(coth(unit(indexjs.bignumber(90), 'deg')).toNumber(), 1.0903314107274);
 
-    approx.deepEqual(coth(math.unit(complex('2 + i'), 'rad')), complex(0.98432922645819, -0.032797755533753));
+    approxjs.deepEqual(coth(indexjs.unit(complex('2 + i'), 'rad')), complex(0.98432922645819, -0.032797755533753));
   });
 
   it('should throw an error if called with an invalid unit', function() {
@@ -67,11 +71,11 @@ describe('coth', function() {
   var coth123 = [1.3130352854993, 1.0373147207275, 1.0049698233137];
 
   it('should return the coth of each element of an array', function() {
-    approx.deepEqual(coth([1,2,3]), coth123);
+    approxjs.deepEqual(coth([1,2,3]), coth123);
   });
 
   it('should return the coth of each element of a matrix', function() {
-    approx.deepEqual(coth(matrix([1,2,3])), matrix(coth123));
+    approxjs.deepEqual(coth(matrix([1,2,3])), matrix(coth123));
   });
 
   it('should throw an error in case of invalid number of arguments', function() {
@@ -80,7 +84,7 @@ describe('coth', function() {
   });
 
   it('should LaTeX coth', function () {
-    var expression = math.parse('coth(1)');
+    var expression = indexjs.parse('coth(1)');
     assert.equal(expression.toTex(), '\\coth\\left(1\\right)');
   });
 });

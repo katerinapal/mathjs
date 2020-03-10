@@ -1,9 +1,11 @@
+import assert_moduleDefault from "assert";
+import { math as indexjs } from "../../../index";
 // test data type Index
-var assert = require('assert');
-var math = require('../../../index');
-var Index = math.type.Index;
-var Range = math.type.Range;
-var ImmutableDenseMatrix = math.type.ImmutableDenseMatrix;
+var assert = {};
+var math = indexjs;
+var Index = indexjs.type.Index;
+var Range = indexjs.type.Range;
+var ImmutableDenseMatrix = indexjs.type.ImmutableDenseMatrix;
 
 describe('Index', function () {
 
@@ -26,7 +28,7 @@ describe('Index', function () {
   });
 
   it('should create an Index from a Matrix', function () {
-    assert.deepEqual(new Index(math.matrix([0, 10]))._dimensions, [new ImmutableDenseMatrix([0, 10])]);
+    assert.deepEqual(new Index(indexjs.matrix([0, 10]))._dimensions, [new ImmutableDenseMatrix([0, 10])]);
   });
   
   it('should create an Index from an Array', function () {
@@ -62,7 +64,7 @@ describe('Index', function () {
     assert.deepEqual(new Index(new Range(0, 0)).size(), [0]);
     assert.deepEqual(new Index(new Range(0, -1)).size(), [0]);
     assert.deepEqual(new Index([1, 2, 3]).size(), [3]);
-    assert.deepEqual(new Index(math.matrix([1, 2, 3])).size(), [3]);
+    assert.deepEqual(new Index(indexjs.matrix([1, 2, 3])).size(), [3]);
     assert.deepEqual(new Index(new ImmutableDenseMatrix([1, 2, 3])).size(), [3]);
     assert.deepEqual(new Index('property').size(), [1]);
     assert.deepEqual(new Index().size(), []);
@@ -189,20 +191,20 @@ describe('Index', function () {
   });
 
   it('should have a property isIndex', function () {
-    var a = new math.type.Index([2, 5]);
+    var a = new indexjs.type.Index([2, 5]);
     assert.strictEqual(a.isIndex, true);
   });
 
   it('should have a property type', function () {
-    var a = new math.type.Index([2, 5]);
+    var a = new indexjs.type.Index([2, 5]);
     assert.strictEqual(a.type, 'Index');
   });
 
   it('should test whether index contains an object property', function () {
-    assert.strictEqual(new math.type.Index(2, 3).isObjectProperty(), false);
-    assert.strictEqual(new math.type.Index([2, 5]).isObjectProperty(), false);
-    assert.strictEqual(new math.type.Index('foo', 'bar').isObjectProperty(), false);
-    assert.strictEqual(new math.type.Index('foo').isObjectProperty(), true);
+    assert.strictEqual(new indexjs.type.Index(2, 3).isObjectProperty(), false);
+    assert.strictEqual(new indexjs.type.Index([2, 5]).isObjectProperty(), false);
+    assert.strictEqual(new indexjs.type.Index('foo', 'bar').isObjectProperty(), false);
+    assert.strictEqual(new indexjs.type.Index('foo').isObjectProperty(), true);
   });
 
   it('should expand an index into an array', function () {

@@ -1,11 +1,14 @@
+import assert_moduleDefault from "assert";
+import * as approxjs from "../../../tools/approx";
+import { math as indexjs } from "../../../index";
 // test ConstantNode
-var assert = require('assert');
-var approx = require('../../../tools/approx');
-var math = require('../../../index');
-var bigmath = require('../../../index').create({number: 'BigNumber'});
-var Node = math.expression.node.Node;
-var ConstantNode = math.expression.node.ConstantNode;
-var SymbolNode = math.expression.node.SymbolNode;
+var assert = {};
+var approx = approxjs;
+var math = indexjs;
+var bigmath = indexjs.create({number: 'BigNumber'});
+var Node = indexjs.expression.node.Node;
+var ConstantNode = indexjs.expression.node.ConstantNode;
+var SymbolNode = indexjs.expression.node.SymbolNode;
 
 describe('ConstantNode', function() {
 
@@ -70,8 +73,8 @@ describe('ConstantNode', function() {
   });
 
   it ('should compile a ConstantNode with bigmath', function () {
-    var expr = new bigmath.expression.node.ConstantNode('2.3', 'number').compile();
-    assert.deepEqual(expr.eval(), new bigmath.type.BigNumber(2.3));
+    var expr = new indexjs.expression.node.ConstantNode('2.3', 'number').compile();
+    assert.deepEqual(expr.eval(), new indexjs.type.BigNumber(2.3));
   });
 
   it ('should find a ConstantNode', function () {

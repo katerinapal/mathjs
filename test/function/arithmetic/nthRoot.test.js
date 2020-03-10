@@ -1,13 +1,16 @@
+import assert_moduleDefault from "assert";
+import { approx as approxjs } from "../../../tools/approx";
+import { math as indexjs } from "../../../index";
 // test nthRoot
-var assert = require('assert');
-var approx = require('../../../tools/approx');
-var math = require('../../../index');
-var matrix = math.matrix;
-var sparse = math.sparse;
-var unit = math.unit;
-var nthRoot = math.nthRoot;
-var big = math.bignumber;
-var complex = math.complex;
+var assert = {};
+var approx = approxjs;
+var math = indexjs;
+var matrix = indexjs.matrix;
+var sparse = indexjs.sparse;
+var unit = indexjs.unit;
+var nthRoot = indexjs.nthRoot;
+var big = indexjs.bignumber;
+var complex = indexjs.complex;
 
 
 describe('nthRoot', function() {
@@ -23,37 +26,37 @@ describe('nthRoot', function() {
   });
 
   it('should return the nthRoot for numbers', function() {
-    approx.equal(nthRoot(4), 2);
-    approx.equal(nthRoot(9), 3);
-    approx.equal(nthRoot(8, 3), 2);
-    approx.equal(nthRoot(64, 3), 4);
-    approx.equal(nthRoot(2, 2.5), 1.31950791077289);
-    approx.equal(nthRoot(2.5, 2), 1.58113883008419);
-    approx.equal(nthRoot(0.1+0.2), 0.5477225575051662); // a value containing a round-off error
-    approx.equal(nthRoot(0, 3), 0);
-    approx.equal(nthRoot(0, 2), 0);
-    approx.equal(nthRoot(0.0001, 3), 0.0464158883361278);
+    approxjs(nthRoot(4), 2);
+    approxjs(nthRoot(9), 3);
+    approxjs(nthRoot(8, 3), 2);
+    approxjs(nthRoot(64, 3), 4);
+    approxjs(nthRoot(2, 2.5), 1.31950791077289);
+    approxjs(nthRoot(2.5, 2), 1.58113883008419);
+    approxjs(nthRoot(0.1+0.2), 0.5477225575051662); // a value containing a round-off error
+    approxjs(nthRoot(0, 3), 0);
+    approxjs(nthRoot(0, 2), 0);
+    approxjs(nthRoot(0.0001, 3), 0.0464158883361278);
   });
 
   it('should return the nthRoot for very large numbers', function() {
-    approx.equal(nthRoot(2e150 * 2e150), 2e150);
-    approx.equal(nthRoot(Math.pow(2, 1000)), 3.273390607896142e+150);
+    approxjs(nthRoot(2e150 * 2e150), 2e150);
+    approxjs(nthRoot(Math.pow(2, 1000)), 3.273390607896142e+150);
   });
 
   it('should return the nthRoot for small large numbers', function() {
-    approx.equal(nthRoot(4e-300), 2e-150);
+    approxjs(nthRoot(4e-300), 2e-150);
   });
 
   it('should return the nthRoot for negative numbers', function() {
-    approx.equal(nthRoot(-64, 3), -4);
-    approx.equal(nthRoot(-8, 3), -2);
+    approxjs(nthRoot(-64, 3), -4);
+    approxjs(nthRoot(-8, 3), -2);
     // Newton's method fails in this particular case: --ericman314
-    approx.equal(nthRoot(-2, 3), -1.2599210498949);
+    approxjs(nthRoot(-2, 3), -1.2599210498949);
   });
 
   it('should return the nthRoot for negative roots', function() {
-    approx.equal(nthRoot(64, -3), 0.25);
-    approx.equal(nthRoot(-64, -3), -0.25);
+    approxjs(nthRoot(64, -3), 0.25);
+    approxjs(nthRoot(-64, -3), -0.25);
   });
 
   it('should return the nthRoot for zero', function() {
@@ -62,9 +65,9 @@ describe('nthRoot', function() {
   });
 
   it('should return the nthRoot for infinity', function() {
-    approx.equal(nthRoot(Infinity, 2), Infinity);
-    approx.equal(nthRoot(-Infinity, 3), -Infinity);
-    approx.equal(nthRoot(Infinity, -3), 0);
+    approxjs(nthRoot(Infinity, 2), Infinity);
+    approxjs(nthRoot(-Infinity, 3), -Infinity);
+    approxjs(nthRoot(Infinity, -3), 0);
   });
 
   it('should throw an error when n is zero', function() {
@@ -146,65 +149,65 @@ describe('nthRoot', function() {
   describe('Array', function () {
     
     it('should return the nthRoot for array - scalar', function () {
-      approx.deepEqual(nthRoot([8, 27,  64], 3), [2, 3, 4]);
-      approx.deepEqual(nthRoot(64, [2, 3, 8]), [8, 4, 1.6817928305074290860622509524664]);
+      approxjs.deepEqual(nthRoot([8, 27,  64], 3), [2, 3, 4]);
+      approxjs.deepEqual(nthRoot(64, [2, 3, 8]), [8, 4, 1.6817928305074290860622509524664]);
     });
     
     it('should return the nthRoot for array - array', function () {
-      approx.deepEqual(nthRoot([[64, 3125], [0, -1]], [[3, 5], [1, 3]]), [[4, 5], [0, -1]]);
+      approxjs.deepEqual(nthRoot([[64, 3125], [0, -1]], [[3, 5], [1, 3]]), [[4, 5], [0, -1]]);
     });
     
     it('should return the nthRoot for array - dense matrix', function () {
-      approx.deepEqual(nthRoot([[64, 3125], [0, -1]], matrix([[3, 5], [1, 3]])), matrix([[4, 5], [0, -1]]));
+      approxjs.deepEqual(nthRoot([[64, 3125], [0, -1]], matrix([[3, 5], [1, 3]])), matrix([[4, 5], [0, -1]]));
     });
     
     it('should return the nthRoot for array - sparse matrix', function () {
-      approx.deepEqual(nthRoot([[64, 3125], [0, -1]], sparse([[3, 5], [1, 3]])), matrix([[4, 5], [0, -1]]));
+      approxjs.deepEqual(nthRoot([[64, 3125], [0, -1]], sparse([[3, 5], [1, 3]])), matrix([[4, 5], [0, -1]]));
     });
   });
   
   describe('DenseMatrix', function () {
 
     it('should return the nthRoot for dense matrix - scalar', function () {
-      approx.deepEqual(nthRoot(matrix([8, 27,  64]), 3), matrix([2, 3, 4]));
-      approx.deepEqual(nthRoot(64, matrix([2, 3, 8])), matrix([8, 4, 1.6817928305074290860622509524664]));
+      approxjs.deepEqual(nthRoot(matrix([8, 27,  64]), 3), matrix([2, 3, 4]));
+      approxjs.deepEqual(nthRoot(64, matrix([2, 3, 8])), matrix([8, 4, 1.6817928305074290860622509524664]));
     });
 
     it('should return the nthRoot for dense matrix - array', function () {
-      approx.deepEqual(nthRoot(matrix([[64, 3125], [0, -1]]), [[3, 5], [1, 3]]), matrix([[4, 5], [0, -1]]));
+      approxjs.deepEqual(nthRoot(matrix([[64, 3125], [0, -1]]), [[3, 5], [1, 3]]), matrix([[4, 5], [0, -1]]));
     });
 
     it('should return the nthRoot for dense matrix - dense matrix', function () {
-      approx.deepEqual(nthRoot(matrix([[64, 3125], [0, -1]]), matrix([[3, 5], [1, 3]])), matrix([[4, 5], [0, -1]]));
+      approxjs.deepEqual(nthRoot(matrix([[64, 3125], [0, -1]]), matrix([[3, 5], [1, 3]])), matrix([[4, 5], [0, -1]]));
     });
 
     it('should return the nthRoot for dense matrix - sparse matrix', function () {
-      approx.deepEqual(nthRoot(matrix([[64, 3125], [0, -1]]), sparse([[3, 5], [1, 3]])), matrix([[4, 5], [0, -1]]));
+      approxjs.deepEqual(nthRoot(matrix([[64, 3125], [0, -1]]), sparse([[3, 5], [1, 3]])), matrix([[4, 5], [0, -1]]));
     });
   });
 
   describe('SparseMatrix', function () {
 
     it('should return the nthRoot for sparse matrix - scalar', function () {
-      approx.deepEqual(nthRoot(sparse([[8, 27], [0, 64]]), 3), sparse([[2, 3], [0, 4]]));
-      approx.deepEqual(nthRoot(64, sparse([[2, 3], [1, 8]])), sparse([[8, 4], [64, 1.6817928305074290860622509524664]]));
+      approxjs.deepEqual(nthRoot(sparse([[8, 27], [0, 64]]), 3), sparse([[2, 3], [0, 4]]));
+      approxjs.deepEqual(nthRoot(64, sparse([[2, 3], [1, 8]])), sparse([[8, 4], [64, 1.6817928305074290860622509524664]]));
     });
 
     it('should return the nthRoot for sparse matrix - array', function () {
-      approx.deepEqual(nthRoot(sparse([[64, 3125], [0, -1]]), [[3, 5], [1, 3]]), sparse([[4, 5], [0, -1]]));
+      approxjs.deepEqual(nthRoot(sparse([[64, 3125], [0, -1]]), [[3, 5], [1, 3]]), sparse([[4, 5], [0, -1]]));
     });
 
     it('should return the nthRoot for sparse matrix - dense matrix', function () {
-      approx.deepEqual(nthRoot(sparse([[64, 3125], [0, -1]]), matrix([[3, 5], [1, 3]])), sparse([[4, 5], [0, -1]]));
+      approxjs.deepEqual(nthRoot(sparse([[64, 3125], [0, -1]]), matrix([[3, 5], [1, 3]])), sparse([[4, 5], [0, -1]]));
     });
 
     it('should return the nthRoot for sparse matrix - sparse matrix', function () {
-      approx.deepEqual(nthRoot(sparse([[64, 3125], [0, -1]]), sparse([[3, 5], [1, 3]])), sparse([[4, 5], [0, -1]]));
+      approxjs.deepEqual(nthRoot(sparse([[64, 3125], [0, -1]]), sparse([[3, 5], [1, 3]])), sparse([[4, 5], [0, -1]]));
     });
   });
 
   it('should LaTeX nthRoot', function () {
-    var expression = math.parse('nthRoot(8,3)');
+    var expression = indexjs.parse('nthRoot(8,3)');
     assert.equal(expression.toTex(), '\\sqrt[3]{8}');
   });
 });

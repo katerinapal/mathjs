@@ -1,22 +1,26 @@
-var assert = require('assert');
-var error = require('../../../lib/error/index');
-var math = require('../../../index');
-var approx = require('../../../tools/approx');
-var pi = math.pi;
-var complex = math.complex;
-var matrix = math.matrix;
-var unit = math.unit;
-var acsc = math.acsc;
-var csc = math.csc;
-var bigmath = math.create({number: 'BigNumber', precision: 20});
-var biggermath = math.create({precision: 21});
-var predmath = math.create({predictable: true});
+import assert_moduleDefault from "assert";
+import * as indexjs from "../../../lib/error/index";
+import { math as indexjs } from "../../../index";
+import { approx as approxjs } from "../../../tools/approx";
+var assert = {};
+var error = indexjs;
+var math = indexjs;
+var approx = approxjs;
+var pi = indexjs.pi;
+var complex = indexjs.complex;
+var matrix = indexjs.matrix;
+var unit = indexjs.unit;
+var acsc = indexjs.acsc;
+var csc = indexjs.csc;
+var bigmath = indexjs.create({number: 'BigNumber', precision: 20});
+var biggermath = indexjs.create({precision: 21});
+var predmath = indexjs.create({predictable: true});
 var acscBig = bigmath.acsc;
 var Big = bigmath.bignumber;
 
 describe('acsc', function() {
   it('should return the arccsc of a boolean', function () {
-    approx.equal(acsc(true), pi / 2);
+    approxjs(acsc(true), pi / 2);
     assert.deepEqual(acsc(false), complex(pi / 2, Infinity));
     //assert.ok(isNaN(acsc(false)));
   });
@@ -27,12 +31,12 @@ describe('acsc', function() {
   });
 
   it('should return the arccsc of a number', function() {
-    approx.equal(acsc(-2) / pi, -1/6);
-    approx.equal(acsc(-1) / pi, -0.5);
+    approxjs(acsc(-2) / pi, -1/6);
+    approxjs(acsc(-1) / pi, -0.5);
     assert.deepEqual(acsc(0), complex(pi / 2, Infinity));
     //assert.ok(isNaN(acsc(0)));
-    approx.equal(acsc(1) / pi, 0.5);
-    approx.equal(acsc(2) / pi, 1/6);
+    approxjs(acsc(1) / pi, 0.5);
+    approxjs(acsc(2) / pi, 1/6);
   });
 
   it('should return the arccsc of a number when predictable:true', function() {
@@ -71,11 +75,11 @@ describe('acsc', function() {
   });
 
   it('should be the inverse function of csc', function() {
-    approx.equal(acsc(csc(-1)), -1);
-    approx.equal(acsc(csc(0)), 0);
-    approx.equal(acsc(csc(0.1)), 0.1);
-    approx.equal(acsc(csc(0.5)), 0.5);
-    approx.equal(acsc(csc(2)), 1.14159265358979);
+    approxjs(acsc(csc(-1)), -1);
+    approxjs(acsc(csc(0)), 0);
+    approxjs(acsc(csc(0.1)), 0.1);
+    approxjs(acsc(csc(0.5)), 0.5);
+    approxjs(acsc(csc(2)), 1.14159265358979);
   });
 
   it('should be the inverse function of bignumber csc', function() {
@@ -102,18 +106,18 @@ describe('acsc', function() {
   it('should return the arccsc of a complex number', function() {
     var re = 0.150385604327861963;
     var im = 0.231334698573973315;
-    approx.deepEqual(acsc(complex('2+3i')), complex(re, -im));
-    approx.deepEqual(acsc(complex('2-3i')), complex(re, im));
-    approx.deepEqual(acsc(complex('-2+3i')), complex(-re, -im));
-    approx.deepEqual(acsc(complex('-2-3i')), complex(-re, im));
-    approx.deepEqual(acsc(complex('1+i')), complex(0.4522784471511907,-0.53063753095251783));
-    approx.deepEqual(acsc(complex('i')), complex(0, -0.881373587019543));
+    approxjs.deepEqual(acsc(complex('2+3i')), complex(re, -im));
+    approxjs.deepEqual(acsc(complex('2-3i')), complex(re, im));
+    approxjs.deepEqual(acsc(complex('-2+3i')), complex(-re, -im));
+    approxjs.deepEqual(acsc(complex('-2-3i')), complex(-re, im));
+    approxjs.deepEqual(acsc(complex('1+i')), complex(0.4522784471511907,-0.53063753095251783));
+    approxjs.deepEqual(acsc(complex('i')), complex(0, -0.881373587019543));
 
-    approx.deepEqual(acsc(complex('-1')), complex(-pi / 2, 0));
-    approx.deepEqual(acsc(complex('-0.5')), complex(-pi / 2, 1.3169578969248));
+    approxjs.deepEqual(acsc(complex('-1')), complex(-pi / 2, 0));
+    approxjs.deepEqual(acsc(complex('-0.5')), complex(-pi / 2, 1.3169578969248));
     assert.deepEqual(acsc(complex('0')), complex(pi / 2, Infinity));
-    approx.deepEqual(acsc(complex('0.5')), complex(pi / 2, -1.3169578969248));
-    approx.deepEqual(acsc(complex('1')), complex(pi / 2, 0));
+    approxjs.deepEqual(acsc(complex('0.5')), complex(pi / 2, -1.3169578969248));
+    approxjs.deepEqual(acsc(complex('1')), complex(pi / 2, 0));
   });
 
   it('should throw an error if called with a unit', function() {
@@ -127,8 +131,8 @@ describe('acsc', function() {
 
   it('should calculate the arccsc element-wise for arrays and matrices', function() {
     var acsc123 = [pi / 2, pi / 6, 0.339836909454];
-    approx.deepEqual(acsc([1,2,3]), acsc123);
-    approx.deepEqual(acsc(matrix([1,2,3])), matrix(acsc123));
+    approxjs.deepEqual(acsc([1,2,3]), acsc123);
+    approxjs.deepEqual(acsc(matrix([1,2,3])), matrix(acsc123));
   });
 
   it('should throw an error in case of invalid number of arguments', function() {
@@ -137,7 +141,7 @@ describe('acsc', function() {
   });
 
   it('should LaTex acsc', function () {
-    var expression = math.parse('acsc(2)');
+    var expression = indexjs.parse('acsc(2)');
     assert.equal(expression.toTex(), '\\csc^{-1}\\left(2\\right)');
   });
 

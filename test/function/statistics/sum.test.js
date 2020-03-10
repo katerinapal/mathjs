@@ -1,10 +1,12 @@
-var assert = require('assert');
-var math = require('../../../index');
-var BigNumber = math.type.BigNumber;
-var Complex = math.type.Complex;
-var DenseMatrix = math.type.DenseMatrix;
-var Unit = math.type.Unit;
-var sum = math.sum;
+import assert_moduleDefault from "assert";
+import { math as indexjs } from "../../../index";
+var assert = {};
+var math = indexjs;
+var BigNumber = indexjs.type.BigNumber;
+var Complex = indexjs.type.Complex;
+var DenseMatrix = indexjs.type.DenseMatrix;
+var Unit = indexjs.type.Unit;
+var sum = indexjs.sum;
 
 describe('sum', function() {
 
@@ -72,8 +74,8 @@ describe('sum', function() {
   });
 
   it('should return zero if called with an empty array', function() {
-    var bigMath = math.create({number: 'BigNumber'});
-    var fracMath = math.create({number: 'Fraction'});
+    var bigMath = indexjs.create({number: 'BigNumber'});
+    var fracMath = indexjs.create({number: 'Fraction'});
 
     var big = bigMath.sum([]);
     var frac = fracMath.sum([]);
@@ -81,12 +83,12 @@ describe('sum', function() {
     assert.equal(sum([]), 0);
     assert.equal(big.type, 'BigNumber');
     assert.equal(frac.type, 'Fraction');
-    assert.equal(math.equal(bigMath.sum([]), new BigNumber(0)).valueOf(), true);
-    assert.equal(math.equal(fracMath.sum([]), new fracMath.type.Fraction(0)), true);
+    assert.equal(indexjs.equal(bigMath.sum([]), new BigNumber(0)).valueOf(), true);
+    assert.equal(indexjs.equal(fracMath.sum([]), new fracMath.type.Fraction(0)), true);
   });
 
   it('should LaTeX sum', function () {
-    var expression = math.parse('sum(1,2,3)');
+    var expression = indexjs.parse('sum(1,2,3)');
     assert.equal(expression.toTex(), '\\mathrm{sum}\\left(1,2,3\\right)');
   });
 

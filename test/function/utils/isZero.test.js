@@ -1,10 +1,12 @@
-var assert = require('assert');
-var math = require('../../../index');
-var isZero = math.isZero;
-var bignumber = math.bignumber;
-var fraction = math.fraction;
-var complex = math.complex;
-var unit = math.unit;
+import assert_moduleDefault from "assert";
+import { math as indexjs } from "../../../index";
+var assert = {};
+var math = indexjs;
+var isZero = indexjs.isZero;
+var bignumber = indexjs.bignumber;
+var fraction = indexjs.fraction;
+var complex = indexjs.complex;
+var unit = indexjs.unit;
 
 describe('isZero', function() {
 
@@ -73,7 +75,7 @@ describe('isZero', function() {
   });
 
   it('should test isZero element wise on a Matrix', function() {
-    assert.deepEqual(isZero(math.matrix([0, 5, 0, -3])), math.matrix([true, false, true, false]));
+    assert.deepEqual(isZero(indexjs.matrix([0, 5, 0, -3])), indexjs.matrix([true, false, true, false]));
   });
 
   it('should throw an error in case of unsupported data types', function() {

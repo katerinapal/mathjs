@@ -1,14 +1,16 @@
+import assert_moduleDefault from "assert";
+import { math as indexjs } from "../../../index";
 // test not
-var assert = require('assert');
-var math = require('../../../index');
-var bignumber = math.bignumber;
-var complex = math.complex;
-var matrix = math.matrix;
-var unit = math.unit;
-var not = math.not;
-var FunctionNode = math.expression.node.FunctionNode;
-var ConstantNode = math.expression.node.ConstantNode;
-var SymbolNode = math.expression.node.SymbolNode;
+var assert = {};
+var math = indexjs;
+var bignumber = indexjs.bignumber;
+var complex = indexjs.complex;
+var matrix = indexjs.matrix;
+var unit = indexjs.unit;
+var not = indexjs.not;
+var FunctionNode = indexjs.expression.node.FunctionNode;
+var ConstantNode = indexjs.expression.node.ConstantNode;
+var SymbolNode = indexjs.expression.node.SymbolNode;
 
 describe('not', function () {
 

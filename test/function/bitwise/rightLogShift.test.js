@@ -1,9 +1,11 @@
+import assert_moduleDefault from "assert";
+import { math as indexjs } from "../../../index";
 // test rightLogShift
-var assert = require('assert'),
-    math = require('../../../index'),
-    matrix = math.matrix,
-    sparse = math.sparse,
-    rightLogShift = math.rightLogShift;
+var assert = {},
+    math = indexjs,
+    matrix = indexjs.matrix,
+    sparse = indexjs.sparse,
+    rightLogShift = indexjs.rightLogShift;
 
 describe('rightLogShift', function () {
 
@@ -52,9 +54,9 @@ describe('rightLogShift', function () {
   });
 
   it('should throw an error if used with a unit', function() {
-    assert.throws(function () {rightLogShift(math.unit('5cm'), 2);}, /TypeError: Unexpected type of argument/);
-    assert.throws(function () {rightLogShift(2, math.unit('5cm'));}, /TypeError: Unexpected type of argument/);
-    assert.throws(function () {rightLogShift(math.unit('2cm'), math.unit('5cm'));}, /TypeError: Unexpected type of argument/);
+    assert.throws(function () {rightLogShift(indexjs.unit('5cm'), 2);}, /TypeError: Unexpected type of argument/);
+    assert.throws(function () {rightLogShift(2, indexjs.unit('5cm'));}, /TypeError: Unexpected type of argument/);
+    assert.throws(function () {rightLogShift(indexjs.unit('2cm'), indexjs.unit('5cm'));}, /TypeError: Unexpected type of argument/);
   });
 
   describe('Array', function () {
@@ -142,7 +144,7 @@ describe('rightLogShift', function () {
   });
 
   it('should LaTeX rightLogShift', function () {
-    var expression = math.parse('rightLogShift(1,2)');
+    var expression = indexjs.parse('rightLogShift(1,2)');
     assert.equal(expression.toTex(), '\\left(1>>>2\\right)');
   });
 

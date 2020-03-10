@@ -1,23 +1,26 @@
+import assert_moduleDefault from "assert";
+import * as indexjs from "../../../lib/error/index";
+import { math as indexjs } from "../../../index";
 // test squeeze
-var assert = require('assert'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    squeeze = math.squeeze,
-    size = math.size,
-    matrix = math.matrix;
+var assert = {},
+    error = indexjs,
+    math = indexjs,
+    squeeze = indexjs.squeeze,
+    size = indexjs.size,
+    matrix = indexjs.matrix;
 
 describe('squeeze', function() {
 
   it('should squeeze an matrix', function() {
-    var m = math.ones(matrix([1,3,2]));
+    var m = indexjs.ones(matrix([1,3,2]));
     assert.deepEqual(size(m), matrix([1,3,2]));
     assert.deepEqual(size(m.valueOf()), [1,3,2]);
     assert.deepEqual(size(squeeze(m)), matrix([3,2]));
 
-    m = math.ones(matrix([1,1,3]));
+    m = indexjs.ones(matrix([1,1,3]));
     assert.deepEqual(size(m), matrix([1,1,3]));
     assert.deepEqual(size(squeeze(m)), matrix([3]));
-    assert.deepEqual(size(squeeze(math.range(1,6))), matrix([5]));
+    assert.deepEqual(size(squeeze(indexjs.range(1,6))), matrix([5]));
 
     assert.deepEqual(squeeze(2.3), 2.3);
     assert.deepEqual(squeeze(matrix([[5]])), 5);
@@ -33,7 +36,7 @@ describe('squeeze', function() {
   });
 
   it('should LaTeX squeeze', function () {
-    var expression = math.parse('squeeze([[0],[0]])');
+    var expression = indexjs.parse('squeeze([[0],[0]])');
     assert.equal(expression.toTex(), '\\mathrm{squeeze}\\left(\\begin{bmatrix}0\\\\0\\\\\\end{bmatrix}\\right)');
   });
 });

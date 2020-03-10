@@ -1,3 +1,7 @@
+import fs_moduleDefault from "fs";
+import glob_moduleDefault from "glob";
+import mkdirp_moduleDefault from "mkdirp";
+import gulputil_moduleDefault from "gulp-util";
 /**
  * This is a little tool to generate reference documentation of all math.js
  * functions under ./lib/functions. This is NO generic solution.
@@ -5,10 +9,10 @@
  * The tool can parse documentation information from the block comment in the
  * functions code, and generate a markdown file with the documentation.
  */
-var fs = require('fs');
-var glob = require('glob');
-var mkdirp = require('mkdirp');
-var gutil = require('gulp-util');
+var fs = {};
+var glob = {};
+var mkdirp = {};
+var gutil = {};
 
 // special cases for function syntax
 var SYNTAX = {

@@ -1,9 +1,12 @@
+import assert_moduleDefault from "assert";
+import * as indexjs from "../../../lib/error/index";
+import { math as indexjs } from "../../../index";
 // test xgcd
-var assert = require('assert'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index').create({matrix: 'Array'}),
-    gcd = math.gcd,
-    xgcd = math.xgcd;
+var assert = {},
+    error = indexjs,
+    math = indexjs.create({matrix: 'Array'}),
+    gcd = indexjs.gcd,
+    xgcd = indexjs.xgcd;
 
 describe('xgcd', function() {
 
@@ -51,13 +54,13 @@ describe('xgcd', function() {
   });
 
   it('should calculate xgcd for BigNumbers', function() {
-    assert.deepEqual(xgcd(math.bignumber(65), math.bignumber(40)), [math.bignumber(5), math.bignumber(-3), math.bignumber(5)]);
-    assert.deepEqual(xgcd(math.bignumber(65), math.bignumber(40)), [math.bignumber(5), math.bignumber(-3), math.bignumber(5)]);
+    assert.deepEqual(xgcd(indexjs.bignumber(65), indexjs.bignumber(40)), [indexjs.bignumber(5), indexjs.bignumber(-3), indexjs.bignumber(5)]);
+    assert.deepEqual(xgcd(indexjs.bignumber(65), indexjs.bignumber(40)), [indexjs.bignumber(5), indexjs.bignumber(-3), indexjs.bignumber(5)]);
   });
 
   it('should calculate xgcd for mixed BigNumbers and Numbers', function() {
-    assert.deepEqual(xgcd(math.bignumber(65), 40), [math.bignumber(5), math.bignumber(-3), math.bignumber(5)]);
-    assert.deepEqual(xgcd(65, math.bignumber(40)), [math.bignumber(5), math.bignumber(-3), math.bignumber(5)]);
+    assert.deepEqual(xgcd(indexjs.bignumber(65), 40), [indexjs.bignumber(5), indexjs.bignumber(-3), indexjs.bignumber(5)]);
+    assert.deepEqual(xgcd(65, indexjs.bignumber(40)), [indexjs.bignumber(5), indexjs.bignumber(-3), indexjs.bignumber(5)]);
   });
 
   // FIXME: xgcd for negative values
@@ -87,10 +90,10 @@ describe('xgcd', function() {
   });
 
   it('should return a matrix when configured to use matrices', function() {
-    var math1 = math.create({matrix: 'Matrix'});
-    assert.deepEqual(math1.xgcd(65, 40), math.matrix([5, -3, 5]));
+    var math1 = indexjs.create({matrix: 'Matrix'});
+    assert.deepEqual(math1.xgcd(65, 40), indexjs.matrix([5, -3, 5]));
 
-    var math2 = math.create({matrix: 'Array'});
+    var math2 = indexjs.create({matrix: 'Array'});
     assert.deepEqual(math2.xgcd(65, 40), [5, -3, 5]);
   });
 
@@ -105,7 +108,7 @@ describe('xgcd', function() {
   })
 
   it('should throw an error when used with a complex number', function() {
-    assert.throws(function () {xgcd(math.complex(1,3),2); }, TypeError, 'Function xgcd(complex, number) not supported');
+    assert.throws(function () {xgcd(indexjs.complex(1,3),2); }, TypeError, 'Function xgcd(complex, number) not supported');
   });
 
   it('should convert to a number when used with a string', function() {
@@ -114,7 +117,7 @@ describe('xgcd', function() {
   });
 
   it('should throw an error when used with a unit', function() {
-    assert.throws(function () { xgcd(math.unit('5cm'), 2); }, TypeError, 'Function xgcd(unit, number) not supported');
+    assert.throws(function () { xgcd(indexjs.unit('5cm'), 2); }, TypeError, 'Function xgcd(unit, number) not supported');
   });
 
   it('should throw an error when used with a matrix', function() {
@@ -122,7 +125,7 @@ describe('xgcd', function() {
   });
 
   it('should LaTeX xgcd', function () {
-    var expression = math.parse('xgcd(2,3)');
+    var expression = indexjs.parse('xgcd(2,3)');
     assert.equal(expression.toTex(), '\\mathrm{xgcd}\\left(2,3\\right)');
   });
 

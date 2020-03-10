@@ -1,12 +1,14 @@
+import assert_moduleDefault from "assert";
+import { math as indexjs } from "../../../index";
 // test or
-var assert = require('assert'),
-    math = require('../../../index'),
-    bignumber = math.bignumber,
-    complex = math.complex,
-    matrix = math.matrix,
-    sparse = math.sparse,
-    unit = math.unit,
-    or = math.or;
+var assert = {},
+    math = indexjs,
+    bignumber = indexjs.bignumber,
+    complex = indexjs.complex,
+    matrix = indexjs.matrix,
+    sparse = indexjs.sparse,
+    unit = indexjs.unit,
+    or = indexjs.or;
 
 describe('or', function () {
 
@@ -221,7 +223,7 @@ describe('or', function () {
   });
 
   it('should LaTeX or', function () {
-    var expression = math.parse('or(1,2)');
+    var expression = indexjs.parse('or(1,2)');
     assert.equal(expression.toTex(), '\\left(1\\vee2\\right)');
   });
 });

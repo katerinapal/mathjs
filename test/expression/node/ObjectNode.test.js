@@ -1,12 +1,15 @@
+import assert_moduleDefault from "assert";
+import * as approxjs from "../../../tools/approx";
+import { math as indexjs } from "../../../index";
 // test ObjectNode
-var assert = require('assert');
-var approx = require('../../../tools/approx');
-var math = require('../../../index');
-var Node = math.expression.node.Node;
-var ConstantNode = math.expression.node.ConstantNode;
-var SymbolNode = math.expression.node.SymbolNode;
-var RangeNode = math.expression.node.RangeNode;
-var ObjectNode = math.expression.node.ObjectNode;
+var assert = {};
+var approx = approxjs;
+var math = indexjs;
+var Node = indexjs.expression.node.Node;
+var ConstantNode = indexjs.expression.node.ConstantNode;
+var SymbolNode = indexjs.expression.node.SymbolNode;
+var RangeNode = indexjs.expression.node.RangeNode;
+var ObjectNode = indexjs.expression.node.ObjectNode;
 
 // FIXME: a lot of tests depend on order of object keys, whilst the order is officially undeterministic
 

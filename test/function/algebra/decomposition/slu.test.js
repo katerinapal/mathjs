@@ -1,12 +1,15 @@
-var approx = require('../../../../tools/approx'),
-    math = require('../../../../index'),
-    market = require('../../../../tools/matrixmarket');
+import { approx as approxjs } from "../../../../tools/approx";
+import { math as indexjs } from "../../../../index";
+import { market as matrixmarketjs, import as matrixmarketjs_import } from "../../../../tools/matrixmarket";
+var approx = approxjs,
+    math = indexjs,
+    market = matrixmarketjs;
 
 describe('slu', function () {
 
   it('should decompose matrix, 4 x 4, natural ordering (order=0), partial pivoting', function () {
 
-    var m = math.sparse(
+    var m = indexjs.sparse(
       [
         [4.5,   0, 3.2,   0],
         [3.1, 2.9,   0, 0.9],
@@ -15,15 +18,15 @@ describe('slu', function () {
       ]);
 
     // partial pivoting
-    var r = math.slu(m, 0, 1);
+    var r = indexjs.slu(m, 0, 1);
 
     // verify M[p,q]=L*U
-    approx.deepEqual(_permute(m, r.p, r.q).valueOf(), math.multiply(r.L, r.U).valueOf());
+    approxjs.deepEqual(_permute(m, r.p, r.q).valueOf(), indexjs.multiply(r.L, r.U).valueOf());
   });
 
   it('should decompose matrix, 4 x 4, amd(A+A\') (order=1)', function () {
 
-    var m = math.sparse(
+    var m = indexjs.sparse(
       [
         [4.5,   0, 3.2,   0],
         [3.1, 2.9,   0, 0.9],
@@ -32,15 +35,15 @@ describe('slu', function () {
       ]);
 
     // partial pivoting
-    var r = math.slu(m, 1, 1);
+    var r = indexjs.slu(m, 1, 1);
 
     // verify M[p,q]=L*U
-    approx.deepEqual(_permute(m, r.p, r.q).valueOf(), math.multiply(r.L, r.U).valueOf());
+    approxjs.deepEqual(_permute(m, r.p, r.q).valueOf(), indexjs.multiply(r.L, r.U).valueOf());
   });
 
   it('should decompose matrix, 4 x 4, amd(A\'*A) (order=2), partial pivoting', function () {
 
-    var m = math.sparse(
+    var m = indexjs.sparse(
       [
         [4.5,   0, 3.2,   0],
         [3.1, 2.9,   0, 0.9],
@@ -49,15 +52,15 @@ describe('slu', function () {
       ]);
 
     // partial pivoting
-    var r = math.slu(m, 2, 1);
+    var r = indexjs.slu(m, 2, 1);
 
     // verify M[p,q]=L*U
-    approx.deepEqual(_permute(m, r.p, r.q).valueOf(), math.multiply(r.L, r.U).valueOf());
+    approxjs.deepEqual(_permute(m, r.p, r.q).valueOf(), indexjs.multiply(r.L, r.U).valueOf());
   });
 
   it('should decompose matrix, 4 x 4, amd(A\'*A) (order=3), partial pivoting', function () {
 
-    var m = math.sparse(
+    var m = indexjs.sparse(
       [
         [4.5,   0, 3.2,   0],
         [3.1, 2.9,   0, 0.9],
@@ -66,24 +69,24 @@ describe('slu', function () {
       ]);
 
     // partial pivoting
-    var r = math.slu(m, 3, 1);
+    var r = indexjs.slu(m, 3, 1);
 
     // verify M[p,q]=L*U
-    approx.deepEqual(_permute(m, r.p, r.q).valueOf(), math.multiply(r.L, r.U).valueOf());
+    approxjs.deepEqual(_permute(m, r.p, r.q).valueOf(), indexjs.multiply(r.L, r.U).valueOf());
   });
 
   it('should decompose matrix, 48 x 48, natural ordering (order=0), full pivoting, matrix market', function (done) {
     // import matrix
-    market.import('tools/matrices/bcsstk01.tar.gz', ['bcsstk01/bcsstk01.mtx'])
+    matrixmarketjs_import('tools/matrices/bcsstk01.tar.gz', ['bcsstk01/bcsstk01.mtx'])
       .then(function (matrices) {
         // matrix
         var m = matrices[0];
 
         // full pivoting
-        var r = math.slu(m, 0, 0.001);
+        var r = indexjs.slu(m, 0, 0.001);
 
         // verify M[p,q]=L*U
-        approx.deepEqual(_permute(m, r.p, r.q).valueOf(), math.multiply(r.L, r.U).valueOf());
+        approxjs.deepEqual(_permute(m, r.p, r.q).valueOf(), indexjs.multiply(r.L, r.U).valueOf());
 
         // indicate test has completed
         done();
@@ -96,16 +99,16 @@ describe('slu', function () {
 
   it('should decompose matrix, 48 x 48, amd(A+A\') (order=1), full pivoting, matrix market', function (done) {
     // import matrix
-    market.import('tools/matrices/bcsstk01.tar.gz', ['bcsstk01/bcsstk01.mtx'])
+    matrixmarketjs_import('tools/matrices/bcsstk01.tar.gz', ['bcsstk01/bcsstk01.mtx'])
       .then(function (matrices) {
         // matrix
         var m = matrices[0];
 
         // full pivoting
-        var r = math.slu(m, 1, 0.001);
+        var r = indexjs.slu(m, 1, 0.001);
 
         // verify M[p,q]=L*U
-        approx.deepEqual(_permute(m, r.p, r.q).valueOf(), math.multiply(r.L, r.U).valueOf());
+        approxjs.deepEqual(_permute(m, r.p, r.q).valueOf(), indexjs.multiply(r.L, r.U).valueOf());
 
         // indicate test has completed
         done();
@@ -118,16 +121,16 @@ describe('slu', function () {
 
   it('should decompose matrix, 48 x 48, amd(A\'*A) (order=2), full pivoting, matrix market', function (done) {
     // import matrix
-    market.import('tools/matrices/bcsstk01.tar.gz', ['bcsstk01/bcsstk01.mtx'])
+    matrixmarketjs_import('tools/matrices/bcsstk01.tar.gz', ['bcsstk01/bcsstk01.mtx'])
       .then(function (matrices) {
         // matrix
         var m = matrices[0];
 
         // full pivoting
-        var r = math.slu(m, 2, 0.001);
+        var r = indexjs.slu(m, 2, 0.001);
 
         // verify M[p,q]=L*U
-        approx.deepEqual(_permute(m, r.p, r.q).valueOf(), math.multiply(r.L, r.U).valueOf());
+        approxjs.deepEqual(_permute(m, r.p, r.q).valueOf(), indexjs.multiply(r.L, r.U).valueOf());
 
         // indicate test has completed
         done();
@@ -140,16 +143,16 @@ describe('slu', function () {
 
   it('should decompose matrix, 48 x 48, amd(A\'*A) (order=3), full pivoting, matrix market', function (done) {
     // import matrix
-    market.import('tools/matrices/bcsstk01.tar.gz', ['bcsstk01/bcsstk01.mtx'])
+    matrixmarketjs_import('tools/matrices/bcsstk01.tar.gz', ['bcsstk01/bcsstk01.mtx'])
       .then(function (matrices) {
         // matrix
         var m = matrices[0];
 
         // full pivoting
-        var r = math.slu(m, 3, 0.001);
+        var r = indexjs.slu(m, 3, 0.001);
 
         // verify M[p,q]=L*U
-        approx.deepEqual(_permute(m, r.p, r.q).valueOf(), math.multiply(r.L, r.U).valueOf());
+        approxjs.deepEqual(_permute(m, r.p, r.q).valueOf(), indexjs.multiply(r.L, r.U).valueOf());
 
         // indicate test has completed
         done();
@@ -188,7 +191,7 @@ describe('slu', function () {
     }
     cptr[n] = cindex.length;
     // return matrix
-    return new math.type.SparseMatrix({
+    return new indexjs.type.SparseMatrix({
       values: cvalues,
       index: cindex,
       ptr: cptr,

@@ -1,15 +1,19 @@
+import assert_moduleDefault from "assert";
+import { approx as approxjs } from "../../../tools/approx";
+import * as indexjs from "../../../lib/error/index";
+import { math as indexjs } from "../../../index";
 // test inv
-var assert = require('assert'),
-    approx = require('../../../tools/approx'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    inv = math.inv;
+var assert = {},
+    approx = approxjs,
+    error = indexjs,
+    math = indexjs,
+    inv = indexjs.inv;
 
 describe('inv', function() {
 
   it('should return the inverse of a number', function() {
     assert.deepEqual(inv(4), 1/4);
-    assert.deepEqual(inv(math.bignumber(4)), math.bignumber(1/4));
+    assert.deepEqual(inv(indexjs.bignumber(4)), indexjs.bignumber(1/4));
   });
 
   it('should return the inverse of a matrix with just one value', function() {
@@ -21,7 +25,7 @@ describe('inv', function() {
     assert.deepEqual(inv([4]), [1/4]);
     assert.deepEqual(inv([[4]]), [[1/4]]);
 
-    approx.deepEqual(inv([
+    approxjs.deepEqual(inv([
       [ 1, 4,  7],
       [ 3, 0,  5],
       [-1, 9, 11]
@@ -31,7 +35,7 @@ describe('inv', function() {
       [-3.375,  1.625,  1.5]
     ]);
 
-    approx.deepEqual(inv([
+    approxjs.deepEqual(inv([
       [ 2, -1,  0],
       [-1,  2, -1],
       [ 0, -1,  2]
@@ -42,7 +46,7 @@ describe('inv', function() {
     ]);
 
     // the following will force swapping of empty rows in the middle of the matrix
-    approx.deepEqual(inv([
+    approxjs.deepEqual(inv([
       [1, 0, 0],
       [0, 0, 1],
       [0, 1, 0]
@@ -54,10 +58,10 @@ describe('inv', function() {
   });
 
   it('should return the inverse for each element in a matrix', function() {
-    assert.deepEqual(inv(math.matrix([4])), math.matrix([1/4]));
-    assert.deepEqual(inv(math.matrix([[4]])), math.matrix([[1/4]]));
-    assert.deepEqual(inv(math.matrix([[4]], 'sparse')), math.matrix([[1/4]], 'sparse'));
-    assert.deepEqual(inv(math.matrix([[1,2],[3,4]], 'sparse')), math.matrix([[-2, 1],[1.5, -0.5]], 'sparse'));
+    assert.deepEqual(inv(indexjs.matrix([4])), indexjs.matrix([1/4]));
+    assert.deepEqual(inv(indexjs.matrix([[4]])), indexjs.matrix([[1/4]]));
+    assert.deepEqual(inv(indexjs.matrix([[4]], 'sparse')), indexjs.matrix([[1/4]], 'sparse'));
+    assert.deepEqual(inv(indexjs.matrix([[1,2],[3,4]], 'sparse')), indexjs.matrix([[-2, 1],[1.5, -0.5]], 'sparse'));
   });
 
   it('should throw an error in case of non-square matrices', function() {
@@ -81,11 +85,11 @@ describe('inv', function() {
   });
 
   it('should throw an error in case of invalid type of arguments', function() {
-    assert.throws(function () {math.concat(inv(new Date()))}, /TypeError: Unexpected type of argument/);
+    assert.throws(function () {indexjs.concat(inv(new Date()))}, /TypeError: Unexpected type of argument/);
   });
 
   it('should  LaTeX inv', function () {
-    var expression = math.parse('inv([[1,2],[3,4]])');
+    var expression = indexjs.parse('inv([[1,2],[3,4]])');
     assert.equal(expression.toTex(), '\\left(\\begin{bmatrix}1&2\\\\3&4\\\\\\end{bmatrix}\\right)^{-1}');
   });
 

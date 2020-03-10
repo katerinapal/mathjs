@@ -1,10 +1,12 @@
-var assert = require('assert');
-var math = require('../../../index');
-var BigNumber = math.type.BigNumber;
-var Complex = math.type.Complex;
-var DenseMatrix = math.type.DenseMatrix;
-var Unit = math.type.Unit;
-var variance = math['var'];
+import assert_moduleDefault from "assert";
+import { math as indexjs } from "../../../index";
+var assert = {};
+var math = indexjs;
+var BigNumber = indexjs.type.BigNumber;
+var Complex = indexjs.type.Complex;
+var DenseMatrix = indexjs.type.DenseMatrix;
+var Unit = indexjs.type.Unit;
+var variance = indexjs['var'];
 
 describe('variance', function() {
 
@@ -15,7 +17,7 @@ describe('variance', function() {
 
   it('should return the variance of big numbers', function() {
     assert.deepEqual(variance(new BigNumber(2),new BigNumber(4),new BigNumber(6)),
-        new math.type.BigNumber(4));
+        new indexjs.type.BigNumber(4));
   });
 
   it('should return the variance of complex numbers', function() {
@@ -80,7 +82,7 @@ describe('variance', function() {
   });
 
   it('should LaTeX var', function () {
-    var expression = math.parse('var(1,2,3)');
+    var expression = indexjs.parse('var(1,2,3)');
     assert.equal(expression.toTex(), '\\mathrm{Var}\\left(1,2,3\\right)');
   });
 

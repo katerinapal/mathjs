@@ -1,7 +1,10 @@
-var assert = require('assert'),
-    error = require('../../lib/error/index'),
-    math = require('../../index'),
-    bool = math['boolean'];
+import assert_moduleDefault from "assert";
+import * as indexjs from "../../lib/error/index";
+import { math as indexjs } from "../../index";
+var assert = {},
+    error = indexjs,
+    math = indexjs,
+    bool = indexjs['boolean'];
 
 describe('boolean', function() {
 
@@ -23,15 +26,15 @@ describe('boolean', function() {
   });
 
   it('should convert a bignumber into a boolean', function() {
-    assert.equal(bool(math.bignumber(-2)), true);
-    assert.equal(bool(math.bignumber(-1)), true);
-    assert.equal(bool(math.bignumber(0)), false);
-    assert.equal(bool(math.bignumber(1)), true);
-    assert.equal(bool(math.bignumber(2)), true);
+    assert.equal(bool(indexjs.bignumber(-2)), true);
+    assert.equal(bool(indexjs.bignumber(-1)), true);
+    assert.equal(bool(indexjs.bignumber(0)), false);
+    assert.equal(bool(indexjs.bignumber(1)), true);
+    assert.equal(bool(indexjs.bignumber(2)), true);
   });
 
   it('should convert the elements of a matrix or array to booleans', function() {
-    assert.deepEqual(bool(math.matrix([1,0,1,1])), math.matrix([true, false, true, true]));
+    assert.deepEqual(bool(indexjs.matrix([1,0,1,1])), indexjs.matrix([true, false, true, true]));
     assert.deepEqual(bool([1,0,1,1]), [true, false, true, true]);
   });
 
@@ -61,15 +64,15 @@ describe('boolean', function() {
   });
 
   it('should throw an error if used with a complex', function() {
-    assert.throws(function () {bool(math.complex(2,3))}, /TypeError: Unexpected type of argument/);
+    assert.throws(function () {bool(indexjs.complex(2,3))}, /TypeError: Unexpected type of argument/);
   });
 
   it('should throw an error if used with a unit', function() {  
-    assert.throws(function () {bool(math.unit('5cm'))}, /TypeError: Unexpected type of argument/);
+    assert.throws(function () {bool(indexjs.unit('5cm'))}, /TypeError: Unexpected type of argument/);
   });
 
   it('should LaTeX boolean', function () {
-    var expression = math.parse('boolean(1)');
+    var expression = indexjs.parse('boolean(1)');
     assert.equal(expression.toTex(), '\\mathrm{boolean}\\left(1\\right)');
   });
 

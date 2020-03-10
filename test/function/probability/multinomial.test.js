@@ -1,8 +1,12 @@
-var assert = require('assert'),
-error = require('../../../lib/error/index'),
-math = require('../../../index'),
-multinomial = math.multinomial,
-_ = require('underscore');
+import assert_moduleDefault from "assert";
+import * as indexjs from "../../../lib/error/index";
+import { math as indexjs } from "../../../index";
+import underscore_moduleDefault from "underscore";
+var assert = {},
+error = indexjs,
+math = indexjs,
+multinomial = indexjs.multinomial,
+_ = {};
 
 describe('multinomial', function() {
 
@@ -13,15 +17,15 @@ describe('multinomial', function() {
   });
 
   it('should calculate the multinomial of n items taken k at a time with BigNumbers', function() {
-    assert.equal(_.isEqual(multinomial([math.bignumber(3), math.bignumber(4), math.bignumber(5)]), math.bignumber(27720)),true);
-    assert.deepEqual(multinomial([math.bignumber(10), math.bignumber(1), math.bignumber(2)]), math.bignumber(858));
+    assert.equal(_.isEqual(multinomial([indexjs.bignumber(3), indexjs.bignumber(4), indexjs.bignumber(5)]), indexjs.bignumber(27720)),true);
+    assert.deepEqual(multinomial([indexjs.bignumber(10), indexjs.bignumber(1), indexjs.bignumber(2)]), indexjs.bignumber(858));
   });
 
   it('should not work with non-integer and negative input', function() {
     assert.throws(function() {multinomial([0.5,3])}, TypeError);
-      assert.throws(function() {multinomial([math.bignumber(3), math.bignumber(0.5)])}, TypeError);
-      assert.throws(function() {multinomial([math.bignumber(3.5), math.bignumber(-3)])}, TypeError);
-      assert.throws(function() {multinomial([math.bignumber(3.5), 1/3])}, TypeError);
+      assert.throws(function() {multinomial([indexjs.bignumber(3), indexjs.bignumber(0.5)])}, TypeError);
+      assert.throws(function() {multinomial([indexjs.bignumber(3.5), indexjs.bignumber(-3)])}, TypeError);
+      assert.throws(function() {multinomial([indexjs.bignumber(3.5), 1/3])}, TypeError);
     });
 
   it('should not work with the wrong number or type of arguments', function() {

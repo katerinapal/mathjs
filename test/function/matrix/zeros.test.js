@@ -1,8 +1,10 @@
+import assert_moduleDefault from "assert";
+import { math as indexjs } from "../../../index";
 // test zeros
-var assert = require('assert'),
-    math = require('../../../index'),
-    zeros = math.zeros,
-    matrix = math.matrix;
+var assert = {},
+    math = indexjs,
+    zeros = indexjs.zeros,
+    matrix = indexjs.matrix;
 
 describe('zeros', function() {
 
@@ -26,8 +28,8 @@ describe('zeros', function() {
   });
 
   it('should create a matrix with bignumber zeros', function () {
-    var zero = math.bignumber(0);
-    var three = math.bignumber(3);
+    var zero = indexjs.bignumber(0);
+    var three = indexjs.bignumber(3);
     assert.deepEqual(zeros(three), matrix([zero,zero,zero]));
     assert.deepEqual(zeros([three]), [zero,zero,zero]);
   });
@@ -66,13 +68,13 @@ describe('zeros', function() {
 
   it('should create a matrix with zeros with the same size as original matrix', function () {
     var a = matrix([[1, 2, 3], [4, 5, 6]]);
-    assert.deepEqual(zeros(math.size(a)).size(), a.size());
+    assert.deepEqual(zeros(indexjs.size(a)).size(), a.size());
   });
 
   // TODO: test with invalid input
 
   it('should LaTeX zeros', function () {
-    var expression = math.parse('zeros(2,3)');
+    var expression = indexjs.parse('zeros(2,3)');
     assert.equal(expression.toTex(), '\\mathrm{zeros}\\left(2,3\\right)');
   });
 });

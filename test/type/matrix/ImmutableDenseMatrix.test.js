@@ -1,13 +1,15 @@
-var assert = require('assert');
-var math = require('../../../index');
-var Matrix = math.type.Matrix;
-var DenseMatrix = math.type.DenseMatrix;
-var ImmutableDenseMatrix = math.type.ImmutableDenseMatrix;
-var SparseMatrix = math.type.SparseMatrix;
-var Complex = math.type.Complex;
-var Range = math.type.Range;
+import assert_moduleDefault from "assert";
+import { math as indexjs } from "../../../index";
+var assert = {};
+var math = indexjs;
+var Matrix = indexjs.type.Matrix;
+var DenseMatrix = indexjs.type.DenseMatrix;
+var ImmutableDenseMatrix = indexjs.type.ImmutableDenseMatrix;
+var SparseMatrix = indexjs.type.SparseMatrix;
+var Complex = indexjs.type.Complex;
+var Range = indexjs.type.Range;
 
-var index = math.index;
+var index = indexjs.index;
 
 describe('ImmutableDenseMatrix', function() {
 
@@ -230,7 +232,7 @@ describe('ImmutableDenseMatrix', function() {
       assert.throws(function () { m.get([1.2, 2]); });
       assert.throws(function () { m.get([1,-2]); });
       assert.throws(function () { m.get(1,1); });
-      assert.throws(function () { m.get(math.index(1,1)); });
+      assert.throws(function () { m.get(indexjs.index(1,1)); });
       assert.throws(function () { m.get([[1,1]]); });
     });
   });
@@ -249,7 +251,7 @@ describe('ImmutableDenseMatrix', function() {
       var m;
 
       // get 1-dimensional
-      m = new ImmutableDenseMatrix(math.range(0,10));
+      m = new ImmutableDenseMatrix(indexjs.range(0,10));
       assert.deepEqual(m.size(), [10]);
       assert.deepEqual(m.subset(index(new Range(2, 5))).valueOf(), [2,3,4]);
 
@@ -275,7 +277,7 @@ describe('ImmutableDenseMatrix', function() {
     });
 
     it('should squeeze the output when index contains a scalar', function() {
-      var m = new ImmutableDenseMatrix(math.range(0,10));
+      var m = new ImmutableDenseMatrix(indexjs.range(0,10));
       assert.deepEqual(m.subset(index(1)), 1);
       assert.deepEqual(m.subset(index(new Range(1,2))), new ImmutableDenseMatrix([1]));
 
@@ -355,7 +357,7 @@ describe('ImmutableDenseMatrix', function() {
       var m = new ImmutableDenseMatrix([[1,2,3], [4,5,6]]);
       var m2 = m.map(
         function (value, index, obj) {
-          return math.clone([value, index, obj === m]);
+          return indexjs.clone([value, index, obj === m]);
         }
       );
 
@@ -414,7 +416,7 @@ describe('ImmutableDenseMatrix', function() {
       var output = [];
       m.forEach(
         function (value, index, obj) {
-          output.push(math.clone([value, index, obj === m]));
+          output.push(indexjs.clone([value, index, obj === m]));
         }
       );
       assert.deepEqual(output, [

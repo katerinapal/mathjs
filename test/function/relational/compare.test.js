@@ -1,12 +1,14 @@
+import assert_moduleDefault from "assert";
+import { math as indexjs } from "../../../index";
 // test compare
-var assert = require('assert'),
-    math = require('../../../index'),
-    bignumber = math.bignumber,
-    complex = math.complex,
-    matrix = math.matrix,
-    sparse = math.sparse,
-    unit = math.unit,
-    compare = math.compare;
+var assert = {},
+    math = indexjs,
+    bignumber = indexjs.bignumber,
+    complex = indexjs.complex,
+    matrix = indexjs.matrix,
+    sparse = indexjs.sparse,
+    unit = indexjs.unit,
+    compare = indexjs.compare;
 
 describe('compare', function() {
 
@@ -76,22 +78,22 @@ describe('compare', function() {
   });
 
   it('should compare two fractions', function() {
-    var a = math.fraction(1,3);
-    var b = math.fraction(1,6);
-    assert(compare(a, b) instanceof math.type.Fraction);
+    var a = indexjs.fraction(1,3);
+    var b = indexjs.fraction(1,6);
+    assert(compare(a, b) instanceof indexjs.type.Fraction);
     assert.equal(a.toString(), '0.(3)');
     assert.equal(b.toString(), '0.1(6)');
 
-    assert.equal(compare(math.fraction(3), math.fraction(2)).valueOf(), 1);
-    assert.equal(compare(math.fraction(2), math.fraction(3)).valueOf(), -1);
-    assert.equal(compare(math.fraction(3), math.fraction(3)).valueOf(), 0);
+    assert.equal(compare(indexjs.fraction(3), indexjs.fraction(2)).valueOf(), 1);
+    assert.equal(compare(indexjs.fraction(2), indexjs.fraction(3)).valueOf(), -1);
+    assert.equal(compare(indexjs.fraction(3), indexjs.fraction(3)).valueOf(), 0);
 
-    assert.strictEqual(compare(math.add(math.fraction(0.1), math.fraction(0.2)), math.fraction(0.3)).valueOf(), 0); // this would fail with numbers
+    assert.strictEqual(compare(indexjs.add(indexjs.fraction(0.1), indexjs.fraction(0.2)), indexjs.fraction(0.3)).valueOf(), 0); // this would fail with numbers
   });
 
   it('should compare mixed fractions and numbers', function() {
-    assert.deepEqual(compare(1, math.fraction(1,3)), math.fraction(1));
-    assert.deepEqual(compare(math.fraction(1,3), 1), math.fraction(-1));
+    assert.deepEqual(compare(1, indexjs.fraction(1,3)), indexjs.fraction(1));
+    assert.deepEqual(compare(indexjs.fraction(1,3), 1), indexjs.fraction(-1));
   });
 
   it('should add two measures of the same unit', function() {
@@ -106,7 +108,7 @@ describe('compare', function() {
   });
 
   it('should throw an error for two measures of different units', function() {
-    assert.throws(function () {compare(math.unit(5, 'km'), math.unit(100, 'gram'));});
+    assert.throws(function () {compare(indexjs.unit(5, 'km'), indexjs.unit(100, 'gram'));});
   });
 
   it('should throw an error if comparing a unit with a bignumber', function() {
@@ -182,22 +184,22 @@ describe('compare', function() {
   });
 
   it('should apply configuration option epsilon', function() {
-    var mymath = math.create();
+    var mymath = indexjs.create();
 
     assert.equal(mymath.compare(1, 0.991), 1);
-    assert.equal(mymath.compare(math.bignumber(1), math.bignumber(0.991)).valueOf(), 1);
+    assert.equal(mymath.compare(indexjs.bignumber(1), indexjs.bignumber(0.991)).valueOf(), 1);
 
     mymath.config({epsilon: 1e-2});
     assert.equal(mymath.compare(1, 0.991), 0);
-    assert.equal(mymath.compare(math.bignumber(1), math.bignumber(0.991)), 0);
+    assert.equal(mymath.compare(indexjs.bignumber(1), indexjs.bignumber(0.991)), 0);
   });
 
   it('should throw an error when comparing complex numbers', function() {
     assert.throws(function () {compare(complex(1,1), complex(1,2));}, TypeError);
     assert.throws(function () {compare(complex(2,1), 3);}, TypeError);
     assert.throws(function () {compare(3, complex(2,4));}, TypeError);
-    assert.throws(function () {compare(math.bignumber(3), complex(2,4));}, TypeError);
-    assert.throws(function () {compare(complex(2,4), math.bignumber(3));}, TypeError);
+    assert.throws(function () {compare(indexjs.bignumber(3), complex(2,4));}, TypeError);
+    assert.throws(function () {compare(complex(2,4), indexjs.bignumber(3));}, TypeError);
   });
 
   it('should throw an error if matrices are different sizes', function() {
@@ -210,7 +212,7 @@ describe('compare', function() {
   });
 
   it('should LaTeX compare', function () {
-    var expression = math.parse('compare(1,2)');
+    var expression = indexjs.parse('compare(1,2)');
     assert.equal(expression.toTex(), '\\mathrm{compare}\\left(1,2\\right)');
   });
 });

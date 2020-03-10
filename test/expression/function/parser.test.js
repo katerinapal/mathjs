@@ -1,17 +1,19 @@
-var assert = require('assert');
-var math = require('../../../index');
-var Parser = math.expression.Parser;
+import assert_moduleDefault from "assert";
+import { math as indexjs } from "../../../index";
+var assert = {};
+var math = indexjs;
+var Parser = indexjs.expression.Parser;
 
 describe('parser', function() {
 
   it('should create a parser', function() {
-    var parser = math.parser();
+    var parser = indexjs.parser();
 
     assert(parser instanceof Parser);
   });
 
   it('should LaTeX parser', function () { //This doesn't really make sense in a way
-    var expression = math.parse('parser()');
+    var expression = indexjs.parse('parser()');
     assert.equal(expression.toTex(), '\\mathrm{parser}\\left(\\right)');
   });
 

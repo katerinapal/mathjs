@@ -1,11 +1,15 @@
+import assert_moduleDefault from "assert";
+import { approx as approxjs } from "../../../tools/approx";
+import * as indexjs from "../../../lib/error/index";
+import { math as indexjs } from "../../../index";
 // test cbrt
-var assert = require('assert');
-var approx = require('../../../tools/approx');
-var error = require('../../../lib/error/index');
-var math = require('../../../index');
-var cbrt = math.cbrt;
-var bignumber = math.bignumber;
-var complex = math.complex;
+var assert = {};
+var approx = approxjs;
+var error = indexjs;
+var math = indexjs;
+var cbrt = indexjs.cbrt;
+var bignumber = indexjs.bignumber;
+var complex = indexjs.complex;
 
 describe('cbrt', function() {
   it('should return the cubic root of a boolean', function () {
@@ -25,7 +29,7 @@ describe('cbrt', function() {
     assert.equal(cbrt(64), 4);
     assert.equal(cbrt(125), 5);
 
-    approx.equal(cbrt(10), 2.1544346900318834);
+    approxjs(cbrt(10), 2.1544346900318834);
   });
 
   it('should return the cubic root of a negative number', function() {
@@ -39,13 +43,13 @@ describe('cbrt', function() {
   });
 
   it('should return all cubic roots of a number', function() {
-    approx.deepEqual(cbrt(8, true), math.matrix([
+    approxjs.deepEqual(cbrt(8, true), indexjs.matrix([
       complex('2'),
       complex('-1 + 1.7321i'),
       complex('-1 - 1.7321i')
     ]));
 
-    approx.deepEqual(cbrt(-8, true), math.matrix([
+    approxjs.deepEqual(cbrt(-8, true), indexjs.matrix([
       complex('1 + 1.7321i'),
       complex('-2'),
       complex('1 - 1.7321i')
@@ -69,46 +73,46 @@ describe('cbrt', function() {
   });
 
   it('should return the cubic root of a complex number', function() {
-    approx.deepEqual(cbrt(complex('2 + 3i')), complex('1.451856618352664928164697 + 0.493403534104004716735578i'));
-    approx.deepEqual(cbrt(complex('-2 + 3i')), complex('1.15322830402742 + 1.01064294709397i'));
-    approx.deepEqual(cbrt(complex('8i')), complex('1.73205080756888 + i'));
+    approxjs.deepEqual(cbrt(complex('2 + 3i')), complex('1.451856618352664928164697 + 0.493403534104004716735578i'));
+    approxjs.deepEqual(cbrt(complex('-2 + 3i')), complex('1.15322830402742 + 1.01064294709397i'));
+    approxjs.deepEqual(cbrt(complex('8i')), complex('1.73205080756888 + i'));
   });
 
   it('should return all three roots of a complex number', function() {
-    approx.deepEqual(cbrt(complex('2 + 3i'), true), math.matrix([
+    approxjs.deepEqual(cbrt(complex('2 + 3i'), true), indexjs.matrix([
         complex('1.4519 + 0.4934i'),
         complex('-1.1532 + 1.0106i'),
         complex('-0.2986 - 1.5040i')
     ]));
 
-    approx.deepEqual(cbrt(complex('8i'), true), math.matrix([
+    approxjs.deepEqual(cbrt(complex('8i'), true), indexjs.matrix([
         complex(' 1.7321 + i'),
         complex('-1.7321 + i'),
         complex('-2i')
     ]));
 
-    math.config({matrix: 'Array'});
+    indexjs.config({matrix: 'Array'});
 
-    approx.deepEqual(cbrt(complex('8i'), true), [
+    approxjs.deepEqual(cbrt(complex('8i'), true), [
       complex(' 1.7321 + i'),
       complex('-1.7321 + i'),
       complex('-2i')
     ]);
 
-    math.config({matrix: 'Matrix'});
+    indexjs.config({matrix: 'Matrix'});
   });
 
   it('should return the cubic root of a unit', function() {
-    assert.equal(cbrt(math.unit('27 m^3')).toString(), math.unit('3 m').toString());
-    assert.equal(cbrt(math.unit('-27 m^3')).toString(), math.unit('-3 m').toString());
+    assert.equal(cbrt(indexjs.unit('27 m^3')).toString(), indexjs.unit('3 m').toString());
+    assert.equal(cbrt(indexjs.unit('-27 m^3')).toString(), indexjs.unit('-3 m').toString());
 
-    assert(cbrt(math.unit(math.bignumber(27), 'm^3')).value.isBigNumber);
-    assert.deepEqual(cbrt(math.unit(math.bignumber(27), 'm^3')).value, math.bignumber(3));
-    assert(cbrt(math.unit(math.bignumber(-27), 'm^3')).value.isBigNumber);
-    assert.deepEqual(cbrt(math.unit(math.bignumber(-27), 'm^3')).value, math.bignumber(-3));
+    assert(cbrt(indexjs.unit(indexjs.bignumber(27), 'm^3')).value.isBigNumber);
+    assert.deepEqual(cbrt(indexjs.unit(indexjs.bignumber(27), 'm^3')).value, indexjs.bignumber(3));
+    assert(cbrt(indexjs.unit(indexjs.bignumber(-27), 'm^3')).value.isBigNumber);
+    assert.deepEqual(cbrt(indexjs.unit(indexjs.bignumber(-27), 'm^3')).value, indexjs.bignumber(-3));
 
-    assert(cbrt(math.unit(math.complex(-46, 9), 's^3')).value.isComplex);
-    approx.deepEqual(cbrt(math.unit(math.complex(-46, 9), 's^3')).value, math.complex(2, 3));
+    assert(cbrt(indexjs.unit(indexjs.complex(-46, 9), 's^3')).value.isComplex);
+    approxjs.deepEqual(cbrt(indexjs.unit(indexjs.complex(-46, 9), 's^3')).value, indexjs.complex(2, 3));
   });
 
   it('should throw an error when used with a string', function() {
@@ -120,7 +124,7 @@ describe('cbrt', function() {
   it('should return the cubic root of each element of a matrix', function() {
     assert.deepEqual(cbrt([8,27,64,125]), [2,3,4,5]);
     assert.deepEqual(cbrt([[8,27],[64,125]]), [[2,3],[4,5]]);
-    assert.deepEqual(cbrt(math.matrix([[8,27],[64,125]])), math.matrix([[2,3],[4,5]]));
+    assert.deepEqual(cbrt(indexjs.matrix([[8,27],[64,125]])), indexjs.matrix([[2,3],[4,5]]));
   });
 
   it('should throw an error in case of invalid number of arguments', function() {
@@ -129,7 +133,7 @@ describe('cbrt', function() {
   });
 
   it('should LaTeX cbrt', function () {
-    var expression = math.parse('cbrt(2)');
+    var expression = indexjs.parse('cbrt(2)');
     assert.equal(expression.toTex(), '\\sqrt[3]{2}');
   });
 

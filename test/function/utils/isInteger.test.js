@@ -1,8 +1,10 @@
-var assert = require('assert');
-var math = require('../../../index');
-var isInteger = math.isInteger;
-var bignumber = math.bignumber;
-var fraction = math.fraction;
+import assert_moduleDefault from "assert";
+import { math as indexjs } from "../../../index";
+var assert = {};
+var math = indexjs;
+var isInteger = indexjs.isInteger;
+var bignumber = indexjs.bignumber;
+var fraction = indexjs.fraction;
 
 describe('isInteger', function() {
 
@@ -55,12 +57,12 @@ describe('isInteger', function() {
   });
 
   it('should test isInteger element wise on a Matrix', function() {
-    assert.deepEqual(isInteger(math.matrix([2, 5, 0.5, 3])), math.matrix([true, true, false, true]));
+    assert.deepEqual(isInteger(indexjs.matrix([2, 5, 0.5, 3])), indexjs.matrix([true, true, false, true]));
   });
 
   it('should throw an error in case of unsupported data types', function() {
-    assert.throws(function () {isInteger(math.complex(2, 3))}, /TypeError: Unexpected type of argument/);
-    assert.throws(function () {isInteger(math.unit('5 cm'))}, /TypeError: Unexpected type of argument/);
+    assert.throws(function () {isInteger(indexjs.complex(2, 3))}, /TypeError: Unexpected type of argument/);
+    assert.throws(function () {isInteger(indexjs.unit('5 cm'))}, /TypeError: Unexpected type of argument/);
     assert.throws(function () {isInteger(new Date())}, /TypeError: Unexpected type of argument/);
     assert.throws(function () {isInteger({})}, /TypeError: Unexpected type of argument/);
   });

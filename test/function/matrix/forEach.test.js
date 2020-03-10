@@ -1,26 +1,29 @@
-var assert = require('assert'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index');
+import assert_moduleDefault from "assert";
+import * as indexjs from "../../../lib/error/index";
+import { math as indexjs } from "../../../index";
+var assert = {},
+    error = indexjs,
+    math = indexjs;
 
 describe('forEach', function() {
 
   it('should iterate over all elements of the matrix', function() {
-    var m = math.matrix([1,2,3]);
+    var m = indexjs.matrix([1,2,3]);
     var output = [];
-    math.forEach(m, function (value) { output.push(value); });
+    indexjs.forEach(m, function (value) { output.push(value); });
     assert.deepEqual(output, [1,2,3]);
   });
 
   it('should iterate deep over all elements in the array', function() {
     var arr = [1,2,3];
     var output = [];
-    math.forEach(arr, function (value) { output.push(value); });
+    indexjs.forEach(arr, function (value) { output.push(value); });
     assert.deepEqual(output, [1,2,3]);
   });
 
   it('should invoke a typed function with correct number of arguments (1)', function() {
     var output = [];
-    math.forEach([1,2,3], math.typed('callback', {
+    indexjs.forEach([1,2,3], indexjs.typed('callback', {
       'number': function (value) {
         output.push(value + 2)
       }
@@ -30,7 +33,7 @@ describe('forEach', function() {
 
   it('should invoke a typed function with correct number of arguments (2)', function() {
     var output = [];
-    math.forEach([1,2,3], math.typed('callback', {
+    indexjs.forEach([1,2,3], indexjs.typed('callback', {
       'number, Array': function (value, index) {
         output.push(value + 2)
       }
@@ -40,7 +43,7 @@ describe('forEach', function() {
 
   it('should invoke a typed function with correct number of arguments (3)', function() {
     var output = [];
-    math.forEach([1,2,3], math.typed('callback', {
+    indexjs.forEach([1,2,3], indexjs.typed('callback', {
       'number, Array, Array': function (value, index, array) {
         output.push(value + 2)
       }
@@ -52,7 +55,7 @@ describe('forEach', function() {
     var arr = [[1,2,3], [4,5,6]];
     var output = [];
 
-    math.forEach(arr, function (value, index, obj) {
+    indexjs.forEach(arr, function (value, index, obj) {
       // note: we don't copy index, it should be a copy with each iteration
       output.push([value, index, obj === arr]);
     });
@@ -67,16 +70,16 @@ describe('forEach', function() {
   });
 
   it('should throw an error if called with unsupported type', function() {
-    assert.throws(function() { math.forEach(1, function() {}) });
-    assert.throws(function() { math.forEach('arr', function() {}) });
+    assert.throws(function() { indexjs.forEach(1, function() {}) });
+    assert.throws(function() { indexjs.forEach('arr', function() {}) });
   });
 
   it('should throw an error if called with invalid number of arguments', function() {
-    assert.throws(function() { math.forEach([1, 2, 3]) });
+    assert.throws(function() { indexjs.forEach([1, 2, 3]) });
   });
 
   it('should LaTeX forEach', function () {
-    var expression = math.parse('forEach([1,2,3],callback)');
+    var expression = indexjs.parse('forEach([1,2,3],callback)');
     assert.equal(expression.toTex(), '\\mathrm{forEach}\\left(\\begin{bmatrix}1\\\\2\\\\3\\\\\\end{bmatrix}, callback\\right)');
   });
 

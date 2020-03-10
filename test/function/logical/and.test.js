@@ -1,12 +1,14 @@
+import assert_moduleDefault from "assert";
+import { math as indexjs } from "../../../index";
 // test and
-var assert = require('assert'),
-    math = require('../../../index'),
-    bignumber = math.bignumber,
-    complex = math.complex,
-    matrix = math.matrix,
-    sparse = math.sparse,
-    unit = math.unit,
-    and = math.and;
+var assert = {},
+    math = indexjs,
+    bignumber = indexjs.bignumber,
+    complex = indexjs.complex,
+    matrix = indexjs.matrix,
+    sparse = indexjs.sparse,
+    unit = indexjs.unit,
+    and = indexjs.and;
 
 describe('and', function () {
 
@@ -190,7 +192,7 @@ describe('and', function () {
   });
 
   it('should LaTeX and', function () {
-    var expression = math.parse('and(1,2)');
+    var expression = indexjs.parse('and(1,2)');
     assert.equal(expression.toTex(), '\\left(1\\wedge2\\right)');
   });
 });

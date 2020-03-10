@@ -1,13 +1,17 @@
-var assert = require('assert');
-var approx = require('../../../tools/approx');
-var error = require('../../../lib/error/index');
-var math = require('../../../index');
-var BigNumber = math.type.BigNumber;
-var Complex = math.type.Complex;
-var DenseMatrix = math.type.DenseMatrix;
-var det = math.det;
-var diag = math.diag;
-var eye = math.eye;
+import assert_moduleDefault from "assert";
+import { approx as approxjs } from "../../../tools/approx";
+import * as indexjs from "../../../lib/error/index";
+import { math as indexjs } from "../../../index";
+var assert = {};
+var approx = approxjs;
+var error = indexjs;
+var math = indexjs;
+var BigNumber = indexjs.type.BigNumber;
+var Complex = indexjs.type.Complex;
+var DenseMatrix = indexjs.type.DenseMatrix;
+var det = indexjs.det;
+var diag = indexjs.diag;
+var eye = indexjs.eye;
 
 describe('det', function() {
 
@@ -15,24 +19,24 @@ describe('det', function() {
     assert.equal(det([5]), 5);
     assert.equal(det([[1,2],[3,4]]), -2);
     assert.equal(det(new DenseMatrix([[1,2],[3,4]])), -2);
-    approx.equal(det([
+    approxjs(det([
       [-2, 2,  3],
       [-1, 1,  3],
       [ 2, 0, -1]
     ]), 6);
-    approx.equal(det([
+    approxjs(det([
       [ 1, 4,  7],
       [ 3, 0,  5],
       [-1, 9, 11]
     ]), -8);
-    approx.equal(det([
+    approxjs(det([
       [1,7,4,3,7],
       [0,7,0,3,7],
       [0,7,4,3,0],
       [1,7,5,9,7],
       [2,7,4,3,7]
     ]), -1176);
-    approx.equal(det(diag([4,-5,6])), -120);
+    approxjs(det(diag([4,-5,6])), -120);
   });
 
   it('should return 1 for the identity matrix',function() {
@@ -100,7 +104,7 @@ describe('det', function() {
       [new BigNumber(-2), new BigNumber(2), new BigNumber( 3)],
       [new BigNumber(-1), new BigNumber(1), new BigNumber( 3)],
       [new BigNumber( 2), new BigNumber(0), new BigNumber(-1)]
-    ]), new math.type.BigNumber(6));
+    ]), new indexjs.type.BigNumber(6));
 
     // the following would fail with regular Numbers due to a precision overflow
     assert.deepEqual(det([
@@ -113,7 +117,7 @@ describe('det', function() {
     assert.deepEqual(det([
       [1, new BigNumber(2)],
       [new BigNumber(3), 4]
-    ]), new math.type.BigNumber(-2));
+    ]), new indexjs.type.BigNumber(-2));
   });
 
   it('should not change the value of the initial matrix', function() {
@@ -134,7 +138,7 @@ describe('det', function() {
   });
   
   it('should LaTeX det', function () {
-    var expression = math.parse('det([1])');
+    var expression = indexjs.parse('det([1])');
     assert.equal(expression.toTex(), '\\det\\left(\\begin{bmatrix}1\\\\\\end{bmatrix}\\right)');
   });
 

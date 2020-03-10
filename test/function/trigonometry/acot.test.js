@@ -1,21 +1,25 @@
-var assert = require('assert'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    approx = require('../../../tools/approx'),
-    pi = math.pi,
-    complex = math.complex,
-    matrix = math.matrix,
-    unit = math.unit,
-    acot = math.acot,
-    cot = math.cot,
-    bigmath = math.create({number: 'BigNumber', precision: 20}),
+import assert_moduleDefault from "assert";
+import * as indexjs from "../../../lib/error/index";
+import { math as indexjs } from "../../../index";
+import { approx as approxjs } from "../../../tools/approx";
+var assert = {},
+    error = indexjs,
+    math = indexjs,
+    approx = approxjs,
+    pi = indexjs.pi,
+    complex = indexjs.complex,
+    matrix = indexjs.matrix,
+    unit = indexjs.unit,
+    acot = indexjs.acot,
+    cot = indexjs.cot,
+    bigmath = indexjs.create({number: 'BigNumber', precision: 20}),
     acotBig = bigmath.acot,
     cotBig = bigmath.cot,
     Big = bigmath.bignumber;
 
 describe('acot', function() {
   it('should return the arccot of a boolean', function () {
-    approx.equal(acot(true), pi / 4);
+    approxjs(acot(true), pi / 4);
     assert.equal(acot(false), pi / 2);
   });
 
@@ -24,11 +28,11 @@ describe('acot', function() {
   });
 
   it('should return the arccot of a number', function() {
-    approx.equal(acot(-1) / pi, -0.25);
-    approx.equal(acot(-0.5), -1.107148717794);
+    approxjs(acot(-1) / pi, -0.25);
+    approxjs(acot(-0.5), -1.107148717794);
     assert.equal(acot(0), pi / 2);
-    approx.equal(acot(0.5), 1.107148717794);
-    approx.equal(acot(1) / pi, 0.25);
+    approxjs(acot(0.5), 1.107148717794);
+    approxjs(acot(1) / pi, 0.25);
 
     assert.equal(acot(-Infinity), 0);
     assert.equal(acot(Infinity), 0);
@@ -62,11 +66,11 @@ describe('acot', function() {
   });
 
   it('should be the inverse function of cot', function() {
-    approx.equal(acot(cot(-1)), -1);
-    approx.equal(acot(cot(0)), 0);
-    approx.equal(acot(cot(0.1)), 0.1);
-    approx.equal(acot(cot(0.5)), 0.5);
-    approx.equal(acot(cot(2)), -1.14159265358979);
+    approxjs(acot(cot(-1)), -1);
+    approxjs(acot(cot(0)), 0);
+    approxjs(acot(cot(0.1)), 0.1);
+    approxjs(acot(cot(0.5)), 0.5);
+    approxjs(acot(cot(2)), -1.14159265358979);
   });
 
   it('should be the inverse function of bignumber cot', function() {
@@ -83,13 +87,13 @@ describe('acot', function() {
   it('should return the arccot of a complex number', function() {
     var re = 0.160875277198321;
     var im = 0.229072682968539;
-    approx.deepEqual(acot(complex('2+3i')), complex(re, -im));
-    approx.deepEqual(acot(complex('2-3i')), complex(re, im));
-    approx.deepEqual(acot(complex('-2+3i')), complex(-re, -im));
-    approx.deepEqual(acot(complex('-2-3i')), complex(-re, im));
+    approxjs.deepEqual(acot(complex('2+3i')), complex(re, -im));
+    approxjs.deepEqual(acot(complex('2-3i')), complex(re, im));
+    approxjs.deepEqual(acot(complex('-2+3i')), complex(-re, -im));
+    approxjs.deepEqual(acot(complex('-2-3i')), complex(-re, im));
     assert.deepEqual(acot(complex('i')), complex(0, -Infinity));
-    approx.deepEqual(acot(complex('1')), complex(pi / 4, 0));
-    approx.deepEqual(acot(complex('1+i')), complex(0.553574358897, -0.4023594781085));
+    approxjs.deepEqual(acot(complex('1')), complex(pi / 4, 0));
+    approxjs.deepEqual(acot(complex('1+i')), complex(0.553574358897, -0.4023594781085));
   });
 
   it('should throw an error if called with a unit', function() {
@@ -104,8 +108,8 @@ describe('acot', function() {
   it('should calculate the arccot element-wise for arrays and matrices', function() {
     // matrix, array, range
     var acot123 = [pi / 4, 0.4636476090008, 0.3217505543966];
-    approx.deepEqual(acot([1,2,3]), acot123);
-    approx.deepEqual(acot(matrix([1,2,3])), matrix(acot123));
+    approxjs.deepEqual(acot([1,2,3]), acot123);
+    approxjs.deepEqual(acot(matrix([1,2,3])), matrix(acot123));
   });
 
   it('should throw an error in case of invalid number of arguments', function() {
@@ -114,7 +118,7 @@ describe('acot', function() {
   });
 
   it('should LaTeX acot', function () {
-    var expression = math.parse('acot(2)');
+    var expression = indexjs.parse('acot(2)');
     assert.equal(expression.toTex(), '\\cot^{-1}\\left(2\\right)');
   });
 

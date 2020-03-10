@@ -1,11 +1,14 @@
+import assert_moduleDefault from "assert";
+import { approx as approxjs } from "../../../tools/approx";
+import { math as indexjs } from "../../../index";
 // test mod
-var assert = require('assert');
-var approx = require('../../../tools/approx');
-var math = require('../../../index');
-var bignumber = math.bignumber;
-var matrix = math.matrix;
-var sparse = math.sparse;
-var mod = math.mod;
+var assert = {};
+var approx = approxjs;
+var math = indexjs;
+var bignumber = indexjs.bignumber;
+var matrix = indexjs.matrix;
+var sparse = indexjs.sparse;
+var mod = indexjs.mod;
 
 describe('mod', function() {
 
@@ -29,13 +32,13 @@ describe('mod', function() {
     assert.equal(mod(0, 0), 0);
     assert.equal(mod(7, 0), 7);
 
-    approx.equal(mod(7, 2), 1);
-    approx.equal(mod(9, 3), 0);
-    approx.equal(mod(10, 4), 2);
-    approx.equal(mod(-10, 4), 2);
-    approx.equal(mod(8.2, 3), 2.2);
-    approx.equal(mod(4, 1.5), 1);
-    approx.equal(mod(0, 3), 0);
+    approxjs(mod(7, 2), 1);
+    approxjs(mod(9, 3), 0);
+    approxjs(mod(10, 4), 2);
+    approxjs(mod(-10, 4), 2);
+    approxjs(mod(8.2, 3), 2.2);
+    approxjs(mod(4, 1.5), 1);
+    approxjs(mod(0, 3), 0);
   });
 
   it('should throw an error if the modulus is negative', function() {
@@ -88,9 +91,9 @@ describe('mod', function() {
   });
 
   it('should throw an error if used on complex numbers', function() {
-    assert.throws(function () {mod(math.complex(1,2), 3);}, TypeError);
-    assert.throws(function () {mod(3, math.complex(1,2));}, TypeError);
-    assert.throws(function () {mod(bignumber(3), math.complex(1,2));}, TypeError);
+    assert.throws(function () {mod(indexjs.complex(1,2), 3);}, TypeError);
+    assert.throws(function () {mod(3, indexjs.complex(1,2));}, TypeError);
+    assert.throws(function () {mod(bignumber(3), indexjs.complex(1,2));}, TypeError);
   });
 
   it('should convert string to number', function() {
@@ -101,82 +104,82 @@ describe('mod', function() {
   });
 
   it('should calculate modulus of two fractions', function() {
-    var b = math.fraction(8);
-    var a = mod(b, math.fraction(3));
+    var b = indexjs.fraction(8);
+    var a = mod(b, indexjs.fraction(3));
     assert.equal(a.toString(), '2');
     assert.equal(b.toString(), '8');
-    assert(a instanceof math.type.Fraction);
+    assert(a instanceof indexjs.type.Fraction);
 
-    assert.equal(mod(math.fraction(4.55), math.fraction(0.05)).toString(), '0');
+    assert.equal(mod(indexjs.fraction(4.55), indexjs.fraction(0.05)).toString(), '0');
   });
 
   it('should calculate modulus of mixed fractions and numbers', function() {
-    assert.deepEqual(mod(8, math.fraction(3)), math.fraction(2));
-    assert.deepEqual(mod(math.fraction(8), 3), math.fraction(2));
+    assert.deepEqual(mod(8, indexjs.fraction(3)), indexjs.fraction(2));
+    assert.deepEqual(mod(indexjs.fraction(8), 3), indexjs.fraction(2));
   });
 
   describe('Array', function () {
     
     it('should perform element-wise modulus on array and scalar', function() {
-      approx.deepEqual(mod([[-4, -3, 0, -1], [0, 1, 2, 3]], 3), [[2, 0, 0, 2], [0, 1, 2, 0]]);
-      approx.deepEqual(mod(3, [[4, 3], [2, 1]]), [[3, 0], [1, 0]]);
+      approxjs.deepEqual(mod([[-4, -3, 0, -1], [0, 1, 2, 3]], 3), [[2, 0, 0, 2], [0, 1, 2, 0]]);
+      approxjs.deepEqual(mod(3, [[4, 3], [2, 1]]), [[3, 0], [1, 0]]);
     });
     
     it('should perform element-wise modulus on array and array', function() {
-      approx.deepEqual(mod([[-40, -31], [11, -23]], [[3, 7], [1, 3]]), [[2, 4], [0, 1]]);
+      approxjs.deepEqual(mod([[-40, -31], [11, -23]], [[3, 7], [1, 3]]), [[2, 4], [0, 1]]);
     });
     
     it('should perform element-wise modulus on array and dense matrix', function() {
-      approx.deepEqual(mod([[-40, -31], [11, -23]], matrix([[3, 7], [1, 3]])), matrix([[2, 4], [0, 1]]));
+      approxjs.deepEqual(mod([[-40, -31], [11, -23]], matrix([[3, 7], [1, 3]])), matrix([[2, 4], [0, 1]]));
     });
 
     it('should perform element-wise modulus on array and sparse matrix', function() {
-      approx.deepEqual(mod([[-40, -31], [11, -23]], sparse([[3, 7], [1, 3]])), matrix([[2, 4], [0, 1]]));
+      approxjs.deepEqual(mod([[-40, -31], [11, -23]], sparse([[3, 7], [1, 3]])), matrix([[2, 4], [0, 1]]));
     });
   });
 
   describe('DenseMatrix', function () {
 
     it('should perform element-wise modulus on dense matrix and scalar', function() {
-      approx.deepEqual(mod(matrix([[-4, -3, 0, -1], [0, 1, 2, 3]]), 3), matrix([[2, 0, 0, 2], [0, 1, 2, 0]]));
-      approx.deepEqual(mod(3, matrix([[4, 3], [2, 1]])), matrix([[3, 0], [1, 0]]));
+      approxjs.deepEqual(mod(matrix([[-4, -3, 0, -1], [0, 1, 2, 3]]), 3), matrix([[2, 0, 0, 2], [0, 1, 2, 0]]));
+      approxjs.deepEqual(mod(3, matrix([[4, 3], [2, 1]])), matrix([[3, 0], [1, 0]]));
     });
 
     it('should perform element-wise modulus on dense matrix and array', function() {
-      approx.deepEqual(mod(matrix([[-40, -31], [11, -23]]), [[3, 7], [1, 3]]), matrix([[2, 4], [0, 1]]));
+      approxjs.deepEqual(mod(matrix([[-40, -31], [11, -23]]), [[3, 7], [1, 3]]), matrix([[2, 4], [0, 1]]));
     });
 
     it('should perform element-wise modulus on dense matrix and dense matrix', function() {
-      approx.deepEqual(mod(matrix([[-40, -31], [11, -23]]), matrix([[3, 7], [1, 3]])), matrix([[2, 4], [0, 1]]));
+      approxjs.deepEqual(mod(matrix([[-40, -31], [11, -23]]), matrix([[3, 7], [1, 3]])), matrix([[2, 4], [0, 1]]));
     });
 
     it('should perform element-wise modulus on dense matrix and sparse matrix', function() {
-      approx.deepEqual(mod(matrix([[-40, -31], [11, -23]]), sparse([[3, 7], [1, 3]])), matrix([[2, 4], [0, 1]]));
+      approxjs.deepEqual(mod(matrix([[-40, -31], [11, -23]]), sparse([[3, 7], [1, 3]])), matrix([[2, 4], [0, 1]]));
     });
   });
 
   describe('SparseMatrix', function () {
 
     it('should perform element-wise modulus on sparse matrix and scalar', function() {
-      approx.deepEqual(mod(sparse([[-4, -3, 0, -1], [0, 1, 2, 3]]), 3), sparse([[2, 0, 0, 2], [0, 1, 2, 0]]));
-      approx.deepEqual(mod(3, sparse([[4, 3], [2, 1]])), matrix([[3, 0], [1, 0]]));
+      approxjs.deepEqual(mod(sparse([[-4, -3, 0, -1], [0, 1, 2, 3]]), 3), sparse([[2, 0, 0, 2], [0, 1, 2, 0]]));
+      approxjs.deepEqual(mod(3, sparse([[4, 3], [2, 1]])), matrix([[3, 0], [1, 0]]));
     });
 
     it('should perform element-wise modulus on sparse matrix and array', function() {
-      approx.deepEqual(mod(sparse([[-40, -31], [11, -23]]), [[3, 7], [1, 3]]), sparse([[2, 4], [0, 1]]));
+      approxjs.deepEqual(mod(sparse([[-40, -31], [11, -23]]), [[3, 7], [1, 3]]), sparse([[2, 4], [0, 1]]));
     });
 
     it('should perform element-wise modulus on sparse matrix and dense matrix', function() {
-      approx.deepEqual(mod(sparse([[-40, -31], [11, -23]]), matrix([[3, 7], [1, 3]])), sparse([[2, 4], [0, 1]]));
+      approxjs.deepEqual(mod(sparse([[-40, -31], [11, -23]]), matrix([[3, 7], [1, 3]])), sparse([[2, 4], [0, 1]]));
     });
 
     it('should perform element-wise modulus on sparse matrix and sparse matrix', function() {
-      approx.deepEqual(mod(sparse([[-40, -31], [11, -23]]), sparse([[3, 7], [1, 3]])), sparse([[2, 4], [0, 1]]));
+      approxjs.deepEqual(mod(sparse([[-40, -31], [11, -23]]), sparse([[3, 7], [1, 3]])), sparse([[2, 4], [0, 1]]));
     });
   });
   
   it('should LaTeX mod', function () {
-    var expression = math.parse('mod(11,2)');
+    var expression = indexjs.parse('mod(11,2)');
     assert.equal(expression.toTex(), '\\left(11\\mod2\\right)');
   });
 });

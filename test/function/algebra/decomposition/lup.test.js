@@ -1,7 +1,10 @@
+import assert_moduleDefault from "assert";
+import { approx as approxjs } from "../../../../tools/approx";
+import { math as indexjs } from "../../../../index";
 // test lup
-var assert = require('assert'),
-    approx = require('../../../../tools/approx'),
-    math = require('../../../../index');
+var assert = {},
+    approx = approxjs,
+    math = indexjs;
 
 describe('lup', function () {
 
@@ -9,7 +12,7 @@ describe('lup', function () {
 
     var m = [[2, 1], [1, 4]];
 
-    var r = math.lup(m);
+    var r = indexjs.lup(m);
     // L
     assert.deepEqual(r.L.valueOf(), [[1, 0], [0.5, 1]]);
     // U
@@ -17,14 +20,14 @@ describe('lup', function () {
     // P
     assert.deepEqual(r.p, [0, 1]);
     // verify
-    approx.deepEqual(math.multiply(_p(r.p), m).valueOf(), math.multiply(r.L, r.U).valueOf());
+    approxjs.deepEqual(indexjs.multiply(_p(r.p), m).valueOf(), indexjs.multiply(r.L, r.U).valueOf());
   });
 
   it('should decompose matrix, n x n, no permutations, sparse', function () {
 
-    var m = math.matrix([[2, 1], [1, 4]], 'sparse');
+    var m = indexjs.matrix([[2, 1], [1, 4]], 'sparse');
 
-    var r = math.lup(m);
+    var r = indexjs.lup(m);
     // L
     assert.deepEqual(r.L.valueOf(), [[1, 0], [0.5, 1]]);
     // U
@@ -32,14 +35,14 @@ describe('lup', function () {
     // P
     assert.deepEqual(r.p, [0, 1]);
     // verify
-    approx.deepEqual(math.multiply(_p(r.p), m).valueOf(), math.multiply(r.L, r.U).valueOf());
+    approxjs.deepEqual(indexjs.multiply(_p(r.p), m).valueOf(), indexjs.multiply(r.L, r.U).valueOf());
   });
 
   it('should decompose matrix, n x n, no permutations, dense format', function () {
 
-    var m = math.matrix([[2, 1], [1, 4]], 'dense');
+    var m = indexjs.matrix([[2, 1], [1, 4]], 'dense');
 
-    var r = math.lup(m);
+    var r = indexjs.lup(m);
     // L
     assert.deepEqual(r.L.valueOf(), [[1, 0], [0.5, 1]]);
     // U
@@ -47,22 +50,22 @@ describe('lup', function () {
     // P
     assert.deepEqual(r.p, [0, 1]);
     // verify
-    approx.deepEqual(math.multiply(_p(r.p), m).valueOf(), math.multiply(r.L, r.U).valueOf());
+    approxjs.deepEqual(indexjs.multiply(_p(r.p), m).valueOf(), indexjs.multiply(r.L, r.U).valueOf());
   });
   
   it('should decompose matrix, m x n, m < n, no permutations, dense format', function () {
-    var m = math.matrix(
+    var m = indexjs.matrix(
       [
         [2, 1, 1],
         [1, 4, 5]
       ]
     );
 
-    var r = math.lup(m);
+    var r = indexjs.lup(m);
     // L
     assert.deepEqual(
       r.L,
-      math.matrix(
+      indexjs.matrix(
         [
           [1, 0],
           [0.5, 1]
@@ -71,7 +74,7 @@ describe('lup', function () {
     // U
     assert.deepEqual(
       r.U,
-      math.matrix(
+      indexjs.matrix(
         [
           [2, 1, 1],
           [0, 3.5, 4.5]
@@ -80,11 +83,11 @@ describe('lup', function () {
     // P
     assert.deepEqual(r.p, [0, 1]);
     // verify
-    approx.deepEqual(math.multiply(_p(r.p), m).valueOf(), math.multiply(r.L, r.U).valueOf());
+    approxjs.deepEqual(indexjs.multiply(_p(r.p), m).valueOf(), indexjs.multiply(r.L, r.U).valueOf());
   });
 
   it('should decompose matrix, m x n, m > n, no permutations, dense format', function () {
-    var m = math.matrix(
+    var m = indexjs.matrix(
       [
         [8, 2],
         [6, 4],
@@ -92,11 +95,11 @@ describe('lup', function () {
       ]
     );
 
-    var r = math.lup(m);
+    var r = indexjs.lup(m);
     // L
     assert.deepEqual(
       r.L,
-      math.matrix(
+      indexjs.matrix(
         [
           [1, 0],
           [0.75, 1],
@@ -106,7 +109,7 @@ describe('lup', function () {
     // U
     assert.deepEqual(
       r.U,
-      math.matrix(
+      indexjs.matrix(
         [
           [8, 2],
           [0, 2.5]
@@ -115,11 +118,11 @@ describe('lup', function () {
     // P
     assert.deepEqual(r.p, [0, 1, 2]);
     // verify
-    approx.deepEqual(math.multiply(_p(r.p), m).valueOf(), math.multiply(r.L, r.U).valueOf());
+    approxjs.deepEqual(indexjs.multiply(_p(r.p), m).valueOf(), indexjs.multiply(r.L, r.U).valueOf());
   });
 
   it('should decompose matrix, n x n, dense format', function () {
-    var m = math.matrix(
+    var m = indexjs.matrix(
       [
         [16, -120, 240, -140],
         [-120, 1200, -2700, 1680],
@@ -128,9 +131,9 @@ describe('lup', function () {
       ]
     );
 
-    var r = math.lup(m);
+    var r = indexjs.lup(m);
     // L
-    approx.deepEqual(
+    approxjs.deepEqual(
       r.L.valueOf(),
       [
         [1, 0, 0, 0],  
@@ -139,7 +142,7 @@ describe('lup', function () {
         [0.06666666666666667, -0.4, -0.5714285714285776, 1]
       ]);
     // U
-    approx.deepEqual(
+    approxjs.deepEqual(
       r.U.valueOf(),
       [
         [240, -2700, 6480, -4200],
@@ -150,20 +153,20 @@ describe('lup', function () {
     // P
     assert.deepEqual(r.p, [3, 1, 0, 2]);
     // verify
-    approx.deepEqual(math.multiply(_p(r.p), m).valueOf(), math.multiply(r.L, r.U).valueOf());
+    approxjs.deepEqual(indexjs.multiply(_p(r.p), m).valueOf(), indexjs.multiply(r.L, r.U).valueOf());
   });
 
   it('should decompose matrix, 3 x 3, zero pivote value, dense format', function () {
-    var m = math.matrix(
+    var m = indexjs.matrix(
       [
         [1, 2, 3], 
         [2, 4, 6], 
         [4, 8, 9]
       ]);
 
-    var r = math.lup(m);
+    var r = indexjs.lup(m);
     // L
-    approx.deepEqual(
+    approxjs.deepEqual(
       r.L.valueOf(),
       [
         [1, 0, 0],  
@@ -171,7 +174,7 @@ describe('lup', function () {
         [0.25, 0, 1.0]
       ]);
     // U
-    approx.deepEqual(
+    approxjs.deepEqual(
       r.U.valueOf(),
       [
         [4, 8, 9],
@@ -181,48 +184,48 @@ describe('lup', function () {
     // P
     assert.deepEqual(r.p, [2, 1, 0]);
     // verify
-    approx.deepEqual(math.multiply(_p(r.p), m).valueOf(), math.multiply(r.L, r.U).valueOf());
+    approxjs.deepEqual(indexjs.multiply(_p(r.p), m).valueOf(), indexjs.multiply(r.L, r.U).valueOf());
   });
 
   it('should decompose matrix, 3 x 2, complex numbers, dense format', function () {
-    var m = math.matrix(
+    var m = indexjs.matrix(
       [
-        [math.complex(0, 3), 10],
-        [math.complex(0, 1), 1],
-        [math.complex(0, 1), 1]
+        [indexjs.complex(0, 3), 10],
+        [indexjs.complex(0, 1), 1],
+        [indexjs.complex(0, 1), 1]
       ]);
 
-    var r = math.lup(m);
+    var r = indexjs.lup(m);
     // L
-    approx.deepEqual(
+    approxjs.deepEqual(
       r.L.valueOf(),
       [
         [1, 0],
-        [math.complex(0.3333333, 0), 1],
-        [math.complex(0.3333333, 0), 1]
+        [indexjs.complex(0.3333333, 0), 1],
+        [indexjs.complex(0.3333333, 0), 1]
       ]);
     // U
-    approx.deepEqual(
+    approxjs.deepEqual(
       r.U.valueOf(),
       [
-        [math.complex(0, 3), 10],
-        [0, math.complex(-2.3333333333, 0)]
+        [indexjs.complex(0, 3), 10],
+        [0, indexjs.complex(-2.3333333333, 0)]
       ]);
     // P
     assert.deepEqual(r.p, [0, 1, 2]);
     // verify
-    approx.deepEqual(math.multiply(_p(r.p), m).valueOf(), math.multiply(r.L, r.U).valueOf());
+    approxjs.deepEqual(indexjs.multiply(_p(r.p), m).valueOf(), indexjs.multiply(r.L, r.U).valueOf());
   });
   
   it('should decompose matrix, m x n, m < n, no permutations, sparse', function () {
-    var m = math.matrix(
+    var m = indexjs.matrix(
       [
         [2, 1, 1],
         [1, 4, 5]
       ], 
       'sparse');
 
-    var r = math.lup(m);
+    var r = indexjs.lup(m);
     // L
     assert.deepEqual(
       r.L.valueOf(),
@@ -240,11 +243,11 @@ describe('lup', function () {
     // P
     assert.deepEqual(r.p, [0, 1]);
     // verify
-    approx.deepEqual(math.multiply(_p(r.p), m).valueOf(), math.multiply(r.L, r.U).valueOf());
+    approxjs.deepEqual(indexjs.multiply(_p(r.p), m).valueOf(), indexjs.multiply(r.L, r.U).valueOf());
   });
 
   it('should decompose matrix, m x n, m > n, no permutations, sparse', function () {
-    var m = math.matrix(
+    var m = indexjs.matrix(
       [
         [8, 2],
         [6, 4],
@@ -252,7 +255,7 @@ describe('lup', function () {
       ],
       'sparse');
 
-    var r = math.lup(m);
+    var r = indexjs.lup(m);
     // L
     assert.deepEqual(
       r.L.valueOf(),
@@ -271,11 +274,11 @@ describe('lup', function () {
     // P
     assert.deepEqual(r.p, [0, 1, 2]);
     // verify
-    approx.deepEqual(math.multiply(_p(r.p), m).valueOf(), math.multiply(r.L, r.U).valueOf());
+    approxjs.deepEqual(indexjs.multiply(_p(r.p), m).valueOf(), indexjs.multiply(r.L, r.U).valueOf());
   });
 
   it('should decompose matrix, n x n, sparse', function () {
-    var m = math.matrix(
+    var m = indexjs.matrix(
       [
         [16, -120, 240, -140],
         [-120, 1200, -2700, 1680],
@@ -284,9 +287,9 @@ describe('lup', function () {
       ],
       'sparse');
 
-    var r = math.lup(m);
+    var r = indexjs.lup(m);
     // L
-    approx.deepEqual(
+    approxjs.deepEqual(
       r.L.valueOf(),
       [
         [1, 0, 0, 0],  
@@ -295,7 +298,7 @@ describe('lup', function () {
         [0.06666666666666667, -0.4, -0.5714285714285776, 1]
       ]);
     // U
-    approx.deepEqual(
+    approxjs.deepEqual(
       r.U.valueOf(),
       [
         [240, -2700, 6480, -4200],
@@ -306,11 +309,11 @@ describe('lup', function () {
     // P
     assert.deepEqual(r.p, [3, 1, 0, 2]);
     // verify
-    approx.deepEqual(math.multiply(_p(r.p), m).valueOf(), math.multiply(r.L, r.U).valueOf());
+    approxjs.deepEqual(indexjs.multiply(_p(r.p), m).valueOf(), indexjs.multiply(r.L, r.U).valueOf());
   });
 
   it('should decompose matrix, 3 x 3, zero pivote value, sparse', function () {
-    var m = math.matrix(
+    var m = indexjs.matrix(
       [
         [1, 2, 3], 
         [2, 4, 6], 
@@ -318,9 +321,9 @@ describe('lup', function () {
       ],
       'sparse');
 
-    var r = math.lup(m);
+    var r = indexjs.lup(m);
     // L
-    approx.deepEqual(
+    approxjs.deepEqual(
       r.L.valueOf(),
       [
         [1, 0, 0],  
@@ -328,7 +331,7 @@ describe('lup', function () {
         [0.25, 0, 1.0]
       ]);
     // U
-    approx.deepEqual(
+    approxjs.deepEqual(
       r.U.valueOf(),
       [
         [4, 8, 9],
@@ -338,37 +341,37 @@ describe('lup', function () {
     // P
     assert.deepEqual(r.p, [2, 1, 0]);
     // verify
-    approx.deepEqual(math.multiply(_p(r.p), m).valueOf(), math.multiply(r.L, r.U).valueOf());
+    approxjs.deepEqual(indexjs.multiply(_p(r.p), m).valueOf(), indexjs.multiply(r.L, r.U).valueOf());
   });
 
   it('should decompose matrix, 3 x 2, complex numbers, sparse', function () {
-    var m = math.matrix(
+    var m = indexjs.matrix(
       [
-        [math.complex(0, 3), 10],
-        [math.complex(0, 1), 1],
-        [math.complex(0, 1), 1]
+        [indexjs.complex(0, 3), 10],
+        [indexjs.complex(0, 1), 1],
+        [indexjs.complex(0, 1), 1]
       ], 'sparse');
 
-    var r = math.lup(m);
+    var r = indexjs.lup(m);
     // L
-    approx.deepEqual(
+    approxjs.deepEqual(
       r.L.valueOf(),
       [
         [1, 0],
-        [math.complex(0.3333333, 0), 1],
-        [math.complex(0.3333333, 0), 1]
+        [indexjs.complex(0.3333333, 0), 1],
+        [indexjs.complex(0.3333333, 0), 1]
       ]);
     // U
-    approx.deepEqual(
+    approxjs.deepEqual(
       r.U.valueOf(),
       [
-        [math.complex(0, 3), 10],
-        [0, math.complex(-2.3333333333, 0)]
+        [indexjs.complex(0, 3), 10],
+        [0, indexjs.complex(-2.3333333333, 0)]
       ]);
     // P
     assert.deepEqual(r.p, [0, 1, 2]);
     // verify
-    approx.deepEqual(math.multiply(_p(r.p), m).valueOf(), math.multiply(r.L, r.U).valueOf());
+    approxjs.deepEqual(indexjs.multiply(_p(r.p), m).valueOf(), indexjs.multiply(r.L, r.U).valueOf());
   });
   
   /**
@@ -376,7 +379,7 @@ describe('lup', function () {
    */
   function _p(p) {
     // identity matrix
-    var identity = math.eye(p.length);
+    var identity = indexjs.eye(p.length);
     // array
     var data = [];
     // loop rows

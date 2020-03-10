@@ -1,9 +1,12 @@
+import assert_moduleDefault from "assert";
+import { approx as approxjs } from "../../../tools/approx";
+import { math as indexjs } from "../../../index";
 // test subtract
-var assert = require('assert');
-var approx = require('../../../tools/approx');
-var math = require('../../../index');
-var bignumber = math.bignumber;
-var subtract = math.subtract;
+var assert = {};
+var approx = approxjs;
+var math = indexjs;
+var bignumber = indexjs.bignumber;
+var subtract = indexjs.subtract;
 
 describe('subtract', function() {
 
@@ -60,68 +63,68 @@ describe('subtract', function() {
   });
 
   it('should subtract two complex numbers correctly', function() {
-    assert.deepEqual(subtract(math.complex(3, 2), math.complex(8, 4)), math.complex('-5 - 2i'));
-    assert.deepEqual(subtract(math.complex(6, 3), math.complex(-2, -2)), math.complex('8 + 5i'));
-    assert.deepEqual(subtract(math.complex(3, 4), 10), math.complex('-7 + 4i'));
-    assert.deepEqual(subtract(math.complex(3, 4), -2), math.complex('5 + 4i'));
-    assert.deepEqual(subtract(math.complex(-3, -4), 10), math.complex('-13 - 4i'));
-    assert.deepEqual(subtract(10, math.complex(3, 4)), math.complex('7 - 4i'));
-    assert.deepEqual(subtract(10, math.i), math.complex('10 - i'));
-    assert.deepEqual(subtract(0, math.i), math.complex('-i'));
-    assert.deepEqual(subtract(10, math.complex(0, 1)), math.complex('10 - i'));
+    assert.deepEqual(subtract(indexjs.complex(3, 2), indexjs.complex(8, 4)), indexjs.complex('-5 - 2i'));
+    assert.deepEqual(subtract(indexjs.complex(6, 3), indexjs.complex(-2, -2)), indexjs.complex('8 + 5i'));
+    assert.deepEqual(subtract(indexjs.complex(3, 4), 10), indexjs.complex('-7 + 4i'));
+    assert.deepEqual(subtract(indexjs.complex(3, 4), -2), indexjs.complex('5 + 4i'));
+    assert.deepEqual(subtract(indexjs.complex(-3, -4), 10), indexjs.complex('-13 - 4i'));
+    assert.deepEqual(subtract(10, indexjs.complex(3, 4)), indexjs.complex('7 - 4i'));
+    assert.deepEqual(subtract(10, indexjs.i), indexjs.complex('10 - i'));
+    assert.deepEqual(subtract(0, indexjs.i), indexjs.complex('-i'));
+    assert.deepEqual(subtract(10, indexjs.complex(0, 1)), indexjs.complex('10 - i'));
   });
 
   it('should throw an error for mixed complex numbers and big numbers', function() {
-    assert.deepEqual(subtract(math.complex(3, 4), math.bignumber(10)), math.complex(-7, 4));
-    assert.deepEqual(subtract(math.bignumber(10), math.complex(3, 4)), math.complex(7, -4));
+    assert.deepEqual(subtract(indexjs.complex(3, 4), indexjs.bignumber(10)), indexjs.complex(-7, 4));
+    assert.deepEqual(subtract(indexjs.bignumber(10), indexjs.complex(3, 4)), indexjs.complex(7, -4));
   });
 
   it('should subtract two fractions', function() {
-    var a = math.fraction(1,3);
-    assert.equal(subtract(a, math.fraction(1,6)).toString(), '0.1(6)');
+    var a = indexjs.fraction(1,3);
+    assert.equal(subtract(a, indexjs.fraction(1,6)).toString(), '0.1(6)');
     assert.equal(a.toString(), '0.(3)');
 
-    assert.equal(subtract(math.fraction(3,5), math.fraction(1,5)).toString(), '0.4');
-    assert.equal(subtract(math.fraction(1), math.fraction(1,3)).toString(), '0.(6)');
+    assert.equal(subtract(indexjs.fraction(3,5), indexjs.fraction(1,5)).toString(), '0.4');
+    assert.equal(subtract(indexjs.fraction(1), indexjs.fraction(1,3)).toString(), '0.(6)');
   });
 
   it('should subtract mixed fractions and numbers', function() {
-    assert.deepEqual(subtract(1, math.fraction(1,3)), math.fraction(2,3));
-    assert.deepEqual(subtract(math.fraction(1,3), 1), math.fraction(-2,3));
+    assert.deepEqual(subtract(1, indexjs.fraction(1,3)), indexjs.fraction(2,3));
+    assert.deepEqual(subtract(indexjs.fraction(1,3), 1), indexjs.fraction(-2,3));
   });
 
   it('should subtract two quantities of the same unit', function() {
-    approx.deepEqual(subtract(math.unit(5, 'km'), math.unit(100, 'mile')), math.unit(-155.93, 'km'));
+    approxjs.deepEqual(subtract(indexjs.unit(5, 'km'), indexjs.unit(100, 'mile')), indexjs.unit(-155.93, 'km'));
 
-    assert.deepEqual(subtract(math.unit(math.bignumber(5), 'km'), math.unit(math.bignumber(2), 'km')), math.unit(math.bignumber(3), 'km'));
+    assert.deepEqual(subtract(indexjs.unit(indexjs.bignumber(5), 'km'), indexjs.unit(indexjs.bignumber(2), 'km')), indexjs.unit(indexjs.bignumber(3), 'km'));
 
-    assert.deepEqual(subtract(math.unit(math.complex(10,10), 'K'), math.unit(math.complex(3,4), 'K')), math.unit(math.complex(7,6), 'K'));
-    assert.deepEqual(subtract(math.unit(math.complex(10,10), 'K'), math.unit(3, 'K')), math.unit(math.complex(7,10), 'K'));
+    assert.deepEqual(subtract(indexjs.unit(indexjs.complex(10,10), 'K'), indexjs.unit(indexjs.complex(3,4), 'K')), indexjs.unit(indexjs.complex(7,6), 'K'));
+    assert.deepEqual(subtract(indexjs.unit(indexjs.complex(10,10), 'K'), indexjs.unit(3, 'K')), indexjs.unit(indexjs.complex(7,10), 'K'));
   });
 
   it('should throw an error if subtracting two quantities of different units', function() {
     assert.throws(function () {
-      subtract(math.unit(5, 'km'), math.unit(100, 'gram'));
+      subtract(indexjs.unit(5, 'km'), indexjs.unit(100, 'gram'));
     });
   });
 
   it('should throw an error when one of the two units has undefined value', function() {
     assert.throws(function () {
-      subtract(math.unit('km'), math.unit('5gram'));
+      subtract(indexjs.unit('km'), indexjs.unit('5gram'));
     }, /Parameter x contains a unit with undefined value/);
     assert.throws(function () {
-      subtract(math.unit('5 km'), math.unit('gram'));
+      subtract(indexjs.unit('5 km'), indexjs.unit('gram'));
     }, /Parameter y contains a unit with undefined value/);
   });
 
   it('should throw an error if subtracting numbers from units', function() {
-    assert.throws(function () { subtract(math.unit(5, 'km'), 2); }, TypeError);
-    assert.throws(function () { subtract(2, math.unit(5, 'km')); }, TypeError);
+    assert.throws(function () { subtract(indexjs.unit(5, 'km'), 2); }, TypeError);
+    assert.throws(function () { subtract(2, indexjs.unit(5, 'km')); }, TypeError);
   });
 
   it('should throw an error if subtracting numbers from units', function() {
-    assert.throws(function () { subtract(math.unit(5, 'km'), bignumber(2)); }, TypeError);
-    assert.throws(function () { subtract(bignumber(2), math.unit(5, 'km')); }, TypeError);
+    assert.throws(function () { subtract(indexjs.unit(5, 'km'), bignumber(2)); }, TypeError);
+    assert.throws(function () { subtract(bignumber(2), indexjs.unit(5, 'km')); }, TypeError);
   });
 
   it('should throw an error when used with a string', function() {
@@ -148,91 +151,91 @@ describe('subtract', function() {
 
     it('should subtract array and dense matrix correctly', function() {
       var a = [1,2,3];
-      var b = math.matrix([3,2,1]);
+      var b = indexjs.matrix([3,2,1]);
       var c = subtract(a, b);
 
-      assert.ok(c instanceof math.type.Matrix);
-      assert.deepEqual(c, math.matrix([-2,0,2]));
+      assert.ok(c instanceof indexjs.type.Matrix);
+      assert.deepEqual(c, indexjs.matrix([-2,0,2]));
     });
     
     it('should subtract array and dense matrix correctly', function() {
       var a = [[1,2,3],[4,5,6]];
-      var b = math.sparse([[6,5,4],[ 3, 2, 1]]);
+      var b = indexjs.sparse([[6,5,4],[ 3, 2, 1]]);
       var c = subtract(a, b);
 
-      assert.ok(c instanceof math.type.Matrix);
-      assert.deepEqual(c, math.matrix([[-5,-3,-1],[1,3,5]]));
+      assert.ok(c instanceof indexjs.type.Matrix);
+      assert.deepEqual(c, indexjs.matrix([[-5,-3,-1],[1,3,5]]));
     });
   });
   
   describe('DenseMatrix', function () {
 
     it('should subtract matrices correctly', function() {
-      var a2 = math.matrix([[10,20],[30,40]]);
-      var a3 = math.matrix([[5,6],[7,8]]);
+      var a2 = indexjs.matrix([[10,20],[30,40]]);
+      var a3 = indexjs.matrix([[5,6],[7,8]]);
       var a4 = subtract(a2, a3);
-      assert.ok(a4 instanceof math.type.Matrix);
+      assert.ok(a4 instanceof indexjs.type.Matrix);
       assert.deepEqual(a4.size(), [2,2]);
       assert.deepEqual(a4.valueOf(), [[5,14],[23,32]]);
     });
 
     it('should subtract a scalar and a matrix correctly', function() {
-      assert.deepEqual(subtract(2, math.matrix([3,4])), math.matrix([-1,-2]));
-      assert.deepEqual(subtract(math.matrix([3,4]), 2), math.matrix([1,2]));
+      assert.deepEqual(subtract(2, indexjs.matrix([3,4])), indexjs.matrix([-1,-2]));
+      assert.deepEqual(subtract(indexjs.matrix([3,4]), 2), indexjs.matrix([1,2]));
     });
 
     it('should subtract matrix and array correctly', function() {
-      var a = math.matrix([1,2,3]);
+      var a = indexjs.matrix([1,2,3]);
       var b = [3,2,1];
       var c = subtract(a, b);
 
-      assert.ok(c instanceof math.type.Matrix);
-      assert.deepEqual(c, math.matrix([-2,0,2]));
+      assert.ok(c instanceof indexjs.type.Matrix);
+      assert.deepEqual(c, indexjs.matrix([-2,0,2]));
     });
     
     it('should subtract dense and sparse matrices correctly', function() {
-      var a = math.matrix([[1,2,3],[1,0,0]]);
-      var b = math.sparse([[3,2,1],[0,0,1]]);
+      var a = indexjs.matrix([[1,2,3],[1,0,0]]);
+      var b = indexjs.sparse([[3,2,1],[0,0,1]]);
       var c = subtract(a, b);
 
-      assert.ok(c instanceof math.type.Matrix);
-      assert.deepEqual(c, math.matrix([[-2,0,2],[1,0,-1]]));
+      assert.ok(c instanceof indexjs.type.Matrix);
+      assert.deepEqual(c, indexjs.matrix([[-2,0,2],[1,0,-1]]));
     });
   });
   
   describe('SparseMatrix', function () {
 
     it('should subtract matrices correctly', function() {
-      var a2 = math.matrix([[10,20],[30,0]], 'sparse');
-      var a3 = math.matrix([[5,6],[30,8]], 'sparse');
+      var a2 = indexjs.matrix([[10,20],[30,0]], 'sparse');
+      var a3 = indexjs.matrix([[5,6],[30,8]], 'sparse');
       var a4 = subtract(a2, a3);
-      assert.ok(a4 instanceof math.type.Matrix);
-      assert.deepEqual(a4, math.sparse([[5,14],[0,-8]]));
+      assert.ok(a4 instanceof indexjs.type.Matrix);
+      assert.deepEqual(a4, indexjs.sparse([[5,14],[0,-8]]));
     });
 
     it('should subtract a scalar and a matrix correctly', function() {
-      assert.deepEqual(subtract(2, math.matrix([[3,4],[5,6]], 'sparse')).valueOf(), [[-1,-2],[-3,-4]]);
-      assert.deepEqual(subtract(2, math.matrix([[3,4],[0,6]], 'sparse')).valueOf(), [[-1,-2],[2,-4]]);
-      assert.deepEqual(subtract(math.matrix([[3,4],[5,6]], 'sparse'), 2).valueOf(), [[1,2],[3,4]]);
-      assert.deepEqual(subtract(math.matrix([[3,4],[0,6]], 'sparse'), 2).valueOf(), [[1,2],[-2,4]]);
+      assert.deepEqual(subtract(2, indexjs.matrix([[3,4],[5,6]], 'sparse')).valueOf(), [[-1,-2],[-3,-4]]);
+      assert.deepEqual(subtract(2, indexjs.matrix([[3,4],[0,6]], 'sparse')).valueOf(), [[-1,-2],[2,-4]]);
+      assert.deepEqual(subtract(indexjs.matrix([[3,4],[5,6]], 'sparse'), 2).valueOf(), [[1,2],[3,4]]);
+      assert.deepEqual(subtract(indexjs.matrix([[3,4],[0,6]], 'sparse'), 2).valueOf(), [[1,2],[-2,4]]);
     });
 
     it('should subtract matrix and array correctly', function() {
-      var a = math.matrix([[1,2,3],[1,0,0]], 'sparse');
+      var a = indexjs.matrix([[1,2,3],[1,0,0]], 'sparse');
       var b = [[3,2,1],[0,0,1]];
       var c = subtract(a, b);
 
-      assert.ok(c instanceof math.type.Matrix);
+      assert.ok(c instanceof indexjs.type.Matrix);
       assert.deepEqual(c.valueOf(), [[-2,0,2],[1,0,-1]]);
     });
     
     it('should subtract sparse and dense matrices correctly', function() {
-      var a = math.sparse([[1,2,3],[1,0,0]]);
-      var b = math.matrix([[3,2,1],[0,0,1]]);
+      var a = indexjs.sparse([[1,2,3],[1,0,0]]);
+      var b = indexjs.matrix([[3,2,1],[0,0,1]]);
       var c = subtract(a, b);
 
-      assert.ok(c instanceof math.type.Matrix);
-      assert.deepEqual(c, math.matrix([[-2,0,2],[1,0,-1]]));
+      assert.ok(c instanceof indexjs.type.Matrix);
+      assert.deepEqual(c, indexjs.matrix([[-2,0,2],[1,0,-1]]));
     });
   });
 
@@ -242,7 +245,7 @@ describe('subtract', function() {
   });
 
   it('should LaTeX subtract', function () {
-    var expression = math.parse('subtract(2,1)');
+    var expression = indexjs.parse('subtract(2,1)');
     assert.equal(expression.toTex(), '\\left(2-1\\right)');
   });
 });

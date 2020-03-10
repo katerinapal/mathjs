@@ -1,7 +1,9 @@
-var assert = require('assert'),
-    math = require('../../../index'),
-    matrix = math.matrix,
-    eye = math.eye;
+import assert_moduleDefault from "assert";
+import { math as indexjs } from "../../../index";
+var assert = {},
+    math = indexjs,
+    matrix = indexjs.matrix,
+    eye = indexjs.eye;
 
 describe('eye', function() {
 
@@ -23,7 +25,7 @@ describe('eye', function() {
     assert.deepEqual(eye(2,3), matrix([[1,0,0],[0,1,0]]));
     assert.deepEqual(eye(3,2), matrix([[1,0],[0,1],[0,0]]));
     assert.deepEqual(eye([3,2]), [[1,0],[0,1],[0,0]]);
-    assert.deepEqual(eye(math.matrix([3,2])), matrix([[1,0],[0,1],[0,0]]));
+    assert.deepEqual(eye(indexjs.matrix([3,2])), matrix([[1,0],[0,1],[0,0]]));
     assert.deepEqual(eye(3,3), matrix([[1,0,0],[0,1,0],[0,0,1]]));
   });
 
@@ -36,10 +38,10 @@ describe('eye', function() {
   });
 
   it('should create an identity matrix with bignumbers', function() {
-    var zero = math.bignumber(0);
-    var one = math.bignumber(1);
-    var two = math.bignumber(2);
-    var three = math.bignumber(3);
+    var zero = indexjs.bignumber(0);
+    var one = indexjs.bignumber(1);
+    var two = indexjs.bignumber(2);
+    var three = indexjs.bignumber(3);
     assert.deepEqual(eye(two), matrix([[one,zero],[zero,one]]));
     //assert.deepEqual(eye(two, 'sparse'), matrix([[one,zero],[zero,one]], 'sparse')); // FIXME: eye css
     assert.deepEqual(eye(two, three), matrix([[one,zero,zero],[zero,one,zero]]));
@@ -47,7 +49,7 @@ describe('eye', function() {
   });
 
   it('should return an array when setting matrix=="array"', function() {
-    var math2 = math.create({matrix: 'Array'});
+    var math2 = indexjs.create({matrix: 'Array'});
     assert.deepEqual(math2.eye(2), [[1,0],[0,1]]);
   });
 
@@ -65,7 +67,7 @@ describe('eye', function() {
   });
 
   it('should LaTeX eye', function () {
-    var expression = math.parse('eye(2)');
+    var expression = indexjs.parse('eye(2)');
     assert.equal(expression.toTex(), '\\mathrm{eye}\\left(2\\right)');
   });
 

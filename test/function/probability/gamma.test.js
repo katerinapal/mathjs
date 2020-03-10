@@ -1,10 +1,15 @@
-var assert = require('assert'),
-    approx = require('../../../tools/approx'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    bigUtil = require('../../../lib/utils/index').bignumber,
-    bignumber = math.bignumber,
-    gamma = math.gamma;
+import assert_moduleDefault from "assert";
+import { approx as approxjs } from "../../../tools/approx";
+import * as indexjs from "../../../lib/error/index";
+import { math as indexjs } from "../../../index";
+import * as indexjs from "../../../lib/utils/index";
+var assert = {},
+    approx = approxjs,
+    error = indexjs,
+    math = indexjs,
+    bigUtil = indexjs.bignumber,
+    bignumber = indexjs.bignumber,
+    gamma = indexjs.gamma;
 
 describe('gamma', function () {
 
@@ -27,29 +32,29 @@ describe('gamma', function () {
   });
 
   it('should calculate the gamma of a rational number', function () {
-    approx.equal(gamma(0.125), 7.5339415987976119046992);
-    approx.equal(gamma(0.25), 3.625609908221908311930685);
-    approx.equal(gamma(0.5), 1.77245385090551602729816748);
-    approx.equal(gamma(1.5), 0.88622692545275801364908374);
-    approx.equal(gamma(2.5), 1.32934038817913702047362561);
-    approx.equal(gamma(3.5), 3.32335097044784255118406403);
-    approx.equal(gamma(30.5), 4.8226969334909086010917483e+31);
-    approx.equal(gamma(144.9), 3.37554680943478639050191e+249);
+    approxjs(gamma(0.125), 7.5339415987976119046992);
+    approxjs(gamma(0.25), 3.625609908221908311930685);
+    approxjs(gamma(0.5), 1.77245385090551602729816748);
+    approxjs(gamma(1.5), 0.88622692545275801364908374);
+    approxjs(gamma(2.5), 1.32934038817913702047362561);
+    approxjs(gamma(3.5), 3.32335097044784255118406403);
+    approxjs(gamma(30.5), 4.8226969334909086010917483e+31);
+    approxjs(gamma(144.9), 3.37554680943478639050191e+249);
 
-    approx.equal(gamma(-0.5), -3.54490770181103205459633);
-    approx.equal(gamma(-1.5), 2.3632718012073547030642233);
-    approx.equal(gamma(-2.5), -0.945308720482941881225689);
-    approx.equal(gamma(-144.9), -2.078523735791760166777e-251);
+    approxjs(gamma(-0.5), -3.54490770181103205459633);
+    approxjs(gamma(-1.5), 2.3632718012073547030642233);
+    approxjs(gamma(-2.5), -0.945308720482941881225689);
+    approxjs(gamma(-144.9), -2.078523735791760166777e-251);
   });
 
   it('should calculate the gamma of an irrational number', function () {
-    approx.equal(gamma(Math.SQRT2), 0.8865814287192591250809176); 
-    approx.equal(gamma(Math.PI), 2.2880377953400324179595889);
-    approx.equal(gamma(Math.E), 1.56746825577405307486334);
+    approxjs(gamma(Math.SQRT2), 0.8865814287192591250809176); 
+    approxjs(gamma(Math.PI), 2.2880377953400324179595889);
+    approxjs(gamma(Math.E), 1.56746825577405307486334);
 
-    approx.equal(gamma(-Math.SQRT2), 2.599459907524570073533756846);
-    approx.equal(gamma(-Math.PI), 1.01569714446021834110892259347);
-    approx.equal(gamma(-Math.E), -0.952681729748073099220537210195);
+    approxjs(gamma(-Math.SQRT2), 2.599459907524570073533756846);
+    approxjs(gamma(-Math.PI), 1.01569714446021834110892259347);
+    approxjs(gamma(-Math.E), -0.952681729748073099220537210195);
   });
 
   it('should calculate the gamma of an integer bignumber', function () {
@@ -98,35 +103,35 @@ describe('gamma', function () {
   });
 */
   it('should calculate the gamma of an imaginary unit', function () {
-    approx.deepEqual(gamma(math.i), math.complex(-0.154949828301810685124955130,
+    approxjs.deepEqual(gamma(indexjs.i), indexjs.complex(-0.154949828301810685124955130,
                                                  -0.498015668118356042713691117));
   });
 
   it('should calculate the gamma of a complex number', function () {
-    approx.deepEqual(gamma(math.complex(1, 1)), math.complex( 0.498015668118356,
+    approxjs.deepEqual(gamma(indexjs.complex(1, 1)), indexjs.complex( 0.498015668118356,
                                                              -0.154949828301810));
-    approx.deepEqual(gamma(math.complex(1, -1)), math.complex(0.498015668118356,
+    approxjs.deepEqual(gamma(indexjs.complex(1, -1)), indexjs.complex(0.498015668118356,
                                                               0.154949828301810));
-    approx.deepEqual(gamma(math.complex(-1, 1)), math.complex(-0.17153291990827,
+    approxjs.deepEqual(gamma(indexjs.complex(-1, 1)), indexjs.complex(-0.17153291990827,
                                                                0.32648274821008));
-    approx.deepEqual(gamma(math.complex(-1, -1)), math.complex(-0.1715329199082,
+    approxjs.deepEqual(gamma(indexjs.complex(-1, -1)), indexjs.complex(-0.1715329199082,
                                                                -0.3264827482100));
-    approx.deepEqual(gamma(math.complex(0.5, 0.5)), math.complex( 0.81816399954,
+    approxjs.deepEqual(gamma(indexjs.complex(0.5, 0.5)), indexjs.complex( 0.81816399954,
                                                                  -0.76331382871));
-    approx.deepEqual(gamma(math.complex(0.5, -0.5)), math.complex(0.81816399954,
+    approxjs.deepEqual(gamma(indexjs.complex(0.5, -0.5)), indexjs.complex(0.81816399954,
                                                                   0.76331382871));
-    approx.deepEqual(gamma(math.complex(-0.5, 0.5)), math.complex(-1.5814778282,
+    approxjs.deepEqual(gamma(indexjs.complex(-0.5, 0.5)), indexjs.complex(-1.5814778282,
                                                                   -0.0548501708));
-    approx.deepEqual(gamma(math.complex(-0.5, -0.5)), math.complex(-1.581477828,
+    approxjs.deepEqual(gamma(indexjs.complex(-0.5, -0.5)), indexjs.complex(-1.581477828,
                                                                     0.054850170));
-    approx.deepEqual(gamma(math.complex(5, 3)), math.complex( 0.016041882741652,
+    approxjs.deepEqual(gamma(indexjs.complex(5, 3)), indexjs.complex( 0.016041882741652,
                                                              -9.433293289755986));
-    approx.deepEqual(gamma(math.complex(5, -3)), math.complex(0.016041882741652,
+    approxjs.deepEqual(gamma(indexjs.complex(5, -3)), indexjs.complex(0.016041882741652,
                                                               9.433293289755986));
-    approx.deepEqual(math.multiply(gamma(math.complex(-5, 3)), 1e6),
-                     math.complex(7.896487481239, 4.756173836597));
-    approx.deepEqual(math.multiply(gamma(math.complex(-5, -3)), 1e6),
-                     math.complex(7.8964874812, -4.7561738365));
+    approxjs.deepEqual(indexjs.multiply(gamma(indexjs.complex(-5, 3)), 1e6),
+                     indexjs.complex(7.896487481239, 4.756173836597));
+    approxjs.deepEqual(indexjs.multiply(gamma(indexjs.complex(-5, -3)), 1e6),
+                     indexjs.complex(7.8964874812, -4.7561738365));
   });
 
   it('should calculate the gamma of a boolean', function () {
@@ -139,7 +144,7 @@ describe('gamma', function () {
   });
 
   it('should calculate the gamma of each element in a matrix', function () {
-    assert.deepEqual(gamma(math.matrix([0,1,2,3,4,5])), math.matrix([Infinity,1,1,2,6,24]));
+    assert.deepEqual(gamma(indexjs.matrix([0,1,2,3,4,5])), indexjs.matrix([Infinity,1,1,2,6,24]));
   });
 
   it('should calculate the gamma of each element in an array', function () {
@@ -157,7 +162,7 @@ describe('gamma', function () {
   });
 
   it('should LaTeX gamma', function () {
-    var expression = math.parse('gamma(2.5)');
+    var expression = indexjs.parse('gamma(2.5)');
     assert.equal(expression.toTex(), '\\Gamma\\left(2.5\\right)');
   });
 

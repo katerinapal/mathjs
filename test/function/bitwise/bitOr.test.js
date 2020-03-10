@@ -1,8 +1,10 @@
+import assert_moduleDefault from "assert";
+import { math as indexjs } from "../../../index";
 // test bitOr
-var assert = require('assert'),
-    math = require('../../../index'),
-    bignumber = math.bignumber,
-    bitOr = math.bitOr;
+var assert = {},
+    math = indexjs,
+    bignumber = indexjs.bignumber,
+    bitOr = indexjs.bitOr;
 
 describe('bitOr', function () {
 
@@ -22,9 +24,9 @@ describe('bitOr', function () {
   });
 
   it('should bitwise or numbers and null', function () {
-    assert.equal(math.bitOr(null, null), 0);
-    assert.equal(math.bitOr(null, 1), 1);
-    assert.equal(math.bitOr(1, null), 1);
+    assert.equal(indexjs.bitOr(null, null), 0);
+    assert.equal(indexjs.bitOr(null, 1), 1);
+    assert.equal(indexjs.bitOr(1, null), 1);
   });
 
   it('should bitwise or mixed numbers and booleans', function () {
@@ -57,9 +59,9 @@ describe('bitOr', function () {
   });
 
   it('should throw an error if used with a unit', function() {
-    assert.throws(function () {bitOr(math.unit('5cm'), 2);}, /TypeError: Unexpected type of argument/);
-    assert.throws(function () {bitOr(2, math.unit('5cm'));}, /TypeError: Unexpected type of argument/);
-    assert.throws(function () {bitOr(math.unit('2cm'), math.unit('5cm'));}, /TypeError: Unexpected type of argument/);
+    assert.throws(function () {bitOr(indexjs.unit('5cm'), 2);}, /TypeError: Unexpected type of argument/);
+    assert.throws(function () {bitOr(2, indexjs.unit('5cm'));}, /TypeError: Unexpected type of argument/);
+    assert.throws(function () {bitOr(indexjs.unit('2cm'), indexjs.unit('5cm'));}, /TypeError: Unexpected type of argument/);
   });
 
   it('should throw an error if the parameters are not integers', function () {
@@ -95,56 +97,56 @@ describe('bitOr', function () {
     assert.deepEqual(c, [[5,12],[7,6]]);
 
     // array - dense
-    b = math.matrix([[5,8],[7,6]]);
+    b = indexjs.matrix([[5,8],[7,6]]);
     c = bitOr(a, b);
-    assert.deepEqual(c, math.matrix([[5,12],[7,6]]));
+    assert.deepEqual(c, indexjs.matrix([[5,12],[7,6]]));
 
     // array - sparse
-    b = math.sparse([[5,8],[7,6]]);
+    b = indexjs.sparse([[5,8],[7,6]]);
     c = bitOr(a, b);
-    assert.deepEqual(c, math.matrix([[5,12],[7,6]]));
+    assert.deepEqual(c, indexjs.matrix([[5,12],[7,6]]));
   });
 
   it('should bitwise or dense matrix correctly', function () {
-    var a = math.matrix([[1,4],[3,2]]);
+    var a = indexjs.matrix([[1,4],[3,2]]);
 
     // dense - array
     var b = [[5,8],[7,6]];
     var c = bitOr(a, b);
-    assert.deepEqual(c, math.matrix([[5,12],[7,6]]));
+    assert.deepEqual(c, indexjs.matrix([[5,12],[7,6]]));
 
     // dense - dense
-    b = math.matrix([[5,8],[7,6]]);
+    b = indexjs.matrix([[5,8],[7,6]]);
     c = bitOr(a, b);
-    assert.deepEqual(c, math.matrix([[5,12],[7,6]]));
+    assert.deepEqual(c, indexjs.matrix([[5,12],[7,6]]));
 
     // dense - sparse
-    b = math.sparse([[5,8],[7,6]]);
+    b = indexjs.sparse([[5,8],[7,6]]);
     c = bitOr(a, b);
-    assert.deepEqual(c, math.matrix([[5,12],[7,6]]));
+    assert.deepEqual(c, indexjs.matrix([[5,12],[7,6]]));
   });
 
   it('should bitwise or sparse matrix correctly', function () {
-    var a = math.sparse([[1,4],[3,2]]);
+    var a = indexjs.sparse([[1,4],[3,2]]);
 
     // sparse - array
     var b = [[5,8],[7,6]];
     var c = bitOr(a, b);
-    assert.deepEqual(c, math.matrix([[5,12],[7,6]]));
+    assert.deepEqual(c, indexjs.matrix([[5,12],[7,6]]));
 
     // sparse - dense
-    b = math.matrix([[5,8],[7,6]]);
+    b = indexjs.matrix([[5,8],[7,6]]);
     c = bitOr(a, b);
-    assert.deepEqual(c, math.matrix([[5,12],[7,6]]));
+    assert.deepEqual(c, indexjs.matrix([[5,12],[7,6]]));
 
     // sparse - sparse
-    b = math.sparse([[5,8],[7,6]]);
+    b = indexjs.sparse([[5,8],[7,6]]);
     c = bitOr(a, b);
-    assert.deepEqual(c, math.sparse([[5,12],[7,6]]));
+    assert.deepEqual(c, indexjs.sparse([[5,12],[7,6]]));
 
     // sparse - sparse pattern
-    a = math.sparse([[1,1],[0,0]]);
-    b = new math.type.SparseMatrix({ 
+    a = indexjs.sparse([[1,1],[0,0]]);
+    b = new indexjs.type.SparseMatrix({ 
       index: [ 0, 1],
       ptr: [ 0, 1, 2 ],
       size: [ 2, 2 ]
@@ -152,7 +154,7 @@ describe('bitOr', function () {
     c = bitOr(a, b);
     assert.deepEqual(
       c, 
-      new math.type.SparseMatrix({ 
+      new indexjs.type.SparseMatrix({ 
         index: [0, 0, 1],
         ptr: [0, 1, 3],
         size: [2, 2]
@@ -162,7 +164,7 @@ describe('bitOr', function () {
     c = bitOr(b, a);
     assert.deepEqual(
       c, 
-      new math.type.SparseMatrix({ 
+      new indexjs.type.SparseMatrix({ 
         index: [0, 1, 0], // row index not in order, not a problem!
         ptr: [0, 1, 3],
         size: [2, 2]
@@ -170,21 +172,21 @@ describe('bitOr', function () {
   });
   
   it('should bitwise or matrices correctly', function () {
-    var a2 = math.matrix([[1,2],[3,4]]);
-    var a3 = math.matrix([[5,6],[7,8]]);
+    var a2 = indexjs.matrix([[1,2],[3,4]]);
+    var a3 = indexjs.matrix([[5,6],[7,8]]);
     var a4 = bitOr(a2, a3);
-    assert.ok(a4 instanceof math.type.Matrix);
+    assert.ok(a4 instanceof indexjs.type.Matrix);
     assert.deepEqual(a4.size(), [2,2]);
     assert.deepEqual(a4.valueOf(), [[5,6],[7,12]]);
-    var a5 = math.pow(a2, 2);
-    assert.ok(a5 instanceof math.type.Matrix);
+    var a5 = indexjs.pow(a2, 2);
+    assert.ok(a5 instanceof indexjs.type.Matrix);
     assert.deepEqual(a5.size(), [2,2]);
     assert.deepEqual(a5.valueOf(), [[7,10],[15,22]]);
   });
 
   it('should bitwise or a scalar and a matrix correctly', function () {
-    assert.deepEqual(bitOr(12, math.matrix([3,9])), math.matrix([15,13]));
-    assert.deepEqual(bitOr(math.matrix([3,9]), 12), math.matrix([15,13]));
+    assert.deepEqual(bitOr(12, indexjs.matrix([3,9])), indexjs.matrix([15,13]));
+    assert.deepEqual(bitOr(indexjs.matrix([3,9]), 12), indexjs.matrix([15,13]));
   });
 
   it('should bitwise or a scalar and an array correctly', function () {
@@ -194,11 +196,11 @@ describe('bitOr', function () {
 
   it('should bitwise or a matrix and an array correctly', function () {
     var a = [6,4,28];
-    var b = math.matrix([13,92,101]);
+    var b = indexjs.matrix([13,92,101]);
     var c = bitOr(a, b);
 
-    assert.ok(c instanceof math.type.Matrix);
-    assert.deepEqual(c, math.matrix([15,92,125]));
+    assert.ok(c instanceof indexjs.type.Matrix);
+    assert.deepEqual(c, indexjs.matrix([15,92,125]));
   });
 
   it('should throw an error in case of invalid number of arguments', function () {
@@ -214,7 +216,7 @@ describe('bitOr', function () {
   });
 
   it('should LaTeX bitOr', function () {
-    var expression = math.parse('bitOr(2,3)');
+    var expression = indexjs.parse('bitOr(2,3)');
     assert.equal(expression.toTex(), '\\left(2|3\\right)');
   });
 });

@@ -1,8 +1,9 @@
-var assert = require('assert'),
-    math = require('../../../index'),
-    mode = math.mode,
-    DenseMatrix = math.type.DenseMatrix;
-;
+import assert_moduleDefault from "assert";
+import { math as indexjs } from "../../../index";
+var assert = {},
+    math = indexjs,
+    mode = indexjs.mode,
+    DenseMatrix = indexjs.type.DenseMatrix;
 
 describe('mode', function() {
   it('should return the mode accurately for one dimensional array', function() {

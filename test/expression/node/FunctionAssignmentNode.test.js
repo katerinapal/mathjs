@@ -1,16 +1,19 @@
+import assert_moduleDefault from "assert";
+import * as approxjs from "../../../tools/approx";
+import { math as indexjs } from "../../../index";
 // test FunctionAssignmentNode
-var assert = require('assert');
-var approx = require('../../../tools/approx');
-var math = require('../../../index');
-var Node = math.expression.node.Node;
-var ConstantNode = math.expression.node.ConstantNode;
-var SymbolNode = math.expression.node.SymbolNode;
-var AssignmentNode = math.expression.node.AssignmentNode;
-var ConditionalNode = math.expression.node.ConditionalNode;
-var OperatorNode = math.expression.node.OperatorNode;
-var FunctionNode = math.expression.node.FunctionNode;
-var FunctionAssignmentNode = math.expression.node.FunctionAssignmentNode;
-var RangeNode = math.expression.node.RangeNode;
+var assert = {};
+var approx = approxjs;
+var math = indexjs;
+var Node = indexjs.expression.node.Node;
+var ConstantNode = indexjs.expression.node.ConstantNode;
+var SymbolNode = indexjs.expression.node.SymbolNode;
+var AssignmentNode = indexjs.expression.node.AssignmentNode;
+var ConditionalNode = indexjs.expression.node.ConditionalNode;
+var OperatorNode = indexjs.expression.node.OperatorNode;
+var FunctionNode = indexjs.expression.node.FunctionNode;
+var FunctionAssignmentNode = indexjs.expression.node.FunctionAssignmentNode;
+var RangeNode = indexjs.expression.node.RangeNode;
 
 describe('FunctionAssignmentNode', function() {
 
@@ -261,7 +264,7 @@ describe('FunctionAssignmentNode', function() {
   });
 
   it ('should respect the \'all\' parenthesis option', function () {
-    var expr = math.parse('f(x)=x+1');
+    var expr = indexjs.parse('f(x)=x+1');
     assert.equal(expr.toString({parenthesis: 'all'}), 'function f(x) = (x + 1)');
     assert.equal(expr.toTex({parenthesis: 'all'}), '\\mathrm{f}\\left(x\\right):=\\left( x+1\\right)');
   });

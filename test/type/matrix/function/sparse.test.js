@@ -1,18 +1,20 @@
+import assert_moduleDefault from "assert";
+import { math as indexjs } from "../../../../index";
 // test matrix construction
-var assert = require('assert'),
-    math = require('../../../../index'),
-    sparse = math.sparse;
+var assert = {},
+    math = indexjs,
+    sparse = indexjs.sparse;
 
 describe('sparse', function() {
 
   it('should create empty matrix', function() {
     var a = sparse();
-    assert.ok(a instanceof math.type.Matrix);
+    assert.ok(a instanceof indexjs.type.Matrix);
   });
 
   it('should create empty matrix, number datatype', function() {
     var a = sparse('number');
-    assert.ok(a instanceof math.type.Matrix);
+    assert.ok(a instanceof indexjs.type.Matrix);
     assert.ok(a.datatype() === 'number');
   });
 
@@ -36,7 +38,7 @@ describe('sparse', function() {
   });
 
   it('should throw an error if called with a unit', function() {
-    assert.throws(function () { sparse(math.unit('5cm')); }, TypeError);
+    assert.throws(function () { sparse(indexjs.unit('5cm')); }, TypeError);
   });
 
   it('should throw an error if called with too many arguments', function() {
@@ -44,8 +46,8 @@ describe('sparse', function() {
   });
 
   it('should LaTeX matrix', function () {
-    var expr1 = math.parse('sparse()');
-    var expr2 = math.parse('sparse([1])');
+    var expr1 = indexjs.parse('sparse()');
+    var expr2 = indexjs.parse('sparse([1])');
 
     assert.equal(expr1.toTex(), '\\begin{bsparse}\\end{bsparse}');
     assert.equal(expr2.toTex(), '\\left(\\begin{bmatrix}1\\\\\\end{bmatrix}\\right)');

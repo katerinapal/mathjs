@@ -1,10 +1,12 @@
-var assert = require('assert');
-var math = require('../../../index');
-var BigNumber = math.type.BigNumber;
-var Complex = math.type.Complex;
-var DenseMatrix = math.type.DenseMatrix;
-var Unit = math.type.Unit;
-var mean = math.mean;
+import assert_moduleDefault from "assert";
+import { math as indexjs } from "../../../index";
+var assert = {};
+var math = indexjs;
+var BigNumber = indexjs.type.BigNumber;
+var Complex = indexjs.type.Complex;
+var DenseMatrix = indexjs.type.DenseMatrix;
+var Unit = indexjs.type.Unit;
+var mean = indexjs.mean;
 
 describe('mean', function() {
   it('should return the mean value of some numbers', function() {
@@ -17,7 +19,7 @@ describe('mean', function() {
 
   it('should return the mean of big numbers', function() {
     assert.deepEqual(mean(new BigNumber(1),new BigNumber(3),new BigNumber(5),new BigNumber(2),new BigNumber(-5)),
-        new math.type.BigNumber(1.2));
+        new indexjs.type.BigNumber(1.2));
   });
 
   it('should return the mean value for complex values', function() {
@@ -80,7 +82,7 @@ describe('mean', function() {
 
   it('should throw an error when called multiple arrays or matrices', function() {
     assert.throws(function () {mean([1,2], [3,4])}, /Scalar values expected/);
-    assert.throws(function () {mean(math.matrix([1,2]), math.matrix([3,4]))}, /Scalar values expected/);
+    assert.throws(function () {mean(indexjs.matrix([1,2]), indexjs.matrix([3,4]))}, /Scalar values expected/);
   });
 
   it('should throw an error if called a dimension out of range', function() {
@@ -93,7 +95,7 @@ describe('mean', function() {
   });
 
   it('should LaTeX mean', function () {
-    var expression = math.parse('mean(1,2,3,4)');
+    var expression = indexjs.parse('mean(1,2,3,4)');
     assert.equal(expression.toTex(), '\\mathrm{mean}\\left(1,2,3,4\\right)');
   });
 

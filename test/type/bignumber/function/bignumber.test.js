@@ -1,8 +1,11 @@
-var assert = require('assert'),
-    error = require('../../../../lib/error/index'),
-    math = require('../../../../index'),
-    bignumber = math.bignumber,
-    BigNumber = math.type.BigNumber;
+import assert_moduleDefault from "assert";
+import * as indexjs from "../../../../lib/error/index";
+import { math as indexjs } from "../../../../index";
+var assert = {},
+    error = indexjs,
+    math = indexjs,
+    bignumber = indexjs.bignumber,
+    BigNumber = indexjs.type.BigNumber;
 
 describe('bignumber', function() {
 
@@ -18,7 +21,7 @@ describe('bignumber', function() {
     assert.equal(a.valueOf(), '0.1');
 
     // from Fraction
-    var a = bignumber(math.fraction(0.1));
+    var a = bignumber(indexjs.fraction(0.1));
     assert.ok(a instanceof BigNumber);
     assert.equal(a.valueOf(), '0.1');
 
@@ -54,8 +57,8 @@ describe('bignumber', function() {
     assert.equal(d[2].valueOf(), '0.3');
 
     // from matrix
-    var e = bignumber(math.matrix([0.1, 0.2]));
-    assert.ok(e instanceof math.type.Matrix);
+    var e = bignumber(indexjs.matrix([0.1, 0.2]));
+    assert.ok(e instanceof indexjs.type.Matrix);
     assert.deepEqual(e.size(), [2]);
     assert.ok(e.get([0]) instanceof BigNumber);
     assert.ok(e.get([1]) instanceof BigNumber);
@@ -68,13 +71,13 @@ describe('bignumber', function() {
   });
 
   it('should create a bignumber from a fraction', function() {
-    var f = math.fraction(2,3);
-    var b = math.bignumber(f);
+    var f = indexjs.fraction(2,3);
+    var b = indexjs.bignumber(f);
     assert.equal(b.toString(), '0.6666666666666666666666666666666666666666666666666666666666666667');
   });
 
   it('should apply precision setting to bignumbers', function() {
-    var mymath = math.create({
+    var mymath = indexjs.create({
       precision: 32
     });
 
@@ -83,16 +86,16 @@ describe('bignumber', function() {
   });
 
   it('should throw an error in case of unsupported type of argument', function() {
-    assert.throws(function () {math.bignumber(new Date())}, /TypeError: Unexpected type of argument/);
+    assert.throws(function () {indexjs.bignumber(new Date())}, /TypeError: Unexpected type of argument/);
   });
 
   it('should throw an error in case of invalid number of arguments', function() {
-    assert.throws(function () {math.bignumber(1, 2)}, /TypeError: Too many arguments/);
+    assert.throws(function () {indexjs.bignumber(1, 2)}, /TypeError: Too many arguments/);
   });
 
   it('should LaTeX bignumber', function () {
-    var expr1 = math.parse('bignumber()');
-    var expr2 = math.parse('bignumber(1)');
+    var expr1 = indexjs.parse('bignumber()');
+    var expr2 = indexjs.parse('bignumber(1)');
 
     assert.equal(expr1.toTex(), '0');
     assert.equal(expr2.toTex(), '\\left(1\\right)');

@@ -1,22 +1,26 @@
-var assert = require('assert');
-var error = require('../../../lib/error/index');
-var math = require('../../../index');
-var approx = require('../../../tools/approx');
-var pi = math.pi;
-var complex = math.complex;
-var matrix = math.matrix;
-var unit = math.unit;
-var asin = math.asin;
-var sin = math.sin;
-var bigmath = math.create({number: 'BigNumber', precision: 20});
-var biggermath = math.create({precision: 21});
-var predmath = math.create({predictable: true});
+import assert_moduleDefault from "assert";
+import * as indexjs from "../../../lib/error/index";
+import { math as indexjs } from "../../../index";
+import { approx as approxjs } from "../../../tools/approx";
+var assert = {};
+var error = indexjs;
+var math = indexjs;
+var approx = approxjs;
+var pi = indexjs.pi;
+var complex = indexjs.complex;
+var matrix = indexjs.matrix;
+var unit = indexjs.unit;
+var asin = indexjs.asin;
+var sin = indexjs.sin;
+var bigmath = indexjs.create({number: 'BigNumber', precision: 20});
+var biggermath = indexjs.create({precision: 21});
+var predmath = indexjs.create({predictable: true});
 var asinBig = bigmath.asin;
 var Big = bigmath.bignumber;
 
 describe('asin', function() {
   it('should return the arcsin of a boolean', function () {
-    approx.equal(asin(true), 0.5 * pi);
+    approxjs(asin(true), 0.5 * pi);
     assert.equal(asin(false), 0);
   });
 
@@ -25,14 +29,14 @@ describe('asin', function() {
   });
 
   it('should return the arcsin of a number', function() {
-    approx.equal(asin(-1) / pi, -0.5);
-    approx.equal(asin(-0.5) / pi, -1/6);
-    approx.equal(asin(0) / pi, 0);
-    approx.equal(asin(0.5) / pi, 1/6);
-    approx.equal(asin(1) / pi, 0.5);
+    approxjs(asin(-1) / pi, -0.5);
+    approxjs(asin(-0.5) / pi, -1/6);
+    approxjs(asin(0) / pi, 0);
+    approxjs(asin(0.5) / pi, 1/6);
+    approxjs(asin(1) / pi, 0.5);
 
-    approx.deepEqual(asin(-2), complex('-1.57079632679490 + 1.31695789692482i'));
-    approx.deepEqual(asin(2), complex('1.57079632679490 - 1.31695789692482i'));
+    approxjs.deepEqual(asin(-2), complex('-1.57079632679490 + 1.31695789692482i'));
+    approxjs.deepEqual(asin(2), complex('1.57079632679490 - 1.31695789692482i'));
   });
 
   it('should return the arccos of a number when predictable:true', function() {
@@ -67,11 +71,11 @@ describe('asin', function() {
   });
 
   it('should be the inverse function of sin', function() {
-    approx.equal(asin(sin(-1)), -1);
-    approx.equal(asin(sin(0)), 0);
-    approx.equal(asin(sin(0.1)), 0.1);
-    approx.equal(asin(sin(0.5)), 0.5);
-    approx.equal(asin(sin(2)), 1.14159265358979);
+    approxjs(asin(sin(-1)), -1);
+    approxjs(asin(sin(0)), 0);
+    approxjs(asin(sin(0.1)), 0.1);
+    approxjs(asin(sin(0.5)), 0.5);
+    approxjs(asin(sin(2)), 1.14159265358979);
   });
 
   it('should be the inverse function of bignumber sin', function() {
@@ -100,13 +104,13 @@ describe('asin', function() {
   it('should return the arcsin of a complex number', function() {
     var re = 0.570652784321099;
     var im = 1.983387029916536;
-    approx.deepEqual(asin(complex('2+3i')), complex(re, im));
-    approx.deepEqual(asin(complex('2-3i')), complex(re, -im));
-    approx.deepEqual(asin(complex('-2+3i')), complex(-re, im));
-    approx.deepEqual(asin(complex('-2-3i')), complex(-re, -im));
-    approx.deepEqual(asin(complex('i')), complex(0, 0.881373587019543));
-    approx.deepEqual(asin(complex('1')), complex(1.57079632679490, 0));
-    approx.deepEqual(asin(complex('1+i')), complex(0.666239432492515, 1.061275061905036));
+    approxjs.deepEqual(asin(complex('2+3i')), complex(re, im));
+    approxjs.deepEqual(asin(complex('2-3i')), complex(re, -im));
+    approxjs.deepEqual(asin(complex('-2+3i')), complex(-re, im));
+    approxjs.deepEqual(asin(complex('-2-3i')), complex(-re, -im));
+    approxjs.deepEqual(asin(complex('i')), complex(0, 0.881373587019543));
+    approxjs.deepEqual(asin(complex('1')), complex(1.57079632679490, 0));
+    approxjs.deepEqual(asin(complex('1+i')), complex(0.666239432492515, 1.061275061905036));
   });
 
   it('should throw an error if called with a unit', function() {
@@ -125,8 +129,8 @@ describe('asin', function() {
       1.57079632679490,
       complex(1.57079632679490, -1.31695789692482),
       complex(1.57079632679490, -1.76274717403909)];
-    approx.deepEqual(asin([1,2,3]), asin123);
-    approx.deepEqual(asin(matrix([1,2,3])), matrix(asin123));
+    approxjs.deepEqual(asin([1,2,3]), asin123);
+    approxjs.deepEqual(asin(matrix([1,2,3])), matrix(asin123));
   });
 
   it('should throw an error in case of invalid number of arguments', function() {
@@ -135,7 +139,7 @@ describe('asin', function() {
   });
 
   it('should LaTeX asin', function () {
-    var expression = math.parse('asin(0.5)');
+    var expression = indexjs.parse('asin(0.5)');
     assert.equal(expression.toTex(), '\\sin^{-1}\\left(0.5\\right)');
   });
 

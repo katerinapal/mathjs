@@ -1,35 +1,39 @@
-var assert = require('assert'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    approx = require('../../../tools/approx'),
-    pi = math.pi,
-    complex = math.complex,
-    matrix = math.matrix,
-    unit = math.unit,
-    sin = math.sin,
-    bigmath = math.create({precision: 242});
+import assert_moduleDefault from "assert";
+import * as indexjs from "../../../lib/error/index";
+import { math as indexjs } from "../../../index";
+import { approx as approxjs } from "../../../tools/approx";
+var assert = {},
+    error = indexjs,
+    math = indexjs,
+    approx = approxjs,
+    pi = indexjs.pi,
+    complex = indexjs.complex,
+    matrix = indexjs.matrix,
+    unit = indexjs.unit,
+    sin = indexjs.sin,
+    bigmath = indexjs.create({precision: 242});
 
 describe('sin', function() {
   it('should return the sine of a boolean', function () {
-    approx.equal(sin(true), 0.841470984807897);
-    approx.equal(sin(false), 0);
+    approxjs(sin(true), 0.841470984807897);
+    approxjs(sin(false), 0);
   });
 
   it('should return the sine of null', function () {
-    approx.equal(sin(null), 0);
+    approxjs(sin(null), 0);
   });
 
   it('should return the sine of a number', function() {
-    approx.equal(sin(0), 0);
-    approx.equal(sin(pi/8), 0.382683432365090);
-    approx.equal(sin(pi/4), Math.SQRT1_2);
-    approx.equal(sin(pi/2), 1);
-    approx.equal(sin(pi*3/4), 0.707106781186548);
-    approx.equal(sin(pi), 0);
-    approx.equal(sin(pi*5/4), -0.707106781186548);
-    approx.equal(sin(pi*3/2), -1);
-    approx.equal(sin(pi*7/4), -0.707106781186548);
-    approx.equal(sin(pi*2), 0);
+    approxjs(sin(0), 0);
+    approxjs(sin(pi/8), 0.382683432365090);
+    approxjs(sin(pi/4), Math.SQRT1_2);
+    approxjs(sin(pi/2), 1);
+    approxjs(sin(pi*3/4), 0.707106781186548);
+    approxjs(sin(pi), 0);
+    approxjs(sin(pi*5/4), -0.707106781186548);
+    approxjs(sin(pi*3/2), -1);
+    approxjs(sin(pi*7/4), -0.707106781186548);
+    approxjs(sin(pi*2), 0);
   });
 
   it('should return the sine of a bignumber', function() {
@@ -54,7 +58,7 @@ describe('sin', function() {
 
     // we've had a bug in reducing the period, affecting integer values around multiples of tau (like 6, 7)
     for (var x = -20; x < 20; x += 1) {
-      approx.equal(bigmath.sin(bigmath.bignumber(x)).toNumber(), Math.sin(x));
+      approxjs(bigmath.sin(bigmath.bignumber(x)).toNumber(), Math.sin(x));
     }
 
     var bigPi = bigmath.pi;
@@ -74,24 +78,24 @@ describe('sin', function() {
   it('should return the sine of a complex number', function() {
     var re = 9.15449914691143,
         im = 4.16890695996656;
-    approx.deepEqual(sin(complex('2+3i')), complex(re, -im));
-    approx.deepEqual(sin(complex('2-3i')), complex(re, im));
-    approx.deepEqual(sin(complex('-2+3i')), complex(-re, -im));
-    approx.deepEqual(sin(complex('-2-3i')), complex(-re, im));
-    approx.deepEqual(sin(complex('i')), complex(0, 1.175201193643801));
-    approx.deepEqual(sin(complex('1')), complex(0.841470984807897, 0));
-    approx.deepEqual(sin(complex('1+i')), complex(1.298457581415977, 0.634963914784736));
-    approx.deepEqual(sin(complex('1e-10i')), complex('1e-10i'));
+    approxjs.deepEqual(sin(complex('2+3i')), complex(re, -im));
+    approxjs.deepEqual(sin(complex('2-3i')), complex(re, im));
+    approxjs.deepEqual(sin(complex('-2+3i')), complex(-re, -im));
+    approxjs.deepEqual(sin(complex('-2-3i')), complex(-re, im));
+    approxjs.deepEqual(sin(complex('i')), complex(0, 1.175201193643801));
+    approxjs.deepEqual(sin(complex('1')), complex(0.841470984807897, 0));
+    approxjs.deepEqual(sin(complex('1+i')), complex(1.298457581415977, 0.634963914784736));
+    approxjs.deepEqual(sin(complex('1e-10i')), complex('1e-10i'));
   });
 
   it('should return the sine of an angle', function() {
-    approx.equal(sin(unit('45deg')), 0.707106781186548);
-    approx.equal(sin(unit('-45deg')), -0.707106781186548);
+    approxjs(sin(unit('45deg')), 0.707106781186548);
+    approxjs(sin(unit('-45deg')), -0.707106781186548);
 
-    assert(sin(unit(math.bignumber(45), 'deg')).isBigNumber);
-    approx.equal(sin(unit(math.bignumber(45), 'deg')).toNumber(), 0.707106781186548);
+    assert(sin(unit(indexjs.bignumber(45), 'deg')).isBigNumber);
+    approxjs(sin(unit(indexjs.bignumber(45), 'deg')).toNumber(), 0.707106781186548);
 
-    approx.deepEqual(sin(unit(complex('1+i'), 'rad')), complex(1.298457581415977, 0.634963914784736));
+    approxjs.deepEqual(sin(unit(complex('1+i'), 'rad')), complex(1.298457581415977, 0.634963914784736));
   });
 
   it('should throw an error if called with an invalid unit', function() {
@@ -105,11 +109,11 @@ describe('sin', function() {
   var sin123 = [0.84147098480789, 0.909297426825682, 0.141120008059867];
 
   it('should return the sin of each element of an array', function() {
-    approx.deepEqual(sin([1,2,3]), sin123);
+    approxjs.deepEqual(sin([1,2,3]), sin123);
   });
 
   it('should return the sin of each element of a matrix', function() {
-    approx.deepEqual(sin(matrix([1,2,3])), matrix(sin123));
+    approxjs.deepEqual(sin(matrix([1,2,3])), matrix(sin123));
   });
 
   it('should throw an error in case of invalid number of arguments', function() {
@@ -118,7 +122,7 @@ describe('sin', function() {
   });
 
   it('should LaTeX sin', function () {
-    var expression = math.parse('sin(0.5)');
+    var expression = indexjs.parse('sin(0.5)');
     assert.equal(expression.toTex(), '\\sin\\left(0.5\\right)');
   });
 

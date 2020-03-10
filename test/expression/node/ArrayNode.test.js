@@ -1,12 +1,15 @@
+import assert_moduleDefault from "assert";
+import * as approxjs from "../../../tools/approx";
+import { math as indexjs } from "../../../index";
 // test ArrayNode
-var assert = require('assert');
-var approx = require('../../../tools/approx');
-var math = require('../../../index');
-var Node = math.expression.node.Node;
-var ConstantNode = math.expression.node.ConstantNode;
-var SymbolNode = math.expression.node.SymbolNode;
-var RangeNode = math.expression.node.RangeNode;
-var ArrayNode = math.expression.node.ArrayNode;
+var assert = {};
+var approx = approxjs;
+var math = indexjs;
+var Node = indexjs.expression.node.Node;
+var ConstantNode = indexjs.expression.node.ConstantNode;
+var SymbolNode = indexjs.expression.node.SymbolNode;
+var RangeNode = indexjs.expression.node.RangeNode;
+var ArrayNode = indexjs.expression.node.ArrayNode;
 
 describe('ArrayNode', function() {
 
@@ -40,8 +43,8 @@ describe('ArrayNode', function() {
     var a = new ArrayNode([c]);
     var b = new ArrayNode();
 
-    assert.deepEqual(a.compile().eval(), math.matrix([1]));
-    assert.deepEqual(b.compile().eval(), math.matrix([]));
+    assert.deepEqual(a.compile().eval(), indexjs.matrix([1]));
+    assert.deepEqual(b.compile().eval(), indexjs.matrix([]));
   });
 
   it ('should compile an ArrayNode and evaluate as Matrix', function () {
@@ -52,11 +55,11 @@ describe('ArrayNode', function() {
     var n = new ArrayNode([a, b, c, d]);
 
     var expr = n.compile();
-    assert.deepEqual(expr.eval(), math.matrix([1,2,3,4]));
+    assert.deepEqual(expr.eval(), indexjs.matrix([1,2,3,4]));
   });
 
   it ('should compile an ArrayNode and evaluate as Array', function () {
-    var mathArray = math.create({matrix: 'Array'});
+    var mathArray = indexjs.create({matrix: 'Array'});
     var a = new mathArray.expression.node.ConstantNode(1);
     var b = new mathArray.expression.node.ConstantNode(2);
     var c = new mathArray.expression.node.ConstantNode(3);
@@ -77,7 +80,7 @@ describe('ArrayNode', function() {
     var n4 = new ArrayNode([n2, n3]);
 
     var expr = n4.compile();
-    assert.deepEqual(expr.eval(), math.matrix([[1,2],[3,4]]));
+    assert.deepEqual(expr.eval(), indexjs.matrix([[1,2],[3,4]]));
   });
 
   it ('should find an ArrayNode', function () {

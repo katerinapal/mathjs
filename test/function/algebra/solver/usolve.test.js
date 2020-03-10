@@ -1,7 +1,10 @@
+import assert_moduleDefault from "assert";
+import { approx as approxjs } from "../../../../tools/approx";
+import { math as indexjs } from "../../../../index";
 // test usolve
-var assert = require('assert'),
-    approx = require('../../../../tools/approx'),
-    math = require('../../../../index');
+var assert = {},
+    approx = approxjs,
+    math = indexjs;
 
 describe('usolve', function () {
 
@@ -15,9 +18,9 @@ describe('usolve', function () {
         ];
     var b = [1, 2, 3, 4];
 
-    var x = math.usolve(m, b);
+    var x = indexjs.usolve(m, b);
 
-    approx.deepEqual(x, [-1, -1, -1, 4]);
+    approxjs.deepEqual(x, [-1, -1, -1, 4]);
   });
 
   it('should solve linear system 4 x 4, array and column array', function () {
@@ -34,88 +37,88 @@ describe('usolve', function () {
       [3],
       [4]
     ];
-    var x = math.usolve(m, b);
+    var x = indexjs.usolve(m, b);
 
-    approx.deepEqual(x, [[-1], [-1], [-1], [4]]);
+    approxjs.deepEqual(x, [[-1], [-1], [-1], [4]]);
   });
 
   it('should solve linear system 4 x 4, matrices', function () {
-    var m = math.matrix(
+    var m = indexjs.matrix(
       [
         [1, 1, 1, 1],
         [0, 1, 1, 1],
         [0, 0, 1, 1],
         [0, 0, 0, 1]
       ]);
-    var b = math.matrix([1, 2, 3, 4]);
+    var b = indexjs.matrix([1, 2, 3, 4]);
 
-    var x = math.usolve(m, b);
+    var x = indexjs.usolve(m, b);
 
-    assert(x instanceof math.type.Matrix);
-    approx.deepEqual(x, math.matrix([[-1], [-1], [-1], [4]]));
+    assert(x instanceof indexjs.type.Matrix);
+    approxjs.deepEqual(x, indexjs.matrix([[-1], [-1], [-1], [4]]));
   });
 
   it('should solve linear system 4 x 4, sparse matrices', function () {
-    var m = math.sparse(
+    var m = indexjs.sparse(
       [
         [1, 1, 1, 1],
         [0, 1, 1, 1],
         [0, 0, 1, 1],
         [0, 0, 0, 1]
       ]);
-    var b = math.matrix([[1], [2], [3], [4]], 'sparse');
+    var b = indexjs.matrix([[1], [2], [3], [4]], 'sparse');
 
-    var x = math.usolve(m, b);
+    var x = indexjs.usolve(m, b);
 
-    assert(x instanceof math.type.Matrix);
-    approx.deepEqual(x, math.matrix([[-1], [-1], [-1], [4]]));
+    assert(x instanceof indexjs.type.Matrix);
+    approxjs.deepEqual(x, indexjs.matrix([[-1], [-1], [-1], [4]]));
   });
 
   it('should solve linear system 4 x 4, matrix and column matrix', function () {
-    var m = math.matrix(
+    var m = indexjs.matrix(
       [
         [1, 1, 1, 1],
         [0, 1, 1, 1],
         [0, 0, 1, 1],
         [0, 0, 0, 1]
       ]);
-    var b = math.matrix([
+    var b = indexjs.matrix([
       [1],
       [2], 
       [3],
       [4]
     ]);
 
-    var x = math.usolve(m, b);
+    var x = indexjs.usolve(m, b);
 
-    assert(x instanceof math.type.Matrix);
-    approx.deepEqual(x, math.matrix([[-1], [-1], [-1], [4]]));
+    assert(x instanceof indexjs.type.Matrix);
+    approxjs.deepEqual(x, indexjs.matrix([[-1], [-1], [-1], [4]]));
   });
 
   it('should solve linear system 4 x 4, sparse matrix and column matrix', function () {
-    var m = math.matrix(
+    var m = indexjs.matrix(
       [
         [1, 1, 1, 1],
         [0, 1, 1, 1],
         [0, 0, 1, 1],
         [0, 0, 0, 1]
       ], 'sparse');
-    var b = math.matrix([
+    var b = indexjs.matrix([
       [1],
       [2], 
       [3],
       [4]
     ], 'sparse');
 
-    var x = math.usolve(m, b);
+    var x = indexjs.usolve(m, b);
 
-    assert(x instanceof math.type.Matrix);
-    approx.deepEqual(x, math.matrix([[-1], [-1], [-1], [4]]));
+    assert(x instanceof indexjs.type.Matrix);
+    approxjs.deepEqual(x, indexjs.matrix([[-1], [-1], [-1], [4]]));
   });
 
   it('should throw exception when matrix is singular', function () {
-    assert.throws(function () { math.usolve([[1, 1], [0, 0]], [1, 1]); }, /Error: Linear system cannot be solved since matrix is singular/);
-    assert.throws(function () { math.usolve(math.matrix([[1, 1], [0, 0]], 'dense'), [1, 1]); }, /Error: Linear system cannot be solved since matrix is singular/);
-    assert.throws(function () { math.usolve(math.matrix([[1, 1], [0, 0]], 'sparse'), [1, 1]); }, /Error: Linear system cannot be solved since matrix is singular/);
+    assert.throws(function () { indexjs.usolve([[1, 1], [0, 0]], [1, 1]); }, /Error: Linear system cannot be solved since matrix is singular/);
+    assert.throws(function () { indexjs.usolve(indexjs.matrix([[1, 1], [0, 0]], 'dense'), [1, 1]); }, /Error: Linear system cannot be solved since matrix is singular/);
+    assert.throws(function () { indexjs.usolve(indexjs.matrix([[1, 1], [0, 0]], 'sparse'), [1, 1]); }, /Error: Linear system cannot be solved since matrix is singular/);
   });
 });

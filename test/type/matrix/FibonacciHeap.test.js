@@ -1,6 +1,8 @@
-var assert = require('assert');
-var math = require('../../../index');
-var FibonacciHeap = math.type.FibonacciHeap;
+import assert_moduleDefault from "assert";
+import { math as indexjs } from "../../../index";
+var assert = {};
+var math = indexjs;
+var FibonacciHeap = indexjs.type.FibonacciHeap;
 
 describe('FibonacciHeap', function () {
 

@@ -1,9 +1,12 @@
+import assert_moduleDefault from "assert";
+import { approx as approxjs } from "../../tools/approx";
+import { math as indexjs } from "../../index";
 // test parser
 
-var assert = require('assert'),
-    approx = require('../../tools/approx'),
-    math = require('../../index'),
-    Parser = math.expression.Parser;
+var assert = {},
+    approx = approxjs,
+    math = indexjs,
+    Parser = indexjs.expression.Parser;
 
 describe('parser', function() {
 
@@ -125,7 +128,7 @@ describe('parser', function() {
     assert.equal(parser.get('xx'), null);
     assert.equal(parser.get('yy'), null);
     assert.equal(parser.get('zz'), null);
-    approx.equal(parser.get('pi'), null);
+    approxjs(parser.get('pi'), null);
 
     assert.throws(function () {parser.eval('xx')});
     assert.throws(function () {parser.eval('yy')});

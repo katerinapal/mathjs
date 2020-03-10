@@ -1,15 +1,18 @@
+import assert_moduleDefault from "assert";
+import { math as indexjs } from "../../../index";
+import { approx as approxjs } from "../../../tools/approx";
 // test atan2
-var assert = require('assert'),
-    math = require('../../../index'),
-    approx = require('../../../tools/approx'),
-    pi = math.pi,
-    complex = math.complex,
-    matrix = math.matrix,
-    sparse = math.sparse,
-    unit = math.unit,
-    divide = math.divide,
-    atan2 = math.atan2,
-    bigmath = math.create({precision: 20}),
+var assert = {},
+    math = indexjs,
+    approx = approxjs,
+    pi = indexjs.pi,
+    complex = indexjs.complex,
+    matrix = indexjs.matrix,
+    sparse = indexjs.sparse,
+    unit = indexjs.unit,
+    divide = indexjs.divide,
+    atan2 = indexjs.atan2,
+    bigmath = indexjs.create({precision: 20}),
     Big = bigmath.bignumber,
     atan2Big = bigmath.atan2;
 
@@ -149,8 +152,8 @@ describe('atan2', function() {
 
   it('should calculate the atan2 element-wise for arrays and matrices', function() {
     // array, matrix, range
-    approx.deepEqual(divide(atan2([1, 0, -1], [1, 0, -1]), pi), [0.25, 0, -0.75]);
-    approx.deepEqual(divide(atan2(
+    approxjs.deepEqual(divide(atan2([1, 0, -1], [1, 0, -1]), pi), [0.25, 0, -0.75]);
+    approxjs.deepEqual(divide(atan2(
         matrix([1,0,-1]),
         matrix([1,0,-1])), pi),
         matrix([0.25, 0, -0.75]));
@@ -164,7 +167,7 @@ describe('atan2', function() {
   });
 
   it('should LaTeX atan2', function () {
-    var expression = math.parse('atan2(1,1)');
+    var expression = indexjs.parse('atan2(1,1)');
     assert.equal(expression.toTex(), '\\mathrm{atan2}\\left(1,1\\right)');
   });
 });

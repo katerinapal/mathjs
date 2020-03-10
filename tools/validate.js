@@ -1,8 +1,10 @@
+import gulputil_moduleDefault from "gulp-util";
+import * as indexjs from "../index";
 /**
  * Validate whether all functions in math.js are documented in math.expression.docs
  */
-var gutil = require('gulp-util'),
-    math = require('../index'),
+var gutil = {},
+    math = indexjs,
     prop;
 
 // names to ignore
@@ -16,11 +18,11 @@ var ignore = [
 
 // test whether all functions are documented
 var undocumentedCount = 0;
-for (prop in math) {
-  if (math.hasOwnProperty(prop)) {
-    var obj = math[prop];
-    if (math['typeof'](obj) != 'Object') {
-      if (!math.expression.docs[prop] && (ignore.indexOf(prop) == -1)) {
+for (prop in indexjs) {
+  if (indexjs.hasOwnProperty(prop)) {
+    var obj = indexjs[prop];
+    if (indexjs['typeof'](obj) != 'Object') {
+      if (!indexjs.expression.docs[prop] && (ignore.indexOf(prop) == -1)) {
         gutil.log('WARNING: Function ' + prop + ' is undocumented');
         undocumentedCount++;
       }
@@ -30,10 +32,10 @@ for (prop in math) {
 
 // test whether there is documentation for non existing functions
 var nonExistingCount = 0;
-var docs = math.expression.docs;
+var docs = indexjs.expression.docs;
 for (prop in docs) {
   if (docs.hasOwnProperty(prop)) {
-    if (math[prop] === undefined && !math.type[prop]) {
+    if (indexjs[prop] === undefined && !indexjs.type[prop]) {
       gutil.log('WARNING: Documentation for a non-existing function "' + prop + '"');
       nonExistingCount++;
     }

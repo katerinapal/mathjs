@@ -1,8 +1,11 @@
+import assert_moduleDefault from "assert";
+import * as approxjs from "../../../tools/approx";
+import { math as indexjs } from "../../../index";
 // test Node
-var assert = require('assert');
-var approx = require('../../../tools/approx');
-var math = require('../../../index');
-var Node = math.expression.node.Node;
+var assert = {};
+var approx = approxjs;
+var math = indexjs;
+var Node = indexjs.expression.node.Node;
 
 describe('Node', function() {
   function MyNode (value) {
@@ -89,7 +92,7 @@ describe('Node', function() {
     var callback2 = {
       bla: function (node, callbacks) {}
     };
-    var mymath = math.create();
+    var mymath = indexjs.create();
     mymath.expression.node.Node.prototype._toString = function () {
       return 'default';
     };
@@ -107,7 +110,7 @@ describe('Node', function() {
     var callback2 = {
       bla: function (node, callbacks) {}
     };
-    var mymath = math.create();
+    var mymath = indexjs.create();
     mymath.expression.node.Node.prototype._toTex = function () {
       return 'default';
     };
@@ -133,7 +136,7 @@ describe('Node', function() {
   });
 
   it ('should get the content of a Node', function () {
-    var c = new math.expression.node.ConstantNode(1);
+    var c = new indexjs.expression.node.ConstantNode(1);
 
     assert.equal(c.getContent(), c);
     assert.deepEqual(c.getContent(), c);
