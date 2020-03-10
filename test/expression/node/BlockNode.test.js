@@ -1,15 +1,16 @@
-// test BlockNode
-var assert = require('assert');
-var approx = require('../../../tools/approx');
-var math = require('../../../index');
-var Node = math.expression.node.Node;
-var ConstantNode = math.expression.node.ConstantNode;
-var SymbolNode = math.expression.node.SymbolNode;
-var RangeNode = math.expression.node.RangeNode;
-var AssignmentNode = math.expression.node.AssignmentNode;
-var OperatorNode = math.expression.node.OperatorNode;
-var BlockNode = math.expression.node.BlockNode;
-var ResultSet = math.type.ResultSet;
+import assert from "assert";
+import * as toolsapprox_obj from "../../../tools/approx";
+import { index_obj } from "../../../index";
+var approx = toolsapprox_obj;
+var math = index_obj;
+var Node = index_obj.expression.node.Node;
+var ConstantNode = index_obj.expression.node.ConstantNode;
+var SymbolNode = index_obj.expression.node.SymbolNode;
+var RangeNode = index_obj.expression.node.RangeNode;
+var AssignmentNode = index_obj.expression.node.AssignmentNode;
+var OperatorNode = index_obj.expression.node.OperatorNode;
+var BlockNode = index_obj.expression.node.BlockNode;
+var ResultSet = index_obj.type.ResultSet;
 
 describe('BlockNode', function() {
 

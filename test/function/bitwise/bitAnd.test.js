@@ -1,8 +1,4 @@
-// test bitAnd
-var assert = require('assert'),
-    math = require('../../../index'),
-    bignumber = math.bignumber,
-    bitAnd = math.bitAnd;
+import assert from "assert";
 
 describe('bitAnd', function () {
 

@@ -1,7 +1,4 @@
-var assert = require('assert'),
-    math = require('../../../index'),
-    matrix = math.matrix,
-    eye = math.eye;
+import assert from "assert";
 
 describe('eye', function() {
 

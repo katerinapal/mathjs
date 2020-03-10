@@ -1,11 +1,13 @@
-// test divide
-var assert = require('assert');
-var math = require('../../../index');
-var error = require('../../../lib/error/index');
-var approx = require('../../../tools/approx');
-var divide = math.divide;
-var bignumber = math.bignumber;
-var complex = math.complex;
+import assert from "assert";
+import { index_obj } from "../../../index";
+import * as liberrorindex_obj from "../../../lib/error/index";
+import { toolsapprox_obj } from "../../../tools/approx";
+var math = index_obj;
+var error = liberrorindex_obj;
+var approx = toolsapprox_obj;
+var divide = index_obj.divide;
+var bignumber = index_obj.bignumber;
+var complex = index_obj.complex;
 
 describe('divide', function() {
   it('should divide two numbers', function() {
@@ -35,7 +37,7 @@ describe('divide', function() {
   it('should divide mixed numbers and booleans', function() {
     assert.equal(divide(2, true), 2);
     assert.equal(divide(2, false), Infinity);
-    approx.equal(divide(true, 2), 0.5);
+    toolsapprox_obj(divide(true, 2), 0.5);
     assert.equal(divide(false, 2), 0);
   });
 
@@ -62,116 +64,116 @@ describe('divide', function() {
   });
 
   it('should divide two complex numbers', function() {
-    approx.deepEqual(divide(complex('2+3i'), 2), complex('1+1.5i'));
-    approx.deepEqual(divide(complex('2+3i'), complex('4i')), complex('0.75 - 0.5i'));
-    approx.deepEqual(divide(complex('2i'), complex('4i')), complex('0.5'));
-    approx.deepEqual(divide(4, complex('1+2i')), complex('0.8 - 1.6i'));
-    approx.deepEqual(divide(math.i, 0), complex(0, Infinity));
-    approx.deepEqual(divide(complex(0,1), 0), complex(0, Infinity));
-    approx.deepEqual(divide(complex(1,0), 0), complex(Infinity, 0));
-    approx.deepEqual(divide(complex(0,1), complex(0,0)), complex(0, Infinity));
-    approx.deepEqual(divide(complex(1,1), complex(0,0)), complex(Infinity, Infinity));
-    approx.deepEqual(divide(complex(1,-1), complex(0,0)), complex(Infinity, -Infinity));
-    approx.deepEqual(divide(complex(-1,1), complex(0,0)), complex(-Infinity, Infinity));
-    approx.deepEqual(divide(complex(1,1), complex(0,1)), complex(1, -1));
-    approx.deepEqual(divide(complex(1,1), complex(1,0)), complex(1, 1));
+    toolsapprox_obj.deepEqual(divide(complex('2+3i'), 2), complex('1+1.5i'));
+    toolsapprox_obj.deepEqual(divide(complex('2+3i'), complex('4i')), complex('0.75 - 0.5i'));
+    toolsapprox_obj.deepEqual(divide(complex('2i'), complex('4i')), complex('0.5'));
+    toolsapprox_obj.deepEqual(divide(4, complex('1+2i')), complex('0.8 - 1.6i'));
+    toolsapprox_obj.deepEqual(divide(index_obj.i, 0), complex(0, Infinity));
+    toolsapprox_obj.deepEqual(divide(complex(0,1), 0), complex(0, Infinity));
+    toolsapprox_obj.deepEqual(divide(complex(1,0), 0), complex(Infinity, 0));
+    toolsapprox_obj.deepEqual(divide(complex(0,1), complex(0,0)), complex(0, Infinity));
+    toolsapprox_obj.deepEqual(divide(complex(1,1), complex(0,0)), complex(Infinity, Infinity));
+    toolsapprox_obj.deepEqual(divide(complex(1,-1), complex(0,0)), complex(Infinity, -Infinity));
+    toolsapprox_obj.deepEqual(divide(complex(-1,1), complex(0,0)), complex(-Infinity, Infinity));
+    toolsapprox_obj.deepEqual(divide(complex(1,1), complex(0,1)), complex(1, -1));
+    toolsapprox_obj.deepEqual(divide(complex(1,1), complex(1,0)), complex(1, 1));
 
-    approx.deepEqual(divide(complex(2, 3), complex(4, 5)), complex('0.5609756097560976 + 0.0487804878048781i'));
-    approx.deepEqual(divide(complex(2, 3), complex(4, -5)), complex('-0.170731707317073 + 0.536585365853659i'));
-    approx.deepEqual(divide(complex(2, 3), complex(-4, 5)), complex('0.170731707317073 - 0.536585365853659i'));
-    approx.deepEqual(divide(complex(2, 3), complex(-4, -5)), complex('-0.5609756097560976 - 0.0487804878048781i'));
-    approx.deepEqual(divide(complex(2, -3), complex(4, 5)), complex('-0.170731707317073 - 0.536585365853659i'));
-    approx.deepEqual(divide(complex(2, -3), complex(4, -5)), complex('0.5609756097560976 - 0.0487804878048781i'));
-    approx.deepEqual(divide(complex(2, -3), complex(-4, 5)), complex('-0.5609756097560976 + 0.0487804878048781i'));
-    approx.deepEqual(divide(complex(2, -3), complex(-4, -5)), complex('0.170731707317073 + 0.536585365853659i'));
-    approx.deepEqual(divide(complex(-2, 3), complex(4, 5)), complex('0.170731707317073 + 0.536585365853659i'));
-    approx.deepEqual(divide(complex(-2, 3), complex(4, -5)), complex('-0.5609756097560976 + 0.0487804878048781i'));
-    approx.deepEqual(divide(complex(-2, 3), complex(-4, 5)), complex('0.5609756097560976 - 0.0487804878048781i'));
-    approx.deepEqual(divide(complex(-2, 3), complex(-4, -5)), complex('-0.170731707317073 - 0.536585365853659i'));
-    approx.deepEqual(divide(complex(-2, -3), complex(4, 5)), complex('-0.5609756097560976 - 0.0487804878048781i'));
-    approx.deepEqual(divide(complex(-2, -3), complex(4, -5)), complex('0.170731707317073 - 0.536585365853659i'));
-    approx.deepEqual(divide(complex(-2, -3), complex(-4, 5)), complex('-0.170731707317073 + 0.536585365853659i'));
-    approx.deepEqual(divide(complex(-2, -3), complex(-4, -5)), complex('0.5609756097560976 + 0.0487804878048781i'));
+    toolsapprox_obj.deepEqual(divide(complex(2, 3), complex(4, 5)), complex('0.5609756097560976 + 0.0487804878048781i'));
+    toolsapprox_obj.deepEqual(divide(complex(2, 3), complex(4, -5)), complex('-0.170731707317073 + 0.536585365853659i'));
+    toolsapprox_obj.deepEqual(divide(complex(2, 3), complex(-4, 5)), complex('0.170731707317073 - 0.536585365853659i'));
+    toolsapprox_obj.deepEqual(divide(complex(2, 3), complex(-4, -5)), complex('-0.5609756097560976 - 0.0487804878048781i'));
+    toolsapprox_obj.deepEqual(divide(complex(2, -3), complex(4, 5)), complex('-0.170731707317073 - 0.536585365853659i'));
+    toolsapprox_obj.deepEqual(divide(complex(2, -3), complex(4, -5)), complex('0.5609756097560976 - 0.0487804878048781i'));
+    toolsapprox_obj.deepEqual(divide(complex(2, -3), complex(-4, 5)), complex('-0.5609756097560976 + 0.0487804878048781i'));
+    toolsapprox_obj.deepEqual(divide(complex(2, -3), complex(-4, -5)), complex('0.170731707317073 + 0.536585365853659i'));
+    toolsapprox_obj.deepEqual(divide(complex(-2, 3), complex(4, 5)), complex('0.170731707317073 + 0.536585365853659i'));
+    toolsapprox_obj.deepEqual(divide(complex(-2, 3), complex(4, -5)), complex('-0.5609756097560976 + 0.0487804878048781i'));
+    toolsapprox_obj.deepEqual(divide(complex(-2, 3), complex(-4, 5)), complex('0.5609756097560976 - 0.0487804878048781i'));
+    toolsapprox_obj.deepEqual(divide(complex(-2, 3), complex(-4, -5)), complex('-0.170731707317073 - 0.536585365853659i'));
+    toolsapprox_obj.deepEqual(divide(complex(-2, -3), complex(4, 5)), complex('-0.5609756097560976 - 0.0487804878048781i'));
+    toolsapprox_obj.deepEqual(divide(complex(-2, -3), complex(4, -5)), complex('0.170731707317073 - 0.536585365853659i'));
+    toolsapprox_obj.deepEqual(divide(complex(-2, -3), complex(-4, 5)), complex('-0.170731707317073 + 0.536585365853659i'));
+    toolsapprox_obj.deepEqual(divide(complex(-2, -3), complex(-4, -5)), complex('0.5609756097560976 + 0.0487804878048781i'));
   });
 
   it('should divide mixed complex numbers and numbers', function() {
-    assert.deepEqual(divide(math.complex(6, -4), 2), math.complex(3, -2));
-    assert.deepEqual(divide(1, math.complex(2, 4)), math.complex(0.1, -0.2));
+    assert.deepEqual(divide(index_obj.complex(6, -4), 2), index_obj.complex(3, -2));
+    assert.deepEqual(divide(1, index_obj.complex(2, 4)), index_obj.complex(0.1, -0.2));
   });
 
   it('should divide mixed complex numbers and bignumbers', function() {
-    assert.deepEqual(divide(math.complex(6, -4), bignumber(2)), math.complex(3, -2));
-    assert.deepEqual(divide(bignumber(1), math.complex(2, 4)), math.complex(0.1, -0.2));
+    assert.deepEqual(divide(index_obj.complex(6, -4), bignumber(2)), index_obj.complex(3, -2));
+    assert.deepEqual(divide(bignumber(1), index_obj.complex(2, 4)), index_obj.complex(0.1, -0.2));
   });
 
   it('should divide two fractions', function() {
-    var a = math.fraction(1,4);
-    assert.equal(divide(a, math.fraction(1,2)).toString(), '0.5');
+    var a = index_obj.fraction(1,4);
+    assert.equal(divide(a, index_obj.fraction(1,2)).toString(), '0.5');
     assert.equal(a.toString(), '0.25');
   });
 
   it('should divide mixed fractions and numbers', function() {
-    assert.deepEqual(divide(1, math.fraction(3)), math.fraction(1,3));
-    assert.deepEqual(divide(math.fraction(1), 3), math.fraction(1,3));
+    assert.deepEqual(divide(1, index_obj.fraction(3)), index_obj.fraction(1,3));
+    assert.deepEqual(divide(index_obj.fraction(1), 3), index_obj.fraction(1,3));
   });
 
   it('should divide units by a number', function() {
-    assert.equal(divide(math.unit('5 m'), 10).toString(), '500 mm');
+    assert.equal(divide(index_obj.unit('5 m'), 10).toString(), '500 mm');
   });
 
   it('should divide valueless units by a number', function() {
-    assert.equal(divide(math.unit('m'), 2).toString(), '500 mm');
+    assert.equal(divide(index_obj.unit('m'), 2).toString(), '500 mm');
   });
 
   it('should divide a number by a unit', function() {
-    assert.equal(divide(20, math.unit('4 N s')).toString(), '5 N^-1 s^-1');
-    assert.equal(divide(4, math.unit('W')).toString(), '4 W^-1');
-    assert.equal(divide(2.5, math.unit('1.25 mm')).toString(), '2 mm^-1');
-    assert.equal(divide(10, math.unit('4 mg/s')).toString(), '2.5 s / mg');
+    assert.equal(divide(20, index_obj.unit('4 N s')).toString(), '5 N^-1 s^-1');
+    assert.equal(divide(4, index_obj.unit('W')).toString(), '4 W^-1');
+    assert.equal(divide(2.5, index_obj.unit('1.25 mm')).toString(), '2 mm^-1');
+    assert.equal(divide(10, index_obj.unit('4 mg/s')).toString(), '2.5 s / mg');
 
-    assert.equal(divide(10, math.unit(math.fraction(4), 'mg/s')).toString(), '5/2 s / mg');
+    assert.equal(divide(10, index_obj.unit(index_obj.fraction(4), 'mg/s')).toString(), '5/2 s / mg');
 
-    approx.equal(math.format(divide(10, math.unit(math.complex(1,2), 'm/s')), 14), '(2 - 4i) s / m');
+    toolsapprox_obj(index_obj.format(divide(10, index_obj.unit(index_obj.complex(1,2), 'm/s')), 14), '(2 - 4i) s / m');
   });
 
   it('should divide two units', function() {
-    assert.equal(divide(math.unit('75 mi/h'), math.unit('40 mi/gal')).to('gal/minute').toString(), '0.03125 gal / minute');
+    assert.equal(divide(index_obj.unit('75 mi/h'), index_obj.unit('40 mi/gal')).to('gal/minute').toString(), '0.03125 gal / minute');
 
-    var a = math.unit(math.fraction(75), 'mi/h');
-    var b = math.unit(math.fraction(40), 'mi/gal');
+    var a = index_obj.unit(index_obj.fraction(75), 'mi/h');
+    var b = index_obj.unit(index_obj.fraction(40), 'mi/gal');
     assert.equal(divide(a, b).to('gal/minute').toString(), '1/32 gal / minute');
 
-    var c = math.unit(math.complex(21, 1), 'kg');
-    var d = math.unit(math.complex(2, -3), 's');
+    var c = index_obj.unit(index_obj.complex(21, 1), 'kg');
+    var d = index_obj.unit(index_obj.complex(2, -3), 's');
     assert.equal(divide(c, d).toString(), "(3 + 5.000000000000001i) kg / s");
   });
 
   it('should divide one valued unit by a valueless unit and vice-versa', function() {
-    assert.equal(divide(math.unit('4 gal'), math.unit('L')).toString(), '15.141648');
-    assert.equal(divide(math.unit('gal'), math.unit('4 L')).toString(), '0.946353');
+    assert.equal(divide(index_obj.unit('4 gal'), index_obj.unit('L')).toString(), '15.141648');
+    assert.equal(divide(index_obj.unit('gal'), index_obj.unit('4 L')).toString(), '0.946353');
 
-    assert.equal(divide(math.unit('inch'), math.unit(math.fraction(1), 'cm')).toFraction(), '127/50');
+    assert.equal(divide(index_obj.unit('inch'), index_obj.unit(index_obj.fraction(1), 'cm')).toFraction(), '127/50');
   });
 
   it('should divide (but not simplify) two valueless units', function() {
-    assert.equal(divide(math.unit('gal'), math.unit('L')).toString(), 'gal / L');
+    assert.equal(divide(index_obj.unit('gal'), index_obj.unit('L')).toString(), 'gal / L');
   });
 
   it('should divide units by a big number', function() {
-    assert.equal(divide(math.unit('5 m'), bignumber(10)).toString(), '500 mm');
+    assert.equal(divide(index_obj.unit('5 m'), bignumber(10)).toString(), '500 mm');
   });
 
   it('should divide each elements in a matrix by a number', function() {
     assert.deepEqual(divide([2,4,6], 2), [1,2,3]);
-    a  = math.matrix([[1,2],[3,4]]);
-    assert.deepEqual(divide(a, 2), math.matrix([[0.5,1],[1.5,2]]));
+    a  = index_obj.matrix([[1,2],[3,4]]);
+    assert.deepEqual(divide(a, 2), index_obj.matrix([[0.5,1],[1.5,2]]));
     assert.deepEqual(divide(a.valueOf(), 2), [[0.5,1],[1.5,2]]);
     assert.deepEqual(divide([], 2), []);
     assert.deepEqual(divide([], 2), []);
   });
 
   it('should divide 1 over a matrix (matrix inverse)', function() {
-    approx.deepEqual(divide(1, [
+    toolsapprox_obj.deepEqual(divide(1, [
       [ 1, 4,  7],
       [ 3, 0,  5],
       [-1, 9, 11]
@@ -183,9 +185,9 @@ describe('divide', function() {
   });
 
   it('should perform matrix division', function() {
-    a = math.matrix([[1,2],[3,4]]);
-    b = math.matrix([[5,6],[7,8]]);
-    assert.deepEqual(divide(a, b), math.matrix([[3,-2], [2,-1]]));
+    a = index_obj.matrix([[1,2],[3,4]]);
+    b = index_obj.matrix([[5,6],[7,8]]);
+    assert.deepEqual(divide(a, b), index_obj.matrix([[3,-2], [2,-1]]));
   });
 
   it('should divide a matrix by a matrix containing a scalar', function() {
@@ -209,7 +211,7 @@ describe('divide', function() {
   });
 
   it('should LaTeX divide', function () {
-    var expression = math.parse('divide(1,2)');
+    var expression = index_obj.parse('divide(1,2)');
     assert.equal(expression.toTex(), '\\frac{1}{2}');
   });
 

@@ -1,33 +1,35 @@
-// test exp
-var assert = require('assert');
-var approx = require('../../../tools/approx');
-var error = require('../../../lib/error/index');
-var math = require('../../../index');
-var mathPredictable = math.create({predictable: true});
-var bignumber = math.bignumber;
-var fraction = math.fraction;
-var complex = math.complex;
-var matrix = math.matrix;
-var unit = math.unit;
-var range = math.range;
-var pow = math.pow;
+import assert from "assert";
+import { toolsapprox_obj } from "../../../tools/approx";
+import * as liberrorindex_obj from "../../../lib/error/index";
+import { index_obj } from "../../../index";
+var approx = toolsapprox_obj;
+var error = liberrorindex_obj;
+var math = index_obj;
+var mathPredictable = index_obj.create({predictable: true});
+var bignumber = index_obj.bignumber;
+var fraction = index_obj.fraction;
+var complex = index_obj.complex;
+var matrix = index_obj.matrix;
+var unit = index_obj.unit;
+var range = index_obj.range;
+var pow = index_obj.pow;
 
 describe('pow', function() {
 
   it('should exponentiate a number to the given power', function() {
-    approx.deepEqual(pow(2,3), 8);
-    approx.deepEqual(pow(2,4), 16);
-    approx.deepEqual(pow(-2,2), 4);
-    approx.deepEqual(pow(3,3), 27);
-    approx.deepEqual(pow(3,-2), 0.111111111111111);
-    approx.deepEqual(pow(-3,-2), 0.111111111111111);
-    approx.deepEqual(pow(3,-3), 0.0370370370370370);
-    approx.deepEqual(pow(-3,-3), -0.0370370370370370);
-    approx.deepEqual(pow(2,1.5), 2.82842712474619);
+    toolsapprox_obj.deepEqual(pow(2,3), 8);
+    toolsapprox_obj.deepEqual(pow(2,4), 16);
+    toolsapprox_obj.deepEqual(pow(-2,2), 4);
+    toolsapprox_obj.deepEqual(pow(3,3), 27);
+    toolsapprox_obj.deepEqual(pow(3,-2), 0.111111111111111);
+    toolsapprox_obj.deepEqual(pow(-3,-2), 0.111111111111111);
+    toolsapprox_obj.deepEqual(pow(3,-3), 0.0370370370370370);
+    toolsapprox_obj.deepEqual(pow(-3,-3), -0.0370370370370370);
+    toolsapprox_obj.deepEqual(pow(2,1.5), 2.82842712474619);
   });
 
   it('should exponentiate a negative number to a non-integer power', function() {
-    approx.deepEqual(pow(-2,1.5), complex(0, -2.82842712474619));
+    toolsapprox_obj.deepEqual(pow(-2,1.5), complex(0, -2.82842712474619));
   });
 
   it('should exponentiate a negative number to a non-integer power with predictable:true', function() {
@@ -37,23 +39,23 @@ describe('pow', function() {
   });
 
   it('should return a real-valued root if one exists with predictable:true', function() {
-    approx.equal(mathPredictable.pow(-8, 1/3), -2);
-    approx.equal(mathPredictable.pow(-8, 2/3), 4);
-    approx.equal(mathPredictable.pow(-8, 3/3), -8);
-    approx.equal(mathPredictable.pow(-8, 4/3), 16);
-    approx.equal(mathPredictable.pow(-8, 5/3), -32);
-    approx.equal(mathPredictable.pow(-8, -5/3), -0.03125);
-    approx.equal(mathPredictable.pow(-1, 2/3), 1);
-    approx.equal(mathPredictable.pow(-1, 50/99), 1);
-    approx.equal(mathPredictable.pow(-1, 49/99), -1);
-    approx.equal(mathPredictable.pow(-17, 29/137), -1.8216292479175);
-    approx.equal(mathPredictable.pow(-1, 0), 1);
-    approx.equal(mathPredictable.pow(-1, 0.2), -1);
-    approx.equal(mathPredictable.pow(-1, 1), -1);
+    toolsapprox_obj(mathPredictable.pow(-8, 1/3), -2);
+    toolsapprox_obj(mathPredictable.pow(-8, 2/3), 4);
+    toolsapprox_obj(mathPredictable.pow(-8, 3/3), -8);
+    toolsapprox_obj(mathPredictable.pow(-8, 4/3), 16);
+    toolsapprox_obj(mathPredictable.pow(-8, 5/3), -32);
+    toolsapprox_obj(mathPredictable.pow(-8, -5/3), -0.03125);
+    toolsapprox_obj(mathPredictable.pow(-1, 2/3), 1);
+    toolsapprox_obj(mathPredictable.pow(-1, 50/99), 1);
+    toolsapprox_obj(mathPredictable.pow(-1, 49/99), -1);
+    toolsapprox_obj(mathPredictable.pow(-17, 29/137), -1.8216292479175);
+    toolsapprox_obj(mathPredictable.pow(-1, 0), 1);
+    toolsapprox_obj(mathPredictable.pow(-1, 0.2), -1);
+    toolsapprox_obj(mathPredictable.pow(-1, 1), -1);
 
-    approx.equal(mathPredictable.pow(4, 2), 16);
-    approx.equal(mathPredictable.pow(4, 0.5), 2);
-    approx.equal(mathPredictable.pow(-4, 2), 16);
+    toolsapprox_obj(mathPredictable.pow(4, 2), 16);
+    toolsapprox_obj(mathPredictable.pow(4, 0.5), 2);
+    toolsapprox_obj(mathPredictable.pow(-4, 2), 16);
 
     assert(isNaN(mathPredictable.pow(-1, 49/100)));
     assert(isNaN(mathPredictable.pow(-17, 29/138)));
@@ -88,9 +90,9 @@ describe('pow', function() {
   });
 
   it('should exponentiate a negative bignumber to a non-integer power', function() {
-    approx.deepEqual(pow(bignumber(-2), bignumber(1.5)), complex(0, -2.82842712474619));
-    approx.deepEqual(pow(-2, bignumber(1.5)), complex(0, -2.82842712474619));
-    approx.deepEqual(pow(bignumber(-2), 1.5), complex(0, -2.82842712474619));
+    toolsapprox_obj.deepEqual(pow(bignumber(-2), bignumber(1.5)), complex(0, -2.82842712474619));
+    toolsapprox_obj.deepEqual(pow(-2, bignumber(1.5)), complex(0, -2.82842712474619));
+    toolsapprox_obj.deepEqual(pow(bignumber(-2), 1.5), complex(0, -2.82842712474619));
   });
 
   it('should exponentiate a negative bignumber to a non-integer power', function() {
@@ -113,17 +115,17 @@ describe('pow', function() {
   });
 
   it('should exponentiate a fraction to an integer power', function() {
-    assert.deepEqual(math.pow(fraction(3), fraction(2)), fraction(9));
-    assert.deepEqual(math.pow(fraction(1.5), fraction(2)), fraction(2.25));
-    assert.deepEqual(math.pow(fraction(1.5), fraction(-2)), fraction(4, 9));
-    assert.deepEqual(math.pow(fraction(1.5), 2), fraction(2.25));
+    assert.deepEqual(index_obj.pow(fraction(3), fraction(2)), fraction(9));
+    assert.deepEqual(index_obj.pow(fraction(1.5), fraction(2)), fraction(2.25));
+    assert.deepEqual(index_obj.pow(fraction(1.5), fraction(-2)), fraction(4, 9));
+    assert.deepEqual(index_obj.pow(fraction(1.5), 2), fraction(2.25));
   });
 
   it('should exponentiate a fraction to an non-integer power', function() {
     assert.throws(function () {mathPredictable.pow(fraction(3), fraction(1.5))}, /Function pow does not support non-integer exponents for fractions/);
 
-    assert.strictEqual(math.pow(fraction(4), 1.5), 8);
-    assert.strictEqual(math.pow(fraction(4), fraction(1.5)), 8);
+    assert.strictEqual(index_obj.pow(fraction(4), 1.5), 8);
+    assert.strictEqual(index_obj.pow(fraction(4), fraction(1.5)), 8);
   });
 
   it('should throw an error if used with wrong number of arguments', function() {
@@ -132,48 +134,48 @@ describe('pow', function() {
   });
 
   it('should exponentiate a complex number to the given power', function() {
-    approx.deepEqual(pow(complex(3, 0), 2), complex(9, 0));
-    approx.deepEqual(pow(complex(0, 2), 2), complex(-4, 0));
+    toolsapprox_obj.deepEqual(pow(complex(3, 0), 2), complex(9, 0));
+    toolsapprox_obj.deepEqual(pow(complex(0, 2), 2), complex(-4, 0));
 
-    approx.deepEqual(pow(complex(-1,-1),complex(-1,-1)), complex('-0.0284750589322119 +  0.0606697332231795i'));
-    approx.deepEqual(pow(complex(-1,-1),complex(-1,1)), complex('-6.7536199239765713 +  3.1697803027015614i'));
-    approx.deepEqual(pow(complex(-1,-1),complex(0,-1)), complex('0.0891447921553914 - 0.0321946742909677i'));
-    approx.deepEqual(pow(complex(-1,-1),complex(0,1)), complex('9.92340022667813 + 3.58383962127501i'));
-    approx.deepEqual(pow(complex(-1,-1),complex(1,-1)), complex('-0.1213394664463591 -  0.0569501178644237i'));
-    approx.deepEqual(pow(complex(-1,-1),complex(1,1)), complex('-6.3395606054031211 - 13.5072398479531426i'));
-    approx.deepEqual(pow(complex(-1,1),complex(-1,-1)), complex('-6.7536199239765713 -  3.1697803027015614i'));
-    approx.deepEqual(pow(complex(-1,1),complex(-1,1)), complex('-0.0284750589322119 -  0.0606697332231795i'));
-    approx.deepEqual(pow(complex(-1,1),complex(0,-1)), complex('9.92340022667813 - 3.58383962127501i'));
-    approx.deepEqual(pow(complex(-1,1),complex(0,1)), complex('0.0891447921553914 + 0.0321946742909677i'));
-    approx.deepEqual(pow(complex(-1,1),complex(1,-1)), complex('-6.3395606054031211 + 13.5072398479531426i'));
-    approx.deepEqual(pow(complex(-1,1),complex(1,1)), complex('-0.1213394664463591 +  0.0569501178644237i'));
+    toolsapprox_obj.deepEqual(pow(complex(-1,-1),complex(-1,-1)), complex('-0.0284750589322119 +  0.0606697332231795i'));
+    toolsapprox_obj.deepEqual(pow(complex(-1,-1),complex(-1,1)), complex('-6.7536199239765713 +  3.1697803027015614i'));
+    toolsapprox_obj.deepEqual(pow(complex(-1,-1),complex(0,-1)), complex('0.0891447921553914 - 0.0321946742909677i'));
+    toolsapprox_obj.deepEqual(pow(complex(-1,-1),complex(0,1)), complex('9.92340022667813 + 3.58383962127501i'));
+    toolsapprox_obj.deepEqual(pow(complex(-1,-1),complex(1,-1)), complex('-0.1213394664463591 -  0.0569501178644237i'));
+    toolsapprox_obj.deepEqual(pow(complex(-1,-1),complex(1,1)), complex('-6.3395606054031211 - 13.5072398479531426i'));
+    toolsapprox_obj.deepEqual(pow(complex(-1,1),complex(-1,-1)), complex('-6.7536199239765713 -  3.1697803027015614i'));
+    toolsapprox_obj.deepEqual(pow(complex(-1,1),complex(-1,1)), complex('-0.0284750589322119 -  0.0606697332231795i'));
+    toolsapprox_obj.deepEqual(pow(complex(-1,1),complex(0,-1)), complex('9.92340022667813 - 3.58383962127501i'));
+    toolsapprox_obj.deepEqual(pow(complex(-1,1),complex(0,1)), complex('0.0891447921553914 + 0.0321946742909677i'));
+    toolsapprox_obj.deepEqual(pow(complex(-1,1),complex(1,-1)), complex('-6.3395606054031211 + 13.5072398479531426i'));
+    toolsapprox_obj.deepEqual(pow(complex(-1,1),complex(1,1)), complex('-0.1213394664463591 +  0.0569501178644237i'));
 
-    approx.deepEqual(pow(complex(0,-1),complex(-1,-1)), complex('0.000000000000000 + 0.207879576350762i'));
-    approx.deepEqual(pow(complex(0,-1),complex(-1,1)), complex('0.000000000000000 + 4.810477380965351i'));
-    approx.deepEqual(pow(complex(0,-1),complex(1,-1)), complex('0.000000000000000 - 0.207879576350762i'));
-    approx.deepEqual(pow(complex(0,-1),complex(1,1)), complex('0.000000000000000 - 4.810477380965351i'));
-    approx.deepEqual(pow(complex(0,1),complex(-1,-1)), complex('0.000000000000000 - 4.810477380965351i'));
-    approx.deepEqual(pow(complex(0,1),complex(-1,1)), complex('0.000000000000000 - 0.207879576350762i'));
-    approx.deepEqual(pow(complex(0,1),complex(1,-1)), complex('0.000000000000000 + 4.810477380965351i'));
-    approx.deepEqual(pow(complex(0,1),complex(1,1)), complex('0.000000000000000 + 0.207879576350762i'));
+    toolsapprox_obj.deepEqual(pow(complex(0,-1),complex(-1,-1)), complex('0.000000000000000 + 0.207879576350762i'));
+    toolsapprox_obj.deepEqual(pow(complex(0,-1),complex(-1,1)), complex('0.000000000000000 + 4.810477380965351i'));
+    toolsapprox_obj.deepEqual(pow(complex(0,-1),complex(1,-1)), complex('0.000000000000000 - 0.207879576350762i'));
+    toolsapprox_obj.deepEqual(pow(complex(0,-1),complex(1,1)), complex('0.000000000000000 - 4.810477380965351i'));
+    toolsapprox_obj.deepEqual(pow(complex(0,1),complex(-1,-1)), complex('0.000000000000000 - 4.810477380965351i'));
+    toolsapprox_obj.deepEqual(pow(complex(0,1),complex(-1,1)), complex('0.000000000000000 - 0.207879576350762i'));
+    toolsapprox_obj.deepEqual(pow(complex(0,1),complex(1,-1)), complex('0.000000000000000 + 4.810477380965351i'));
+    toolsapprox_obj.deepEqual(pow(complex(0,1),complex(1,1)), complex('0.000000000000000 + 0.207879576350762i'));
 
-    approx.deepEqual(pow(complex(1,-1),complex(-1,-1)), complex('0.2918503793793073 +  0.1369786269150605i'));
-    approx.deepEqual(pow(complex(1,-1),complex(-1,1)), complex('0.6589325864505904 +  1.4039396486303144i'));
-    approx.deepEqual(pow(complex(1,-1),complex(0,-1)), complex('0.428829006294368 - 0.154871752464247i'));
-    approx.deepEqual(pow(complex(1,-1),complex(0,1)), complex('2.062872235080905 + 0.745007062179724i'));
-    approx.deepEqual(pow(complex(1,-1),complex(1,-1)), complex('0.2739572538301211 -  0.5837007587586147i'));
-    approx.deepEqual(pow(complex(1,-1),complex(1,1)), complex('2.8078792972606288 -  1.3178651729011805i'));
-    approx.deepEqual(pow(complex(1,1),complex(-1,-1)), complex('0.6589325864505904 -  1.4039396486303144i'));
-    approx.deepEqual(pow(complex(1,1),complex(-1,1)), complex('0.2918503793793073 -  0.1369786269150605i'));
-    approx.deepEqual(pow(complex(1,1),complex(0,-1)), complex('2.062872235080905 - 0.745007062179724i'));
-    approx.deepEqual(pow(complex(1,1),complex(0,1)), complex('0.428829006294368 + 0.154871752464247i'));
-    approx.deepEqual(pow(complex(1,1),complex(1,-1)), complex('2.8078792972606288 +  1.3178651729011805i'));
-    approx.deepEqual(pow(complex(1,1),complex(1,1)), complex('0.2739572538301211 +  0.5837007587586147i'));
+    toolsapprox_obj.deepEqual(pow(complex(1,-1),complex(-1,-1)), complex('0.2918503793793073 +  0.1369786269150605i'));
+    toolsapprox_obj.deepEqual(pow(complex(1,-1),complex(-1,1)), complex('0.6589325864505904 +  1.4039396486303144i'));
+    toolsapprox_obj.deepEqual(pow(complex(1,-1),complex(0,-1)), complex('0.428829006294368 - 0.154871752464247i'));
+    toolsapprox_obj.deepEqual(pow(complex(1,-1),complex(0,1)), complex('2.062872235080905 + 0.745007062179724i'));
+    toolsapprox_obj.deepEqual(pow(complex(1,-1),complex(1,-1)), complex('0.2739572538301211 -  0.5837007587586147i'));
+    toolsapprox_obj.deepEqual(pow(complex(1,-1),complex(1,1)), complex('2.8078792972606288 -  1.3178651729011805i'));
+    toolsapprox_obj.deepEqual(pow(complex(1,1),complex(-1,-1)), complex('0.6589325864505904 -  1.4039396486303144i'));
+    toolsapprox_obj.deepEqual(pow(complex(1,1),complex(-1,1)), complex('0.2918503793793073 -  0.1369786269150605i'));
+    toolsapprox_obj.deepEqual(pow(complex(1,1),complex(0,-1)), complex('2.062872235080905 - 0.745007062179724i'));
+    toolsapprox_obj.deepEqual(pow(complex(1,1),complex(0,1)), complex('0.428829006294368 + 0.154871752464247i'));
+    toolsapprox_obj.deepEqual(pow(complex(1,1),complex(1,-1)), complex('2.8078792972606288 +  1.3178651729011805i'));
+    toolsapprox_obj.deepEqual(pow(complex(1,1),complex(1,1)), complex('0.2739572538301211 +  0.5837007587586147i'));
   });
 
   it('should exponentiate a complex number to the given bignumber power', function() {
-    approx.deepEqual(pow(complex(3, 0), math.bignumber(2)), complex(9, 0));
-    approx.deepEqual(pow(complex(0, 2), math.bignumber(2)), complex(-4, 0));
+    toolsapprox_obj.deepEqual(pow(complex(3, 0), index_obj.bignumber(2)), complex(9, 0));
+    toolsapprox_obj.deepEqual(pow(complex(0, 2), index_obj.bignumber(2)), complex(-4, 0));
   });
 
   it('should correctly calculate unit ^ number', function() {
@@ -206,21 +208,21 @@ describe('pow', function() {
   it('should raise a square matrix to the power 2', function() {
     var a = [[1,2],[3,4]];
     var res = [[7,10],[15,22]];
-    approx.deepEqual(pow(a, 2), res);
-    approx.deepEqual(pow(matrix(a), 2), matrix(res));
+    toolsapprox_obj.deepEqual(pow(a, 2), res);
+    toolsapprox_obj.deepEqual(pow(matrix(a), 2), matrix(res));
   });
 
   it('should return identity matrix for power 0', function() {
     var a = [[1,2],[3,4]];
     var res = [[1,0],[0,1]];
-    approx.deepEqual(pow(a, 0), res);
-    approx.deepEqual(pow(matrix(a), 0), matrix(res));
+    toolsapprox_obj.deepEqual(pow(a, 0), res);
+    toolsapprox_obj.deepEqual(pow(matrix(a), 0), matrix(res));
   });
 
   it('should compute large size of square matrix', function() {
-    var a = math.eye(30).valueOf();
-    approx.deepEqual(pow(a, 1000), a);
-    approx.deepEqual(pow(matrix(a), 1000), matrix(a));
+    var a = index_obj.eye(30).valueOf();
+    toolsapprox_obj.deepEqual(pow(a, 1000), a);
+    toolsapprox_obj.deepEqual(pow(matrix(a), 1000), matrix(a));
   });
 
   it('should throw an error when calculating the power of a non square matrix', function() {
@@ -236,7 +238,7 @@ describe('pow', function() {
   });
 
   it('should LaTeX pow', function () {
-    var expression = math.parse('pow(2,10)');
+    var expression = index_obj.parse('pow(2,10)');
     assert.equal(expression.toTex(), '\\left(2\\right)^{10}');
   });
 

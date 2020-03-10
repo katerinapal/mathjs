@@ -1,7 +1,4 @@
-var assert = require('assert'),
-    error = require('../../lib/error/index'),
-    math = require('../../index'),
-    bool = math['boolean'];
+import assert from "assert";
 
 describe('boolean', function() {
 

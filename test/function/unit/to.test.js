@@ -1,10 +1,4 @@
-var assert = require('assert'),
-    approx = require('../../../tools/approx'),
-    math = require('../../../index'),
-    matrix = math.matrix,
-    sparse = math.sparse,
-    Unit = math.type.Unit,
-    unit = math.unit;
+import assert from "assert";
 
 describe('to', function() {
 

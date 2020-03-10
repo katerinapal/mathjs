@@ -1,7 +1,4 @@
-var assert = require('assert'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    bignumber = math.bignumber;
+import assert from "assert";
 
 describe('concat', function() {
 

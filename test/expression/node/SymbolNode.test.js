@@ -1,11 +1,12 @@
-// test SymbolNode
-var assert = require('assert');
-var approx = require('../../../tools/approx');
-var math = require('../../../index');
-var Node = math.expression.node.Node;
-var ConstantNode = math.expression.node.ConstantNode;
-var SymbolNode = math.expression.node.SymbolNode;
-var OperatorNode = math.expression.node.OperatorNode;
+import assert from "assert";
+import * as toolsapprox_obj from "../../../tools/approx";
+import { index_obj } from "../../../index";
+var approx = toolsapprox_obj;
+var math = index_obj;
+var Node = index_obj.expression.node.Node;
+var ConstantNode = index_obj.expression.node.ConstantNode;
+var SymbolNode = index_obj.expression.node.SymbolNode;
+var OperatorNode = index_obj.expression.node.OperatorNode;
 
 describe('SymbolNode', function() {
 
@@ -47,7 +48,7 @@ describe('SymbolNode', function() {
     var s2 = new SymbolNode('sqrt');
     var expr2 = s2.compile();
     var scope2 = {};
-    assert.strictEqual(expr2.eval(scope2), math.sqrt);
+    assert.strictEqual(expr2.eval(scope2), index_obj.sqrt);
   });
 
   it ('should filter a SymbolNode', function () {

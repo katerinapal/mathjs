@@ -1,8 +1,4 @@
-var assert = require('assert'),
-    error = require('../../lib/error/index'),
-    math = require('../../index'),
-    approx = require('../../tools/approx'),
-    number = math.number;
+import assert from "assert";
 
 describe('number', function() {
 

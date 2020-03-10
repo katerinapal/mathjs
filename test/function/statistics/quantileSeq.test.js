@@ -1,8 +1,4 @@
-var assert = require('assert'),
-    approx = require('../../../tools/approx'),
-    math = require('../../../index'),
-    bignumber = math.bignumber,
-    quantileSeq = math.quantileSeq;
+import assert from "assert";
 
 describe('quantileSeq', function() {
 

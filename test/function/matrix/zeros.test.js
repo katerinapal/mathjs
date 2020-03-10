@@ -1,8 +1,4 @@
-// test zeros
-var assert = require('assert'),
-    math = require('../../../index'),
-    zeros = math.zeros,
-    matrix = math.matrix;
+import assert from "assert";
 
 describe('zeros', function() {
 

@@ -1,8 +1,7 @@
-// test data type Range
-
-var assert = require('assert');
-var math = require('../../../index');
-var Range = math.type.Range;
+import assert from "assert";
+import { index_obj } from "../../../index";
+var math = index_obj;
+var Range = index_obj.type.Range;
 
 describe('range', function() {
   describe('create', function() {
@@ -145,14 +144,14 @@ describe('range', function() {
 
   describe('toString', function () {
     it('should stringify a range to format start:step:end', function () {
-      assert.equal(new math.type.Range(0,10).toString(), '0:10');
-      assert.equal(new math.type.Range(0,10,2).toString(), '0:2:10');
+      assert.equal(new index_obj.type.Range(0,10).toString(), '0:10');
+      assert.equal(new index_obj.type.Range(0,10,2).toString(), '0:2:10');
     });
 
     it('should stringify a range to format start:step:end with given precision', function () {
-      assert.equal(new math.type.Range(1/3, 4/3, 2/3).format(3), '0.333:0.667:1.33');
-      assert.equal(new math.type.Range(1/3, 4/3, 2/3).format(4), '0.3333:0.6667:1.333');
-      assert.equal(new math.type.Range(1/3, 4/3, 2/3).format(), '0.3333333333333333:0.6666666666666666:1.3333333333333333');
+      assert.equal(new index_obj.type.Range(1/3, 4/3, 2/3).format(3), '0.333:0.667:1.33');
+      assert.equal(new index_obj.type.Range(1/3, 4/3, 2/3).format(4), '0.3333:0.6667:1.333');
+      assert.equal(new index_obj.type.Range(1/3, 4/3, 2/3).format(), '0.3333333333333333:0.6666666666666666:1.3333333333333333');
     });
   });
 
@@ -181,12 +180,12 @@ describe('range', function() {
   describe('type', function () {
 
     it('should have a property isRange', function () {
-      var a = new math.type.Range(0, 10);
+      var a = new index_obj.type.Range(0, 10);
       assert.strictEqual(a.isRange, true);
     });
 
     it('should have a property type', function () {
-      var a = new math.type.Range(0, 10);
+      var a = new index_obj.type.Range(0, 10);
       assert.strictEqual(a.type, 'Range');
     });
 

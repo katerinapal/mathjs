@@ -1,16 +1,17 @@
-// test AssignmentNode
-var assert = require('assert');
-var approx = require('../../../tools/approx');
-var math = require('../../../index');
-var Node = math.expression.node.Node;
-var AccessorNode = math.expression.node.AccessorNode;
-var ConstantNode = math.expression.node.ConstantNode;
-var SymbolNode = math.expression.node.SymbolNode;
-var RangeNode = math.expression.node.RangeNode;
-var ArrayNode = math.expression.node.ArrayNode;
-var AssignmentNode = math.expression.node.AssignmentNode;
-var OperatorNode = math.expression.node.OperatorNode;
-var IndexNode = math.expression.node.IndexNode;
+import assert from "assert";
+import * as toolsapprox_obj from "../../../tools/approx";
+import { index_obj } from "../../../index";
+var approx = toolsapprox_obj;
+var math = index_obj;
+var Node = index_obj.expression.node.Node;
+var AccessorNode = index_obj.expression.node.AccessorNode;
+var ConstantNode = index_obj.expression.node.ConstantNode;
+var SymbolNode = index_obj.expression.node.SymbolNode;
+var RangeNode = index_obj.expression.node.RangeNode;
+var ArrayNode = index_obj.expression.node.ArrayNode;
+var AssignmentNode = index_obj.expression.node.AssignmentNode;
+var OperatorNode = index_obj.expression.node.OperatorNode;
+var IndexNode = index_obj.expression.node.IndexNode;
 
 describe('AssignmentNode', function() {
 
@@ -146,7 +147,7 @@ describe('AssignmentNode', function() {
   });
 
   it ('should compile an AssignmentNode with bignumber setting', function () {
-    var bigmath = math.create({number: 'BigNumber'});
+    var bigmath = index_obj.create({number: 'BigNumber'});
 
     var object = new SymbolNode('a');
     var index = new bigmath.expression.node.IndexNode([

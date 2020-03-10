@@ -1,16 +1,5 @@
+import fs from "fs";
 'use strict';
-
-var fs = require('fs'),
-    zlib = require('zlib'),
-    tar = require('tar'),
-    math = require('../index'),
-    Q = require('q'),
-    typed = require('typed-function'),
-    
-    Spa = math.type.Spa,
-    DenseMatrix = math.type.DenseMatrix,
-    SparseMatrix = math.type.SparseMatrix,
-    FibonacciHeap = math.type.FibonacciHeap;
 
 var _importFromStream = function (stream, deferred) {
 
@@ -357,6 +346,8 @@ var _import = typed('importMatrix', {
   }
 });
 
-module.exports = {
+var matrixmarketjs_exportedObj = {
   import: _import
 };
+
+export { matrixmarketjs_exportedObj as matrixmarketjs };

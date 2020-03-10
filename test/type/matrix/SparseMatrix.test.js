@@ -1,11 +1,12 @@
-var assert = require('assert');
-var math = require('../../../index');
-var index = math.index;
-var Matrix = math.type.Matrix;
-var SparseMatrix = math.type.SparseMatrix;
-var DenseMatrix = math.type.DenseMatrix;
-var Complex = math.type.Complex;
-var Range = math.type.Range;
+import assert from "assert";
+import { index_obj } from "../../../index";
+var math = index_obj;
+var index = index_obj.index;
+var Matrix = index_obj.type.Matrix;
+var SparseMatrix = index_obj.type.SparseMatrix;
+var DenseMatrix = index_obj.type.DenseMatrix;
+var Complex = index_obj.type.Complex;
+var Range = index_obj.type.Range;
 
 describe('SparseMatrix', function() {
 
@@ -126,7 +127,7 @@ describe('SparseMatrix', function() {
     });
     
     it('should create a Sparse Matrix from a Dense Matrix', function () {
-      var m1 = math.matrix(
+      var m1 = index_obj.matrix(
         [
           [1, 2, 3],
           [4, 5, 6],
@@ -1589,7 +1590,7 @@ describe('SparseMatrix', function() {
     
     it('should create Sparse Matrix (n x n), matrix vector value', function () {
 
-      var m = SparseMatrix.diagonal([3, 3], math.matrix([1, 2, 3]));
+      var m = SparseMatrix.diagonal([3, 3], index_obj.matrix([1, 2, 3]));
 
       assert.deepEqual(m._size, [3, 3]);
       assert.deepEqual(m._values, [1, 2, 3]);
@@ -1607,7 +1608,7 @@ describe('SparseMatrix', function() {
 
     it('should create Sparse Matrix (n x n), matrix vector value, k > 0', function () {
 
-      var m = SparseMatrix.diagonal([3, 3], math.matrix([1, 2]), 1);
+      var m = SparseMatrix.diagonal([3, 3], index_obj.matrix([1, 2]), 1);
 
       assert.deepEqual(m._size, [3, 3]);
       assert.deepEqual(m._values, [1, 2]);
@@ -1625,7 +1626,7 @@ describe('SparseMatrix', function() {
 
     it('should create Sparse Matrix (n x n), matrix vector value, k < 0', function () {
 
-      var m = SparseMatrix.diagonal([3, 3], math.matrix([1, 2]), -1);
+      var m = SparseMatrix.diagonal([3, 3], index_obj.matrix([1, 2]), -1);
 
       assert.deepEqual(m._size, [3, 3]);
       assert.deepEqual(m._values, [1, 2]);

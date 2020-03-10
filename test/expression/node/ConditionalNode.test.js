@@ -1,12 +1,13 @@
-// test ConditionalNode
-var assert = require('assert');
-var approx = require('../../../tools/approx');
-var math = require('../../../index');
-var Node = math.expression.node.Node;
-var ConstantNode = math.expression.node.ConstantNode;
-var SymbolNode = math.expression.node.SymbolNode;
-var AssignmentNode = math.expression.node.AssignmentNode;
-var ConditionalNode = math.expression.node.ConditionalNode;
+import assert from "assert";
+import * as toolsapprox_obj from "../../../tools/approx";
+import { index_obj } from "../../../index";
+var approx = toolsapprox_obj;
+var math = index_obj;
+var Node = index_obj.expression.node.Node;
+var ConstantNode = index_obj.expression.node.ConstantNode;
+var SymbolNode = index_obj.expression.node.SymbolNode;
+var AssignmentNode = index_obj.expression.node.AssignmentNode;
+var ConditionalNode = index_obj.expression.node.ConditionalNode;
 
 describe('ConditionalNode', function() {
   var condition = new ConstantNode(true);
@@ -64,17 +65,17 @@ describe('ConditionalNode', function() {
     });
 
     it('should evaluate bignumber conditions', function() {
-      assert.equal(condition.compile().eval({a: math.bignumber(1)}), 1);
-      assert.equal(condition.compile().eval({a: math.bignumber(4)}), 1);
-      assert.equal(condition.compile().eval({a: math.bignumber(-1)}), 1);
-      assert.equal(condition.compile().eval({a: math.bignumber(0)}), 0);
+      assert.equal(condition.compile().eval({a: index_obj.bignumber(1)}), 1);
+      assert.equal(condition.compile().eval({a: index_obj.bignumber(4)}), 1);
+      assert.equal(condition.compile().eval({a: index_obj.bignumber(-1)}), 1);
+      assert.equal(condition.compile().eval({a: index_obj.bignumber(0)}), 0);
     });
 
     it('should evaluate complex number conditions', function() {
-      assert.equal(condition.compile().eval({a: math.complex(2, 3)}), 1);
-      assert.equal(condition.compile().eval({a: math.complex(2, 0)}), 1);
-      assert.equal(condition.compile().eval({a: math.complex(0, 3)}), 1);
-      assert.equal(condition.compile().eval({a: math.complex(0, 0)}), 0);
+      assert.equal(condition.compile().eval({a: index_obj.complex(2, 3)}), 1);
+      assert.equal(condition.compile().eval({a: index_obj.complex(2, 0)}), 1);
+      assert.equal(condition.compile().eval({a: index_obj.complex(0, 3)}), 1);
+      assert.equal(condition.compile().eval({a: index_obj.complex(0, 0)}), 0);
     });
 
     it('should evaluate string conditions', function() {
@@ -83,9 +84,9 @@ describe('ConditionalNode', function() {
     });
 
     it('should evaluate unit conditions', function() {
-      assert.equal(condition.compile().eval({a: math.unit('5cm')}), 1);
-      assert.equal(condition.compile().eval({a: math.unit('0 inch')}), 0);
-      assert.equal(condition.compile().eval({a: math.unit('meter')}), 0);
+      assert.equal(condition.compile().eval({a: index_obj.unit('5cm')}), 1);
+      assert.equal(condition.compile().eval({a: index_obj.unit('0 inch')}), 0);
+      assert.equal(condition.compile().eval({a: index_obj.unit('meter')}), 0);
     });
 
     it('should evaluate null conditions', function() {
@@ -99,7 +100,7 @@ describe('ConditionalNode', function() {
     it('should throw an error in case of unsupported type of conditions', function() {
       assert.throws(function () {condition.compile().eval({a: {}})});
       assert.throws(function () {condition.compile().eval({a: []})});
-      assert.throws(function () {condition.compile().eval({a: math.matrix()})});
+      assert.throws(function () {condition.compile().eval({a: index_obj.matrix()})});
     });
   });
 
@@ -255,7 +256,7 @@ describe('ConditionalNode', function() {
   });
 
   it ('should respect the \'all\' parenthesis option', function () {
-    assert.equal(math.parse('a?b:c').toString({parenthesis: 'all'}), '(a) ? (b) : (c)');
+    assert.equal(index_obj.parse('a?b:c').toString({parenthesis: 'all'}), '(a) ? (b) : (c)');
   });
 
   it ('should stringify a ConditionalNode', function () {

@@ -1,9 +1,4 @@
-// test parser
-
-var assert = require('assert'),
-    approx = require('../../tools/approx'),
-    math = require('../../index'),
-    Parser = math.expression.Parser;
+import assert from "assert";
 
 describe('parser', function() {
 

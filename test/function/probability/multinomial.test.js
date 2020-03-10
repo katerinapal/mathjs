@@ -1,8 +1,4 @@
-var assert = require('assert'),
-error = require('../../../lib/error/index'),
-math = require('../../../index'),
-multinomial = math.multinomial,
-_ = require('underscore');
+import assert from "assert";
 
 describe('multinomial', function() {
 

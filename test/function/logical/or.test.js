@@ -1,12 +1,4 @@
-// test or
-var assert = require('assert'),
-    math = require('../../../index'),
-    bignumber = math.bignumber,
-    complex = math.complex,
-    matrix = math.matrix,
-    sparse = math.sparse,
-    unit = math.unit,
-    or = math.or;
+import assert from "assert";
 
 describe('or', function () {
 

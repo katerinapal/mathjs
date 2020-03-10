@@ -1,8 +1,10 @@
-var assert = require('assert');
-var error = require('../../../lib/error/index');
-var math = require('../../../index');
-var matrix = math.matrix;
-var partitionSelect = math.partitionSelect;
+import assert from "assert";
+import * as liberrorindex_obj from "../../../lib/error/index";
+import { index_obj } from "../../../index";
+var error = liberrorindex_obj;
+var math = index_obj;
+var matrix = index_obj.matrix;
+var partitionSelect = index_obj.partitionSelect;
 
 describe('partitionSelect', function() {
 

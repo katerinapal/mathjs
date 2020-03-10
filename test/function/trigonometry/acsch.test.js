@@ -1,16 +1,4 @@
-var assert = require('assert'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    approx = require('../../../tools/approx'),
-    pi = math.pi,
-    acsch = math.acsch,
-    csch = math.csch,
-    complex = math.complex,
-    matrix = math.matrix,
-    unit = math.unit,
-    bigmath = math.create({number: 'BigNumber', precision: 20}),
-    acschBig = bigmath.acsch,
-    Big = bigmath.bignumber;
+import assert from "assert";
 
 describe('acsch', function() {
   it('should return the hyperbolic arccsc of a boolean', function () {

@@ -1,11 +1,12 @@
-var assert = require('assert');
-var math = require('../../../index');
-var isNaN = math.isNaN;
-var bignumber = math.bignumber;
-var fraction = math.fraction;
-var complex = math.complex;
-var Unit = math.type.Unit;
-var Fraction = math.type.Fraction;
+import assert from "assert";
+import { index_obj } from "../../../index";
+var math = index_obj;
+var isNaN = index_obj.isNaN;
+var bignumber = index_obj.bignumber;
+var fraction = index_obj.fraction;
+var complex = index_obj.complex;
+var Unit = index_obj.type.Unit;
+var Fraction = index_obj.type.Fraction;
 
 describe('isNegative', function() {
 
@@ -66,7 +67,7 @@ describe('isNegative', function() {
   });
 
   it('should test isNegative element wise on a Matrix', function() {
-    assert.deepEqual(isNaN(math.matrix([0, 5, -2, NaN])), math.matrix([false, false, false, true]));
+    assert.deepEqual(isNaN(index_obj.matrix([0, 5, -2, NaN])), index_obj.matrix([false, false, false, true]));
   });
 
   it('should throw an error in case of unsupported data types', function() {

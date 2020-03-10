@@ -1,5 +1,4 @@
-var assert = require('assert'),
-    IndexError = require('../../lib/error/IndexError');
+import assert from "assert";
 
 describe('IndexError', function () {
 

@@ -1,16 +1,17 @@
-// test hypot
-var assert = require('assert');
-var approx = require('../../../tools/approx');
-var math = require('../../../index');
-var hypot = math.hypot;
-var bignumber = math.bignumber;
-var fraction = math.fraction;
+import assert from "assert";
+import { toolsapprox_obj } from "../../../tools/approx";
+import { index_obj } from "../../../index";
+var approx = toolsapprox_obj;
+var math = index_obj;
+var hypot = index_obj.hypot;
+var bignumber = index_obj.bignumber;
+var fraction = index_obj.fraction;
 
 describe('hypot', function() {
   it('should return the hypot of numbers', function () {
     assert.strictEqual(hypot(3, 4), 5);
     assert.strictEqual(hypot(3, -4), 5);
-    approx.equal(hypot(3, 4, 5), 7.0710678118654755);
+    toolsapprox_obj(hypot(3, 4, 5), 7.0710678118654755);
     assert.strictEqual(hypot(-2), 2);
     assert.strictEqual(hypot(0), 0);
     assert.strictEqual(hypot(Infinity), Infinity);
@@ -29,7 +30,7 @@ describe('hypot', function() {
   });
 
   it('should return the hypot of an Matrix with numbers', function () {
-    assert.strictEqual(hypot(math.matrix([3, 4])), 5);
+    assert.strictEqual(hypot(index_obj.matrix([3, 4])), 5);
   });
 
   it('should return the hypot of an Array with mixed numbers and BigNumbers', function () {
@@ -44,12 +45,12 @@ describe('hypot', function() {
   it('should throw an error in case of unsupported types', function () {
     assert.throws(function () {hypot(new Date());}, /TypeError: Unexpected type of argument/);
     assert.throws(function () {hypot([new Date()]);}, /TypeError: Unexpected type of argument/);
-    assert.throws(function () {hypot([2, 3, math.complex()]);}, /TypeError: Unexpected type of argument/);
+    assert.throws(function () {hypot([2, 3, index_obj.complex()]);}, /TypeError: Unexpected type of argument/);
     assert.throws(function () {hypot(undefined);}, /TypeError: Unexpected type of argument/);
   });
 
   it('should LaTeX hypot', function () {
-    var expression = math.parse('hypot(3,4)');
+    var expression = index_obj.parse('hypot(3,4)');
     assert.equal(expression.toTex(),'\\hypot\\left(3,4\\right)');
   });
 

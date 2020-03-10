@@ -1,9 +1,8 @@
-// test data type Complex
-
-var assert = require('assert');
-var math = require('../../../index');
-var Unit = math.type.Unit;
-var Complex = math.type.Complex;
+import assert from "assert";
+import { index_obj } from "../../../index";
+var math = index_obj;
+var Unit = index_obj.type.Unit;
+var Complex = index_obj.type.Complex;
 
 describe('Complex', function () {
 
@@ -24,12 +23,12 @@ describe('Complex', function () {
     });
 
     it('should have a property isComplex', function () {
-      var a = new math.type.Complex(2,3);
+      var a = new index_obj.type.Complex(2,3);
       assert.strictEqual(a.isComplex, true);
     });
 
     it('should have a property type', function () {
-      var a = new math.type.Complex(2,3);
+      var a = new index_obj.type.Complex(2,3);
       assert.strictEqual(a.type, 'Complex');
     });
 
@@ -208,15 +207,15 @@ describe('Complex', function () {
     });
 
     it('should use the epsilon configured with math.js', function () {
-      var old = math.config();
+      var old = index_obj.config();
 
-      assert.equal(Complex.EPSILON, math.config().epsilon);
+      assert.equal(Complex.EPSILON, index_obj.config().epsilon);
       assert.equal(new Complex(1, 0).equals(new Complex(1.01, 0)), false);
 
-      math.config({epsilon: 0.1});
+      index_obj.config({epsilon: 0.1});
       assert.equal(new Complex(1, 0).equals(new Complex(1.01, 0)), true);
 
-      math.config(old); // restore old config
+      index_obj.config(old); // restore old config
     });
 
   });

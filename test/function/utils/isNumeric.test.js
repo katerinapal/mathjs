@@ -1,8 +1,9 @@
-var assert = require('assert');
-var math = require('../../../index');
-var isNumeric = math.isNumeric;
-var bignumber = math.bignumber;
-var fraction = math.fraction;
+import assert from "assert";
+import { index_obj } from "../../../index";
+var math = index_obj;
+var isNumeric = index_obj.isNumeric;
+var bignumber = index_obj.bignumber;
+var fraction = index_obj.fraction;
 
 describe('isNumeric', function() {
 
@@ -14,8 +15,8 @@ describe('isNumeric', function() {
 
     assert.strictEqual(isNumeric('2'), false);
     assert.strictEqual(isNumeric('foo'), false);
-    assert.strictEqual(isNumeric(math.complex(2,3)), false);
-    assert.strictEqual(isNumeric(math.unit('5 cm')), false);
+    assert.strictEqual(isNumeric(index_obj.complex(2,3)), false);
+    assert.strictEqual(isNumeric(index_obj.unit('5 cm')), false);
   });
 
   it('should test isNumeric element wise on an Array', function() {
@@ -23,7 +24,7 @@ describe('isNumeric', function() {
   });
 
   it('should test isNumeric element wise on a Matrix', function() {
-    assert.deepEqual(isNumeric(math.matrix([2, 'foo', true])), math.matrix([true, false, true]));
+    assert.deepEqual(isNumeric(index_obj.matrix([2, 'foo', true])), index_obj.matrix([true, false, true]));
   });
 
   it('should throw an error in case of unsupported data types', function() {

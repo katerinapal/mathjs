@@ -1,4 +1,7 @@
 #!/usr/bin/env node
+import * as index_obj from "../index";
+import fs from "fs";
+import readline from "readline";
 /**
  * math.js
  * https://github.com/josdejong/mathjs
@@ -44,9 +47,8 @@
  * the License.
  */
 
-var math = require('../index');
+var math = index_obj;
 var scope = {};
-var fs = require('fs');
 
 var PRECISION = 14; // decimals
 
@@ -56,14 +58,14 @@ var PRECISION = 14; // decimals
  * @param {*} value
  */
 function format(value) {
-  return math.format(value, {
+  return index_obj.format(value, {
     fn: function (value) {
       if (typeof value === 'number') {
         // round numbers
-        return math.format(value, PRECISION);
+        return index_obj.format(value, PRECISION);
       }
       else {
-        return math.format(value);
+        return index_obj.format(value);
       }
     }
   });
@@ -99,8 +101,8 @@ function completer (text) {
 
     // math functions and constants
     var ignore = ['expr', 'type'];
-    for (var func in math) {
-      if (math.hasOwnProperty(func)) {
+    for (var func in index_obj) {
+      if (index_obj.hasOwnProperty(func)) {
         if (func.indexOf(keyword) == 0 && ignore.indexOf(func) == -1) {
           matches.push(func);
         }
@@ -108,7 +110,7 @@ function completer (text) {
     }
 
     // units
-    var Unit = math.type.Unit;
+    var Unit = index_obj.type.Unit;
     for (name in Unit.UNITS) {
       if (Unit.UNITS.hasOwnProperty(name)) {
         if (name.indexOf(keyword) == 0) {
@@ -159,7 +161,7 @@ function completer (text) {
  * @param parenthesis Parenthesis option
  */
 function runStream (input, output, mode, parenthesis) {
-  var readline = require('readline'),
+  var readline = {},
       rl = readline.createInterface({
         input: input || process.stdin,
         output: output || process.stdout,
@@ -200,7 +202,7 @@ function runStream (input, output, mode, parenthesis) {
           case 'eval':
             // evaluate expression
             try {
-              var node = math.parse(expr);
+              var node = index_obj.parse(expr);
               var res = node.eval(scope);
 
               if (res && res.isResultSet) {
@@ -224,7 +226,7 @@ function runStream (input, output, mode, parenthesis) {
                     console.log(format(res));
                   }
                 }
-                else if (res instanceof math.type.Help) {
+                else if (res instanceof index_obj.type.Help) {
                   console.log(res.toString());
                 }
                 else {
@@ -240,7 +242,7 @@ function runStream (input, output, mode, parenthesis) {
 
           case 'string':
             try {
-              var string = math.parse(expr).toString({parenthesis: parenthesis});
+              var string = index_obj.parse(expr).toString({parenthesis: parenthesis});
               console.log(string);
             }
             catch (err) {
@@ -250,7 +252,7 @@ function runStream (input, output, mode, parenthesis) {
 
           case 'tex':
             try {
-              var tex = math.parse(expr).toTex({parenthesis: parenthesis});
+              var tex = index_obj.parse(expr).toTex({parenthesis: parenthesis});
               console.log(tex);
             }
             catch (err) {

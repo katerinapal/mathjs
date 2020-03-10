@@ -1,6 +1,7 @@
-var assert = require('assert');
-var math = require('../../../index');
-var Spa = math.type.Spa;
+import assert from "assert";
+import { index_obj } from "../../../index";
+var math = index_obj;
+var Spa = index_obj.type.Spa;
 
 describe('Spa', function() {
 

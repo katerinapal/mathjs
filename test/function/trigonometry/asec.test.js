@@ -1,16 +1,19 @@
-var assert = require('assert');
-var error = require('../../../lib/error/index');
-var math = require('../../../index');
-var approx = require('../../../tools/approx');
-var pi = math.pi;
-var asec = math.asec;
-var sec = math.sec;
-var complex = math.complex;
-var matrix = math.matrix;
-var unit = math.unit;
-var bigmath = math.create({number: 'BigNumber', precision: 20});
-var biggermath = math.create({precision: 21});
-var predmath = math.create({predictable: true});
+import assert from "assert";
+import * as liberrorindex_obj from "../../../lib/error/index";
+import { index_obj } from "../../../index";
+import { toolsapprox_obj } from "../../../tools/approx";
+var error = liberrorindex_obj;
+var math = index_obj;
+var approx = toolsapprox_obj;
+var pi = index_obj.pi;
+var asec = index_obj.asec;
+var sec = index_obj.sec;
+var complex = index_obj.complex;
+var matrix = index_obj.matrix;
+var unit = index_obj.unit;
+var bigmath = index_obj.create({number: 'BigNumber', precision: 20});
+var biggermath = index_obj.create({precision: 21});
+var predmath = index_obj.create({predictable: true});
 var asecBig = bigmath.asec;
 var Big = bigmath.bignumber;
 
@@ -27,13 +30,13 @@ describe('asec', function() {
   });
 
   it('should return the arcsec of a number', function() {
-    approx.equal(asec(-2) / pi, 2 / 3);
-    approx.equal(asec(-1) / pi, 1);
-    approx.equal(asec(1) / pi, 0);
-    approx.equal(asec(2) / pi, 1 / 3);
+    toolsapprox_obj(asec(-2) / pi, 2 / 3);
+    toolsapprox_obj(asec(-1) / pi, 1);
+    toolsapprox_obj(asec(1) / pi, 0);
+    toolsapprox_obj(asec(2) / pi, 1 / 3);
 
-    approx.deepEqual(asec(-0.5), complex(pi, -1.3169578969248));
-    approx.deepEqual(asec(0.5), complex(0, 1.3169578969248));
+    toolsapprox_obj.deepEqual(asec(-0.5), complex(pi, -1.3169578969248));
+    toolsapprox_obj.deepEqual(asec(0.5), complex(0, 1.3169578969248));
   });
 
   it('should return the arcsec of a number when predictable:true', function() {
@@ -69,11 +72,11 @@ describe('asec', function() {
   });
 
   it('should be the inverse function of sec', function() {
-    approx.equal(asec(sec(-1)), 1);
-    approx.equal(asec(sec(0)), 0);
-    approx.equal(asec(sec(0.1)), 0.1);
-    approx.equal(asec(sec(0.5)), 0.5);
-    approx.equal(asec(sec(2)), 2);
+    toolsapprox_obj(asec(sec(-1)), 1);
+    toolsapprox_obj(asec(sec(0)), 0);
+    toolsapprox_obj(asec(sec(0.1)), 0.1);
+    toolsapprox_obj(asec(sec(0.5)), 0.5);
+    toolsapprox_obj(asec(sec(2)), 2);
   });
 
   it('should be the inverse function of bignumber sec', function() {
@@ -85,16 +88,16 @@ describe('asec', function() {
   });
 
   it('should return the arcsec of a complex number', function() {
-    approx.deepEqual(asec(complex('2+3i')), complex(1.42041072246703,  0.23133469857397));
-    approx.deepEqual(asec(complex('2-3i')), complex(1.42041072246703, -0.23133469857397));
-    approx.deepEqual(asec(complex('-2+3i')), complex(1.7211819311228, 0.2313346985739733));
-    approx.deepEqual(asec(complex('-2-3i')), complex(1.7211819311228, -0.2313346985739733));
-    approx.deepEqual(asec(complex('i')), complex(1.570796326794897, 0.881373587019543));
-    approx.deepEqual(asec(complex('1+i')), complex(1.1185178796437059, 0.530637530952517826));
-    approx.deepEqual(asec(complex('1')), complex(0, 0));
-    approx.deepEqual(asec(complex('0.5')), complex(0, 1.3169578969248));
-    approx.deepEqual(asec(complex('0')), complex(0, Infinity));
-    approx.deepEqual(asec(complex('-0.5')), complex(pi, -1.3169578969248));
+    toolsapprox_obj.deepEqual(asec(complex('2+3i')), complex(1.42041072246703,  0.23133469857397));
+    toolsapprox_obj.deepEqual(asec(complex('2-3i')), complex(1.42041072246703, -0.23133469857397));
+    toolsapprox_obj.deepEqual(asec(complex('-2+3i')), complex(1.7211819311228, 0.2313346985739733));
+    toolsapprox_obj.deepEqual(asec(complex('-2-3i')), complex(1.7211819311228, -0.2313346985739733));
+    toolsapprox_obj.deepEqual(asec(complex('i')), complex(1.570796326794897, 0.881373587019543));
+    toolsapprox_obj.deepEqual(asec(complex('1+i')), complex(1.1185178796437059, 0.530637530952517826));
+    toolsapprox_obj.deepEqual(asec(complex('1')), complex(0, 0));
+    toolsapprox_obj.deepEqual(asec(complex('0.5')), complex(0, 1.3169578969248));
+    toolsapprox_obj.deepEqual(asec(complex('0')), complex(0, Infinity));
+    toolsapprox_obj.deepEqual(asec(complex('-0.5')), complex(pi, -1.3169578969248));
   });
 
   it('should throw an error if called with a unit', function() {
@@ -108,8 +111,8 @@ describe('asec', function() {
 
   it('should calculate the arcsec element-wise for arrays and matrices', function() {
     var asec123 = [0, pi / 3, 1.23095941734077468];
-    approx.deepEqual(asec([1,2,3]), asec123);
-    approx.deepEqual(asec(matrix([1,2,3])), matrix(asec123));
+    toolsapprox_obj.deepEqual(asec([1,2,3]), asec123);
+    toolsapprox_obj.deepEqual(asec(matrix([1,2,3])), matrix(asec123));
   });
 
   it('should throw an error in case of invalid number of arguments', function() {
@@ -118,7 +121,7 @@ describe('asec', function() {
   });
 
   it('should LaTeX asec', function () {
-    var expression = math.parse('asec(2)');
+    var expression = index_obj.parse('asec(2)');
     assert.equal(expression.toTex(), '\\sec^{-1}\\left(2\\right)');
   });
 

@@ -1,12 +1,13 @@
-// test ObjectNode
-var assert = require('assert');
-var approx = require('../../../tools/approx');
-var math = require('../../../index');
-var Node = math.expression.node.Node;
-var ConstantNode = math.expression.node.ConstantNode;
-var SymbolNode = math.expression.node.SymbolNode;
-var RangeNode = math.expression.node.RangeNode;
-var ObjectNode = math.expression.node.ObjectNode;
+import assert from "assert";
+import * as toolsapprox_obj from "../../../tools/approx";
+import { index_obj } from "../../../index";
+var approx = toolsapprox_obj;
+var math = index_obj;
+var Node = index_obj.expression.node.Node;
+var ConstantNode = index_obj.expression.node.ConstantNode;
+var SymbolNode = index_obj.expression.node.SymbolNode;
+var RangeNode = index_obj.expression.node.RangeNode;
+var ObjectNode = index_obj.expression.node.ObjectNode;
 
 // FIXME: a lot of tests depend on order of object keys, whilst the order is officially undeterministic
 

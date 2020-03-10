@@ -1,7 +1,9 @@
-var assert = require('assert');
-var approx = require('../../../tools/approx');
-var math = require('../../../index');
-var arg = math.arg;
+import assert from "assert";
+import { toolsapprox_obj } from "../../../tools/approx";
+import { index_obj } from "../../../index";
+var approx = toolsapprox_obj;
+var math = index_obj;
+var arg = index_obj.arg;
 
 describe('arg', function() {
   it('should compute the argument of a boolean', function () {
@@ -17,42 +19,42 @@ describe('arg', function() {
     assert.equal(arg(1), 0);
     assert.equal(arg(2), 0);
     assert.equal(arg(0), 0);
-    approx.equal(arg(-2), 3.141592653589793);
+    toolsapprox_obj(arg(-2), 3.141592653589793);
   });
 
   it('should compute the argument of a bignumber (downgrades to number)', function () {
-    assert.equal(arg(math.bignumber(1)), 0);
+    assert.equal(arg(index_obj.bignumber(1)), 0);
   });
 
   it('should compute the argument of a complex number correctly', function() {
-    assert.equal(arg(math.complex('0')) / math.pi, 0);
-    assert.equal(arg(math.complex('1 + 0i')) / math.pi, 0);
-    assert.equal(arg(math.complex('1 + i')) / math.pi, 0.25);
-    assert.equal(arg(math.complex('0 + i')) / math.pi, 0.5);
-    assert.equal(arg(math.complex('-1 + i')) / math.pi, 0.75);
-    assert.equal(arg(math.complex('-1 + 0i')) / math.pi, 1);
-    assert.equal(arg(math.complex('-1 - i')) / math.pi, -0.75);
-    assert.equal(arg(math.complex('0 - i')) / math.pi, -0.5);
-    assert.equal(arg(math.complex('1 - i')) / math.pi, -0.25);
-    assert.equal(arg(math.i) / math.pi, 0.5);
+    assert.equal(arg(index_obj.complex('0')) / index_obj.pi, 0);
+    assert.equal(arg(index_obj.complex('1 + 0i')) / index_obj.pi, 0);
+    assert.equal(arg(index_obj.complex('1 + i')) / index_obj.pi, 0.25);
+    assert.equal(arg(index_obj.complex('0 + i')) / index_obj.pi, 0.5);
+    assert.equal(arg(index_obj.complex('-1 + i')) / index_obj.pi, 0.75);
+    assert.equal(arg(index_obj.complex('-1 + 0i')) / index_obj.pi, 1);
+    assert.equal(arg(index_obj.complex('-1 - i')) / index_obj.pi, -0.75);
+    assert.equal(arg(index_obj.complex('0 - i')) / index_obj.pi, -0.5);
+    assert.equal(arg(index_obj.complex('1 - i')) / index_obj.pi, -0.25);
+    assert.equal(arg(index_obj.i) / index_obj.pi, 0.5);
   });
 
   it('should calculate the argument for each element in a matrix', function() {
-    assert.deepEqual(math.divide(arg([
-      math.i, math.unaryMinus(math.i), math.add(1,math.i)
-    ]), math.pi), [
+    assert.deepEqual(index_obj.divide(arg([
+      index_obj.i, index_obj.unaryMinus(index_obj.i), index_obj.add(1,index_obj.i)
+    ]), index_obj.pi), [
       0.5, -0.5, 0.25
     ]);
-    assert.deepEqual(math.matrix(math.divide(arg([
-      math.i, math.unaryMinus(math.i), math.add(1,math.i)
-    ]), math.pi)).valueOf(), [
+    assert.deepEqual(index_obj.matrix(index_obj.divide(arg([
+      index_obj.i, index_obj.unaryMinus(index_obj.i), index_obj.add(1,index_obj.i)
+    ]), index_obj.pi)).valueOf(), [
       0.5, -0.5, 0.25
     ]);
   });
 
   it('should compute the argument of a real number correctly', function() {
-    assert.equal(arg(2) / math.pi, 0);
-    assert.equal(arg(-2) / math.pi, 1);
+    assert.equal(arg(2) / index_obj.pi, 0);
+    assert.equal(arg(-2) / index_obj.pi, 1);
   });
 
   it('should throw an error if used with a string', function() {
@@ -60,7 +62,7 @@ describe('arg', function() {
   });
 
   it('should throw an error if used with a unit', function() {
-    assert.throws(function () {arg(math.unit('5cm'))});
+    assert.throws(function () {arg(index_obj.unit('5cm'))});
   });
 
   it('should throw an error in case of invalid number of arguments', function() {
@@ -69,7 +71,7 @@ describe('arg', function() {
   });
 
   it('should LaTeX arg', function () {
-    var expression = math.parse('arg(1+i)');
+    var expression = index_obj.parse('arg(1+i)');
     assert.equal(expression.toTex(), '\\arg\\left(1+ i\\right)');
   });
 

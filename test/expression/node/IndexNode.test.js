@@ -1,12 +1,13 @@
-// test IndexNode
-var assert = require('assert');
-var approx = require('../../../tools/approx');
-var math = require('../../../index');
-var Node = math.expression.node.Node;
-var ConstantNode = math.expression.node.ConstantNode;
-var SymbolNode = math.expression.node.SymbolNode;
-var IndexNode = math.expression.node.IndexNode;
-var RangeNode = math.expression.node.RangeNode;
+import assert from "assert";
+import * as toolsapprox_obj from "../../../tools/approx";
+import { index_obj } from "../../../index";
+var approx = toolsapprox_obj;
+var math = index_obj;
+var Node = index_obj.expression.node.Node;
+var ConstantNode = index_obj.expression.node.ConstantNode;
+var SymbolNode = index_obj.expression.node.SymbolNode;
+var IndexNode = index_obj.expression.node.IndexNode;
+var RangeNode = index_obj.expression.node.RangeNode;
 
 describe('IndexNode', function() {
 

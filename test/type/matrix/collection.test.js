@@ -1,16 +1,18 @@
-var assert = require('assert');
-var isCollection = require('../../../lib/utils/collection/isCollection');
-var math = require('../../../index');
-var DenseMatrix = math.type.DenseMatrix;
-var SparseMatrix = math.type.SparseMatrix;
+import assert from "assert";
+import { isCollection as libutilscollectionisCollection_isCollection } from "../../../lib/utils/collection/isCollection";
+import { index_obj } from "../../../index";
+var isCollection = libutilscollectionisCollection_isCollection;
+var math = index_obj;
+var DenseMatrix = index_obj.type.DenseMatrix;
+var SparseMatrix = index_obj.type.SparseMatrix;
 
 describe('isCollection', function() {
 
   it('should test whether an object is a collection', function () {
-    assert.strictEqual(isCollection([]), true);
-    assert.strictEqual(isCollection({}), false);
-    assert.strictEqual(isCollection(2), false);
-    assert.strictEqual(isCollection(new DenseMatrix()), true);
-    assert.strictEqual(isCollection(new SparseMatrix()), true);
+    assert.strictEqual(libutilscollectionisCollection_isCollection([]), true);
+    assert.strictEqual(libutilscollectionisCollection_isCollection({}), false);
+    assert.strictEqual(libutilscollectionisCollection_isCollection(2), false);
+    assert.strictEqual(libutilscollectionisCollection_isCollection(new DenseMatrix()), true);
+    assert.strictEqual(libutilscollectionisCollection_isCollection(new SparseMatrix()), true);
   });
 });
