@@ -1,7 +1,5 @@
-var assert = require('assert'),
-error = require('../../../lib/error/index'),
-math = require('../../../index'),
-stirlingS2 = math.stirlingS2;
+import assert from "assert";
+var error = require('../../../lib/error/index'), math = require('../../../index'), stirlingS2 = math.stirlingS2;
 
 describe('stirlingS2', function() {
 

@@ -1,12 +1,6 @@
+import assert from "assert";
 // test xor
-var assert = require('assert'),
-    math = require('../../../index'),
-    bignumber = math.bignumber,
-    complex = math.complex,
-    matrix = math.matrix,
-    sparse = math.sparse,
-    unit = math.unit,
-    xor = math.xor;
+var math = require('../../../index'), bignumber = math.bignumber, complex = math.complex, matrix = math.matrix, sparse = math.sparse, unit = math.unit, xor = math.xor;
 
 describe('xor', function () {
 

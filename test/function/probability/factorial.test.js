@@ -1,8 +1,6 @@
-var assert = require('assert'),
-    approx = require('../../../tools/approx'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    factorial = math.factorial;
+import assert from "assert";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
+var error = require('../../../lib/error/index'), math = require('../../../index'), factorial = math.factorial;
 
 describe('factorial', function() {
 
@@ -66,8 +64,8 @@ describe('factorial', function() {
   });
 
   it('should calculate the factorial of a non-integer', function() {
-    approx.equal(factorial(1.5), 1.32934038817913702047362561);
-    approx.equal(factorial(7.5), 14034.40729348);
+    toolsapprox_equaljs(factorial(1.5), 1.32934038817913702047362561);
+    toolsapprox_equaljs(factorial(7.5), 14034.40729348);
   });
 
   it('should throw error if called with negative number', function() {

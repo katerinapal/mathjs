@@ -1,33 +1,23 @@
-var assert = require('assert'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    approx = require('../../../tools/approx'),
-    pi = math.pi,
-    complex = math.complex,
-    matrix = math.matrix,
-    unit = math.unit,
-    atan = math.atan,
-    tan = math.tan,
-    bigmath = math.create({number: 'BigNumber', precision: 20}),
-    atanBig = bigmath.atan,
-    Big = bigmath.bignumber;
+import assert from "assert";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
+var error = require('../../../lib/error/index'), math = require('../../../index'), pi = math.pi, complex = math.complex, matrix = math.matrix, unit = math.unit, atan = math.atan, tan = math.tan, bigmath = math.create({number: 'BigNumber', precision: 20}), atanBig = bigmath.atan, Big = bigmath.bignumber;
 
 describe('atan', function() {
   it('should return the arctan of a boolean', function () {
-    approx.equal(atan(true), 0.25 * pi);
-    approx.equal(atan(false), 0);
+    toolsapprox_equaljs(atan(true), 0.25 * pi);
+    toolsapprox_equaljs(atan(false), 0);
   });
 
   it('should return the arctan of null', function () {
-    approx.equal(atan(null), 0);
+    toolsapprox_equaljs(atan(null), 0);
   });
 
   it('should return the arctan of a number', function() {
-    approx.equal(atan(-1) / pi, -0.25);
-    approx.equal(atan(-0.5) / pi, -0.147583617650433);
-    approx.equal(atan(0) / pi, 0);
-    approx.equal(atan(0.5) / pi, 0.147583617650433);
-    approx.equal(atan(1) / pi, 0.25);
+    toolsapprox_equaljs(atan(-1) / pi, -0.25);
+    toolsapprox_equaljs(atan(-0.5) / pi, -0.147583617650433);
+    toolsapprox_equaljs(atan(0) / pi, 0);
+    toolsapprox_equaljs(atan(0.5) / pi, 0.147583617650433);
+    toolsapprox_equaljs(atan(1) / pi, 0.25);
   });
 
   it('should return the arctan of a bignumber', function() {
@@ -57,11 +47,11 @@ describe('atan', function() {
   });
 
   it('should be the inverse function of tan', function() {
-    approx.equal(atan(tan(-1)), -1);
-    approx.equal(atan(tan(0)), 0);
-    approx.equal(atan(tan(0.1)), 0.1);
-    approx.equal(atan(tan(0.5)), 0.5);
-    approx.equal(atan(tan(2)), -1.14159265358979);
+    toolsapprox_equaljs(atan(tan(-1)), -1);
+    toolsapprox_equaljs(atan(tan(0)), 0);
+    toolsapprox_equaljs(atan(tan(0.1)), 0.1);
+    toolsapprox_equaljs(atan(tan(0.5)), 0.5);
+    toolsapprox_equaljs(atan(tan(2)), -1.14159265358979);
   });
 
   it('should be the inverse function of bignumber tan', function() {
@@ -77,14 +67,14 @@ describe('atan', function() {
   it('should return the arctan of a complex number', function() {
     var re = 1.409921049596575,
         im = 0.229072682968539;
-    approx.deepEqual(atan(complex('2+3i')), complex(re, im));
-    approx.deepEqual(atan(complex('2-3i')), complex(re, -im));
-    approx.deepEqual(atan(complex('-2+3i')), complex(-re, im));
-    approx.deepEqual(atan(complex('-2-3i')), complex(-re, -im));
-    approx.deepEqual(atan(complex('i')), complex(0, Infinity));
-    approx.deepEqual(atan(complex('-i')), complex(0, -Infinity));
-    approx.deepEqual(atan(complex('1')), complex(0.785398163397448, 0));
-    approx.deepEqual(atan(complex('1+i')), complex(1.017221967897851, 0.402359478108525));
+    toolsapprox_equaljs(atan(complex('2+3i')), complex(re, im));
+    toolsapprox_equaljs(atan(complex('2-3i')), complex(re, -im));
+    toolsapprox_equaljs(atan(complex('-2+3i')), complex(-re, im));
+    toolsapprox_equaljs(atan(complex('-2-3i')), complex(-re, -im));
+    toolsapprox_equaljs(atan(complex('i')), complex(0, Infinity));
+    toolsapprox_equaljs(atan(complex('-i')), complex(0, -Infinity));
+    toolsapprox_equaljs(atan(complex('1')), complex(0.785398163397448, 0));
+    toolsapprox_equaljs(atan(complex('1+i')), complex(1.017221967897851, 0.402359478108525));
   });
 
   it('should throw an error if called with a unit', function() {
@@ -99,8 +89,8 @@ describe('atan', function() {
   it('should calculate the arctan element-wise for arrays and matrices', function() {
     // matrix, array, range
     var atan123 = [0.785398163397448, 1.107148717794090, 1.249045772398254];
-    approx.deepEqual(atan([1,2,3]), atan123);
-    approx.deepEqual(atan(matrix([1,2,3])), matrix(atan123));
+    toolsapprox_equaljs(atan([1,2,3]), atan123);
+    toolsapprox_equaljs(atan(matrix([1,2,3])), matrix(atan123));
   });
 
   it('should throw an error in case of invalid number of arguments', function() {

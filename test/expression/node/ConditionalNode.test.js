@@ -1,5 +1,4 @@
-// test ConditionalNode
-var assert = require('assert');
+import assert from "assert";
 var approx = require('../../../tools/approx');
 var math = require('../../../index');
 var Node = math.expression.node.Node;

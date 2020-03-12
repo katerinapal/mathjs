@@ -1,30 +1,23 @@
-var assert = require('assert'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    approx = require('../../../tools/approx'),
-    pi = math.pi,
-    complex = math.complex,
-    matrix = math.matrix,
-    unit = math.unit,
-    tanh = math.tanh,
-    bigmath = math.create({number: 'BigNumber', precision: 20});
+import assert from "assert";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
+var error = require('../../../lib/error/index'), math = require('../../../index'), pi = math.pi, complex = math.complex, matrix = math.matrix, unit = math.unit, tanh = math.tanh, bigmath = math.create({number: 'BigNumber', precision: 20});
 
 describe('tanh', function() {
   it('should return the tanh of a boolean', function () {
-    approx.equal(tanh(true), 0.76159415595576);
-    approx.equal(tanh(false), 0);
+    toolsapprox_equaljs(tanh(true), 0.76159415595576);
+    toolsapprox_equaljs(tanh(false), 0);
   });
 
   it('should return the tanh of null', function () {
-    approx.equal(tanh(null), 0);
+    toolsapprox_equaljs(tanh(null), 0);
   });
 
   it('should return the tanh of a number', function() {
-    approx.equal(tanh(0), 0);
-    approx.equal(tanh(pi), 0.99627207622075);
-    approx.equal(tanh(1), 0.76159415595576);
-    approx.equal(tanh(2), 0.96402758007582);
-    approx.equal(tanh(3), 0.99505475368673);
+    toolsapprox_equaljs(tanh(0), 0);
+    toolsapprox_equaljs(tanh(pi), 0.99627207622075);
+    toolsapprox_equaljs(tanh(1), 0.76159415595576);
+    toolsapprox_equaljs(tanh(2), 0.96402758007582);
+    toolsapprox_equaljs(tanh(3), 0.99505475368673);
   });
 
   it('should return the tanh of a bignumber', function() {
@@ -52,19 +45,19 @@ describe('tanh', function() {
   });
 
   it('should return the tanh of a complex number', function() {
-    approx.deepEqual(tanh(complex('1')), complex(0.76159415595576, 0));
-    approx.deepEqual(tanh(complex('i')), complex(0, 1.5574077246549));
-    approx.deepEqual(tanh(complex('2 + i')), complex(1.0147936161466, 0.033812826079897));
+    toolsapprox_equaljs(tanh(complex('1')), complex(0.76159415595576, 0));
+    toolsapprox_equaljs(tanh(complex('i')), complex(0, 1.5574077246549));
+    toolsapprox_equaljs(tanh(complex('2 + i')), complex(1.0147936161466, 0.033812826079897));
   });
 
   it('should return the tanh of an angle', function() {
-    approx.equal(tanh(unit('90deg')), 0.91715233566727);
-    approx.equal(tanh(unit('-45deg')), -0.65579420263267);
+    toolsapprox_equaljs(tanh(unit('90deg')), 0.91715233566727);
+    toolsapprox_equaljs(tanh(unit('-45deg')), -0.65579420263267);
 
     assert(tanh(unit(math.bignumber(90), 'deg')).isBigNumber);
-    approx.equal(tanh(unit(math.bignumber(90), 'deg')).toNumber(), 0.91715233566727);
+    toolsapprox_equaljs(tanh(unit(math.bignumber(90), 'deg')).toNumber(), 0.91715233566727);
 
-    approx.deepEqual(tanh(unit(complex('2 + i'), 'rad')), complex(1.0147936161466, 0.033812826079897));
+    toolsapprox_equaljs(tanh(unit(complex('2 + i'), 'rad')), complex(1.0147936161466, 0.033812826079897));
   });
 
   it('should throw an error if called with an invalid unit', function() {
@@ -78,11 +71,11 @@ describe('tanh', function() {
   var tanh123 = [0.76159415595576, 0.96402758007582, 0.99505475368673];
 
   it('should return the tanh of each element of an array', function() {
-    approx.deepEqual(tanh([1,2,3]), tanh123);
+    toolsapprox_equaljs(tanh([1,2,3]), tanh123);
   });
 
   it('should return the tanh of each element of a matrix', function() {
-    approx.deepEqual(tanh(matrix([1,2,3])), matrix(tanh123));
+    toolsapprox_equaljs(tanh(matrix([1,2,3])), matrix(tanh123));
   });
 
   it('should throw an error in case of invalid number of arguments', function() {

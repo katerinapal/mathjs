@@ -1,8 +1,8 @@
-// test ConstantNode
-var assert = require('assert');
+import assert from "assert";
+import * as index_obj from "../../../index";
 var approx = require('../../../tools/approx');
 var math = require('../../../index');
-var bigmath = require('../../../index').create({number: 'BigNumber'});
+var bigmath = index_obj.create({number: 'BigNumber'});
 var Node = math.expression.node.Node;
 var ConstantNode = math.expression.node.ConstantNode;
 var SymbolNode = math.expression.node.SymbolNode;
@@ -70,8 +70,8 @@ describe('ConstantNode', function() {
   });
 
   it ('should compile a ConstantNode with bigmath', function () {
-    var expr = new bigmath.expression.node.ConstantNode('2.3', 'number').compile();
-    assert.deepEqual(expr.eval(), new bigmath.type.BigNumber(2.3));
+    var expr = new index_obj.expression.node.ConstantNode('2.3', 'number').compile();
+    assert.deepEqual(expr.eval(), new index_obj.type.BigNumber(2.3));
   });
 
   it ('should find a ConstantNode', function () {

@@ -1,8 +1,8 @@
-// test AccessorNode
-var assert = require('assert');
+import assert from "assert";
+import * as index_obj from "../../../index";
 var approx = require('../../../tools/approx');
 var math = require('../../../index');
-var bigmath = require('../../../index').create({number: 'BigNumber'});
+var bigmath = index_obj.create({number: 'BigNumber'});
 var Node = math.expression.node.Node;
 var ConstantNode = math.expression.node.ConstantNode;
 var OperatorNode = math.expression.node.OperatorNode;
@@ -45,12 +45,12 @@ describe('AccessorNode', function() {
   });
 
   it ('should compile a AccessorNode', function () {
-    var a = new bigmath.expression.node.SymbolNode('a');
+    var a = new index_obj.expression.node.SymbolNode('a');
     var index = new IndexNode([
-      new bigmath.expression.node.ConstantNode(2),
-      new bigmath.expression.node.ConstantNode(1)
+      new index_obj.expression.node.ConstantNode(2),
+      new index_obj.expression.node.ConstantNode(1)
     ]);
-    var n = new bigmath.expression.node.AccessorNode(a, index);
+    var n = new index_obj.expression.node.AccessorNode(a, index);
     var expr = n.compile();
 
     var scope = {
@@ -187,10 +187,10 @@ describe('AccessorNode', function() {
   });
 
   it ('should compile a AccessorNode with bignumber setting', function () {
-    var a = new bigmath.expression.node.SymbolNode('a');
-    var b = new bigmath.expression.node.ConstantNode(2);
-    var c = new bigmath.expression.node.ConstantNode(1);
-    var n = new bigmath.expression.node.AccessorNode(a, new IndexNode([b, c]));
+    var a = new index_obj.expression.node.SymbolNode('a');
+    var b = new index_obj.expression.node.ConstantNode(2);
+    var c = new index_obj.expression.node.ConstantNode(1);
+    var n = new index_obj.expression.node.AccessorNode(a, new IndexNode([b, c]));
     var expr = n.compile();
 
     var scope = {

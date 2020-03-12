@@ -1,5 +1,4 @@
-// test Help
-var assert = require('assert');
+import assert from "assert";
 var math = require('../../index');
 var Help = math.type.Help;
 

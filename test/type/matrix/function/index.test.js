@@ -1,8 +1,6 @@
+import assert from "assert";
 // test index construction
-var assert = require('assert'),
-    math = require('../../../../index'),
-    Range = math.type.Range,
-    ImmutableDenseMatrix = math.type.ImmutableDenseMatrix;
+var math = require('../../../../index'), Range = math.type.Range, ImmutableDenseMatrix = math.type.ImmutableDenseMatrix;
 
 describe('index', function() {
 

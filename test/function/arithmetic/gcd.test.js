@@ -1,9 +1,6 @@
+import assert from "assert";
 // test gcd
-var assert = require('assert'),
-    math = require('../../../index'),
-    matrix = math.matrix,
-    sparse = math.sparse,
-    gcd = math.gcd;
+var math = require('../../../index'), matrix = math.matrix, sparse = math.sparse, gcd = math.gcd;
 
 describe('gcd', function() {
 

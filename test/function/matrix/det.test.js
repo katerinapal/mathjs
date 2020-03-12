@@ -1,5 +1,5 @@
-var assert = require('assert');
-var approx = require('../../../tools/approx');
+import assert from "assert";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
 var error = require('../../../lib/error/index');
 var math = require('../../../index');
 var BigNumber = math.type.BigNumber;
@@ -15,24 +15,24 @@ describe('det', function() {
     assert.equal(det([5]), 5);
     assert.equal(det([[1,2],[3,4]]), -2);
     assert.equal(det(new DenseMatrix([[1,2],[3,4]])), -2);
-    approx.equal(det([
+    toolsapprox_equaljs(det([
       [-2, 2,  3],
       [-1, 1,  3],
       [ 2, 0, -1]
     ]), 6);
-    approx.equal(det([
+    toolsapprox_equaljs(det([
       [ 1, 4,  7],
       [ 3, 0,  5],
       [-1, 9, 11]
     ]), -8);
-    approx.equal(det([
+    toolsapprox_equaljs(det([
       [1,7,4,3,7],
       [0,7,0,3,7],
       [0,7,4,3,0],
       [1,7,5,9,7],
       [2,7,4,3,7]
     ]), -1176);
-    approx.equal(det(diag([4,-5,6])), -120);
+    toolsapprox_equaljs(det(diag([4,-5,6])), -120);
   });
 
   it('should return 1 for the identity matrix',function() {

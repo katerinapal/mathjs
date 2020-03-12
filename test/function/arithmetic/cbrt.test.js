@@ -1,6 +1,5 @@
-// test cbrt
-var assert = require('assert');
-var approx = require('../../../tools/approx');
+import assert from "assert";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
 var error = require('../../../lib/error/index');
 var math = require('../../../index');
 var cbrt = math.cbrt;
@@ -25,7 +24,7 @@ describe('cbrt', function() {
     assert.equal(cbrt(64), 4);
     assert.equal(cbrt(125), 5);
 
-    approx.equal(cbrt(10), 2.1544346900318834);
+    toolsapprox_equaljs(cbrt(10), 2.1544346900318834);
   });
 
   it('should return the cubic root of a negative number', function() {
@@ -39,13 +38,13 @@ describe('cbrt', function() {
   });
 
   it('should return all cubic roots of a number', function() {
-    approx.deepEqual(cbrt(8, true), math.matrix([
+    toolsapprox_equaljs(cbrt(8, true), math.matrix([
       complex('2'),
       complex('-1 + 1.7321i'),
       complex('-1 - 1.7321i')
     ]));
 
-    approx.deepEqual(cbrt(-8, true), math.matrix([
+    toolsapprox_equaljs(cbrt(-8, true), math.matrix([
       complex('1 + 1.7321i'),
       complex('-2'),
       complex('1 - 1.7321i')
@@ -69,19 +68,19 @@ describe('cbrt', function() {
   });
 
   it('should return the cubic root of a complex number', function() {
-    approx.deepEqual(cbrt(complex('2 + 3i')), complex('1.451856618352664928164697 + 0.493403534104004716735578i'));
-    approx.deepEqual(cbrt(complex('-2 + 3i')), complex('1.15322830402742 + 1.01064294709397i'));
-    approx.deepEqual(cbrt(complex('8i')), complex('1.73205080756888 + i'));
+    toolsapprox_equaljs(cbrt(complex('2 + 3i')), complex('1.451856618352664928164697 + 0.493403534104004716735578i'));
+    toolsapprox_equaljs(cbrt(complex('-2 + 3i')), complex('1.15322830402742 + 1.01064294709397i'));
+    toolsapprox_equaljs(cbrt(complex('8i')), complex('1.73205080756888 + i'));
   });
 
   it('should return all three roots of a complex number', function() {
-    approx.deepEqual(cbrt(complex('2 + 3i'), true), math.matrix([
+    toolsapprox_equaljs(cbrt(complex('2 + 3i'), true), math.matrix([
         complex('1.4519 + 0.4934i'),
         complex('-1.1532 + 1.0106i'),
         complex('-0.2986 - 1.5040i')
     ]));
 
-    approx.deepEqual(cbrt(complex('8i'), true), math.matrix([
+    toolsapprox_equaljs(cbrt(complex('8i'), true), math.matrix([
         complex(' 1.7321 + i'),
         complex('-1.7321 + i'),
         complex('-2i')
@@ -89,7 +88,7 @@ describe('cbrt', function() {
 
     math.config({matrix: 'Array'});
 
-    approx.deepEqual(cbrt(complex('8i'), true), [
+    toolsapprox_equaljs(cbrt(complex('8i'), true), [
       complex(' 1.7321 + i'),
       complex('-1.7321 + i'),
       complex('-2i')
@@ -108,7 +107,7 @@ describe('cbrt', function() {
     assert.deepEqual(cbrt(math.unit(math.bignumber(-27), 'm^3')).value, math.bignumber(-3));
 
     assert(cbrt(math.unit(math.complex(-46, 9), 's^3')).value.isComplex);
-    approx.deepEqual(cbrt(math.unit(math.complex(-46, 9), 's^3')).value, math.complex(2, 3));
+    toolsapprox_equaljs(cbrt(math.unit(math.complex(-46, 9), 's^3')).value, math.complex(2, 3));
   });
 
   it('should throw an error when used with a string', function() {
