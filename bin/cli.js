@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+import fs from "fs";
+import readline from "readline";
 /**
  * math.js
  * https://github.com/josdejong/mathjs
@@ -46,7 +48,6 @@
 
 var math = require('../index');
 var scope = {};
-var fs = require('fs');
 
 var PRECISION = 14; // decimals
 
@@ -159,12 +160,11 @@ function completer (text) {
  * @param parenthesis Parenthesis option
  */
 function runStream (input, output, mode, parenthesis) {
-  var readline = require('readline'),
-      rl = readline.createInterface({
-        input: input || process.stdin,
-        output: output || process.stdout,
-        completer: completer
-      });
+  var rl = readline.createInterface({
+    input: input || process.stdin,
+    output: output || process.stdout,
+    completer: completer
+  });
 
   if (rl.output.isTTY) {
     rl.setPrompt('> ');

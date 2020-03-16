@@ -1,13 +1,5 @@
-var assert = require('assert'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    approx = require('../../../tools/approx'),
-    pi = math.pi,
-    complex = math.complex,
-    matrix = math.matrix,
-    unit = math.unit,
-    tanh = math.tanh,
-    bigmath = math.create({number: 'BigNumber', precision: 20});
+import assert from "assert";
+var error = require('../../../lib/error/index'), math = require('../../../index'), approx = require('../../../tools/approx'), pi = math.pi, complex = math.complex, matrix = math.matrix, unit = math.unit, tanh = math.tanh, bigmath = math.create({number: 'BigNumber', precision: 20});
 
 describe('tanh', function() {
   it('should return the tanh of a boolean', function () {

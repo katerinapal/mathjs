@@ -1,8 +1,9 @@
-var assert = require('assert');
+import assert from "assert";
+import * as libfunctionalgebrasparsecs_amd_obj from "../../../../lib/function/algebra/sparse/cs_amd";
 var approx = require('../../../../tools/approx');
 var market = require('../../../../tools/matrixmarket');
 var math = require('../../../../index');
-math.import(require('../../../../lib/function/algebra/sparse/cs_amd'));
+math.import(libfunctionalgebrasparsecs_amd_obj);
 
 var cs_amd = math.sparse.cs_amd;
 

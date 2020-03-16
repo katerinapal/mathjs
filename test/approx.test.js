@@ -1,6 +1,6 @@
+import assert from "assert";
 // test approx itself...
-var assert = require('assert'),
-    approx = require('../tools/approx');
+var approx = require('../tools/approx');
 
 describe('approx', function() {
 

@@ -1,6 +1,5 @@
-var assert = require('assert'),
-    math = require('../../../index'),
-    bignumber = math.bignumber;
+import assert from "assert";
+var math = require('../../../index'), bignumber = math.bignumber;
 
 describe('diag', function() {
 

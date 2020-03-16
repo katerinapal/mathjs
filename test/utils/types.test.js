@@ -1,7 +1,6 @@
+import assert from "assert";
 // test types utils
-var assert = require('assert'),
-    approx = require('../../tools/approx'),
-    types = require('../../lib/utils/types');
+var approx = require('../../tools/approx'), types = require('../../lib/utils/types');
 
 describe ('types', function () {
 

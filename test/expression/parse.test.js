@@ -1,8 +1,7 @@
-// test parse
-var assert = require('assert');
+import assert from "assert";
+import { ArgumentsError as liberrorArgumentsError_ArgumentsErrorjs } from "../../lib/error/ArgumentsError";
 var approx = require('../../tools/approx');
 var math = require('../../index');
-var ArgumentsError = require('../../lib/error/ArgumentsError');
 var parse = math.expression.parse;
 var ConditionalNode = math.expression.node.ConditionalNode;
 var OperatorNode = math.expression.node.OperatorNode;

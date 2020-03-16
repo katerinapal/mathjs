@@ -1,9 +1,8 @@
-// test string utils
-var assert = require('assert');
+import assert from "assert";
+import decimal from "decimal.js";
+import { isString as libutilsstring_isStringjs } from "../../lib/utils/string";
 var approx = require('../../tools/approx');
-var BigNumber = require('decimal.js');
 var math = require('../../index');
-var string = require('../../lib/utils/string');
 
 describe ('string', function () {
 

@@ -1,17 +1,5 @@
-var assert = require('assert'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    approx = require('../../../tools/approx'),
-    pi = math.pi,
-    complex = math.complex,
-    matrix = math.matrix,
-    unit = math.unit,
-    acot = math.acot,
-    cot = math.cot,
-    bigmath = math.create({number: 'BigNumber', precision: 20}),
-    acotBig = bigmath.acot,
-    cotBig = bigmath.cot,
-    Big = bigmath.bignumber;
+import assert from "assert";
+var error = require('../../../lib/error/index'), math = require('../../../index'), approx = require('../../../tools/approx'), pi = math.pi, complex = math.complex, matrix = math.matrix, unit = math.unit, acot = math.acot, cot = math.cot, bigmath = math.create({number: 'BigNumber', precision: 20}), acotBig = bigmath.acot, cotBig = bigmath.cot, Big = bigmath.bignumber;
 
 describe('acot', function() {
   it('should return the arccot of a boolean', function () {

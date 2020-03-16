@@ -1,17 +1,5 @@
-var assert = require('assert'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    approx = require('../../../tools/approx'),
-    pi = math.pi,
-    asinh = math.asinh,
-    sinh = math.sinh,
-    complex = math.complex,
-    matrix = math.matrix,
-    unit = math.unit,
-    bigmath = math.create({number: 'BigNumber', precision: 20}),
-    biggermath = math.create({precision: 21}),
-    asinhBig = bigmath.asinh,
-    Big = bigmath.bignumber;
+import assert from "assert";
+var error = require('../../../lib/error/index'), math = require('../../../index'), approx = require('../../../tools/approx'), pi = math.pi, asinh = math.asinh, sinh = math.sinh, complex = math.complex, matrix = math.matrix, unit = math.unit, bigmath = math.create({number: 'BigNumber', precision: 20}), biggermath = math.create({precision: 21}), asinhBig = bigmath.asinh, Big = bigmath.bignumber;
 
 describe('asinh', function() {
   it('should return the hyperbolic arcsin of a boolean', function () {

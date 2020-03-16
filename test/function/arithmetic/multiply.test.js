@@ -1,15 +1,6 @@
+import assert from "assert";
 // test multiply
-var assert = require('assert'),
-    math = require('../../../index'),
-    approx = require('../../../tools/approx'),
-    market = require('../../../tools/matrixmarket'),
-    multiply = math.multiply,
-    divide = math.divide,
-    matrix = math.matrix,
-    complex = math.complex,
-    bignumber = math.bignumber,
-    i = math.i,
-    unit = math.unit;
+var math = require('../../../index'), approx = require('../../../tools/approx'), market = require('../../../tools/matrixmarket'), multiply = math.multiply, divide = math.divide, matrix = math.matrix, complex = math.complex, bignumber = math.bignumber, i = math.i, unit = math.unit;
 
 describe('multiply', function() {
 

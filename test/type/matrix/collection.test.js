@@ -1,5 +1,5 @@
-var assert = require('assert');
-var isCollection = require('../../../lib/utils/collection/isCollection');
+import assert from "assert";
+import { isCollectionjs as libutilscollectionisCollection_isCollectionjsjs } from "../../../lib/utils/collection/isCollection";
 var math = require('../../../index');
 var DenseMatrix = math.type.DenseMatrix;
 var SparseMatrix = math.type.SparseMatrix;

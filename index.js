@@ -1,4 +1,5 @@
-var core = require('./core');
+import { corejs as core_corejsjs } from "./core";
+import * as lib_obj from "./lib";
 
 /**
  * math.js factory function. Creates a new instance of math.js
@@ -29,10 +30,10 @@ function create (config) {
   math.create = create;
 
   // import data types, functions, constants, expression parser, etc.
-  math['import'](require('./lib'));
+  math['import'](lib_obj);
 
   return math;
 }
 
-// return a new instance of math.js
-module.exports = create();
+var indexjs_indexjs = create();
+export { indexjs_indexjs as indexjs };

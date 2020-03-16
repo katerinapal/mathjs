@@ -1,7 +1,7 @@
+import assert from "assert";
+import { clone as libutilsobject_clonejs } from "../../lib/utils/object";
 // test object utils
-var assert = require('assert'),
-    approx = require('../../tools/approx'),
-    object = require('../../lib/utils/object');
+var approx = require('../../tools/approx');
 
 describe ('object', function () {
 

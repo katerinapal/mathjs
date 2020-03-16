@@ -1,17 +1,6 @@
+import assert from "assert";
 // test atan2
-var assert = require('assert'),
-    math = require('../../../index'),
-    approx = require('../../../tools/approx'),
-    pi = math.pi,
-    complex = math.complex,
-    matrix = math.matrix,
-    sparse = math.sparse,
-    unit = math.unit,
-    divide = math.divide,
-    atan2 = math.atan2,
-    bigmath = math.create({precision: 20}),
-    Big = bigmath.bignumber,
-    atan2Big = bigmath.atan2;
+var math = require('../../../index'), approx = require('../../../tools/approx'), pi = math.pi, complex = math.complex, matrix = math.matrix, sparse = math.sparse, unit = math.unit, divide = math.divide, atan2 = math.atan2, bigmath = math.create({precision: 20}), Big = bigmath.bignumber, atan2Big = bigmath.atan2;
 
 describe('atan2', function() {
 

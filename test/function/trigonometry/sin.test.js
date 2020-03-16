@@ -1,13 +1,5 @@
-var assert = require('assert'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    approx = require('../../../tools/approx'),
-    pi = math.pi,
-    complex = math.complex,
-    matrix = math.matrix,
-    unit = math.unit,
-    sin = math.sin,
-    bigmath = math.create({precision: 242});
+import assert from "assert";
+var error = require('../../../lib/error/index'), math = require('../../../index'), approx = require('../../../tools/approx'), pi = math.pi, complex = math.complex, matrix = math.matrix, unit = math.unit, sin = math.sin, bigmath = math.create({precision: 242});
 
 describe('sin', function() {
   it('should return the sine of a boolean', function () {

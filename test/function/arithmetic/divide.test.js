@@ -1,5 +1,4 @@
-// test divide
-var assert = require('assert');
+import assert from "assert";
 var math = require('../../../index');
 var error = require('../../../lib/error/index');
 var approx = require('../../../tools/approx');

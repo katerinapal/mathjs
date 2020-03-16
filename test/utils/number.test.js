@@ -1,7 +1,7 @@
+import assert from "assert";
+import { isNumber as libutilsnumber_isNumberjs } from "../../lib/utils/number";
 // test number utils
-var assert = require('assert'),
-    approx = require('../../tools/approx'),
-    number = require('../../lib/utils/number');
+var approx = require('../../tools/approx');
 
 describe('number', function() {
 

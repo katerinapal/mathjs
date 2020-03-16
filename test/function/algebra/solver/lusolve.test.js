@@ -1,7 +1,6 @@
+import assert from "assert";
 // test lusolve
-var assert = require('assert'),
-    approx = require('../../../../tools/approx'),
-    math = require('../../../../index');
+var approx = require('../../../../tools/approx'), math = require('../../../../index');
 
 describe('lusolve', function () {
   

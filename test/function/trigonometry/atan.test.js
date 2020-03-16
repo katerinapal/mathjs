@@ -1,16 +1,5 @@
-var assert = require('assert'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    approx = require('../../../tools/approx'),
-    pi = math.pi,
-    complex = math.complex,
-    matrix = math.matrix,
-    unit = math.unit,
-    atan = math.atan,
-    tan = math.tan,
-    bigmath = math.create({number: 'BigNumber', precision: 20}),
-    atanBig = bigmath.atan,
-    Big = bigmath.bignumber;
+import assert from "assert";
+var error = require('../../../lib/error/index'), math = require('../../../index'), approx = require('../../../tools/approx'), pi = math.pi, complex = math.complex, matrix = math.matrix, unit = math.unit, atan = math.atan, tan = math.tan, bigmath = math.create({number: 'BigNumber', precision: 20}), atanBig = bigmath.atan, Big = bigmath.bignumber;
 
 describe('atan', function() {
   it('should return the arctan of a boolean', function () {

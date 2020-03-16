@@ -1,6 +1,6 @@
+import assert from "assert";
 // test keywords
-var assert = require('assert'),
-    keywords = require('../../lib/expression/keywords');
+var keywords = require('../../lib/expression/keywords');
 
 describe('keywords', function() {
 

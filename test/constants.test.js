@@ -1,6 +1,5 @@
-var assert = require('assert'),
-    math = require('../index'),
-    approx = require('../tools/approx');
+import assert from "assert";
+var math = require('../index'), approx = require('../tools/approx');
 
 describe('constants', function() {
 
@@ -143,7 +142,7 @@ describe('constants', function() {
   });
 
   it('should have version number', function() {
-    assert.equal(math.version, require('../package.json').version);
+    assert.equal(math.version, {}.version);
   });
 
 });

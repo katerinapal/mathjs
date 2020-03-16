@@ -1,9 +1,6 @@
+import assert from "assert";
 // test dotDivide (element-wise divide)
-var assert = require('assert'),
-    math = require('../../../index'),
-    approx = require('../../../tools/approx'),
-    dotDivide = math.dotDivide,
-    complex = math.complex;
+var math = require('../../../index'), approx = require('../../../tools/approx'), dotDivide = math.dotDivide, complex = math.complex;
 
 describe('dotDivide', function() {
 

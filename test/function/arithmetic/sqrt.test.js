@@ -1,5 +1,4 @@
-// test sqrt
-var assert = require('assert');
+import assert from "assert";
 var approx = require('../../../tools/approx');
 var error = require('../../../lib/error/index');
 var math = require('../../../index');

@@ -1,16 +1,6 @@
+import assert from "assert";
 // test dotMultiply (element-wise multiply)
-var assert = require('assert'),
-    math = require('../../../index'),
-    approx = require('../../../tools/approx'),
-    error = require('../../../lib/error/index'),
-    dotMultiply = math.dotMultiply,
-    divide = math.divide,
-    matrix = math.matrix,
-    sparse = math.sparse,
-    complex = math.complex,
-    range = math.range,
-    i = math.i,
-    unit = math.unit;
+var math = require('../../../index'), approx = require('../../../tools/approx'), error = require('../../../lib/error/index'), dotMultiply = math.dotMultiply, divide = math.divide, matrix = math.matrix, sparse = math.sparse, complex = math.complex, range = math.range, i = math.i, unit = math.unit;
 
 describe('dotMultiply', function() {
 

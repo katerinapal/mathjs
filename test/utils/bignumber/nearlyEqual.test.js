@@ -1,6 +1,6 @@
-var assert = require('assert');
-var BigNumber = require('decimal.js');
-var nearlyEqual = require('../../../lib/utils/bignumber/nearlyEqual');
+import assert from "assert";
+import decimal from "decimal.js";
+import { nearlyEqualjs as libutilsbignumbernearlyEqual_nearlyEqualjsjs } from "../../../lib/utils/bignumber/nearlyEqual";
 
 describe('nearlyEqual', function () {
 

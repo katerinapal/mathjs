@@ -1,16 +1,11 @@
+import fs from "fs";
+import zlib from "zlib";
+import tar from "tar";
+import q from "q";
+import typedfunction from "typed-function";
 'use strict';
 
-var fs = require('fs'),
-    zlib = require('zlib'),
-    tar = require('tar'),
-    math = require('../index'),
-    Q = require('q'),
-    typed = require('typed-function'),
-    
-    Spa = math.type.Spa,
-    DenseMatrix = math.type.DenseMatrix,
-    SparseMatrix = math.type.SparseMatrix,
-    FibonacciHeap = math.type.FibonacciHeap;
+var math = require('../index'), Spa = math.type.Spa, DenseMatrix = math.type.DenseMatrix, SparseMatrix = math.type.SparseMatrix, FibonacciHeap = math.type.FibonacciHeap;
 
 var _importFromStream = function (stream, deferred) {
 

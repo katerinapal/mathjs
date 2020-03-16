@@ -1,6 +1,5 @@
-// test number utils
-var assert = require('assert');
-var NumberFormatter = require('../../lib/utils/NumberFormatter');
+import assert from "assert";
+import { NumberFormatter as libutilsNumberFormatter_NumberFormatterjs } from "../../lib/utils/NumberFormatter";
 
 describe('NumberFormatter', function() {
 

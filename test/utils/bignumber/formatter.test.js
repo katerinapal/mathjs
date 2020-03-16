@@ -1,5 +1,5 @@
-var assert = require('assert');
-var BigNumber = require('decimal.js');
+import assert from "assert";
+import decimal from "decimal.js";
 var formatter = require('../../../lib/utils/bignumber/formatter');
 
 describe('format', function () {

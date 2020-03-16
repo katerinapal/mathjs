@@ -1,4 +1,4 @@
-var assert = require('assert');
+import assert from "assert";
 
 var EPSILON = 0.0001;
 

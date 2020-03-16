@@ -1,14 +1,5 @@
-var assert = require('assert'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    approx = require('../../../tools/approx'),
-    pi = math.pi,
-    complex = math.complex,
-    matrix = math.matrix,
-    unit = math.unit,
-    cos = math.cos,
-    bigmath = math.create({number: 'BigNumber', precision: 15}),
-    biggermath = math.create({number: 'BigNumber', precision: 238});
+import assert from "assert";
+var error = require('../../../lib/error/index'), math = require('../../../index'), approx = require('../../../tools/approx'), pi = math.pi, complex = math.complex, matrix = math.matrix, unit = math.unit, cos = math.cos, bigmath = math.create({number: 'BigNumber', precision: 15}), biggermath = math.create({number: 'BigNumber', precision: 238});
 
 
 describe('cos', function() {

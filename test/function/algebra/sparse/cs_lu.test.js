@@ -1,10 +1,13 @@
-var assert = require('assert');
+import assert from "assert";
+import * as libfunctionalgebrasparsecs_permute_obj from "../../../../lib/function/algebra/sparse/cs_permute";
+import * as libfunctionalgebrasparsecs_lu_obj from "../../../../lib/function/algebra/sparse/cs_lu";
+import * as libfunctionalgebrasparsecs_sqr_obj from "../../../../lib/function/algebra/sparse/cs_sqr";
 var approx = require('../../../../tools/approx');
 var market = require('../../../../tools/matrixmarket');
 var math = require('../../../../index');
-math.import(require('../../../../lib/function/algebra/sparse/cs_permute'));
-math.import(require('../../../../lib/function/algebra/sparse/cs_lu'));
-math.import(require('../../../../lib/function/algebra/sparse/cs_sqr'));
+math.import(libfunctionalgebrasparsecs_permute_obj);
+math.import(libfunctionalgebrasparsecs_lu_obj);
+math.import(libfunctionalgebrasparsecs_sqr_obj);
 
 var cs_permute = math.sparse.cs_permute;
 var cs_lu = math.sparse.cs_lu;

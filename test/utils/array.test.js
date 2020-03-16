@@ -1,7 +1,6 @@
-var assert = require('assert'),
-    array = require('../../lib/utils/array'),
-    resize = array.resize;
-    size = array.size;
+import assert from "assert";
+var array = require('../../lib/utils/array'), resize = array.resize;
+size = array.size;
 
 describe('util.array', function() {
 

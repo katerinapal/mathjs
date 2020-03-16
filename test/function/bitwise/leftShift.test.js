@@ -1,10 +1,6 @@
+import assert from "assert";
 // test leftShift
-var assert = require('assert'),
-    math = require('../../../index'),
-    matrix = math.matrix,
-    sparse = math.sparse,
-    bignumber = math.bignumber,
-    leftShift = math.leftShift;
+var math = require('../../../index'), matrix = math.matrix, sparse = math.sparse, bignumber = math.bignumber, leftShift = math.leftShift;
 
 describe('leftShift', function () {
 

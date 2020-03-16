@@ -1,9 +1,8 @@
+import gulputil from "gulp-util";
 /**
  * Validate whether all functions in math.js are documented in math.expression.docs
  */
-var gutil = require('gulp-util'),
-    math = require('../index'),
-    prop;
+var math = require('../index'), prop;
 
 // names to ignore
 var ignore = [

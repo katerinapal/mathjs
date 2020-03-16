@@ -1,12 +1,6 @@
+import assert from "assert";
 // test exp
-var assert = require('assert'),
-    approx = require('../../../tools/approx'),
-    math = require('../../../index'),
-    complex = math.complex,
-    matrix = math.matrix,
-    sparse = math.sparse,
-    unit = math.unit,
-    exp = math.exp;
+var approx = require('../../../tools/approx'), math = require('../../../index'), complex = math.complex, matrix = math.matrix, sparse = math.sparse, unit = math.unit, exp = math.exp;
 
 describe('exp', function() {
 

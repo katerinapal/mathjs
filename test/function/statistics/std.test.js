@@ -1,4 +1,4 @@
-var assert = require('assert');
+import assert from "assert";
 var approx = require('../../../tools/approx');
 var math = require('../../../index');
 var BigNumber = math.type.BigNumber;

@@ -1,13 +1,5 @@
-var assert = require('assert'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    approx = require('../../../tools/approx'),
-    pi = math.pi,
-    complex = math.complex,
-    matrix = math.matrix,
-    unit = math.unit,
-    cosh = math.cosh,
-    bigmath = math.create({number: 'BigNumber', precision: 20});
+import assert from "assert";
+var error = require('../../../lib/error/index'), math = require('../../../index'), approx = require('../../../tools/approx'), pi = math.pi, complex = math.complex, matrix = math.matrix, unit = math.unit, cosh = math.cosh, bigmath = math.create({number: 'BigNumber', precision: 20});
 
 describe('cosh', function() {
   it('should return the cosh of a boolean', function () {
