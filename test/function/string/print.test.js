@@ -1,7 +1,6 @@
+import assert from "assert";
 // test print
-var assert = require('assert'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index');
+var error = require('../../../lib/error/index'), math = require('../../../index');
 
 describe('print', function() {
 

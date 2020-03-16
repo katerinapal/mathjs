@@ -1,4 +1,4 @@
-var assert = require('assert');
+import assert from "assert";
 var error = require('../../../lib/error/index');
 var math = require('../../../index');
 var composition = math.composition;

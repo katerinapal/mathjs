@@ -1,9 +1,7 @@
+import assert from "assert";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
 // test dotDivide (element-wise divide)
-var assert = require('assert'),
-    math = require('../../../index'),
-    approx = require('../../../tools/approx'),
-    dotDivide = math.dotDivide,
-    complex = math.complex;
+var math = require('../../../index'), dotDivide = math.dotDivide, complex = math.complex;
 
 describe('dotDivide', function() {
 
@@ -27,7 +25,7 @@ describe('dotDivide', function() {
   it('should add mixed numbers and booleans', function() {
     assert.equal(dotDivide(2, true), 2);
     assert.equal(dotDivide(2, false), Infinity);
-    approx.equal(dotDivide(true, 2), 0.5);
+    toolsapprox_equaljs(dotDivide(true, 2), 0.5);
     assert.equal(dotDivide(false, 2), 0);
   });
 
@@ -42,10 +40,10 @@ describe('dotDivide', function() {
   });
 
   it('should divide two complex numbers', function() {
-    approx.deepEqual(dotDivide(complex('2+3i'), 2), complex('1+1.5i'));
-    approx.deepEqual(dotDivide(complex('2+3i'), complex('4i')), complex('0.75 - 0.5i'));
-    approx.deepEqual(dotDivide(complex('2i'), complex('4i')), 0.5);
-    approx.deepEqual(dotDivide(4, complex('1+2i')), complex('0.8 - 1.6i'));
+    toolsapprox_equaljs(dotDivide(complex('2+3i'), 2), complex('1+1.5i'));
+    toolsapprox_equaljs(dotDivide(complex('2+3i'), complex('4i')), complex('0.75 - 0.5i'));
+    toolsapprox_equaljs(dotDivide(complex('2i'), complex('4i')), 0.5);
+    toolsapprox_equaljs(dotDivide(4, complex('1+2i')), complex('0.8 - 1.6i'));
   });
 
   it('should divide a unit by a number', function() {
@@ -73,7 +71,7 @@ describe('dotDivide', function() {
     });
 
     it('should divide 1 over a array element-wise', function() {
-      approx.deepEqual(dotDivide(1, [[1, 4, 7], [ 3, 0, 5], [-1, 9, 11]]), [[1, 0.25, 1/7],[1/3, Infinity, 0.2], [-1, 1/9, 1/11]]);
+      toolsapprox_equaljs(dotDivide(1, [[1, 4, 7], [ 3, 0, 5], [-1, 9, 11]]), [[1, 0.25, 1/7],[1/3, Infinity, 0.2], [-1, 1/9, 1/11]]);
     });
   
     it('should perform (array ./ array) element-wise matrix division', function() {
@@ -109,7 +107,7 @@ describe('dotDivide', function() {
     });
 
     it('should divide 1 over a dense matrix element-wise', function() {
-      approx.deepEqual(dotDivide(1, math.matrix([[1, 4, 7], [ 3, 0, 5], [-1, 9, 11]])), math.matrix([[1, 0.25, 1/7],[1/3, Infinity, 0.2], [-1, 1/9, 1/11]]));
+      toolsapprox_equaljs(dotDivide(1, math.matrix([[1, 4, 7], [ 3, 0, 5], [-1, 9, 11]])), math.matrix([[1, 0.25, 1/7],[1/3, Infinity, 0.2], [-1, 1/9, 1/11]]));
     });
 
     it('should perform (dense matrix ./ array) element-wise matrix division', function() {
@@ -145,7 +143,7 @@ describe('dotDivide', function() {
     });
 
     it('should divide 1 over a sparse matrix element-wise', function() {
-      approx.deepEqual(dotDivide(1, math.sparse([[1, 4, 7], [ 3, 0, 5], [-1, 9, 11]])), math.matrix([[1, 0.25, 1/7],[1/3, Infinity, 0.2], [-1, 1/9, 1/11]]));
+      toolsapprox_equaljs(dotDivide(1, math.sparse([[1, 4, 7], [ 3, 0, 5], [-1, 9, 11]])), math.matrix([[1, 0.25, 1/7],[1/3, Infinity, 0.2], [-1, 1/9, 1/11]]));
     });
 
     it('should perform (sparse matrix ./ array) element-wise matrix division', function() {

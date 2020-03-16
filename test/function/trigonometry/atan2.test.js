@@ -1,17 +1,7 @@
+import assert from "assert";
+import { deepEqual as toolsapprox_deepEqualjs } from "../../../tools/approx";
 // test atan2
-var assert = require('assert'),
-    math = require('../../../index'),
-    approx = require('../../../tools/approx'),
-    pi = math.pi,
-    complex = math.complex,
-    matrix = math.matrix,
-    sparse = math.sparse,
-    unit = math.unit,
-    divide = math.divide,
-    atan2 = math.atan2,
-    bigmath = math.create({precision: 20}),
-    Big = bigmath.bignumber,
-    atan2Big = bigmath.atan2;
+var math = require('../../../index'), pi = math.pi, complex = math.complex, matrix = math.matrix, sparse = math.sparse, unit = math.unit, divide = math.divide, atan2 = math.atan2, bigmath = math.create({precision: 20}), Big = bigmath.bignumber, atan2Big = bigmath.atan2;
 
 describe('atan2', function() {
 
@@ -149,8 +139,8 @@ describe('atan2', function() {
 
   it('should calculate the atan2 element-wise for arrays and matrices', function() {
     // array, matrix, range
-    approx.deepEqual(divide(atan2([1, 0, -1], [1, 0, -1]), pi), [0.25, 0, -0.75]);
-    approx.deepEqual(divide(atan2(
+    toolsapprox_deepEqualjs(divide(atan2([1, 0, -1], [1, 0, -1]), pi), [0.25, 0, -0.75]);
+    toolsapprox_deepEqualjs(divide(atan2(
         matrix([1,0,-1]),
         matrix([1,0,-1])), pi),
         matrix([0.25, 0, -0.75]));

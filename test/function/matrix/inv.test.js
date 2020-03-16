@@ -1,9 +1,7 @@
+import assert from "assert";
+import { deepEqual as toolsapprox_deepEqualjs } from "../../../tools/approx";
 // test inv
-var assert = require('assert'),
-    approx = require('../../../tools/approx'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    inv = math.inv;
+var error = require('../../../lib/error/index'), math = require('../../../index'), inv = math.inv;
 
 describe('inv', function() {
 
@@ -21,7 +19,7 @@ describe('inv', function() {
     assert.deepEqual(inv([4]), [1/4]);
     assert.deepEqual(inv([[4]]), [[1/4]]);
 
-    approx.deepEqual(inv([
+    toolsapprox_deepEqualjs(inv([
       [ 1, 4,  7],
       [ 3, 0,  5],
       [-1, 9, 11]
@@ -31,7 +29,7 @@ describe('inv', function() {
       [-3.375,  1.625,  1.5]
     ]);
 
-    approx.deepEqual(inv([
+    toolsapprox_deepEqualjs(inv([
       [ 2, -1,  0],
       [-1,  2, -1],
       [ 0, -1,  2]
@@ -42,7 +40,7 @@ describe('inv', function() {
     ]);
 
     // the following will force swapping of empty rows in the middle of the matrix
-    approx.deepEqual(inv([
+    toolsapprox_deepEqualjs(inv([
       [1, 0, 0],
       [0, 0, 1],
       [0, 1, 0]
