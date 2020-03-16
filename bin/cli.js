@@ -1,6 +1,16 @@
 #!/usr/bin/env node
-import fs from "fs";
-import readline from "readline";
+"use strict";
+
+var _fs = require("fs");
+
+var _fs2 = _interopRequireDefault(_fs);
+
+var _readline = require("readline");
+
+var _readline2 = _interopRequireDefault(_readline);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 /**
  * math.js
  * https://github.com/josdejong/mathjs
@@ -58,12 +68,11 @@ var PRECISION = 14; // decimals
  */
 function format(value) {
   return math.format(value, {
-    fn: function (value) {
+    fn: function fn(value) {
       if (typeof value === 'number') {
         // round numbers
         return math.format(value, PRECISION);
-      }
-      else {
+      } else {
         return math.format(value);
       }
     }
@@ -75,7 +84,7 @@ function format(value) {
  * @param {String} text
  * @return {[Array, String]} completions
  */
-function completer (text) {
+function completer(text) {
   var name;
   var matches = [];
   var m = /[a-zA-Z_0-9]+$/.exec(text);
@@ -124,13 +133,11 @@ function completer (text) {
           if (prefixes.hasOwnProperty(prefix)) {
             if (prefix.indexOf(keyword) == 0) {
               matches.push(prefix);
-            }
-            else if (keyword.indexOf(prefix) == 0) {
+            } else if (keyword.indexOf(prefix) == 0) {
               var unitKeyword = keyword.substring(prefix.length);
               for (var n in Unit.UNITS) {
                 if (Unit.UNITS.hasOwnProperty(n)) {
-                  if (n.indexOf(unitKeyword) == 0 &&
-                      Unit.isValuelessUnit(prefix + n)) {
+                  if (n.indexOf(unitKeyword) == 0 && Unit.isValuelessUnit(prefix + n)) {
                     matches.push(prefix + n);
                   }
                 }
@@ -142,7 +149,7 @@ function completer (text) {
     }
 
     // remove duplicates
-    matches = matches.filter(function(elem, pos, arr) {
+    matches = matches.filter(function (elem, pos, arr) {
       return arr.indexOf(elem) == pos;
     });
   }
@@ -159,8 +166,8 @@ function completer (text) {
  * @param mode    Output mode
  * @param parenthesis Parenthesis option
  */
-function runStream (input, output, mode, parenthesis) {
-  var rl = readline.createInterface({
+function runStream(input, output, mode, parenthesis) {
+  var rl = _readline2.default.createInterface({
     input: input || process.stdin,
     output: output || process.stdout,
     completer: completer
@@ -173,7 +180,7 @@ function runStream (input, output, mode, parenthesis) {
 
   // TODO: automatic insertion of 'ans' before operators like +, -, *, /
 
-  rl.on('line', function(line) {
+  rl.on('line', function (line) {
     var expr = line.trim();
 
     switch (expr.toLowerCase()) {
@@ -207,9 +214,11 @@ function runStream (input, output, mode, parenthesis) {
                 // we can have 0 or 1 results in the ResultSet, as the CLI
                 // does not allow multiple expressions separated by a return
                 res = res.entries[0];
-                node = node.blocks
-                    .filter(function (entry) { return entry.visible; })
-                    .map(function (entry) { return entry.node })[0];
+                node = node.blocks.filter(function (entry) {
+                  return entry.visible;
+                }).map(function (entry) {
+                  return entry.node;
+                })[0];
               }
 
               if (node) {
@@ -218,42 +227,36 @@ function runStream (input, output, mode, parenthesis) {
                   if (name != null) {
                     scope.ans = scope[name];
                     console.log(name + ' = ' + format(scope[name]));
-                  }
-                  else {
+                  } else {
                     scope.ans = res;
                     console.log(format(res));
                   }
-                }
-                else if (res instanceof math.type.Help) {
+                } else if (res instanceof math.type.Help) {
                   console.log(res.toString());
-                }
-                else {
+                } else {
                   scope.ans = res;
                   console.log(format(res));
                 }
               }
-            }
-            catch (err) {
+            } catch (err) {
               console.log(err.toString());
             }
             break;
 
           case 'string':
             try {
-              var string = math.parse(expr).toString({parenthesis: parenthesis});
+              var string = math.parse(expr).toString({ parenthesis: parenthesis });
               console.log(string);
-            }
-            catch (err) {
+            } catch (err) {
               console.log(err.toString());
             }
             break;
 
           case 'tex':
             try {
-              var tex = math.parse(expr).toTex({parenthesis: parenthesis});
+              var tex = math.parse(expr).toTex({ parenthesis: parenthesis });
               console.log(tex);
-            }
-            catch (err) {
+            } catch (err) {
               console.log(err.toString());
             }
             break;
@@ -266,7 +269,7 @@ function runStream (input, output, mode, parenthesis) {
     }
   });
 
-  rl.on('close', function() {
+  rl.on('close', function () {
     console.log();
     process.exit(0);
   });
@@ -278,7 +281,7 @@ function runStream (input, output, mode, parenthesis) {
  * @param {AssignmentNode} node
  * @return {string | null} Returns the name when found, else returns null.
  */
-function findSymbolName (node) {
+function findSymbolName(node) {
   var n = node;
 
   while (n) {
@@ -295,12 +298,11 @@ function findSymbolName (node) {
  * Output application version number.
  * Version number is read version from package.json.
  */
-function outputVersion () {
-  fs.readFile(__dirname + '/../package.json', function (err, data) {
+function outputVersion() {
+  _fs2.default.readFile(__dirname + '/../package.json', function (err, data) {
     if (err) {
       console.log(err.toString());
-    }
-    else {
+    } else {
       var pkg = JSON.parse(data);
       var version = pkg && pkg.version ? pkg.version : 'unknown';
       console.log(version);
@@ -396,18 +398,15 @@ process.argv.forEach(function (arg, index) {
 
 if (version) {
   outputVersion();
-}
-else if (help) {
+} else if (help) {
   outputHelp();
-}
-else if (scripts.length === 0) {
+} else if (scripts.length === 0) {
   // run a stream, can be user input or pipe input
   runStream(process.stdin, process.stdout, mode, parenthesis);
-}
-else {
+} else {
   //work through the queue of scripts
   scripts.forEach(function (arg) {
     // run a script file
-    runStream(fs.createReadStream(arg), process.stdout, mode, parenthesis);
+    runStream(_fs2.default.createReadStream(arg), process.stdout, mode, parenthesis);
   });
 }

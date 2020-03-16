@@ -1,150 +1,174 @@
-import assert from "assert";
+'use strict';
+
+var _assert = require('assert');
+
+var _assert2 = _interopRequireDefault(_assert);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 // test parser
 
-var approx = require('../../tools/approx'), math = require('../../index'), Parser = math.expression.Parser;
+var approx = require('../../tools/approx'),
+    math = require('../../index'),
+    Parser = math.expression.Parser;
 
-describe('parser', function() {
+describe('parser', function () {
 
-  it ('should create a parser', function () {
+  it('should create a parser', function () {
     var parser = new Parser();
-    assert.ok(parser instanceof Parser);
+    _assert2.default.ok(parser instanceof Parser);
   });
 
   it('should have a property isParser', function () {
     var a = new Parser();
-    assert.strictEqual(a.isParser, true);
+    _assert2.default.strictEqual(a.isParser, true);
   });
 
   it('should have a property type', function () {
     var a = new Parser();
-    assert.strictEqual(a.type, 'Parser');
+    _assert2.default.strictEqual(a.type, 'Parser');
   });
 
-  it ('should throw an error when using deprecated function parse', function () {
+  it('should throw an error when using deprecated function parse', function () {
     var parser = new Parser();
 
-    assert.throws(function () {parser.parse('2 + 3');}, /is deprecated/);
+    _assert2.default.throws(function () {
+      parser.parse('2 + 3');
+    }, /is deprecated/);
   });
 
-  it ('should throw an error when using deprecated function compile', function () {
+  it('should throw an error when using deprecated function compile', function () {
     var parser = new Parser();
 
-    assert.throws(function () {parser.compile('2 + 3');}, /is deprecated/);
+    _assert2.default.throws(function () {
+      parser.compile('2 + 3');
+    }, /is deprecated/);
   });
 
-  it ('should evaluate an expression', function () {
+  it('should evaluate an expression', function () {
     var parser = new Parser();
 
     var result = parser.eval('2 + 3');
-    assert.equal(result, 5);
+    _assert2.default.equal(result, 5);
   });
 
-  it ('should get variables from the parsers namespace ', function () {
+  it('should get variables from the parsers namespace ', function () {
     var parser = new Parser();
 
     parser.eval('a = 3');
     parser.eval('b = a + 2');
-    assert.equal(parser.eval('a'), 3);
-    assert.equal(parser.eval('b'), 5);
-    assert.equal(parser.get('a'), 3);
-    assert.equal(parser.get('b'), 5);
+    _assert2.default.equal(parser.eval('a'), 3);
+    _assert2.default.equal(parser.eval('b'), 5);
+    _assert2.default.equal(parser.get('a'), 3);
+    _assert2.default.equal(parser.get('b'), 5);
   });
 
-  it ('should get all variables from the parsers namespace ', function () {
+  it('should get all variables from the parsers namespace ', function () {
     var parser = new Parser();
 
     parser.eval('a = 3');
     parser.eval('b = a + 2');
-    assert.deepEqual(parser.getAll(), {a: 3, b: 5});
+    _assert2.default.deepEqual(parser.getAll(), { a: 3, b: 5 });
 
     parser.remove('a');
-    assert.deepEqual(parser.getAll(), {b: 5});
+    _assert2.default.deepEqual(parser.getAll(), { b: 5 });
   });
 
-  it ('should return null when getting a non existing variable', function () {
+  it('should return null when getting a non existing variable', function () {
     var parser = new Parser();
 
-    assert.equal(parser.get('non_existing_variable'), null);
+    _assert2.default.equal(parser.get('non_existing_variable'), null);
   });
 
-  it ('should set variables in the parsers namespace ', function () {
+  it('should set variables in the parsers namespace ', function () {
     var parser = new Parser();
 
-    assert.equal(parser.set('a', 3), 3);
-    assert.equal(parser.eval('a'), 3);
-    assert.equal(parser.eval('a + 2'), 5);
+    _assert2.default.equal(parser.set('a', 3), 3);
+    _assert2.default.equal(parser.eval('a'), 3);
+    _assert2.default.equal(parser.eval('a + 2'), 5);
 
     // adjust variable
-    assert.equal(parser.eval('a = a + 2'), 5);
-    assert.equal(parser.eval('a'), 5);
-    assert.equal(parser.get('a'), 5);
+    _assert2.default.equal(parser.eval('a = a + 2'), 5);
+    _assert2.default.equal(parser.eval('a'), 5);
+    _assert2.default.equal(parser.get('a'), 5);
 
-    assert.equal(parser.set('a', parser.get('a') - 4), 1);
-    assert.equal(parser.eval('a'), 1);
+    _assert2.default.equal(parser.set('a', parser.get('a') - 4), 1);
+    _assert2.default.equal(parser.eval('a'), 1);
   });
 
-  it ('should remove a variable from the parsers namespace ', function () {
+  it('should remove a variable from the parsers namespace ', function () {
     var parser = new Parser();
 
-    assert.equal(parser.set('qq', 3), 3);
-    assert.equal(parser.eval('qq'), 3);
-    assert.equal(parser.get('qq'), 3);
+    _assert2.default.equal(parser.set('qq', 3), 3);
+    _assert2.default.equal(parser.eval('qq'), 3);
+    _assert2.default.equal(parser.get('qq'), 3);
 
     parser.remove('qq');
-    assert.equal(parser.get('qq'), null);
-    assert.throws(function () {parser.eval('qq')});
+    _assert2.default.equal(parser.get('qq'), null);
+    _assert2.default.throws(function () {
+      parser.eval('qq');
+    });
 
-    assert.equal(parser.eval('ww = 5'), 5);
-    assert.equal(parser.get('ww'), 5);
+    _assert2.default.equal(parser.eval('ww = 5'), 5);
+    _assert2.default.equal(parser.get('ww'), 5);
     parser.remove('ww');
-    assert.equal(parser.get('ww'), null);
-    assert.throws(function () {parser.eval('ww')});
+    _assert2.default.equal(parser.get('ww'), null);
+    _assert2.default.throws(function () {
+      parser.eval('ww');
+    });
   });
 
-  it ('should clear the parsers namespace ', function () {
+  it('should clear the parsers namespace ', function () {
     var parser = new Parser();
 
-    assert.equal(parser.eval('xx = yy = zz = 5'), 5);
+    _assert2.default.equal(parser.eval('xx = yy = zz = 5'), 5);
 
-    assert.equal(parser.set('pi', 'oops'), 'oops');
+    _assert2.default.equal(parser.set('pi', 'oops'), 'oops');
 
-    assert.equal(parser.get('xx'), 5);
-    assert.equal(parser.get('yy'), 5);
-    assert.equal(parser.get('zz'), 5);
-    assert.equal(parser.get('pi'), 'oops');
+    _assert2.default.equal(parser.get('xx'), 5);
+    _assert2.default.equal(parser.get('yy'), 5);
+    _assert2.default.equal(parser.get('zz'), 5);
+    _assert2.default.equal(parser.get('pi'), 'oops');
 
-    assert.equal(parser.eval('xx'), 5);
-    assert.equal(parser.eval('yy'), 5);
-    assert.equal(parser.eval('zz'), 5);
-    assert.equal(parser.eval('pi'), 'oops');
+    _assert2.default.equal(parser.eval('xx'), 5);
+    _assert2.default.equal(parser.eval('yy'), 5);
+    _assert2.default.equal(parser.eval('zz'), 5);
+    _assert2.default.equal(parser.eval('pi'), 'oops');
 
     parser.clear();
 
-    assert.equal(parser.get('xx'), null);
-    assert.equal(parser.get('yy'), null);
-    assert.equal(parser.get('zz'), null);
+    _assert2.default.equal(parser.get('xx'), null);
+    _assert2.default.equal(parser.get('yy'), null);
+    _assert2.default.equal(parser.get('zz'), null);
     approx.equal(parser.get('pi'), null);
 
-    assert.throws(function () {parser.eval('xx')});
-    assert.throws(function () {parser.eval('yy')});
-    assert.throws(function () {parser.eval('zz')});
-    assert.equal(parser.eval('pi'), Math.PI);
-
+    _assert2.default.throws(function () {
+      parser.eval('xx');
+    });
+    _assert2.default.throws(function () {
+      parser.eval('yy');
+    });
+    _assert2.default.throws(function () {
+      parser.eval('zz');
+    });
+    _assert2.default.equal(parser.eval('pi'), Math.PI);
   });
 
-  it ('should not clear inherited properties', function () {
+  it('should not clear inherited properties', function () {
     var parser = new Parser();
 
     Object.prototype.foo = 'bar';
 
     parser.clear();
 
-    assert.equal(parser.get('foo'), 'bar');
+    _assert2.default.equal(parser.get('foo'), 'bar');
 
     delete Object.prototype.foo;
   });
 
-  it ('should throw an exception when creating a parser without new', function () {
-    assert.throws(function () {Parser()}, /Constructor must be called with the new operator/);
+  it('should throw an exception when creating a parser without new', function () {
+    _assert2.default.throws(function () {
+      Parser();
+    }, /Constructor must be called with the new operator/);
   });
 });

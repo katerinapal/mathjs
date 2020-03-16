@@ -1,7 +1,22 @@
-import fs from "fs";
-import glob from "glob";
-import mkdirp from "mkdirp";
-import gulputil from "gulp-util";
+"use strict";
+
+var _fs = require("fs");
+
+var _fs2 = _interopRequireDefault(_fs);
+
+var _glob = require("glob");
+
+var _glob2 = _interopRequireDefault(_glob);
+
+var _mkdirp = require("mkdirp");
+
+var _mkdirp2 = _interopRequireDefault(_mkdirp);
+
+var _gulpUtil = require("gulp-util");
+
+var _gulpUtil2 = _interopRequireDefault(_gulpUtil);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // special cases for function syntax
 var SYNTAX = {
@@ -59,16 +74,13 @@ function generateDoc(name, code) {
   }
 
   // get text content inside block comment
-  var comment = match[0].replace('/**', '')
-      .replace('*/', '')
-      .replace(/\n\s*\* ?/g, '\n')
-      .replace(/\r/g, '');
+  var comment = match[0].replace('/**', '').replace('*/', '').replace(/\n\s*\* ?/g, '\n').replace(/\r/g, '');
 
   var lines = comment.split('\n'),
       line = '';
 
   // get next line
-  function next () {
+  function next() {
     line = lines.shift();
   }
 
@@ -84,16 +96,20 @@ function generateDoc(name, code) {
 
   // returns true if current line is a header like 'Syntax:'
   function isHeader() {
-    return /^(Name|Syntax|Description|Examples|See also)/i.test(line);
+    return (/^(Name|Syntax|Description|Examples|See also)/i.test(line)
+    );
   }
 
   // returns true if the current line starts with an annotation like @param
   function isAnnotation() {
-    return /^@/.test(line);
+    return (/^@/.test(line)
+    );
   }
 
-  function skipEmptyLines () {
-    while (exists() && empty()) next();
+  function skipEmptyLines() {
+    while (exists() && empty()) {
+      next();
+    }
   }
 
   function stripLeadingSpaces(lines) {
@@ -109,11 +125,11 @@ function generateDoc(name, code) {
     if (spaces) {
       lines.forEach(function (line, index) {
         lines[index] = line.substring(spaces);
-      })
+      });
     }
   }
 
-  function parseDescription () {
+  function parseDescription() {
     var description = '';
 
     while (exists() && !isHeader() && !isAnnotation()) {
@@ -207,12 +223,12 @@ function generateDoc(name, code) {
     return false;
   }
 
-  function trim (text) {
+  function trim(text) {
     return text.trim();
   }
 
   // replace characters like '<' with HTML entities like '&lt;'
-  function escapeTags (text) {
+  function escapeTags(text) {
     return text.replace(/</g, '&lt;').replace(/>/g, '&gt;');
   }
 
@@ -294,12 +310,7 @@ function generateDoc(name, code) {
   do {
     skipEmptyLines();
 
-    var handled = parseSyntax() ||
-        parseWhere() ||
-        parseExamples() ||
-        parseSeeAlso() ||
-        parseParameters() ||
-        parseReturns();
+    var handled = parseSyntax() || parseWhere() || parseExamples() || parseSeeAlso() || parseParameters() || parseReturns();
 
     if (!handled) {
       // skip this line, no one knows what to do with it
@@ -315,11 +326,11 @@ function generateDoc(name, code) {
  * @param {Object} doc
  * @return {String[]} issues
  */
-function validateDoc (doc) {
+function validateDoc(doc) {
   var issues = [];
 
   function ignore(field) {
-    return IGNORE_WARNINGS[field].indexOf(doc.name) !== -1
+    return IGNORE_WARNINGS[field].indexOf(doc.name) !== -1;
   }
 
   if (!doc.name) {
@@ -350,8 +361,7 @@ function validateDoc (doc) {
         issues.push('function "' + doc.name + '": types missing for parameter ' + (param.name || index));
       }
     });
-  }
-  else {
+  } else {
     if (!ignore('parameters')) {
       issues.push('function "' + doc.name + '": parameters missing');
     }
@@ -364,8 +374,7 @@ function validateDoc (doc) {
     if (!doc.returns.types || !doc.returns.types.length) {
       issues.push('function "' + doc.name + '": types missing of returns');
     }
-  }
-  else {
+  } else {
     if (!ignore('returns')) {
       issues.push('function "' + doc.name + '": returns missing');
     }
@@ -387,7 +396,7 @@ function validateDoc (doc) {
  *                              under seeAlso
  * @returns {string} markdown   Markdown contents
  */
-function generateMarkdown (doc, functions) {
+function generateMarkdown(doc, functions) {
   var text = '';
 
   // TODO: should escape HTML characters in text
@@ -399,47 +408,29 @@ function generateMarkdown (doc, functions) {
   text += doc.description + '\n\n\n';
 
   if (doc.syntax && doc.syntax.length) {
-    text += '## Syntax\n\n' +
-        '```js\n' +
-        doc.syntax.join('\n') +
-        '\n```\n\n';
+    text += '## Syntax\n\n' + '```js\n' + doc.syntax.join('\n') + '\n```\n\n';
   }
 
   if (doc.where && doc.where.length) {
     text += '### Where\n\n' + doc.where.join('\n') + '\n\n';
   }
 
-  text += '### Parameters\n\n' +
-      'Parameter | Type | Description\n' +
-      '--------- | ---- | -----------\n' +
-      doc.parameters.map(function (p) {
-        return '`' + p.name + '` | ' +
-            (p.types ? p.types.join(' &#124; ') : '') + ' | ' +
-            p.description
-      }).join('\n') +
-      '\n\n';
+  text += '### Parameters\n\n' + 'Parameter | Type | Description\n' + '--------- | ---- | -----------\n' + doc.parameters.map(function (p) {
+    return '`' + p.name + '` | ' + (p.types ? p.types.join(' &#124; ') : '') + ' | ' + p.description;
+  }).join('\n') + '\n\n';
 
   if (doc.returns) {
-    text += '### Returns\n\n' +
-        'Type | Description\n' +
-        '---- | -----------\n' +
-        (doc.returns.types ? doc.returns.types.join(' &#124; ') : '') + ' | ' + doc.returns.description +
-        '\n\n\n';
+    text += '### Returns\n\n' + 'Type | Description\n' + '---- | -----------\n' + (doc.returns.types ? doc.returns.types.join(' &#124; ') : '') + ' | ' + doc.returns.description + '\n\n\n';
   }
 
   if (doc.examples && doc.examples.length) {
-    text += '## Examples\n\n' +
-        '```js\n' +
-        doc.examples.join('\n') +
-        '\n```\n\n\n';
+    text += '## Examples\n\n' + '```js\n' + doc.examples.join('\n') + '\n```\n\n\n';
   }
 
   if (doc.seeAlso && doc.seeAlso.length) {
-    text += '## See also\n\n' +
-        doc.seeAlso.map(function (name) {
-          return '[' + name + '](' + name + '.md)';
-        }).join(',\n') +
-        '\n';
+    text += '## See also\n\n' + doc.seeAlso.map(function (name) {
+      return '[' + name + '](' + name + '.md)';
+    }).join(',\n') + '\n';
   }
 
   return text;
@@ -451,12 +442,12 @@ function generateMarkdown (doc, functions) {
  * @param {String} outputPath  Path to /docs/reference/functions
  * @param {String} outputRoot  Path to /docs/reference
  */
-function iteratePath (inputPath, outputPath, outputRoot) {
-  if (!fs.existsSync(outputPath)) {
-    mkdirp.sync(outputPath);
+function iteratePath(inputPath, outputPath, outputRoot) {
+  if (!_fs2.default.existsSync(outputPath)) {
+    _mkdirp2.default.sync(outputPath);
   }
 
-  glob(inputPath + '**/*.js', null, function (err, files) {
+  (0, _glob2.default)(inputPath + '**/*.js', null, function (err, files) {
     // generate path information for each of the files
     var functions = {}; // TODO: change to array
 
@@ -472,18 +463,14 @@ function iteratePath (inputPath, outputPath, outputRoot) {
       if (path.indexOf('docs') === -1 && functionIndex !== -1) {
         if (path.indexOf('expression') !== -1) {
           category = 'expression';
-        }
-        else if (/^.\/lib\/type\/[a-zA-Z0-9_]*\/function/.test(fullPath)) {
+        } else if (/^.\/lib\/type\/[a-zA-Z0-9_]*\/function/.test(fullPath)) {
           category = 'construction';
-        }
-        else if (/^.\/lib\/core\/function/.test(fullPath)) {
+        } else if (/^.\/lib\/core\/function/.test(fullPath)) {
           category = 'core';
-        }
-        else {
+        } else {
           category = path[functionIndex + 1];
         }
-      }
-      else if (path.join('/') === './lib/type') {
+      } else if (path.join('/') === './lib/type') {
         // for boolean.js, number.js, string.js
         category = 'construction';
       }
@@ -507,20 +494,17 @@ function iteratePath (inputPath, outputPath, outputRoot) {
     for (var name in functions) {
       if (functions.hasOwnProperty(name)) {
         var fn = functions[name];
-        var code = String(fs.readFileSync(fn.fullPath));
+        var code = String(_fs2.default.readFileSync(fn.fullPath));
 
-        var isFunction = code.indexOf('exports.name') !== -1
-            && code.indexOf('exports.factory') !== -1
-            && code.indexOf('exports.path') === -1;
+        var isFunction = code.indexOf('exports.name') !== -1 && code.indexOf('exports.factory') !== -1 && code.indexOf('exports.path') === -1;
         var doc = isFunction && generateDoc(name, code);
 
         if (isFunction && doc) {
           fn.doc = doc;
           issues = issues.concat(validateDoc(doc));
           var markdown = generateMarkdown(doc, functions);
-          fs.writeFileSync(outputPath + '/' + fn.name + '.md', markdown);
-        }
-        else {
+          _fs2.default.writeFileSync(outputPath + '/' + fn.name + '.md', markdown);
+        } else {
           //gutil.log('Ignoring', fn.fullPath);
           delete functions[name];
         }
@@ -533,13 +517,12 @@ function iteratePath (inputPath, outputPath, outputRoot) {
      * @param {string} name Function name
      * @returns {string}    Returns a markdown list entry
      */
-    function functionEntry (name) {
+    function functionEntry(name) {
       var fn = functions[name];
       var syntax = SYNTAX[name] || fn.doc && fn.doc.syntax && fn.doc.syntax[0] || name;
       syntax = syntax
-          //.replace(/^math\./, '')
-          .replace(/\s+\/\/.*$/, '')
-          .replace(/;$/, '');
+      //.replace(/^math\./, '')
+      .replace(/\s+\/\/.*$/, '').replace(/;$/, '');
       if (syntax.length < 40) {
         syntax = syntax.replace(/ /g, '&nbsp;');
       }
@@ -556,22 +539,22 @@ function iteratePath (inputPath, outputPath, outputRoot) {
      * Change the first letter of the given string to upper case
      * @param {string} text
      */
-    function toCapital (text) {
+    function toCapital(text) {
       return text[0].toUpperCase() + text.slice(1);
     }
 
     var order = ['core', 'construction', 'expression']; // and then the rest
-    function categoryIndex (entry) {
+    function categoryIndex(entry) {
       var index = order.indexOf(entry);
       return index === -1 ? Infinity : index;
     }
-    function compareAsc (a, b) {
-      return a > b ? 1 : (a < b ? -1 : 0);
+    function compareAsc(a, b) {
+      return a > b ? 1 : a < b ? -1 : 0;
     }
-    function compareCategory (a, b) {
+    function compareCategory(a, b) {
       var indexA = categoryIndex(a);
       var indexB = categoryIndex(b);
-      return (indexA > indexB) ? 1 : (indexA < indexB ? -1 : compareAsc(a, b));
+      return indexA > indexB ? 1 : indexA < indexB ? -1 : compareAsc(a, b);
     }
 
     // generate categorical page with all functions
@@ -588,15 +571,11 @@ function iteratePath (inputPath, outputPath, outputRoot) {
     categorical += Object.keys(categories).sort(compareCategory).map(function (category) {
       var functions = categories[category];
 
-      return '## ' + toCapital(category) + ' functions\n\n' +
-          'Function | Description\n' +
-          '---- | -----------\n' +
-        Object.keys(functions).sort().map(functionEntry).join('\n') + '\n';
+      return '## ' + toCapital(category) + ' functions\n\n' + 'Function | Description\n' + '---- | -----------\n' + Object.keys(functions).sort().map(functionEntry).join('\n') + '\n';
     }).join('\n');
     categorical += '\n\n\n<!-- Note: This file is automatically generated from source code comments. Changes made in this file will be overridden. -->\n';
 
-    fs.writeFileSync(outputRoot + 'functions.md', categorical);
-
+    _fs2.default.writeFileSync(outputRoot + 'functions.md', categorical);
 
     // output all issues
     if (issues.length) {

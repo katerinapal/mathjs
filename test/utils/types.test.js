@@ -1,56 +1,63 @@
-import assert from "assert";
-// test types utils
-var approx = require('../../tools/approx'), types = require('../../lib/utils/types');
+'use strict';
 
-describe ('types', function () {
+var _assert = require('assert');
+
+var _assert2 = _interopRequireDefault(_assert);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// test types utils
+var approx = require('../../tools/approx'),
+    types = require('../../lib/utils/types');
+
+describe('types', function () {
 
   it('should return the type of null', function () {
-    assert.equal(types.type(null), 'null');
+    _assert2.default.equal(types.type(null), 'null');
   });
 
   it('should return the type of undefined', function () {
-    assert.equal(types.type(undefined), 'undefined');
-    assert.equal(types.type(), 'undefined');
+    _assert2.default.equal(types.type(undefined), 'undefined');
+    _assert2.default.equal(types.type(), 'undefined');
   });
 
   it('should return the type of a boolean', function () {
 
-    assert.equal(types.type(false), 'boolean');
-    assert.equal(types.type(true), 'boolean');
+    _assert2.default.equal(types.type(false), 'boolean');
+    _assert2.default.equal(types.type(true), 'boolean');
   });
 
   it('should return the type of a number', function () {
-    assert.equal(types.type(2.3), 'number');
-    assert.equal(types.type(Number(2.3)), 'number');
-    assert.equal(types.type(new Number(2.3)), 'number');
-    assert.equal(types.type(NaN), 'number');
+    _assert2.default.equal(types.type(2.3), 'number');
+    _assert2.default.equal(types.type(Number(2.3)), 'number');
+    _assert2.default.equal(types.type(new Number(2.3)), 'number');
+    _assert2.default.equal(types.type(NaN), 'number');
   });
 
   it('should return the type of a string', function () {
-    assert.equal(types.type('bla'), 'string');
-    assert.equal(types.type(new String('bla')), 'string');
+    _assert2.default.equal(types.type('bla'), 'string');
+    _assert2.default.equal(types.type(new String('bla')), 'string');
   });
 
   it('should return the type of an object', function () {
-    assert.equal(types.type({}), 'Object');
-    assert.equal(types.type(new Object()), 'Object');
+    _assert2.default.equal(types.type({}), 'Object');
+    _assert2.default.equal(types.type(new Object()), 'Object');
   });
 
   it('should return the type of an array', function () {
-    assert.equal(types.type([]), 'Array');
-    assert.equal(types.type(new Array()), 'Array');
+    _assert2.default.equal(types.type([]), 'Array');
+    _assert2.default.equal(types.type(new Array()), 'Array');
   });
 
   it('should return the type of a function', function () {
-    assert.equal(types.type(function () {}), 'Function');
+    _assert2.default.equal(types.type(function () {}), 'Function');
   });
 
   it('should return the type of a date', function () {
-    assert.equal(types.type(new Date()), 'Date');
+    _assert2.default.equal(types.type(new Date()), 'Date');
   });
 
   it('should return the type of a regexp', function () {
-    assert.equal(types.type(/regexp/), 'RegExp');
+    _assert2.default.equal(types.type(/regexp/), 'RegExp');
   });
-
 });

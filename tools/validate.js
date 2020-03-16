@@ -1,17 +1,21 @@
-import gulputil from "gulp-util";
+'use strict';
+
+var _gulpUtil = require('gulp-util');
+
+var _gulpUtil2 = _interopRequireDefault(_gulpUtil);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 /**
  * Validate whether all functions in math.js are documented in math.expression.docs
  */
-var math = require('../index'), prop;
+var math = require('../index'),
+    prop;
 
 // names to ignore
 var ignore = [
-  // functions not supported or relevant for the parser:
-  'create', 'typed', 'config',
-  'on', 'off', 'emit', 'once',
-  'compile', 'parse', 'parser',
-  'chain', 'print'
-];
+// functions not supported or relevant for the parser:
+'create', 'typed', 'config', 'on', 'off', 'emit', 'once', 'compile', 'parse', 'parser', 'chain', 'print'];
 
 // test whether all functions are documented
 var undocumentedCount = 0;
@@ -19,7 +23,7 @@ for (prop in math) {
   if (math.hasOwnProperty(prop)) {
     var obj = math[prop];
     if (math['typeof'](obj) != 'Object') {
-      if (!math.expression.docs[prop] && (ignore.indexOf(prop) == -1)) {
+      if (!math.expression.docs[prop] && ignore.indexOf(prop) == -1) {
         gutil.log('WARNING: Function ' + prop + ' is undocumented');
         undocumentedCount++;
       }
@@ -42,7 +46,6 @@ for (prop in docs) {
 // done. Output results
 if (undocumentedCount == 0 && nonExistingCount == 0) {
   gutil.log('Validation successful: all functions are documented.');
-}
-else {
+} else {
   gutil.log('Validation failed: not all functions are documented.');
 }

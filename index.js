@@ -1,5 +1,17 @@
-import { corejs as core_corejsjs } from "./core";
-import * as lib_obj from "./lib";
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.indexjs = undefined;
+
+var _core = require("./core");
+
+var _lib = require("./lib");
+
+var lib_obj = _interopRequireWildcard(_lib);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 /**
  * math.js factory function. Creates a new instance of math.js
@@ -24,7 +36,7 @@ import * as lib_obj from "./lib";
  *                              returns `NaN` when predictable is false, and
  *                              returns `complex('2i')` when true.
  */
-function create (config) {
+function create(config) {
   // create a new math.js instance
   var math = core.create(config);
   math.create = create;
@@ -36,4 +48,4 @@ function create (config) {
 }
 
 var indexjs_indexjs = create();
-export { indexjs_indexjs as indexjs };
+exports.indexjs = indexjs_indexjs;
