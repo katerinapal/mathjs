@@ -1,7 +1,5 @@
-var assert = require('assert'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    combinations = math.combinations;
+import assert from "assert";
+var error = require('../../../lib/error/index'), math = require('../../../index'), combinations = math.combinations;
 
 describe('combinations', function() {
 

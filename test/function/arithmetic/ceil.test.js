@@ -1,6 +1,5 @@
-// test ceil
-var assert = require('assert');
-var approx = require('../../../tools/approx');
+import assert from "assert";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
 var math = require('../../../index');
 var bignumber = math.bignumber;
 var complex = math.complex;
@@ -21,17 +20,17 @@ describe('ceil', function() {
   });
 
   it('should return the ceil of a number', function() {
-    approx.equal(ceil(0), 0);
-    approx.equal(ceil(1), 1);
-    approx.equal(ceil(1.3), 2);
-    approx.equal(ceil(1.8), 2);
-    approx.equal(ceil(2), 2);
-    approx.equal(ceil(-1), -1);
-    approx.equal(ceil(-1.3), -1);
-    approx.equal(ceil(-1.8), -1);
-    approx.equal(ceil(-2), -2);
-    approx.equal(ceil(-2.1), -2);
-    approx.equal(ceil(math.pi), 4);
+    toolsapprox_equaljs(ceil(0), 0);
+    toolsapprox_equaljs(ceil(1), 1);
+    toolsapprox_equaljs(ceil(1.3), 2);
+    toolsapprox_equaljs(ceil(1.8), 2);
+    toolsapprox_equaljs(ceil(2), 2);
+    toolsapprox_equaljs(ceil(-1), -1);
+    toolsapprox_equaljs(ceil(-1.3), -1);
+    toolsapprox_equaljs(ceil(-1.8), -1);
+    toolsapprox_equaljs(ceil(-2), -2);
+    toolsapprox_equaljs(ceil(-2.1), -2);
+    toolsapprox_equaljs(ceil(math.pi), 4);
   });
 
   it('should return the ceil of a big number', function () {
@@ -48,10 +47,10 @@ describe('ceil', function() {
   });
 
   it('should return the ceil of real and imag part of a complex', function() {
-    approx.deepEqual(ceil(complex(0, 0)), complex(0, 0));
-    approx.deepEqual(ceil(complex(1.3, 1.8)), complex(2, 2));
-    approx.deepEqual(ceil(math.i), complex(0, 1));
-    approx.deepEqual(ceil(complex(-1.3, -1.8)), complex(-1, -1));
+    toolsapprox_equaljs(ceil(complex(0, 0)), complex(0, 0));
+    toolsapprox_equaljs(ceil(complex(1.3, 1.8)), complex(2, 2));
+    toolsapprox_equaljs(ceil(math.i), complex(0, 1));
+    toolsapprox_equaljs(ceil(complex(-1.3, -1.8)), complex(-1, -1));
   });
 
   it('should return the ceil of a number', function() {
@@ -81,8 +80,8 @@ describe('ceil', function() {
   });
 
   it('should ceil each element in a matrix, array or range', function() {
-    approx.deepEqual(ceil([1.2, 3.4, 5.6, 7.8, 10.0]), [2, 4, 6, 8, 10]);
-    approx.deepEqual(ceil(matrix([1.2, 3.4, 5.6, 7.8, 10.0])), matrix([2, 4, 6, 8, 10]));
+    toolsapprox_equaljs(ceil([1.2, 3.4, 5.6, 7.8, 10.0]), [2, 4, 6, 8, 10]);
+    toolsapprox_equaljs(ceil(matrix([1.2, 3.4, 5.6, 7.8, 10.0])), matrix([2, 4, 6, 8, 10]));
   });
 
   it('should throw an error in case of invalid number of arguments', function() {

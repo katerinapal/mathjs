@@ -1,4 +1,4 @@
-var assert = require('assert');
+import assert from "assert";
 var math = require('../../index');
 var reviver = math.json.reviver;
 var Range = math.type.Range;

@@ -1,7 +1,7 @@
-var assert = require('assert');
+import assert from "assert";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
 var error = require('../../../lib/error/index');
 var math = require('../../../index');
-var approx = require('../../../tools/approx');
 var pi = math.pi;
 var asec = math.asec;
 var sec = math.sec;
@@ -27,13 +27,13 @@ describe('asec', function() {
   });
 
   it('should return the arcsec of a number', function() {
-    approx.equal(asec(-2) / pi, 2 / 3);
-    approx.equal(asec(-1) / pi, 1);
-    approx.equal(asec(1) / pi, 0);
-    approx.equal(asec(2) / pi, 1 / 3);
+    toolsapprox_equaljs(asec(-2) / pi, 2 / 3);
+    toolsapprox_equaljs(asec(-1) / pi, 1);
+    toolsapprox_equaljs(asec(1) / pi, 0);
+    toolsapprox_equaljs(asec(2) / pi, 1 / 3);
 
-    approx.deepEqual(asec(-0.5), complex(pi, -1.3169578969248));
-    approx.deepEqual(asec(0.5), complex(0, 1.3169578969248));
+    toolsapprox_equaljs(asec(-0.5), complex(pi, -1.3169578969248));
+    toolsapprox_equaljs(asec(0.5), complex(0, 1.3169578969248));
   });
 
   it('should return the arcsec of a number when predictable:true', function() {
@@ -69,11 +69,11 @@ describe('asec', function() {
   });
 
   it('should be the inverse function of sec', function() {
-    approx.equal(asec(sec(-1)), 1);
-    approx.equal(asec(sec(0)), 0);
-    approx.equal(asec(sec(0.1)), 0.1);
-    approx.equal(asec(sec(0.5)), 0.5);
-    approx.equal(asec(sec(2)), 2);
+    toolsapprox_equaljs(asec(sec(-1)), 1);
+    toolsapprox_equaljs(asec(sec(0)), 0);
+    toolsapprox_equaljs(asec(sec(0.1)), 0.1);
+    toolsapprox_equaljs(asec(sec(0.5)), 0.5);
+    toolsapprox_equaljs(asec(sec(2)), 2);
   });
 
   it('should be the inverse function of bignumber sec', function() {
@@ -85,16 +85,16 @@ describe('asec', function() {
   });
 
   it('should return the arcsec of a complex number', function() {
-    approx.deepEqual(asec(complex('2+3i')), complex(1.42041072246703,  0.23133469857397));
-    approx.deepEqual(asec(complex('2-3i')), complex(1.42041072246703, -0.23133469857397));
-    approx.deepEqual(asec(complex('-2+3i')), complex(1.7211819311228, 0.2313346985739733));
-    approx.deepEqual(asec(complex('-2-3i')), complex(1.7211819311228, -0.2313346985739733));
-    approx.deepEqual(asec(complex('i')), complex(1.570796326794897, 0.881373587019543));
-    approx.deepEqual(asec(complex('1+i')), complex(1.1185178796437059, 0.530637530952517826));
-    approx.deepEqual(asec(complex('1')), complex(0, 0));
-    approx.deepEqual(asec(complex('0.5')), complex(0, 1.3169578969248));
-    approx.deepEqual(asec(complex('0')), complex(0, Infinity));
-    approx.deepEqual(asec(complex('-0.5')), complex(pi, -1.3169578969248));
+    toolsapprox_equaljs(asec(complex('2+3i')), complex(1.42041072246703,  0.23133469857397));
+    toolsapprox_equaljs(asec(complex('2-3i')), complex(1.42041072246703, -0.23133469857397));
+    toolsapprox_equaljs(asec(complex('-2+3i')), complex(1.7211819311228, 0.2313346985739733));
+    toolsapprox_equaljs(asec(complex('-2-3i')), complex(1.7211819311228, -0.2313346985739733));
+    toolsapprox_equaljs(asec(complex('i')), complex(1.570796326794897, 0.881373587019543));
+    toolsapprox_equaljs(asec(complex('1+i')), complex(1.1185178796437059, 0.530637530952517826));
+    toolsapprox_equaljs(asec(complex('1')), complex(0, 0));
+    toolsapprox_equaljs(asec(complex('0.5')), complex(0, 1.3169578969248));
+    toolsapprox_equaljs(asec(complex('0')), complex(0, Infinity));
+    toolsapprox_equaljs(asec(complex('-0.5')), complex(pi, -1.3169578969248));
   });
 
   it('should throw an error if called with a unit', function() {
@@ -108,8 +108,8 @@ describe('asec', function() {
 
   it('should calculate the arcsec element-wise for arrays and matrices', function() {
     var asec123 = [0, pi / 3, 1.23095941734077468];
-    approx.deepEqual(asec([1,2,3]), asec123);
-    approx.deepEqual(asec(matrix([1,2,3])), matrix(asec123));
+    toolsapprox_equaljs(asec([1,2,3]), asec123);
+    toolsapprox_equaljs(asec(matrix([1,2,3])), matrix(asec123));
   });
 
   it('should throw an error in case of invalid number of arguments', function() {

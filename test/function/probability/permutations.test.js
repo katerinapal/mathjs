@@ -1,7 +1,5 @@
-var assert = require('assert'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    permutations = math.permutations;
+import assert from "assert";
+var error = require('../../../lib/error/index'), math = require('../../../index'), permutations = math.permutations;
 
 describe('permutations', function() {
 

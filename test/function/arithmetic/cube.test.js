@@ -1,5 +1,4 @@
-// test cube
-var assert = require('assert');
+import assert from "assert";
 var math = require('../../../index');
 var unit = math.unit;
 var bignumber = math.bignumber;

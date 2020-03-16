@@ -1,8 +1,6 @@
+import assert from "assert";
 // test resize
-var assert = require('assert'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    Matrix = math.type.Matrix;
+var error = require('../../../lib/error/index'), math = require('../../../index'), Matrix = math.type.Matrix;
 
 describe('resize', function() {
 

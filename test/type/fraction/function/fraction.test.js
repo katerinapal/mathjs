@@ -1,6 +1,6 @@
-var assert = require('assert');
+import assert from "assert";
+import Fraction from "fraction.js";
 var math = require('../../../../index');
-var Fraction = require('fraction.js');
 
 describe('fraction', function () {
 
