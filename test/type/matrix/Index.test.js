@@ -1,5 +1,4 @@
-// test data type Index
-var assert = require('assert');
+import assert from "assert";
 var math = require('../../../index');
 var Index = math.type.Index;
 var Range = math.type.Range;

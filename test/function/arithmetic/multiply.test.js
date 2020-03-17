@@ -1,29 +1,21 @@
+import assert from "assert";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
 // test multiply
-var assert = require('assert'),
-    math = require('../../../index'),
-    approx = require('../../../tools/approx'),
-    market = require('../../../tools/matrixmarket'),
-    multiply = math.multiply,
-    divide = math.divide,
-    matrix = math.matrix,
-    complex = math.complex,
-    bignumber = math.bignumber,
-    i = math.i,
-    unit = math.unit;
+var math = require('../../../index'), market = require('../../../tools/matrixmarket'), multiply = math.multiply, divide = math.divide, matrix = math.matrix, complex = math.complex, bignumber = math.bignumber, i = math.i, unit = math.unit;
 
 describe('multiply', function() {
 
   describe('Scalar', function () {
 
     it('should multiply two numbers correctly', function() {
-      approx.equal(multiply(2, 3), 6);
-      approx.equal(multiply(-2, 3), -6);
-      approx.equal(multiply(-2, -3), 6);
-      approx.equal(multiply(5, 0), 0);
-      approx.equal(multiply(0, 5), 0);
-      approx.deepEqual(multiply(0, Infinity), NaN);
-      approx.deepEqual(multiply(2, Infinity), Infinity);
-      approx.deepEqual(multiply(-2, Infinity), -Infinity);
+      toolsapprox_equaljs(multiply(2, 3), 6);
+      toolsapprox_equaljs(multiply(-2, 3), -6);
+      toolsapprox_equaljs(multiply(-2, -3), 6);
+      toolsapprox_equaljs(multiply(5, 0), 0);
+      toolsapprox_equaljs(multiply(0, 5), 0);
+      toolsapprox_equaljs(multiply(0, Infinity), NaN);
+      toolsapprox_equaljs(multiply(2, Infinity), Infinity);
+      toolsapprox_equaljs(multiply(-2, Infinity), -Infinity);
     });
 
     it('should multiply booleans', function() {
@@ -67,50 +59,50 @@ describe('multiply', function() {
     });
 
     it('should multiply two complex numbers correctly', function() {
-      approx.deepEqual(multiply(complex(2, 3), 2), complex(4, 6));
-      approx.deepEqual(multiply(complex(2, -3), -2), complex(-4, 6));
-      approx.deepEqual(multiply(complex(2, -3), 2), complex(4, -6));
-      approx.deepEqual(multiply(complex(-2, 3), 2), complex(-4, 6));
-      approx.deepEqual(multiply(complex(-2, -3), 2), complex(-4, -6));
-      approx.deepEqual(multiply(2, complex(2, 3)), complex(4, 6));
-      approx.deepEqual(multiply(i, complex(2, 3)), complex(-3, 2));
-      approx.deepEqual(multiply(complex(0, 1), complex(2, 3)), complex(-3, 2));
-      approx.deepEqual(multiply(complex(1, 1), complex(2, 3)), complex(-1, 5));
-      approx.deepEqual(multiply(complex(2, 3), complex(1, 1)), complex(-1, 5));
-      approx.deepEqual(multiply(complex(2, 3), complex(2, 3)), complex(-5, 12));
-      approx.deepEqual(divide(complex(-5, 12), complex(2, 3)), complex(2, 3));
-      approx.deepEqual(multiply(complex(2, 3), 0), complex(0, 0));
-      approx.deepEqual(multiply(complex(0, 3), complex(0, -4)), complex(12, 0));
-      approx.deepEqual(multiply(multiply(3, i), multiply(-4, i)), complex(12, 0));
-      approx.deepEqual(multiply(math.i, Infinity), complex(NaN, Infinity));
-      approx.deepEqual(multiply(Infinity, math.i), complex(NaN, Infinity));
+      toolsapprox_equaljs(multiply(complex(2, 3), 2), complex(4, 6));
+      toolsapprox_equaljs(multiply(complex(2, -3), -2), complex(-4, 6));
+      toolsapprox_equaljs(multiply(complex(2, -3), 2), complex(4, -6));
+      toolsapprox_equaljs(multiply(complex(-2, 3), 2), complex(-4, 6));
+      toolsapprox_equaljs(multiply(complex(-2, -3), 2), complex(-4, -6));
+      toolsapprox_equaljs(multiply(2, complex(2, 3)), complex(4, 6));
+      toolsapprox_equaljs(multiply(i, complex(2, 3)), complex(-3, 2));
+      toolsapprox_equaljs(multiply(complex(0, 1), complex(2, 3)), complex(-3, 2));
+      toolsapprox_equaljs(multiply(complex(1, 1), complex(2, 3)), complex(-1, 5));
+      toolsapprox_equaljs(multiply(complex(2, 3), complex(1, 1)), complex(-1, 5));
+      toolsapprox_equaljs(multiply(complex(2, 3), complex(2, 3)), complex(-5, 12));
+      toolsapprox_equaljs(divide(complex(-5, 12), complex(2, 3)), complex(2, 3));
+      toolsapprox_equaljs(multiply(complex(2, 3), 0), complex(0, 0));
+      toolsapprox_equaljs(multiply(complex(0, 3), complex(0, -4)), complex(12, 0));
+      toolsapprox_equaljs(multiply(multiply(3, i), multiply(-4, i)), complex(12, 0));
+      toolsapprox_equaljs(multiply(math.i, Infinity), complex(NaN, Infinity));
+      toolsapprox_equaljs(multiply(Infinity, math.i), complex(NaN, Infinity));
 
-      approx.deepEqual(multiply(complex(2,0), complex(0,2)), complex(0, 4));
-      approx.deepEqual(multiply(complex(0,2), complex(0,2)), -4);
-      approx.deepEqual(multiply(complex(2,2), complex(0,2)), complex(-4, 4));
-      approx.deepEqual(multiply(complex(2,0), complex(2,2)), complex(4, 4));
-      approx.deepEqual(multiply(complex(0,2), complex(2,2)), complex(-4, 4));
-      approx.deepEqual(multiply(complex(2,2), complex(2,2)), complex(0, 8));
-      approx.deepEqual(multiply(complex(2,0), complex(2,0)), 4);
-      approx.deepEqual(multiply(complex(0,2), complex(2,0)), complex(0, 4));
-      approx.deepEqual(multiply(complex(2,2), complex(2,0)), complex(4, 4));
+      toolsapprox_equaljs(multiply(complex(2,0), complex(0,2)), complex(0, 4));
+      toolsapprox_equaljs(multiply(complex(0,2), complex(0,2)), -4);
+      toolsapprox_equaljs(multiply(complex(2,2), complex(0,2)), complex(-4, 4));
+      toolsapprox_equaljs(multiply(complex(2,0), complex(2,2)), complex(4, 4));
+      toolsapprox_equaljs(multiply(complex(0,2), complex(2,2)), complex(-4, 4));
+      toolsapprox_equaljs(multiply(complex(2,2), complex(2,2)), complex(0, 8));
+      toolsapprox_equaljs(multiply(complex(2,0), complex(2,0)), 4);
+      toolsapprox_equaljs(multiply(complex(0,2), complex(2,0)), complex(0, 4));
+      toolsapprox_equaljs(multiply(complex(2,2), complex(2,0)), complex(4, 4));
 
-      approx.deepEqual(multiply(complex(2, 3), complex(4, 5)), complex(-7, 22));
-      approx.deepEqual(multiply(complex(2, 3), complex(4, -5)), complex(23, 2));
-      approx.deepEqual(multiply(complex(2, 3), complex(-4, 5)), complex(-23, -2));
-      approx.deepEqual(multiply(complex(2, 3), complex(-4, -5)), complex(7, -22));
-      approx.deepEqual(multiply(complex(2, -3), complex(4, 5)), complex(23, -2));
-      approx.deepEqual(multiply(complex(2, -3), complex(4, -5)), complex(-7, -22));
-      approx.deepEqual(multiply(complex(2, -3), complex(-4, 5)), complex(7, 22));
-      approx.deepEqual(multiply(complex(2, -3), complex(-4, -5)), complex(-23, 2));
-      approx.deepEqual(multiply(complex(-2, 3), complex(4, 5)), complex(-23, 2));
-      approx.deepEqual(multiply(complex(-2, 3), complex(4, -5)), complex(7, 22));
-      approx.deepEqual(multiply(complex(-2, 3), complex(-4, 5)), complex(-7, -22));
-      approx.deepEqual(multiply(complex(-2, 3), complex(-4, -5)), complex(23, -2));
-      approx.deepEqual(multiply(complex(-2, -3), complex(4, 5)), complex(7, -22));
-      approx.deepEqual(multiply(complex(-2, -3), complex(4, -5)), complex(-23, -2));
-      approx.deepEqual(multiply(complex(-2, -3), complex(-4, 5)), complex(23, 2));
-      approx.deepEqual(multiply(complex(-2, -3), complex(-4, -5)), complex(-7, 22));
+      toolsapprox_equaljs(multiply(complex(2, 3), complex(4, 5)), complex(-7, 22));
+      toolsapprox_equaljs(multiply(complex(2, 3), complex(4, -5)), complex(23, 2));
+      toolsapprox_equaljs(multiply(complex(2, 3), complex(-4, 5)), complex(-23, -2));
+      toolsapprox_equaljs(multiply(complex(2, 3), complex(-4, -5)), complex(7, -22));
+      toolsapprox_equaljs(multiply(complex(2, -3), complex(4, 5)), complex(23, -2));
+      toolsapprox_equaljs(multiply(complex(2, -3), complex(4, -5)), complex(-7, -22));
+      toolsapprox_equaljs(multiply(complex(2, -3), complex(-4, 5)), complex(7, 22));
+      toolsapprox_equaljs(multiply(complex(2, -3), complex(-4, -5)), complex(-23, 2));
+      toolsapprox_equaljs(multiply(complex(-2, 3), complex(4, 5)), complex(-23, 2));
+      toolsapprox_equaljs(multiply(complex(-2, 3), complex(4, -5)), complex(7, 22));
+      toolsapprox_equaljs(multiply(complex(-2, 3), complex(-4, 5)), complex(-7, -22));
+      toolsapprox_equaljs(multiply(complex(-2, 3), complex(-4, -5)), complex(23, -2));
+      toolsapprox_equaljs(multiply(complex(-2, -3), complex(4, 5)), complex(7, -22));
+      toolsapprox_equaljs(multiply(complex(-2, -3), complex(4, -5)), complex(-23, -2));
+      toolsapprox_equaljs(multiply(complex(-2, -3), complex(-4, 5)), complex(23, 2));
+      toolsapprox_equaljs(multiply(complex(-2, -3), complex(-4, -5)), complex(-7, 22));
     });
 
     it('should multiply mixed complex numbers and numbers', function() {
@@ -216,8 +208,8 @@ describe('multiply', function() {
     var a = [[1, 2], [3, 4]];
     var b = [[2, 0], [0, 2]];
 
-    approx.deepEqual(multiply(a, matrix(b)), matrix([[2, 4], [6, 8]]));
-    approx.deepEqual(multiply(matrix(a), b), matrix([[2, 4], [6, 8]]));
+    toolsapprox_equaljs(multiply(a, matrix(b)), matrix([[2, 4], [6, 8]]));
+    toolsapprox_equaljs(multiply(matrix(a), b), matrix([[2, 4], [6, 8]]));
 
     // test with vectors, returning a scalar
     var c = [1, 2, 3];
@@ -282,8 +274,8 @@ describe('multiply', function() {
       var a = [1, 2, 3];
       var b = [4, 5, 6];
 
-      approx.deepEqual(multiply(a, b), 32);
-      approx.deepEqual(multiply(matrix(a), matrix(b)), 32);
+      toolsapprox_equaljs(multiply(a, b), 32);
+      toolsapprox_equaljs(multiply(matrix(a), matrix(b)), 32);
     });
 
     it('should multiply row vector x column vector', function () {
@@ -324,11 +316,11 @@ describe('multiply', function() {
         [4, 9, 2]
       ];
 
-      approx.deepEqual(multiply(a, b), [26, 38, 26]);
-      approx.deepEqual(multiply(b, a), [28, 34, 28]);
+      toolsapprox_equaljs(multiply(a, b), [26, 38, 26]);
+      toolsapprox_equaljs(multiply(b, a), [28, 34, 28]);
 
-      approx.deepEqual(multiply(matrix(a), matrix(b)), matrix([26, 38, 26]));
-      approx.deepEqual(multiply(matrix(b), matrix(a)), matrix([28, 34, 28]));
+      toolsapprox_equaljs(multiply(matrix(a), matrix(b)), matrix([26, 38, 26]));
+      toolsapprox_equaljs(multiply(matrix(b), matrix(a)), matrix([28, 34, 28]));
     });
   });
 
@@ -531,7 +523,7 @@ describe('multiply', function() {
 
       var r = multiply(l, u);
 
-      approx.deepEqual(
+      toolsapprox_equaljs(
         r.valueOf(),
         [
           [240, -2700, 6480, -4200],
@@ -547,19 +539,19 @@ describe('multiply', function() {
     var d = matrix([[5,6]]);
 
     it('should perform element-wise multiplication if multiplying a matrix and a number', function() {
-      approx.deepEqual(multiply(a, 3), matrix([[3,6],[9,12]]));
-      approx.deepEqual(multiply(3, a), matrix([[3,6],[9,12]]));
+      toolsapprox_equaljs(multiply(a, 3), matrix([[3,6],[9,12]]));
+      toolsapprox_equaljs(multiply(3, a), matrix([[3,6],[9,12]]));
     });
 
     it('should perform matrix multiplication', function () {
-      approx.deepEqual(multiply(a, b), matrix([[19,22],[43,50]]));
-      approx.deepEqual(multiply(a, c), matrix([[17],[39]]));
-      approx.deepEqual(multiply(d, a), matrix([[23,34]]));
-      approx.deepEqual(multiply(d, b), matrix([[67,78]]));
-      approx.deepEqual(multiply(d, c), matrix([[61]]));
-      approx.deepEqual(multiply([[1,2],[3,4]], [[5,6],[7,8]]), [[19,22],[43,50]]);
-      approx.deepEqual(multiply([1,2,3,4], 2), [2, 4, 6, 8]);
-      approx.deepEqual(multiply(matrix([1,2,3,4]), 2), matrix([2, 4, 6, 8]));
+      toolsapprox_equaljs(multiply(a, b), matrix([[19,22],[43,50]]));
+      toolsapprox_equaljs(multiply(a, c), matrix([[17],[39]]));
+      toolsapprox_equaljs(multiply(d, a), matrix([[23,34]]));
+      toolsapprox_equaljs(multiply(d, b), matrix([[67,78]]));
+      toolsapprox_equaljs(multiply(d, c), matrix([[61]]));
+      toolsapprox_equaljs(multiply([[1,2],[3,4]], [[5,6],[7,8]]), [[19,22],[43,50]]);
+      toolsapprox_equaljs(multiply([1,2,3,4], 2), [2, 4, 6, 8]);
+      toolsapprox_equaljs(multiply(matrix([1,2,3,4]), 2), matrix([2, 4, 6, 8]));
     });
   });
 
@@ -741,7 +733,7 @@ describe('multiply', function() {
       var r = multiply(l, u);
       
       assert(r.storage(), 'sparse');
-      approx.deepEqual(
+      toolsapprox_equaljs(
         r.valueOf(),
         [
           [240, -2700, 6480, -4200],
@@ -757,16 +749,16 @@ describe('multiply', function() {
     var d = matrix([[5,6]], 'sparse');
 
     it('should perform element-wise multiplication if multiplying a matrix and a number', function() {
-      approx.deepEqual(multiply(a, 3), matrix([[3,6],[9,12]], 'sparse'));
-      approx.deepEqual(multiply(3, a), matrix([[3,6],[9,12]], 'sparse'));
+      toolsapprox_equaljs(multiply(a, 3), matrix([[3,6],[9,12]], 'sparse'));
+      toolsapprox_equaljs(multiply(3, a), matrix([[3,6],[9,12]], 'sparse'));
     });
 
     it('should perform matrix multiplication', function () {
-      approx.deepEqual(multiply(a, b), matrix([[19,22],[43,50]], 'sparse'));
-      approx.deepEqual(multiply(a, c), matrix([[17],[39]], 'sparse'));
-      approx.deepEqual(multiply(d, a), matrix([[23,34]], 'sparse'));
-      approx.deepEqual(multiply(d, b), matrix([[67,78]], 'sparse'));
-      approx.deepEqual(multiply(d, c), matrix([[61]], 'sparse'));
+      toolsapprox_equaljs(multiply(a, b), matrix([[19,22],[43,50]], 'sparse'));
+      toolsapprox_equaljs(multiply(a, c), matrix([[17],[39]], 'sparse'));
+      toolsapprox_equaljs(multiply(d, a), matrix([[23,34]], 'sparse'));
+      toolsapprox_equaljs(multiply(d, b), matrix([[67,78]], 'sparse'));
+      toolsapprox_equaljs(multiply(d, c), matrix([[61]], 'sparse'));
     });
     
     it('should multiply two pattern matrices correctly', function() {

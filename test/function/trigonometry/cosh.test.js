@@ -1,30 +1,23 @@
-var assert = require('assert'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    approx = require('../../../tools/approx'),
-    pi = math.pi,
-    complex = math.complex,
-    matrix = math.matrix,
-    unit = math.unit,
-    cosh = math.cosh,
-    bigmath = math.create({number: 'BigNumber', precision: 20});
+import assert from "assert";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
+var error = require('../../../lib/error/index'), math = require('../../../index'), pi = math.pi, complex = math.complex, matrix = math.matrix, unit = math.unit, cosh = math.cosh, bigmath = math.create({number: 'BigNumber', precision: 20});
 
 describe('cosh', function() {
   it('should return the cosh of a boolean', function () {
-    approx.equal(cosh(true), 1.5430806348152);
-    approx.equal(cosh(false), 1);
+    toolsapprox_equaljs(cosh(true), 1.5430806348152);
+    toolsapprox_equaljs(cosh(false), 1);
   });
 
   it('should return the cosh of null', function () {
-    approx.equal(cosh(null), 1);
+    toolsapprox_equaljs(cosh(null), 1);
   });
 
   it('should return the cosh of a number', function() {
-    approx.equal(cosh(0), 1);
-    approx.equal(cosh(pi), 11.591953275522);
-    approx.equal(cosh(1), 1.5430806348152);
-    approx.equal(cosh(2), 3.7621956910836);
-    approx.equal(cosh(3), 10.067661995778);
+    toolsapprox_equaljs(cosh(0), 1);
+    toolsapprox_equaljs(cosh(pi), 11.591953275522);
+    toolsapprox_equaljs(cosh(1), 1.5430806348152);
+    toolsapprox_equaljs(cosh(2), 3.7621956910836);
+    toolsapprox_equaljs(cosh(3), 10.067661995778);
   });
 
   it('should return the cosh of a bignumber', function() {
@@ -52,19 +45,19 @@ describe('cosh', function() {
   });
 
   it('should return the cosh of a complex number', function() {
-    approx.deepEqual(cosh(complex('1')), complex(1.5430806348152, 0));
-    approx.deepEqual(cosh(complex('i')), complex(0.54030230586814, 0));
-    approx.deepEqual(cosh(complex('2 + i')), complex(2.0327230070197, 3.0518977991518));
+    toolsapprox_equaljs(cosh(complex('1')), complex(1.5430806348152, 0));
+    toolsapprox_equaljs(cosh(complex('i')), complex(0.54030230586814, 0));
+    toolsapprox_equaljs(cosh(complex('2 + i')), complex(2.0327230070197, 3.0518977991518));
   });
 
   it('should return the cosh of an angle', function() {
-    approx.equal(cosh(unit('90deg')), 2.5091784786581);
-    approx.equal(cosh(unit('-45deg')), 1.324609089252);
+    toolsapprox_equaljs(cosh(unit('90deg')), 2.5091784786581);
+    toolsapprox_equaljs(cosh(unit('-45deg')), 1.324609089252);
 
     assert(cosh(unit(math.bignumber(90), 'deg')).isBigNumber);
-    approx.equal(cosh(unit(math.bignumber(90), 'deg')).toNumber(), 2.5091784786581);
+    toolsapprox_equaljs(cosh(unit(math.bignumber(90), 'deg')).toNumber(), 2.5091784786581);
 
-    approx.deepEqual(cosh(math.unit(complex('2 + i'), 'rad')), complex(2.0327230070197, 3.0518977991518));
+    toolsapprox_equaljs(cosh(math.unit(complex('2 + i'), 'rad')), complex(2.0327230070197, 3.0518977991518));
   });
 
   it('should throw an error if called with an invalid unit', function() {
@@ -78,11 +71,11 @@ describe('cosh', function() {
   var cosh123 = [1.5430806348152, 3.7621956910836, 10.067661995778];
 
   it('should return the cosh of each element of an array', function() {
-    approx.deepEqual(cosh([1,2,3]), cosh123);
+    toolsapprox_equaljs(cosh([1,2,3]), cosh123);
   });
 
   it('should return the cosh of each element of a matrix', function() {
-    approx.deepEqual(cosh(matrix([1,2,3])), matrix(cosh123));
+    toolsapprox_equaljs(cosh(matrix([1,2,3])), matrix(cosh123));
   });
 
   it('should throw an error in case of invalid number of arguments', function() {

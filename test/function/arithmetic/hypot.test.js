@@ -1,6 +1,5 @@
-// test hypot
-var assert = require('assert');
-var approx = require('../../../tools/approx');
+import assert from "assert";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
 var math = require('../../../index');
 var hypot = math.hypot;
 var bignumber = math.bignumber;
@@ -10,7 +9,7 @@ describe('hypot', function() {
   it('should return the hypot of numbers', function () {
     assert.strictEqual(hypot(3, 4), 5);
     assert.strictEqual(hypot(3, -4), 5);
-    approx.equal(hypot(3, 4, 5), 7.0710678118654755);
+    toolsapprox_equaljs(hypot(3, 4, 5), 7.0710678118654755);
     assert.strictEqual(hypot(-2), 2);
     assert.strictEqual(hypot(0), 0);
     assert.strictEqual(hypot(Infinity), Infinity);

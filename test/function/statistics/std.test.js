@@ -1,5 +1,5 @@
-var assert = require('assert');
-var approx = require('../../../tools/approx');
+import assert from "assert";
+import { deepEqual as toolsapprox_deepEqualjs } from "../../../tools/approx";
 var math = require('../../../index');
 var BigNumber = math.type.BigNumber;
 var Complex = math.type.Complex;
@@ -21,11 +21,11 @@ describe('std', function() {
 
   it('should return the standard deviation of complex numbers', function() {
     //
-    approx.deepEqual(std(new Complex(2,4), new Complex(4,2)), new Complex(1.41421,-1.41421));
+    toolsapprox_deepEqualjs(std(new Complex(2,4), new Complex(4,2)), new Complex(1.41421,-1.41421));
   });
 
   it('should return the standard deviation of mixed numbers and complex numbers', function() {
-    approx.deepEqual(std(2, new Complex(6,4)), new Complex(2.82842,2.82842));
+    toolsapprox_deepEqualjs(std(2, new Complex(6,4)), new Complex(2.82842,2.82842));
   });
 
   it('should return the standard deviation from an array', function() {

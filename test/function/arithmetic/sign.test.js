@@ -1,6 +1,5 @@
-// test sign
-var assert = require('assert');
-var approx = require('../../../tools/approx');
+import assert from "assert";
+import { deepEqual as toolsapprox_deepEqualjs } from "../../../tools/approx";
 var math = require('../../../index');
 var bignumber = math.bignumber;
 var fraction = math.fraction;
@@ -37,7 +36,7 @@ describe('sign', function() {
   });
 
   it('should calculate the sign of a complex value', function() {
-    approx.deepEqual(math.sign(math.complex(2,-3)), math.complex(0.554700196225229, -0.832050294337844));
+    toolsapprox_deepEqualjs(math.sign(math.complex(2,-3)), math.complex(0.554700196225229, -0.832050294337844));
   });
 
   it('should calculate the sign of a unit', function() {

@@ -1,11 +1,6 @@
+import assert from "assert";
 // test deepEqual
-var assert = require('assert'),
-    math = require('../../../index'),
-    bignumber = math.bignumber,
-    complex = math.complex,
-    matrix = math.matrix,
-    unit = math.unit,
-    deepEqual = math.deepEqual;
+var math = require('../../../index'), bignumber = math.bignumber, complex = math.complex, matrix = math.matrix, unit = math.unit, deepEqual = math.deepEqual;
 
 describe('deepEqual', function() {
 
