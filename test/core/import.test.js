@@ -1,128 +1,144 @@
-import assert from "assert";
-import { equal as toolsapprox_equaljs } from "../../tools/approx";
+"use strict";
+
+var _assert = require("assert");
+
+var _assert2 = _interopRequireDefault(_assert);
+
+var _approx = require("../../tools/approx");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 var mathjs = require('../../index');
 
-describe('import', function() {
+describe('import', function () {
   var math = null;
 
-  beforeEach(function() {
+  beforeEach(function () {
     math = mathjs.create();
     math.import({
       myvalue: 42,
-      hello: function (name) {
+      hello: function hello(name) {
         return 'hello, ' + name + '!';
       }
-    }, {override: true});
+    }, { override: true });
   });
 
-  afterEach(function() {
+  afterEach(function () {
     math = null;
   });
 
-  it('should import a custom member', function() {
-    assert.equal(math.myvalue * 2, 84);
-    assert.equal(math.hello('user'), 'hello, user!');
+  it('should import a custom member', function () {
+    _assert2.default.equal(math.myvalue * 2, 84);
+    _assert2.default.equal(math.hello('user'), 'hello, user!');
   });
 
-  it('should not override existing functions', function() {
-    assert.throws(function () {math.import({myvalue: 10})},
-        /Error: Cannot import "myvalue": already exists/);
-    assert.equal(math.myvalue, 42);
+  it('should not override existing functions', function () {
+    _assert2.default.throws(function () {
+      math.import({ myvalue: 10 });
+    }, /Error: Cannot import "myvalue": already exists/);
+    _assert2.default.equal(math.myvalue, 42);
   });
 
-  it('should throw no errors when silent:true', function() {
-    math.import({myvalue: 10}, {silent: true});
-    assert.strictEqual(math.myvalue, 42);
+  it('should throw no errors when silent:true', function () {
+    math.import({ myvalue: 10 }, { silent: true });
+    _assert2.default.strictEqual(math.myvalue, 42);
   });
 
-  it('should override existing functions if forced', function() {
-    math.import({myvalue: 10}, {override: true});
-    assert.strictEqual(math.myvalue, 10);
+  it('should override existing functions if forced', function () {
+    math.import({ myvalue: 10 }, { override: true });
+    _assert2.default.strictEqual(math.myvalue, 10);
   });
 
-  it('should parse the user defined members', function() {
+  it('should parse the user defined members', function () {
     if (math.parser) {
       var parser = math.parser();
       math.add(math.myvalue, 10);
-      parser.eval('myvalue + 10');    // 52
-      parser.eval('hello("user")');   // 'hello, user!'
+      parser.eval('myvalue + 10'); // 52
+      parser.eval('hello("user")'); // 'hello, user!'
     }
   });
 
-  var getSize = function (array) {
+  var getSize = function getSize(array) {
     return array.length;
   };
 
   it('shouldn\'t wrap custom functions by default', function () {
     math.import({ getSizeNotWrapped: getSize });
-    assert.strictEqual(math.getSizeNotWrapped([1,2,3]), 3);
-    assert.strictEqual(math.getSizeNotWrapped(math.matrix([1,2,3])), undefined);
+    _assert2.default.strictEqual(math.getSizeNotWrapped([1, 2, 3]), 3);
+    _assert2.default.strictEqual(math.getSizeNotWrapped(math.matrix([1, 2, 3])), undefined);
   });
 
   it('should wrap custom functions if wrap = true', function () {
-    math.import({ getSizeWrapped: getSize }, { wrap: true});
-    assert.strictEqual(math.getSizeWrapped([1,2,3]), 3);
-    assert.strictEqual(math.getSizeWrapped(math.matrix([1,2,3])), 3);
+    math.import({ getSizeWrapped: getSize }, { wrap: true });
+    _assert2.default.strictEqual(math.getSizeWrapped([1, 2, 3]), 3);
+    _assert2.default.strictEqual(math.getSizeWrapped(math.matrix([1, 2, 3])), 3);
   });
 
   it('wrapped imported functions should accept undefined and null', function () {
     math.import({
-      isNull: function (obj) {
+      isNull: function isNull(obj) {
         return obj === null;
       }
     }, { wrap: true });
-    assert.equal(math.isNull(null), true);
-    assert.equal(math.isNull(0), false);
+    _assert2.default.equal(math.isNull(null), true);
+    _assert2.default.equal(math.isNull(0), false);
 
     math.import({
-      isUndefined: function (obj) {
+      isUndefined: function isUndefined(obj) {
         return obj === undefined;
       }
     }, { wrap: true });
-    assert.equal(math.isUndefined(undefined), true);
-    assert.equal(math.isUndefined(0), false);
-    assert.equal(math.isUndefined(null), false);
-
+    _assert2.default.equal(math.isUndefined(undefined), true);
+    _assert2.default.equal(math.isUndefined(0), false);
+    _assert2.default.equal(math.isUndefined(null), false);
   });
 
   it('should throw an error in case of wrong number of arguments', function () {
-    assert.throws (function () {math.import()}, /ArgumentsError/);
-    assert.throws (function () {math.import('', {}, 3)}, /ArgumentsError/);
+    _assert2.default.throws(function () {
+      math.import();
+    }, /ArgumentsError/);
+    _assert2.default.throws(function () {
+      math.import('', {}, 3);
+    }, /ArgumentsError/);
   });
 
   it('should throw an error in case of wrong type of arguments', function () {
-    assert.throws(function () {math.import(2)}, /TypeError: Factory, Object, or Array expected/);
-    assert.throws(function () {math.import(function () {})}, /TypeError: Factory, Object, or Array expected/);
+    _assert2.default.throws(function () {
+      math.import(2);
+    }, /TypeError: Factory, Object, or Array expected/);
+    _assert2.default.throws(function () {
+      math.import(function () {});
+    }, /TypeError: Factory, Object, or Array expected/);
   });
 
   it('should ignore properties on Object', function () {
     Object.prototype.foo = 'bar';
 
-    math.import({bar: 456});
+    math.import({ bar: 456 });
 
-    assert(!math.hasOwnProperty('foo'));
-    assert(math.hasOwnProperty('bar'));
+    (0, _assert2.default)(!math.hasOwnProperty('foo'));
+    (0, _assert2.default)(math.hasOwnProperty('bar'));
 
     delete Object.prototype.foo;
   });
 
   it('should return the imported object', function () {
-    math.import({a: 24});
-    assert.deepEqual(math.a, 24);
+    math.import({ a: 24 });
+    _assert2.default.deepEqual(math.a, 24);
 
-    math.import({pi: 24}, {silent: true});
-    toolsapprox_equaljs(math.pi, Math.PI); // pi was ignored
+    math.import({ pi: 24 }, { silent: true });
+    (0, _approx.equal)(math.pi, Math.PI); // pi was ignored
   });
 
   it('should import a boolean', function () {
-    math.import({a: true});
-    assert.strictEqual(math.a, true);
+    math.import({ a: true });
+    _assert2.default.strictEqual(math.a, true);
   });
 
   it('should merge typed functions with the same name', function () {
     math.import({
       'foo': math.typed('foo', {
-        'number': function (x) {
+        'number': function number(x) {
           return 'foo(number)';
         }
       })
@@ -130,55 +146,53 @@ describe('import', function() {
 
     math.import({
       'foo': math.typed('foo', {
-        'string': function (x) {
+        'string': function string(x) {
           return 'foo(string)';
         }
       })
     });
 
-    assert.deepEqual(Object.keys(math.foo.signatures).sort(), ['number', 'string']);
-    assert.equal(math.foo(2), 'foo(number)');
-    assert.equal(math.foo('bar'), 'foo(string)');
-    assert.throws(function () {
-      math.foo(new Date())
+    _assert2.default.deepEqual(Object.keys(math.foo.signatures).sort(), ['number', 'string']);
+    _assert2.default.equal(math.foo(2), 'foo(number)');
+    _assert2.default.equal(math.foo('bar'), 'foo(string)');
+    _assert2.default.throws(function () {
+      math.foo(new Date());
     }, /TypeError: Unexpected type of argument in function foo/);
-
   });
 
   it('should override existing typed functions', function () {
     math.import({
       'foo': math.typed('foo', {
-        'Date': function (x) {
+        'Date': function Date(x) {
           return 'foo(Date)';
         }
       })
     });
 
-    assert.equal(math.foo(new Date()), 'foo(Date)');
+    _assert2.default.equal(math.foo(new Date()), 'foo(Date)');
 
     math.import({
       'foo': math.typed('foo', {
-        'string': function (x) {
+        'string': function string(x) {
           return 'foo(string)';
         }
       })
-    }, {override: true});
+    }, { override: true });
 
-    assert.deepEqual(Object.keys(math.foo.signatures).sort(), ['string']);
-    assert.equal(math.foo('bar'), 'foo(string)');
-    assert.throws(function () {
-      math.foo(new Date())
+    _assert2.default.deepEqual(Object.keys(math.foo.signatures).sort(), ['string']);
+    _assert2.default.equal(math.foo('bar'), 'foo(string)');
+    _assert2.default.throws(function () {
+      math.foo(new Date());
     }, /TypeError: Unexpected type of argument in function foo/);
-    assert.throws(function () {
-      math.foo(new Date())
+    _assert2.default.throws(function () {
+      math.foo(new Date());
     }, /TypeError: Unexpected type of argument in function foo/);
-
   });
 
   it('should merge typed functions coming from a factory', function () {
     math.import({
       'foo': math.typed('foo', {
-        'number': function (x) {
+        'number': function number(x) {
           return 'foo(number)';
         }
       })
@@ -186,31 +200,30 @@ describe('import', function() {
 
     math.import({
       'name': 'foo',
-      'factory': function () {
+      'factory': function factory() {
         return math.typed('foo', {
-          'string': function (x) {
+          'string': function string(x) {
             return 'foo(string)';
           }
-        })
+        });
       }
     });
 
-    assert.deepEqual(Object.keys(math.foo.signatures).sort(), ['number', 'string']);
-    assert.equal(math.foo(2), 'foo(number)');
-    assert.equal(math.foo('bar'), 'foo(string)');
-    assert.throws(function () {
-      math.foo(new Date())
+    _assert2.default.deepEqual(Object.keys(math.foo.signatures).sort(), ['number', 'string']);
+    _assert2.default.equal(math.foo(2), 'foo(number)');
+    _assert2.default.equal(math.foo('bar'), 'foo(string)');
+    _assert2.default.throws(function () {
+      math.foo(new Date());
     }, /TypeError: Unexpected type of argument in function foo/);
-
   });
 
   it('should import a boolean', function () {
-    math.import({a: true});
-    assert.strictEqual(math.a, true);
+    math.import({ a: true });
+    _assert2.default.strictEqual(math.a, true);
   });
 
-  it('should import a function with transform', function() {
-    function foo (text) {
+  it('should import a function with transform', function () {
+    function foo(text) {
       return text.toLowerCase();
     }
 
@@ -218,12 +231,12 @@ describe('import', function() {
       return text.toUpperCase();
     };
 
-    math.import({foo: foo});
+    math.import({ foo: foo });
 
-    assert(math.hasOwnProperty('foo'));
-    assert.strictEqual(math.foo, foo);
-    assert(math.expression.transform.hasOwnProperty('foo'));
-    assert.strictEqual(math.expression.transform.foo, foo.transform);
+    (0, _assert2.default)(math.hasOwnProperty('foo'));
+    _assert2.default.strictEqual(math.foo, foo);
+    (0, _assert2.default)(math.expression.transform.hasOwnProperty('foo'));
+    _assert2.default.strictEqual(math.expression.transform.foo, foo.transform);
   });
 
   it.skip('should import a factory with name', function () {
@@ -248,7 +261,6 @@ describe('import', function() {
 
   it('should LaTeX import', function () {
     var expression = math.parse('import(object)');
-    assert.equal(expression.toTex(), '\\mathrm{import}\\left( object\\right)');
+    _assert2.default.equal(expression.toTex(), '\\mathrm{import}\\left( object\\right)');
   });
-
 });

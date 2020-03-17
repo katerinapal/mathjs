@@ -1,84 +1,105 @@
-import assert from "assert";
-import { equal as toolsapprox_equaljs } from "../../../tools/approx";
-// test exp
-var math = require('../../../index'), complex = math.complex, matrix = math.matrix, sparse = math.sparse, unit = math.unit, exp = math.exp;
+"use strict";
 
-describe('exp', function() {
+var _assert = require("assert");
+
+var _assert2 = _interopRequireDefault(_assert);
+
+var _approx = require("../../../tools/approx");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// test exp
+var math = require('../../../index'),
+    complex = math.complex,
+    matrix = math.matrix,
+    sparse = math.sparse,
+    unit = math.unit,
+    exp = math.exp;
+
+describe('exp', function () {
 
   it('should exponentiate a boolean', function () {
-    toolsapprox_equaljs(exp(true), 2.71828182845905);
-    toolsapprox_equaljs(exp(false), 1);
+    (0, _approx.equal)(exp(true), 2.71828182845905);
+    (0, _approx.equal)(exp(false), 1);
   });
 
   it('should exponentiate null', function () {
-    assert.equal(exp(null), 1);
+    _assert2.default.equal(exp(null), 1);
   });
 
-  it('should exponentiate a number', function() {
-    toolsapprox_equaljs(exp(-3), 0.0497870683678639);
-    toolsapprox_equaljs(exp(-2), 0.1353352832366127);
-    toolsapprox_equaljs(exp(-1), 0.3678794411714423);
-    toolsapprox_equaljs(exp(0), 1);
-    toolsapprox_equaljs(exp(1), 2.71828182845905);
-    toolsapprox_equaljs(exp(2), 7.38905609893065);
-    toolsapprox_equaljs(exp(3), 20.0855369231877);
-    toolsapprox_equaljs(exp(math.log(100)), 100);
+  it('should exponentiate a number', function () {
+    (0, _approx.equal)(exp(-3), 0.0497870683678639);
+    (0, _approx.equal)(exp(-2), 0.1353352832366127);
+    (0, _approx.equal)(exp(-1), 0.3678794411714423);
+    (0, _approx.equal)(exp(0), 1);
+    (0, _approx.equal)(exp(1), 2.71828182845905);
+    (0, _approx.equal)(exp(2), 7.38905609893065);
+    (0, _approx.equal)(exp(3), 20.0855369231877);
+    (0, _approx.equal)(exp(math.log(100)), 100);
   });
 
-  it('should exponentiate a bignumber', function() {
-    var bigmath = math.create({precision: 100});
+  it('should exponentiate a bignumber', function () {
+    var bigmath = math.create({ precision: 100 });
 
-    assert.deepEqual(bigmath.exp(bigmath.bignumber(1)), bigmath.bignumber('2.718281828459045235360287471352662497757247093699959574966967627724076630353547594571382178525166427'));
+    _assert2.default.deepEqual(bigmath.exp(bigmath.bignumber(1)), bigmath.bignumber('2.718281828459045235360287471352662497757247093699959574966967627724076630353547594571382178525166427'));
   });
 
-  it('should throw an error if there\'s wrong number of arguments', function() {
-    assert.throws(function () {exp();}, /TypeError: Too few arguments/);
-    assert.throws(function () {exp(1, 2);}, /TypeError: Too many arguments/);
+  it('should throw an error if there\'s wrong number of arguments', function () {
+    _assert2.default.throws(function () {
+      exp();
+    }, /TypeError: Too few arguments/);
+    _assert2.default.throws(function () {
+      exp(1, 2);
+    }, /TypeError: Too many arguments/);
   });
 
-  it('should exponentiate a complex number correctly', function() {
-    toolsapprox_equaljs(exp(math.i),          complex('0.540302305868140 + 0.841470984807897i'));
-    toolsapprox_equaljs(exp(complex(0, -1)),  complex('0.540302305868140 - 0.841470984807897i'));
-    toolsapprox_equaljs(exp(complex(1, 1)),   complex('1.46869393991589 + 2.28735528717884i'));
-    toolsapprox_equaljs(exp(complex(1, -1)),  complex('1.46869393991589 - 2.28735528717884i'));
-    toolsapprox_equaljs(exp(complex(-1, -1)), complex('0.198766110346413 - 0.309559875653112i'));
-    toolsapprox_equaljs(exp(complex(-1, 1)),  complex('0.198766110346413 + 0.309559875653112i'));
-    toolsapprox_equaljs(exp(complex(1, 0)),   complex('2.71828182845905'));
+  it('should exponentiate a complex number correctly', function () {
+    (0, _approx.equal)(exp(math.i), complex('0.540302305868140 + 0.841470984807897i'));
+    (0, _approx.equal)(exp(complex(0, -1)), complex('0.540302305868140 - 0.841470984807897i'));
+    (0, _approx.equal)(exp(complex(1, 1)), complex('1.46869393991589 + 2.28735528717884i'));
+    (0, _approx.equal)(exp(complex(1, -1)), complex('1.46869393991589 - 2.28735528717884i'));
+    (0, _approx.equal)(exp(complex(-1, -1)), complex('0.198766110346413 - 0.309559875653112i'));
+    (0, _approx.equal)(exp(complex(-1, 1)), complex('0.198766110346413 + 0.309559875653112i'));
+    (0, _approx.equal)(exp(complex(1, 0)), complex('2.71828182845905'));
 
     // test some logic identities
     var multiply = math.multiply,
         pi = math.pi,
         i = math.i;
-    toolsapprox_equaljs(exp(multiply( 0.5, multiply(pi, i))), complex(0, 1));
-    toolsapprox_equaljs(exp(multiply( 1,   multiply(pi, i))), complex(-1, 0));
-    toolsapprox_equaljs(exp(multiply( 1.5, multiply(pi, i))), complex(0, -1));
-    toolsapprox_equaljs(exp(multiply( 2,   multiply(pi, i))), complex(1, 0));
-    toolsapprox_equaljs(exp(multiply(-0.5, multiply(pi, i))), complex(0, -1));
-    toolsapprox_equaljs(exp(multiply(-1,   multiply(pi, i))), complex(-1, 0));
-    toolsapprox_equaljs(exp(multiply(-1.5, multiply(pi, i))), complex(0, 1));
+    (0, _approx.equal)(exp(multiply(0.5, multiply(pi, i))), complex(0, 1));
+    (0, _approx.equal)(exp(multiply(1, multiply(pi, i))), complex(-1, 0));
+    (0, _approx.equal)(exp(multiply(1.5, multiply(pi, i))), complex(0, -1));
+    (0, _approx.equal)(exp(multiply(2, multiply(pi, i))), complex(1, 0));
+    (0, _approx.equal)(exp(multiply(-0.5, multiply(pi, i))), complex(0, -1));
+    (0, _approx.equal)(exp(multiply(-1, multiply(pi, i))), complex(-1, 0));
+    (0, _approx.equal)(exp(multiply(-1.5, multiply(pi, i))), complex(0, 1));
   });
 
-  it('should throw an error on a unit', function() {
-    assert.throws(function () {exp(unit('5cm'));});
+  it('should throw an error on a unit', function () {
+    _assert2.default.throws(function () {
+      exp(unit('5cm'));
+    });
   });
 
-  it('should throw an error with a string', function() {
-    assert.throws(function () {exp('text');});
+  it('should throw an error with a string', function () {
+    _assert2.default.throws(function () {
+      exp('text');
+    });
   });
 
-  it('should exponentiate matrices, arrays and ranges correctly', function() {
+  it('should exponentiate matrices, arrays and ranges correctly', function () {
     // array
-    toolsapprox_equaljs(exp([0, 1, 2, 3]), [1, 2.71828182845905, 7.38905609893065, 20.0855369231877]);
-    toolsapprox_equaljs(exp([[0, 1], [2, 3]]), [[1, 2.71828182845905], [7.38905609893065, 20.0855369231877]]);
+    (0, _approx.equal)(exp([0, 1, 2, 3]), [1, 2.71828182845905, 7.38905609893065, 20.0855369231877]);
+    (0, _approx.equal)(exp([[0, 1], [2, 3]]), [[1, 2.71828182845905], [7.38905609893065, 20.0855369231877]]);
     // dense matrix
-    toolsapprox_equaljs(exp(matrix([0, 1, 2, 3])), matrix([1, 2.71828182845905, 7.38905609893065, 20.0855369231877]));
-    toolsapprox_equaljs(exp(matrix([[0, 1], [2, 3]])), matrix([[1, 2.71828182845905], [7.38905609893065, 20.0855369231877]]));
+    (0, _approx.equal)(exp(matrix([0, 1, 2, 3])), matrix([1, 2.71828182845905, 7.38905609893065, 20.0855369231877]));
+    (0, _approx.equal)(exp(matrix([[0, 1], [2, 3]])), matrix([[1, 2.71828182845905], [7.38905609893065, 20.0855369231877]]));
     // sparse matrix, TODO: it should return a dense matrix
-    toolsapprox_equaljs(exp(sparse([[0, 1], [2, 3]])), sparse([[1, 2.71828182845905], [7.38905609893065, 20.0855369231877]]));
+    (0, _approx.equal)(exp(sparse([[0, 1], [2, 3]])), sparse([[1, 2.71828182845905], [7.38905609893065, 20.0855369231877]]));
   });
 
   it('should LaTeX exp', function () {
     var expression = math.parse('exp(0)');
-    assert.equal(expression.toTex(), '\\exp\\left(0\\right)');
+    _assert2.default.equal(expression.toTex(), '\\exp\\left(0\\right)');
   });
 });

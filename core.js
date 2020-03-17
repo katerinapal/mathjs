@@ -1,2 +1,7 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 var corejs_corejs = libcorecore_createjs;
-export { corejs_corejs as corejs };
+exports.corejs = corejs_corejs;

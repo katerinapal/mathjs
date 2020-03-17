@@ -1,4 +1,11 @@
-import { corejs as core_corejsjs } from "./core";
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.indexjs = undefined;
+
+var _core = require("./core");
 
 /**
  * math.js factory function. Creates a new instance of math.js
@@ -23,9 +30,9 @@ import { corejs as core_corejsjs } from "./core";
  *                              returns `NaN` when predictable is false, and
  *                              returns `complex('2i')` when true.
  */
-function create (config) {
+function create(config) {
   // create a new math.js instance
-  var math = core_corejsjs(config);
+  var math = (0, _core.corejs)(config);
   math.create = create;
 
   // import data types, functions, constants, expression parser, etc.
@@ -35,4 +42,4 @@ function create (config) {
 }
 
 var indexjs_indexjs = create();
-export { indexjs_indexjs as indexjs };
+exports.indexjs = indexjs_indexjs;

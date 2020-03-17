@@ -1,4 +1,13 @@
-import assert from "assert";
+'use strict';
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var _assert = require('assert');
+
+var _assert2 = _interopRequireDefault(_assert);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 var math = require('../../../index');
 
 describe('random', function () {
@@ -6,11 +15,11 @@ describe('random', function () {
   // it is tested in distribution.test.js
 
   it('should have a function random', function () {
-    assert.equal(typeof math.random, 'function');
-  })
+    _assert2.default.equal(_typeof(math.random), 'function');
+  });
 
   it('should LaTeX random', function () {
     var expression = math.parse('random(0,1)');
-    assert.equal(expression.toTex(), '\\mathrm{random}\\left(0,1\\right)');
+    _assert2.default.equal(expression.toTex(), '\\mathrm{random}\\left(0,1\\right)');
   });
 });
