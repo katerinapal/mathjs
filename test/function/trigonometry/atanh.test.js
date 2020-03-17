@@ -1,5 +1,15 @@
-import assert from "assert";
-import { equal as toolsapprox_equaljs } from "../../../tools/approx";
+"use strict";
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var _assert = require("assert");
+
+var _assert2 = _interopRequireDefault(_assert);
+
+var _approx = require("../../../tools/approx");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 var error = require('../../../lib/error/index');
 var math = require('../../../index');
 var pi = math.pi;
@@ -8,113 +18,121 @@ var tanh = math.tanh;
 var complex = math.complex;
 var matrix = math.matrix;
 var unit = math.unit;
-var bigmath = math.create({number: 'BigNumber', precision: 20});
-var biggermath = math.create({precision: 21});
-var predmath = math.create({predictable: true});
+var bigmath = math.create({ number: 'BigNumber', precision: 20 });
+var biggermath = math.create({ precision: 21 });
+var predmath = math.create({ predictable: true });
 var atanhBig = bigmath.atanh;
 var Big = bigmath.bignumber;
 
-describe('atanh', function() {
+describe('atanh', function () {
   it('should return the hyperbolic arctan of a boolean', function () {
-    assert.equal(atanh(true), Infinity);
-    assert.equal(atanh(false), 0);
+    _assert2.default.equal(atanh(true), Infinity);
+    _assert2.default.equal(atanh(false), 0);
   });
 
   it('should return the hyperbolic arctan of null', function () {
-    assert.equal(atanh(null), 0);
+    _assert2.default.equal(atanh(null), 0);
   });
 
-  it('should return the hyperbolic arctan of a number', function() {
-    toolsapprox_equaljs(atanh(-2), complex(-0.54930614433405485, pi / 2));
-    toolsapprox_equaljs(atanh(2),  complex(0.54930614433405485, -pi / 2));
+  it('should return the hyperbolic arctan of a number', function () {
+    (0, _approx.equal)(atanh(-2), complex(-0.54930614433405485, pi / 2));
+    (0, _approx.equal)(atanh(2), complex(0.54930614433405485, -pi / 2));
     //assert.ok(isNaN(atanh(-2)));
     //assert.ok(isNaN(atanh(2)));
 
-    toolsapprox_equaljs(atanh(-1), -Infinity);
-    toolsapprox_equaljs(atanh(-0.5), -0.54930614433405484569762261846);
-    toolsapprox_equaljs(atanh(0), 0);
-    toolsapprox_equaljs(atanh(0.5), 0.54930614433405484569762261846);
-    toolsapprox_equaljs(atanh(1), Infinity);
+    (0, _approx.equal)(atanh(-1), -Infinity);
+    (0, _approx.equal)(atanh(-0.5), -0.54930614433405484569762261846);
+    (0, _approx.equal)(atanh(0), 0);
+    (0, _approx.equal)(atanh(0.5), 0.54930614433405484569762261846);
+    (0, _approx.equal)(atanh(1), Infinity);
   });
 
-
-  it('should return the hyperbolic arctan of a number when predictable:true', function() {
-    assert.equal(typeof predmath.atanh(-2), 'number');
-    assert(isNaN(predmath.atanh(-2)));
+  it('should return the hyperbolic arctan of a number when predictable:true', function () {
+    _assert2.default.equal(_typeof(predmath.atanh(-2)), 'number');
+    (0, _assert2.default)(isNaN(predmath.atanh(-2)));
   });
 
-  it('should return the hyperbolic arctan of a bignumber', function() {
+  it('should return the hyperbolic arctan of a bignumber', function () {
     var arg1 = Big(-1);
     var arg2 = Big(-0.5);
-    assert.deepEqual(atanhBig(arg1).toString(), '-Infinity');
-    assert.deepEqual(atanhBig(arg2), Big('-0.5493061443340548457')); 
-    assert.deepEqual(atanhBig(Big(0)), Big(0));
-    assert.deepEqual(atanhBig(Big(0.5)), Big('0.5493061443340548457')); 
-    assert.deepEqual(atanhBig(Big(1)).toString(), 'Infinity');
+    _assert2.default.deepEqual(atanhBig(arg1).toString(), '-Infinity');
+    _assert2.default.deepEqual(atanhBig(arg2), Big('-0.5493061443340548457'));
+    _assert2.default.deepEqual(atanhBig(Big(0)), Big(0));
+    _assert2.default.deepEqual(atanhBig(Big(0.5)), Big('0.5493061443340548457'));
+    _assert2.default.deepEqual(atanhBig(Big(1)).toString(), 'Infinity');
 
     //Make sure arg was not changed
-    assert.deepEqual(arg1, Big(-1));
-    assert.deepEqual(arg2, Big(-0.5));
+    _assert2.default.deepEqual(arg1, Big(-1));
+    _assert2.default.deepEqual(arg2, Big(-0.5));
   });
 
-  it('should be the inverse function of hyperbolic tan', function() {
-    toolsapprox_equaljs(atanh(tanh(-1)), -1);
-    toolsapprox_equaljs(atanh(tanh(0)), 0);
-    toolsapprox_equaljs(atanh(tanh(0.1)), 0.1);
-    toolsapprox_equaljs(atanh(tanh(0.5)), 0.5);
+  it('should be the inverse function of hyperbolic tan', function () {
+    (0, _approx.equal)(atanh(tanh(-1)), -1);
+    (0, _approx.equal)(atanh(tanh(0)), 0);
+    (0, _approx.equal)(atanh(tanh(0.1)), 0.1);
+    (0, _approx.equal)(atanh(tanh(0.5)), 0.5);
   });
 
-  it('should be the inverse function of bignumber tanh', function() {
-    assert.deepEqual(atanhBig(bigmath.tanh(Big(-0.5))), Big(-0.5));
-    assert.deepEqual(atanhBig(bigmath.tanh(Big(0))), Big(0));
-    assert.deepEqual(atanhBig(bigmath.tanh(Big(0.5))), Big(0.5));
+  it('should be the inverse function of bignumber tanh', function () {
+    _assert2.default.deepEqual(atanhBig(bigmath.tanh(Big(-0.5))), Big(-0.5));
+    _assert2.default.deepEqual(atanhBig(bigmath.tanh(Big(0))), Big(0));
+    _assert2.default.deepEqual(atanhBig(bigmath.tanh(Big(0.5))), Big(0.5));
 
     /* Pass in more digits to pi. */
     var arg = Big(-1);
-    assert.deepEqual(atanhBig(biggermath.tanh(arg)), Big(-1));
-    assert.deepEqual(atanhBig(biggermath.tanh(Big(0.1))), Big(0.1));
-    assert.deepEqual(arg, Big(-1));
+    _assert2.default.deepEqual(atanhBig(biggermath.tanh(arg)), Big(-1));
+    _assert2.default.deepEqual(atanhBig(biggermath.tanh(Big(0.1))), Big(0.1));
+    _assert2.default.deepEqual(arg, Big(-1));
 
-    assert.ok(atanh(Big(1.1)).isNaN());
+    _assert2.default.ok(atanh(Big(1.1)).isNaN());
   });
 
-  it('should return the arctanh of a complex number', function() {
-    toolsapprox_equaljs(atanh(complex('2+3i')), complex(0.1469466662255, 1.33897252229449));
-    toolsapprox_equaljs(atanh(complex('2-3i')), complex(0.1469466662255, -1.33897252229449));
-    toolsapprox_equaljs(atanh(complex('-2+3i')), complex(-0.1469466662255, 1.33897252229449));
-    toolsapprox_equaljs(atanh(complex('-2-3i')), complex(-0.1469466662255, -1.33897252229449));
-    toolsapprox_equaljs(atanh(complex('1+i')), complex(0.402359478108525, 1.01722196789785137));
-    toolsapprox_equaljs(atanh(complex('i')), complex(0, pi / 4));
+  it('should return the arctanh of a complex number', function () {
+    (0, _approx.equal)(atanh(complex('2+3i')), complex(0.1469466662255, 1.33897252229449));
+    (0, _approx.equal)(atanh(complex('2-3i')), complex(0.1469466662255, -1.33897252229449));
+    (0, _approx.equal)(atanh(complex('-2+3i')), complex(-0.1469466662255, 1.33897252229449));
+    (0, _approx.equal)(atanh(complex('-2-3i')), complex(-0.1469466662255, -1.33897252229449));
+    (0, _approx.equal)(atanh(complex('1+i')), complex(0.402359478108525, 1.01722196789785137));
+    (0, _approx.equal)(atanh(complex('i')), complex(0, pi / 4));
 
-    toolsapprox_equaljs(atanh(complex('2')), complex(0.54930614433405485, -pi / 2));
-    assert.deepEqual(atanh(complex('1')), complex(Infinity, 0));
-    assert.deepEqual(atanh(complex('0')), complex(0, 0));
-    toolsapprox_equaljs(atanh(complex('-2')), complex(-0.54930614433405485, pi / 2));
+    (0, _approx.equal)(atanh(complex('2')), complex(0.54930614433405485, -pi / 2));
+    _assert2.default.deepEqual(atanh(complex('1')), complex(Infinity, 0));
+    _assert2.default.deepEqual(atanh(complex('0')), complex(0, 0));
+    (0, _approx.equal)(atanh(complex('-2')), complex(-0.54930614433405485, pi / 2));
   });
 
-  it('should throw an error if called with a unit', function() {
-    assert.throws(function () {atanh(unit('45deg'))});
-    assert.throws(function () {atanh(unit('5 celsius'))});
+  it('should throw an error if called with a unit', function () {
+    _assert2.default.throws(function () {
+      atanh(unit('45deg'));
+    });
+    _assert2.default.throws(function () {
+      atanh(unit('5 celsius'));
+    });
   });
 
-  it('should throw an error if called with a string', function() {
-    assert.throws(function () {atanh('string')});
+  it('should throw an error if called with a string', function () {
+    _assert2.default.throws(function () {
+      atanh('string');
+    });
   });
 
-  it('should calculate the arctan element-wise for arrays and matrices', function() {
+  it('should calculate the arctan element-wise for arrays and matrices', function () {
     var atanh101 = [-Infinity, 0, Infinity];
-    assert.deepEqual(atanh([-1,0,1]), atanh101);
-    assert.deepEqual(atanh(matrix([-1,0,1])), matrix(atanh101));
+    _assert2.default.deepEqual(atanh([-1, 0, 1]), atanh101);
+    _assert2.default.deepEqual(atanh(matrix([-1, 0, 1])), matrix(atanh101));
   });
 
-  it('should throw an error in case of invalid number of arguments', function() {
-    assert.throws(function () {atanh()}, /TypeError: Too few arguments/);
-    assert.throws(function () {atanh(1, 2)}, /TypeError: Too many arguments/);
+  it('should throw an error in case of invalid number of arguments', function () {
+    _assert2.default.throws(function () {
+      atanh();
+    }, /TypeError: Too few arguments/);
+    _assert2.default.throws(function () {
+      atanh(1, 2);
+    }, /TypeError: Too many arguments/);
   });
 
   it('should LaTeX atanh', function () {
     var expression = math.parse('atanh(0.5)');
-    assert.equal(expression.toTex(), '\\tanh^{-1}\\left(0.5\\right)');
+    _assert2.default.equal(expression.toTex(), '\\tanh^{-1}\\left(0.5\\right)');
   });
-
 });
