@@ -1,6 +1,6 @@
+import assert from "assert";
 // test norm
-var assert = require('assert'),
-    math = require('../../../index');
+var math = require('../../../index');
 
 describe('norm', function () {
 

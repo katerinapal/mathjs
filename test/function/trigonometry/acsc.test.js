@@ -1,7 +1,7 @@
-var assert = require('assert');
+import assert from "assert";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
 var error = require('../../../lib/error/index');
 var math = require('../../../index');
-var approx = require('../../../tools/approx');
 var pi = math.pi;
 var complex = math.complex;
 var matrix = math.matrix;
@@ -16,7 +16,7 @@ var Big = bigmath.bignumber;
 
 describe('acsc', function() {
   it('should return the arccsc of a boolean', function () {
-    approx.equal(acsc(true), pi / 2);
+    toolsapprox_equaljs(acsc(true), pi / 2);
     assert.deepEqual(acsc(false), complex(pi / 2, Infinity));
     //assert.ok(isNaN(acsc(false)));
   });
@@ -27,12 +27,12 @@ describe('acsc', function() {
   });
 
   it('should return the arccsc of a number', function() {
-    approx.equal(acsc(-2) / pi, -1/6);
-    approx.equal(acsc(-1) / pi, -0.5);
+    toolsapprox_equaljs(acsc(-2) / pi, -1/6);
+    toolsapprox_equaljs(acsc(-1) / pi, -0.5);
     assert.deepEqual(acsc(0), complex(pi / 2, Infinity));
     //assert.ok(isNaN(acsc(0)));
-    approx.equal(acsc(1) / pi, 0.5);
-    approx.equal(acsc(2) / pi, 1/6);
+    toolsapprox_equaljs(acsc(1) / pi, 0.5);
+    toolsapprox_equaljs(acsc(2) / pi, 1/6);
   });
 
   it('should return the arccsc of a number when predictable:true', function() {
@@ -71,11 +71,11 @@ describe('acsc', function() {
   });
 
   it('should be the inverse function of csc', function() {
-    approx.equal(acsc(csc(-1)), -1);
-    approx.equal(acsc(csc(0)), 0);
-    approx.equal(acsc(csc(0.1)), 0.1);
-    approx.equal(acsc(csc(0.5)), 0.5);
-    approx.equal(acsc(csc(2)), 1.14159265358979);
+    toolsapprox_equaljs(acsc(csc(-1)), -1);
+    toolsapprox_equaljs(acsc(csc(0)), 0);
+    toolsapprox_equaljs(acsc(csc(0.1)), 0.1);
+    toolsapprox_equaljs(acsc(csc(0.5)), 0.5);
+    toolsapprox_equaljs(acsc(csc(2)), 1.14159265358979);
   });
 
   it('should be the inverse function of bignumber csc', function() {
@@ -102,18 +102,18 @@ describe('acsc', function() {
   it('should return the arccsc of a complex number', function() {
     var re = 0.150385604327861963;
     var im = 0.231334698573973315;
-    approx.deepEqual(acsc(complex('2+3i')), complex(re, -im));
-    approx.deepEqual(acsc(complex('2-3i')), complex(re, im));
-    approx.deepEqual(acsc(complex('-2+3i')), complex(-re, -im));
-    approx.deepEqual(acsc(complex('-2-3i')), complex(-re, im));
-    approx.deepEqual(acsc(complex('1+i')), complex(0.4522784471511907,-0.53063753095251783));
-    approx.deepEqual(acsc(complex('i')), complex(0, -0.881373587019543));
+    toolsapprox_equaljs(acsc(complex('2+3i')), complex(re, -im));
+    toolsapprox_equaljs(acsc(complex('2-3i')), complex(re, im));
+    toolsapprox_equaljs(acsc(complex('-2+3i')), complex(-re, -im));
+    toolsapprox_equaljs(acsc(complex('-2-3i')), complex(-re, im));
+    toolsapprox_equaljs(acsc(complex('1+i')), complex(0.4522784471511907,-0.53063753095251783));
+    toolsapprox_equaljs(acsc(complex('i')), complex(0, -0.881373587019543));
 
-    approx.deepEqual(acsc(complex('-1')), complex(-pi / 2, 0));
-    approx.deepEqual(acsc(complex('-0.5')), complex(-pi / 2, 1.3169578969248));
+    toolsapprox_equaljs(acsc(complex('-1')), complex(-pi / 2, 0));
+    toolsapprox_equaljs(acsc(complex('-0.5')), complex(-pi / 2, 1.3169578969248));
     assert.deepEqual(acsc(complex('0')), complex(pi / 2, Infinity));
-    approx.deepEqual(acsc(complex('0.5')), complex(pi / 2, -1.3169578969248));
-    approx.deepEqual(acsc(complex('1')), complex(pi / 2, 0));
+    toolsapprox_equaljs(acsc(complex('0.5')), complex(pi / 2, -1.3169578969248));
+    toolsapprox_equaljs(acsc(complex('1')), complex(pi / 2, 0));
   });
 
   it('should throw an error if called with a unit', function() {
@@ -127,8 +127,8 @@ describe('acsc', function() {
 
   it('should calculate the arccsc element-wise for arrays and matrices', function() {
     var acsc123 = [pi / 2, pi / 6, 0.339836909454];
-    approx.deepEqual(acsc([1,2,3]), acsc123);
-    approx.deepEqual(acsc(matrix([1,2,3])), matrix(acsc123));
+    toolsapprox_equaljs(acsc([1,2,3]), acsc123);
+    toolsapprox_equaljs(acsc(matrix([1,2,3])), matrix(acsc123));
   });
 
   it('should throw an error in case of invalid number of arguments', function() {

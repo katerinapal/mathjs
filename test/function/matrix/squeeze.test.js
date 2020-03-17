@@ -1,10 +1,6 @@
+import assert from "assert";
 // test squeeze
-var assert = require('assert'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    squeeze = math.squeeze,
-    size = math.size,
-    matrix = math.matrix;
+var error = require('../../../lib/error/index'), math = require('../../../index'), squeeze = math.squeeze, size = math.size, matrix = math.matrix;
 
 describe('squeeze', function() {
 

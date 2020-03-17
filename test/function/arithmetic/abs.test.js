@@ -1,5 +1,4 @@
-// test abs
-var assert = require('assert');
+import assert from "assert";
 var math = require('../../../index');
 
 describe('abs', function () {

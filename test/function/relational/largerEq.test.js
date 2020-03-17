@@ -1,12 +1,6 @@
+import assert from "assert";
 // test largerEq
-var assert = require('assert'),
-    math = require('../../../index'),
-    bignumber = math.bignumber,
-    complex = math.complex,
-    matrix = math.matrix,
-    sparse = math.sparse,
-    unit = math.unit,
-    largerEq = math.largerEq;
+var math = require('../../../index'), bignumber = math.bignumber, complex = math.complex, matrix = math.matrix, sparse = math.sparse, unit = math.unit, largerEq = math.largerEq;
 
 describe('largerEq', function() {
 

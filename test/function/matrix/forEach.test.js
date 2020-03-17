@@ -1,6 +1,5 @@
-var assert = require('assert'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index');
+import assert from "assert";
+var error = require('../../../lib/error/index'), math = require('../../../index');
 
 describe('forEach', function() {
 

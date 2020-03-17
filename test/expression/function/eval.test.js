@@ -1,6 +1,5 @@
-// test eval
-var assert = require('assert');
-var approx = require('../../../tools/approx');
+import assert from "assert";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
 var math = require('../../../index');
 var Complex = math.type.Complex;
 var Matrix = math.type.Matrix;
@@ -10,7 +9,7 @@ var ResultSet = math.type.ResultSet;
 describe('eval', function() {
 
   it('should evaluate expressions', function() {
-    approx.equal(math.eval('(2+3)/4'), 1.25);
+    toolsapprox_equaljs(math.eval('(2+3)/4'), 1.25);
     assert.deepEqual(math.eval('sqrt(-4)'), new Complex(0, 2));
   });
 

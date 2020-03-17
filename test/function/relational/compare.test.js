@@ -1,12 +1,6 @@
+import assert from "assert";
 // test compare
-var assert = require('assert'),
-    math = require('../../../index'),
-    bignumber = math.bignumber,
-    complex = math.complex,
-    matrix = math.matrix,
-    sparse = math.sparse,
-    unit = math.unit,
-    compare = math.compare;
+var math = require('../../../index'), bignumber = math.bignumber, complex = math.complex, matrix = math.matrix, sparse = math.sparse, unit = math.unit, compare = math.compare;
 
 describe('compare', function() {
 
