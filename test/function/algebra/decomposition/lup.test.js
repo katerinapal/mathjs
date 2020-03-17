@@ -1,5 +1,13 @@
-import assert from "assert";
-import { deepEqual as toolsapprox_deepEqualjs } from "../../../../tools/approx";
+"use strict";
+
+var _assert = require("assert");
+
+var _assert2 = _interopRequireDefault(_assert);
+
+var _approx = require("../../../../tools/approx");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 // test lup
 var math = require('../../../../index');
 
@@ -11,13 +19,13 @@ describe('lup', function () {
 
     var r = math.lup(m);
     // L
-    assert.deepEqual(r.L.valueOf(), [[1, 0], [0.5, 1]]);
+    _assert2.default.deepEqual(r.L.valueOf(), [[1, 0], [0.5, 1]]);
     // U
-    assert.deepEqual(r.U.valueOf(), [[2, 1], [0, 3.5]]);
+    _assert2.default.deepEqual(r.U.valueOf(), [[2, 1], [0, 3.5]]);
     // P
-    assert.deepEqual(r.p, [0, 1]);
+    _assert2.default.deepEqual(r.p, [0, 1]);
     // verify
-    toolsapprox_deepEqualjs(math.multiply(_p(r.p), m).valueOf(), math.multiply(r.L, r.U).valueOf());
+    (0, _approx.deepEqual)(math.multiply(_p(r.p), m).valueOf(), math.multiply(r.L, r.U).valueOf());
   });
 
   it('should decompose matrix, n x n, no permutations, sparse', function () {
@@ -26,13 +34,13 @@ describe('lup', function () {
 
     var r = math.lup(m);
     // L
-    assert.deepEqual(r.L.valueOf(), [[1, 0], [0.5, 1]]);
+    _assert2.default.deepEqual(r.L.valueOf(), [[1, 0], [0.5, 1]]);
     // U
-    assert.deepEqual(r.U.valueOf(), [[2, 1], [0, 3.5]]);
+    _assert2.default.deepEqual(r.U.valueOf(), [[2, 1], [0, 3.5]]);
     // P
-    assert.deepEqual(r.p, [0, 1]);
+    _assert2.default.deepEqual(r.p, [0, 1]);
     // verify
-    toolsapprox_deepEqualjs(math.multiply(_p(r.p), m).valueOf(), math.multiply(r.L, r.U).valueOf());
+    (0, _approx.deepEqual)(math.multiply(_p(r.p), m).valueOf(), math.multiply(r.L, r.U).valueOf());
   });
 
   it('should decompose matrix, n x n, no permutations, dense format', function () {
@@ -41,336 +49,155 @@ describe('lup', function () {
 
     var r = math.lup(m);
     // L
-    assert.deepEqual(r.L.valueOf(), [[1, 0], [0.5, 1]]);
+    _assert2.default.deepEqual(r.L.valueOf(), [[1, 0], [0.5, 1]]);
     // U
-    assert.deepEqual(r.U.valueOf(), [[2, 1], [0, 3.5]]);
+    _assert2.default.deepEqual(r.U.valueOf(), [[2, 1], [0, 3.5]]);
     // P
-    assert.deepEqual(r.p, [0, 1]);
+    _assert2.default.deepEqual(r.p, [0, 1]);
     // verify
-    toolsapprox_deepEqualjs(math.multiply(_p(r.p), m).valueOf(), math.multiply(r.L, r.U).valueOf());
+    (0, _approx.deepEqual)(math.multiply(_p(r.p), m).valueOf(), math.multiply(r.L, r.U).valueOf());
   });
-  
+
   it('should decompose matrix, m x n, m < n, no permutations, dense format', function () {
-    var m = math.matrix(
-      [
-        [2, 1, 1],
-        [1, 4, 5]
-      ]
-    );
+    var m = math.matrix([[2, 1, 1], [1, 4, 5]]);
 
     var r = math.lup(m);
     // L
-    assert.deepEqual(
-      r.L,
-      math.matrix(
-        [
-          [1, 0],
-          [0.5, 1]
-        ]
-      ));
+    _assert2.default.deepEqual(r.L, math.matrix([[1, 0], [0.5, 1]]));
     // U
-    assert.deepEqual(
-      r.U,
-      math.matrix(
-        [
-          [2, 1, 1],
-          [0, 3.5, 4.5]
-        ]
-      ));
+    _assert2.default.deepEqual(r.U, math.matrix([[2, 1, 1], [0, 3.5, 4.5]]));
     // P
-    assert.deepEqual(r.p, [0, 1]);
+    _assert2.default.deepEqual(r.p, [0, 1]);
     // verify
-    toolsapprox_deepEqualjs(math.multiply(_p(r.p), m).valueOf(), math.multiply(r.L, r.U).valueOf());
+    (0, _approx.deepEqual)(math.multiply(_p(r.p), m).valueOf(), math.multiply(r.L, r.U).valueOf());
   });
 
   it('should decompose matrix, m x n, m > n, no permutations, dense format', function () {
-    var m = math.matrix(
-      [
-        [8, 2],
-        [6, 4],
-        [4, 1]
-      ]
-    );
+    var m = math.matrix([[8, 2], [6, 4], [4, 1]]);
 
     var r = math.lup(m);
     // L
-    assert.deepEqual(
-      r.L,
-      math.matrix(
-        [
-          [1, 0],
-          [0.75, 1],
-          [0.5, 0]
-        ]
-      ));
+    _assert2.default.deepEqual(r.L, math.matrix([[1, 0], [0.75, 1], [0.5, 0]]));
     // U
-    assert.deepEqual(
-      r.U,
-      math.matrix(
-        [
-          [8, 2],
-          [0, 2.5]
-        ]
-      ));
+    _assert2.default.deepEqual(r.U, math.matrix([[8, 2], [0, 2.5]]));
     // P
-    assert.deepEqual(r.p, [0, 1, 2]);
+    _assert2.default.deepEqual(r.p, [0, 1, 2]);
     // verify
-    toolsapprox_deepEqualjs(math.multiply(_p(r.p), m).valueOf(), math.multiply(r.L, r.U).valueOf());
+    (0, _approx.deepEqual)(math.multiply(_p(r.p), m).valueOf(), math.multiply(r.L, r.U).valueOf());
   });
 
   it('should decompose matrix, n x n, dense format', function () {
-    var m = math.matrix(
-      [
-        [16, -120, 240, -140],
-        [-120, 1200, -2700, 1680],
-        [240, -2700, 6480, -4200],
-        [-140, 1680, -4200, 2800]
-      ]
-    );
+    var m = math.matrix([[16, -120, 240, -140], [-120, 1200, -2700, 1680], [240, -2700, 6480, -4200], [-140, 1680, -4200, 2800]]);
 
     var r = math.lup(m);
     // L
-    toolsapprox_deepEqualjs(
-      r.L.valueOf(),
-      [
-        [1, 0, 0, 0],  
-        [-0.5, 1, 0, 0],
-        [-0.5833333333333334, -0.7, 1, 0],
-        [0.06666666666666667, -0.4, -0.5714285714285776, 1]
-      ]);
+    (0, _approx.deepEqual)(r.L.valueOf(), [[1, 0, 0, 0], [-0.5, 1, 0, 0], [-0.5833333333333334, -0.7, 1, 0], [0.06666666666666667, -0.4, -0.5714285714285776, 1]]);
     // U
-    toolsapprox_deepEqualjs(
-      r.U.valueOf(),
-      [
-        [240, -2700, 6480, -4200],
-        [0, -150, 540, -420], 
-        [0, 0, -42, 56],
-        [0, 0, 0, 4]
-      ]);
+    (0, _approx.deepEqual)(r.U.valueOf(), [[240, -2700, 6480, -4200], [0, -150, 540, -420], [0, 0, -42, 56], [0, 0, 0, 4]]);
     // P
-    assert.deepEqual(r.p, [3, 1, 0, 2]);
+    _assert2.default.deepEqual(r.p, [3, 1, 0, 2]);
     // verify
-    toolsapprox_deepEqualjs(math.multiply(_p(r.p), m).valueOf(), math.multiply(r.L, r.U).valueOf());
+    (0, _approx.deepEqual)(math.multiply(_p(r.p), m).valueOf(), math.multiply(r.L, r.U).valueOf());
   });
 
   it('should decompose matrix, 3 x 3, zero pivote value, dense format', function () {
-    var m = math.matrix(
-      [
-        [1, 2, 3], 
-        [2, 4, 6], 
-        [4, 8, 9]
-      ]);
+    var m = math.matrix([[1, 2, 3], [2, 4, 6], [4, 8, 9]]);
 
     var r = math.lup(m);
     // L
-    toolsapprox_deepEqualjs(
-      r.L.valueOf(),
-      [
-        [1, 0, 0],  
-        [0.5, 1, 0],
-        [0.25, 0, 1.0]
-      ]);
+    (0, _approx.deepEqual)(r.L.valueOf(), [[1, 0, 0], [0.5, 1, 0], [0.25, 0, 1.0]]);
     // U
-    toolsapprox_deepEqualjs(
-      r.U.valueOf(),
-      [
-        [4, 8, 9],
-        [0, 0, 1.5], 
-        [0, 0, 0.75]
-      ]);
+    (0, _approx.deepEqual)(r.U.valueOf(), [[4, 8, 9], [0, 0, 1.5], [0, 0, 0.75]]);
     // P
-    assert.deepEqual(r.p, [2, 1, 0]);
+    _assert2.default.deepEqual(r.p, [2, 1, 0]);
     // verify
-    toolsapprox_deepEqualjs(math.multiply(_p(r.p), m).valueOf(), math.multiply(r.L, r.U).valueOf());
+    (0, _approx.deepEqual)(math.multiply(_p(r.p), m).valueOf(), math.multiply(r.L, r.U).valueOf());
   });
 
   it('should decompose matrix, 3 x 2, complex numbers, dense format', function () {
-    var m = math.matrix(
-      [
-        [math.complex(0, 3), 10],
-        [math.complex(0, 1), 1],
-        [math.complex(0, 1), 1]
-      ]);
+    var m = math.matrix([[math.complex(0, 3), 10], [math.complex(0, 1), 1], [math.complex(0, 1), 1]]);
 
     var r = math.lup(m);
     // L
-    toolsapprox_deepEqualjs(
-      r.L.valueOf(),
-      [
-        [1, 0],
-        [math.complex(0.3333333, 0), 1],
-        [math.complex(0.3333333, 0), 1]
-      ]);
+    (0, _approx.deepEqual)(r.L.valueOf(), [[1, 0], [math.complex(0.3333333, 0), 1], [math.complex(0.3333333, 0), 1]]);
     // U
-    toolsapprox_deepEqualjs(
-      r.U.valueOf(),
-      [
-        [math.complex(0, 3), 10],
-        [0, math.complex(-2.3333333333, 0)]
-      ]);
+    (0, _approx.deepEqual)(r.U.valueOf(), [[math.complex(0, 3), 10], [0, math.complex(-2.3333333333, 0)]]);
     // P
-    assert.deepEqual(r.p, [0, 1, 2]);
+    _assert2.default.deepEqual(r.p, [0, 1, 2]);
     // verify
-    toolsapprox_deepEqualjs(math.multiply(_p(r.p), m).valueOf(), math.multiply(r.L, r.U).valueOf());
+    (0, _approx.deepEqual)(math.multiply(_p(r.p), m).valueOf(), math.multiply(r.L, r.U).valueOf());
   });
-  
+
   it('should decompose matrix, m x n, m < n, no permutations, sparse', function () {
-    var m = math.matrix(
-      [
-        [2, 1, 1],
-        [1, 4, 5]
-      ], 
-      'sparse');
+    var m = math.matrix([[2, 1, 1], [1, 4, 5]], 'sparse');
 
     var r = math.lup(m);
     // L
-    assert.deepEqual(
-      r.L.valueOf(),
-      [
-        [1, 0],
-        [0.5, 1]
-      ]);
+    _assert2.default.deepEqual(r.L.valueOf(), [[1, 0], [0.5, 1]]);
     // U
-    assert.deepEqual(
-      r.U.valueOf(),
-      [
-        [2, 1, 1],
-        [0, 3.5, 4.5]
-      ]);
+    _assert2.default.deepEqual(r.U.valueOf(), [[2, 1, 1], [0, 3.5, 4.5]]);
     // P
-    assert.deepEqual(r.p, [0, 1]);
+    _assert2.default.deepEqual(r.p, [0, 1]);
     // verify
-    toolsapprox_deepEqualjs(math.multiply(_p(r.p), m).valueOf(), math.multiply(r.L, r.U).valueOf());
+    (0, _approx.deepEqual)(math.multiply(_p(r.p), m).valueOf(), math.multiply(r.L, r.U).valueOf());
   });
 
   it('should decompose matrix, m x n, m > n, no permutations, sparse', function () {
-    var m = math.matrix(
-      [
-        [8, 2],
-        [6, 4],
-        [4, 1]
-      ],
-      'sparse');
+    var m = math.matrix([[8, 2], [6, 4], [4, 1]], 'sparse');
 
     var r = math.lup(m);
     // L
-    assert.deepEqual(
-      r.L.valueOf(),
-      [
-        [1, 0],
-        [0.75, 1],
-        [0.5, 0]
-      ]);
+    _assert2.default.deepEqual(r.L.valueOf(), [[1, 0], [0.75, 1], [0.5, 0]]);
     // U
-    assert.deepEqual(
-      r.U.valueOf(),
-      [
-        [8, 2],
-        [0, 2.5]
-      ]);
+    _assert2.default.deepEqual(r.U.valueOf(), [[8, 2], [0, 2.5]]);
     // P
-    assert.deepEqual(r.p, [0, 1, 2]);
+    _assert2.default.deepEqual(r.p, [0, 1, 2]);
     // verify
-    toolsapprox_deepEqualjs(math.multiply(_p(r.p), m).valueOf(), math.multiply(r.L, r.U).valueOf());
+    (0, _approx.deepEqual)(math.multiply(_p(r.p), m).valueOf(), math.multiply(r.L, r.U).valueOf());
   });
 
   it('should decompose matrix, n x n, sparse', function () {
-    var m = math.matrix(
-      [
-        [16, -120, 240, -140],
-        [-120, 1200, -2700, 1680],
-        [240, -2700, 6480, -4200],
-        [-140, 1680, -4200, 2800]
-      ],
-      'sparse');
+    var m = math.matrix([[16, -120, 240, -140], [-120, 1200, -2700, 1680], [240, -2700, 6480, -4200], [-140, 1680, -4200, 2800]], 'sparse');
 
     var r = math.lup(m);
     // L
-    toolsapprox_deepEqualjs(
-      r.L.valueOf(),
-      [
-        [1, 0, 0, 0],  
-        [-0.5, 1, 0, 0],
-        [-0.5833333333333334, -0.7, 1, 0],
-        [0.06666666666666667, -0.4, -0.5714285714285776, 1]
-      ]);
+    (0, _approx.deepEqual)(r.L.valueOf(), [[1, 0, 0, 0], [-0.5, 1, 0, 0], [-0.5833333333333334, -0.7, 1, 0], [0.06666666666666667, -0.4, -0.5714285714285776, 1]]);
     // U
-    toolsapprox_deepEqualjs(
-      r.U.valueOf(),
-      [
-        [240, -2700, 6480, -4200],
-        [0, -150, 540, -420], 
-        [0, 0, -42, 56],
-        [0, 0, 0, 4]
-      ]);
+    (0, _approx.deepEqual)(r.U.valueOf(), [[240, -2700, 6480, -4200], [0, -150, 540, -420], [0, 0, -42, 56], [0, 0, 0, 4]]);
     // P
-    assert.deepEqual(r.p, [3, 1, 0, 2]);
+    _assert2.default.deepEqual(r.p, [3, 1, 0, 2]);
     // verify
-    toolsapprox_deepEqualjs(math.multiply(_p(r.p), m).valueOf(), math.multiply(r.L, r.U).valueOf());
+    (0, _approx.deepEqual)(math.multiply(_p(r.p), m).valueOf(), math.multiply(r.L, r.U).valueOf());
   });
 
   it('should decompose matrix, 3 x 3, zero pivote value, sparse', function () {
-    var m = math.matrix(
-      [
-        [1, 2, 3], 
-        [2, 4, 6], 
-        [4, 8, 9]
-      ],
-      'sparse');
+    var m = math.matrix([[1, 2, 3], [2, 4, 6], [4, 8, 9]], 'sparse');
 
     var r = math.lup(m);
     // L
-    toolsapprox_deepEqualjs(
-      r.L.valueOf(),
-      [
-        [1, 0, 0],  
-        [0.5, 1, 0],
-        [0.25, 0, 1.0]
-      ]);
+    (0, _approx.deepEqual)(r.L.valueOf(), [[1, 0, 0], [0.5, 1, 0], [0.25, 0, 1.0]]);
     // U
-    toolsapprox_deepEqualjs(
-      r.U.valueOf(),
-      [
-        [4, 8, 9],
-        [0, 0, 1.5], 
-        [0, 0, 0.75]
-      ]);
+    (0, _approx.deepEqual)(r.U.valueOf(), [[4, 8, 9], [0, 0, 1.5], [0, 0, 0.75]]);
     // P
-    assert.deepEqual(r.p, [2, 1, 0]);
+    _assert2.default.deepEqual(r.p, [2, 1, 0]);
     // verify
-    toolsapprox_deepEqualjs(math.multiply(_p(r.p), m).valueOf(), math.multiply(r.L, r.U).valueOf());
+    (0, _approx.deepEqual)(math.multiply(_p(r.p), m).valueOf(), math.multiply(r.L, r.U).valueOf());
   });
 
   it('should decompose matrix, 3 x 2, complex numbers, sparse', function () {
-    var m = math.matrix(
-      [
-        [math.complex(0, 3), 10],
-        [math.complex(0, 1), 1],
-        [math.complex(0, 1), 1]
-      ], 'sparse');
+    var m = math.matrix([[math.complex(0, 3), 10], [math.complex(0, 1), 1], [math.complex(0, 1), 1]], 'sparse');
 
     var r = math.lup(m);
     // L
-    toolsapprox_deepEqualjs(
-      r.L.valueOf(),
-      [
-        [1, 0],
-        [math.complex(0.3333333, 0), 1],
-        [math.complex(0.3333333, 0), 1]
-      ]);
+    (0, _approx.deepEqual)(r.L.valueOf(), [[1, 0], [math.complex(0.3333333, 0), 1], [math.complex(0.3333333, 0), 1]]);
     // U
-    toolsapprox_deepEqualjs(
-      r.U.valueOf(),
-      [
-        [math.complex(0, 3), 10],
-        [0, math.complex(-2.3333333333, 0)]
-      ]);
+    (0, _approx.deepEqual)(r.U.valueOf(), [[math.complex(0, 3), 10], [0, math.complex(-2.3333333333, 0)]]);
     // P
-    assert.deepEqual(r.p, [0, 1, 2]);
+    _assert2.default.deepEqual(r.p, [0, 1, 2]);
     // verify
-    toolsapprox_deepEqualjs(math.multiply(_p(r.p), m).valueOf(), math.multiply(r.L, r.U).valueOf());
+    (0, _approx.deepEqual)(math.multiply(_p(r.p), m).valueOf(), math.multiply(r.L, r.U).valueOf());
   });
-  
+
   /**
    * Creates a Matrix out of a row permutation vector
    */

@@ -1,13 +1,19 @@
-import assert from "assert";
+'use strict';
+
+var _assert = require('assert');
+
+var _assert2 = _interopRequireDefault(_assert);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 var math = require('../index');
 
-describe('deprecated stuff', function() {
+describe('deprecated stuff', function () {
 
   it('should throw a deprecation error when using UpdateNode', function () {
 
-    assert.throws(function () {
+    _assert2.default.throws(function () {
       new math.expression.node.UpdateNode();
     }, /UpdateNode is deprecated/);
-
-  })
+  });
 });
