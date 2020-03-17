@@ -1,12 +1,6 @@
+import assert from "assert";
 // test unequal
-var assert = require('assert'),
-    math = require('../../../index'),
-    bignumber = math.bignumber,
-    complex = math.complex,
-    matrix = math.matrix,
-    sparse = math.sparse,
-    unit = math.unit,
-    unequal = math.unequal;
+var math = require('../../../index'), bignumber = math.bignumber, complex = math.complex, matrix = math.matrix, sparse = math.sparse, unit = math.unit, unequal = math.unequal;
 
 describe('unequal', function() {
 

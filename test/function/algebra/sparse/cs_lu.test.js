@@ -1,10 +1,10 @@
-var assert = require('assert');
-var approx = require('../../../../tools/approx');
+import assert from "assert";
+import { deepEqual as toolsapprox_deepEqualjs } from "../../../../tools/approx";
 var market = require('../../../../tools/matrixmarket');
 var math = require('../../../../index');
-math.import(require('../../../../lib/function/algebra/sparse/cs_permute'));
-math.import(require('../../../../lib/function/algebra/sparse/cs_lu'));
-math.import(require('../../../../lib/function/algebra/sparse/cs_sqr'));
+math.import(libfunctionalgebrasparsecs_permute_obj);
+math.import(libfunctionalgebrasparsecs_lu_obj);
+math.import(libfunctionalgebrasparsecs_sqr_obj);
 
 var cs_permute = math.sparse.cs_permute;
 var cs_lu = math.sparse.cs_lu;
@@ -26,7 +26,7 @@ describe('cs_lu', function () {
     // P
     assert.deepEqual(r.pinv, [0, 1]);
     // verify
-    approx.deepEqual(cs_permute(m, r.pinv, null, true), math.multiply(r.L, r.U));
+    toolsapprox_deepEqualjs(cs_permute(m, r.pinv, null, true), math.multiply(r.L, r.U));
   });
   
   it('should decompose matrix, 4 x 4, natural ordering (order=0), partial pivoting', function () {
@@ -46,7 +46,7 @@ describe('cs_lu', function () {
     var r = cs_lu(m, s, 1);
 
     // verify
-    approx.deepEqual(cs_permute(m, r.pinv, s.q, true).valueOf(), math.multiply(r.L, r.U).valueOf());
+    toolsapprox_deepEqualjs(cs_permute(m, r.pinv, s.q, true).valueOf(), math.multiply(r.L, r.U).valueOf());
   });
 
   it('should decompose matrix, 4 x 4, amd(A+A\') (order=1), partial pivoting', function () {
@@ -66,7 +66,7 @@ describe('cs_lu', function () {
     var r = cs_lu(m, s, 1);
 
     // verify
-    approx.deepEqual(cs_permute(m, r.pinv, s.q, true).valueOf(), math.multiply(r.L, r.U).valueOf());
+    toolsapprox_deepEqualjs(cs_permute(m, r.pinv, s.q, true).valueOf(), math.multiply(r.L, r.U).valueOf());
   });
 
   it('should decompose matrix, 4 x 4, amd(A\'*A) (order=2), partial pivoting', function () {
@@ -86,7 +86,7 @@ describe('cs_lu', function () {
     var r = cs_lu(m, s, 1);
 
     // verify
-    approx.deepEqual(cs_permute(m, r.pinv, s.q, true).valueOf(), math.multiply(r.L, r.U).valueOf());
+    toolsapprox_deepEqualjs(cs_permute(m, r.pinv, s.q, true).valueOf(), math.multiply(r.L, r.U).valueOf());
   });
 
   it('should decompose matrix, 4 x 4, amd(A\'*A) (order=3), partial pivoting', function () {
@@ -106,7 +106,7 @@ describe('cs_lu', function () {
     var r = cs_lu(m, s, 1);
 
     // verify
-    approx.deepEqual(cs_permute(m, r.pinv, s.q, true).valueOf(), math.multiply(r.L, r.U).valueOf());
+    toolsapprox_deepEqualjs(cs_permute(m, r.pinv, s.q, true).valueOf(), math.multiply(r.L, r.U).valueOf());
   });
   
   it('should decompose matrix, 48 x 48, natural ordering (order=0), full pivoting, matrix market', function (done) {
@@ -123,7 +123,7 @@ describe('cs_lu', function () {
         var r = cs_lu(m, s, 0.001);
 
         // verify
-        approx.deepEqual(cs_permute(m, r.pinv, s.q, true).valueOf(), math.multiply(r.L, r.U).valueOf());
+        toolsapprox_deepEqualjs(cs_permute(m, r.pinv, s.q, true).valueOf(), math.multiply(r.L, r.U).valueOf());
 
         // indicate test has completed
         done();
@@ -148,7 +148,7 @@ describe('cs_lu', function () {
         var r = cs_lu(m, s, 0.001);
 
         // verify
-        approx.deepEqual(cs_permute(m, r.pinv, s.q, true).valueOf(), math.multiply(r.L, r.U).valueOf());
+        toolsapprox_deepEqualjs(cs_permute(m, r.pinv, s.q, true).valueOf(), math.multiply(r.L, r.U).valueOf());
 
         // indicate test has completed
         done();
@@ -173,7 +173,7 @@ describe('cs_lu', function () {
         var r = cs_lu(m, s, 0.001);
 
         // verify
-        approx.deepEqual(cs_permute(m, r.pinv, s.q, true).valueOf(), math.multiply(r.L, r.U).valueOf());
+        toolsapprox_deepEqualjs(cs_permute(m, r.pinv, s.q, true).valueOf(), math.multiply(r.L, r.U).valueOf());
 
         // indicate test has completed
         done();
@@ -198,7 +198,7 @@ describe('cs_lu', function () {
         var r = cs_lu(m, s, 0.001);
 
         // verify
-        approx.deepEqual(cs_permute(m, r.pinv, s.q, true).valueOf(), math.multiply(r.L, r.U).valueOf());
+        toolsapprox_deepEqualjs(cs_permute(m, r.pinv, s.q, true).valueOf(), math.multiply(r.L, r.U).valueOf());
 
         // indicate test has completed
         done();
