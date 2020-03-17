@@ -1,5 +1,5 @@
-var assert = require('assert');
-var approx = require('../../../tools/approx');
+import assert from "assert";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
 var math = require('../../../index');
 var Unit = math.type.Unit;
 
@@ -224,21 +224,21 @@ describe('Unit', function() {
   describe('toNumber', function() {
     it ('should convert a unit to a number', function () {
       var u = new Unit(5000, 'cm');
-      approx.equal(u.toNumber('mm'), 50000);
+      toolsapprox_equaljs(u.toNumber('mm'), 50000);
 
-      approx.equal(new Unit(5.08, 'cm').toNumber('inch'), 2);
+      toolsapprox_equaljs(new Unit(5.08, 'cm').toNumber('inch'), 2);
 
-      approx.equal(new Unit(101325, 'N/m^2').toNumber('lbf/in^2'), 14.6959487763741);
+      toolsapprox_equaljs(new Unit(101325, 'N/m^2').toNumber('lbf/in^2'), 14.6959487763741);
     });
 
     it ('should convert a unit with fixed prefix to a number', function () {
       var u1 = new Unit(5000, 'cm');
       var u2 = u1.to('km');
-      approx.equal(u2.toNumber('mm'), 50000);
+      toolsapprox_equaljs(u2.toNumber('mm'), 50000);
 
       var u1 = new Unit(981, 'cm/s^2');
       var u2 = u1.to('km/ms^2');
-      approx.equal(u2.toNumber('m/s^2'), 9.81);
+      toolsapprox_equaljs(u2.toNumber('m/s^2'), 9.81);
     });
 
     it ('should convert a unit with fraction to a number', function () {
@@ -300,7 +300,7 @@ describe('Unit', function() {
     it ('should convert a Complex unit', function() {
       var u1 = new Unit(math.complex(300,400), 'kPa');
       var u2 = u1.to('lbf/in^2');
-      approx.deepEqual(u2.value, math.complex(300000, 400000));
+      toolsapprox_equaljs(u2.value, math.complex(300000, 400000));
       assert.deepEqual(u2.toString(), "(43.511321319062766 + 58.01509509208368i) lbf / in^2");
     });
 
@@ -631,7 +631,7 @@ describe('Unit', function() {
             unit: 'cm',
             fixPrefix: false
           });
-      approx.deepEqual(new Unit(math.complex(2, 4), 'g').toJSON(),
+      toolsapprox_equaljs(new Unit(math.complex(2, 4), 'g').toJSON(),
           {
             mathjs: 'Unit',
             value: math.complex(2, 4),
@@ -794,37 +794,37 @@ describe('Unit', function() {
       assert.equal(unit1.units[0].prefix.name, 'k');
 
       unit1 = Unit.parse('-5mg');
-      approx.equal(unit1.value, -0.000005);
+      toolsapprox_equaljs(unit1.value, -0.000005);
       assert.equal(unit1.units[0].unit.name, 'g');
       assert.equal(unit1.units[0].prefix.name, 'm');
 
       unit1 = Unit.parse('5.2mg');
-      approx.equal(unit1.value, 0.0000052);
+      toolsapprox_equaljs(unit1.value, 0.0000052);
       assert.equal(unit1.units[0].unit.name, 'g');
       assert.equal(unit1.units[0].prefix.name, 'm');
 
       unit1 = Unit.parse('300 kg/minute');
-      approx.equal(unit1.value, 5);
+      toolsapprox_equaljs(unit1.value, 5);
       assert.equal(unit1.units[0].unit.name, 'g');
       assert.equal(unit1.units[1].unit.name, 'minute');
       assert.equal(unit1.units[0].prefix.name, 'k');
 
       unit1 = Unit.parse('981 cm/s^2');
-      approx.equal(unit1.value, 9.81);
+      toolsapprox_equaljs(unit1.value, 9.81);
       assert.equal(unit1.units[0].unit.name, 'm');
       assert.equal(unit1.units[1].unit.name, 's');
       assert.equal(unit1.units[1].power, -2);
       assert.equal(unit1.units[0].prefix.name, 'c');
 
       unit1 = Unit.parse('981 cm*s^-2');
-      approx.equal(unit1.value, 9.81);
+      toolsapprox_equaljs(unit1.value, 9.81);
       assert.equal(unit1.units[0].unit.name, 'm');
       assert.equal(unit1.units[1].unit.name, 's');
       assert.equal(unit1.units[1].power, -2);
       assert.equal(unit1.units[0].prefix.name, 'c');
 
       unit1 = Unit.parse('8.314 kg m^2 / s^2 / K / mol');
-      approx.equal(unit1.value, 8.314);
+      toolsapprox_equaljs(unit1.value, 8.314);
       assert.equal(unit1.units[0].unit.name, 'g');
       assert.equal(unit1.units[1].unit.name, 'm');
       assert.equal(unit1.units[2].unit.name, 's');
@@ -838,13 +838,13 @@ describe('Unit', function() {
       assert.equal(unit1.units[0].prefix.name, 'k');
 
       unit1 = Unit.parse('5exabytes');
-      approx.equal(unit1.value, 4e19);
+      toolsapprox_equaljs(unit1.value, 4e19);
       assert.equal(unit1.units[0].unit.name, 'bytes');
     });
 
     it('should parse expressions with nested parentheses correctly', function() {
       unit1 = Unit.parse('8.314 kg (m^2 / (s^2 / (K^-1 / mol)))');
-      approx.equal(unit1.value, 8.314);
+      toolsapprox_equaljs(unit1.value, 8.314);
       assert.equal(unit1.units[0].unit.name, 'g');
       assert.equal(unit1.units[1].unit.name, 'm');
       assert.equal(unit1.units[2].unit.name, 's');
@@ -880,7 +880,7 @@ describe('Unit', function() {
     it('should parse units with correct precedence', function() {
       var unit1 = Unit.parse('1  m^3 / kg s^2'); // implicit multiplication
 
-      approx.equal(unit1.value, 1);
+      toolsapprox_equaljs(unit1.value, 1);
       assert.equal(unit1.units[0].unit.name, 'm');
       assert.equal(unit1.units[1].unit.name, 'g');
       assert.equal(unit1.units[2].unit.name, 's');
@@ -999,12 +999,12 @@ describe('Unit', function() {
       assert.equal(unit2.units[0].prefix.name, 'kilo');
 
       var unit3 = new Unit(5, 'inches');
-      approx.equal(unit3.value, 0.127);
+      toolsapprox_equaljs(unit3.value, 0.127);
       assert.equal(unit3.units[0].unit.name, 'inches');
       assert.equal(unit3.units[0].prefix.name, '');
 
       var unit3 = new Unit(9.81, 'meters/second^2');
-      approx.equal(unit3.value, 9.81);
+      toolsapprox_equaljs(unit3.value, 9.81);
       assert.equal(unit3.units[0].unit.name, 'meters');
       assert.equal(unit3.units[0].prefix.name, '');
 

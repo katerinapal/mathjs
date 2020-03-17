@@ -1,7 +1,6 @@
-// test import
-var assert = require('assert');
+import assert from "assert";
+import { equal as toolsapprox_equaljs } from "../../tools/approx";
 var mathjs = require('../../index');
-var approx = require('../../tools/approx');
 
 describe('import', function() {
   var math = null;
@@ -112,7 +111,7 @@ describe('import', function() {
     assert.deepEqual(math.a, 24);
 
     math.import({pi: 24}, {silent: true});
-    approx.equal(math.pi, Math.PI); // pi was ignored
+    toolsapprox_equaljs(math.pi, Math.PI); // pi was ignored
   });
 
   it('should import a boolean', function () {

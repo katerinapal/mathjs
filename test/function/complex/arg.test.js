@@ -1,5 +1,5 @@
-var assert = require('assert');
-var approx = require('../../../tools/approx');
+import assert from "assert";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
 var math = require('../../../index');
 var arg = math.arg;
 
@@ -17,7 +17,7 @@ describe('arg', function() {
     assert.equal(arg(1), 0);
     assert.equal(arg(2), 0);
     assert.equal(arg(0), 0);
-    approx.equal(arg(-2), 3.141592653589793);
+    toolsapprox_equaljs(arg(-2), 3.141592653589793);
   });
 
   it('should compute the argument of a bignumber (downgrades to number)', function () {
