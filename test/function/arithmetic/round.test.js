@@ -1,7 +1,5 @@
-// test round
-var assert = require('assert');
-var approx = require('../../../tools/approx');
-var math = require('../../../index');
+import assert from "assert";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
 var bignumber = math.bignumber;
 var fraction = math.fraction;
 var matrix = math.matrix;
@@ -11,19 +9,19 @@ var round = math.round;
 describe('round', function() {
 
   it('should round a number to te given number of decimals', function() {
-    approx.equal(round(math.pi), 3);
-    approx.equal(round(math.pi * 1000), 3142);
-    approx.equal(round(math.pi, 3), 3.142);
-    approx.equal(round(math.pi, 6), 3.141593);
-    approx.equal(round(1234.5678, 2), 1234.57);
-    approx.equal(round(2.135, 2), 2.14);
+    toolsapprox_equaljs(round(math.pi), 3);
+    toolsapprox_equaljs(round(math.pi * 1000), 3142);
+    toolsapprox_equaljs(round(math.pi, 3), 3.142);
+    toolsapprox_equaljs(round(math.pi, 6), 3.141593);
+    toolsapprox_equaljs(round(1234.5678, 2), 1234.57);
+    toolsapprox_equaljs(round(2.135, 2), 2.14);
   });
 
   it('should round booleans (yeah, not really useful but it should be supported)', function() {
-    approx.equal(round(true), 1);
-    approx.equal(round(false), 0);
-    approx.equal(round(true, 2), 1);
-    approx.equal(round(false, 2), 0);
+    toolsapprox_equaljs(round(true), 1);
+    toolsapprox_equaljs(round(false), 0);
+    toolsapprox_equaljs(round(true, 2), 1);
+    toolsapprox_equaljs(round(false, 2), 0);
   });
 
   it('should round null', function () {

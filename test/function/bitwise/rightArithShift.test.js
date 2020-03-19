@@ -1,10 +1,6 @@
+import assert from "assert";
 // test rightArithShift
-var assert = require('assert'),
-    math = require('../../../index'),
-    matrix = math.matrix,
-    sparse = math.sparse,
-    bignumber = math.bignumber,
-    rightArithShift = math.rightArithShift;
+var math = require('../../../index'), matrix = math.matrix, sparse = math.sparse, bignumber = math.bignumber, rightArithShift = math.rightArithShift;
 
 describe('rightArithShift', function () {
 

@@ -1,21 +1,10 @@
-var assert = require('assert'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    approx = require('../../../tools/approx'),
-    pi = math.pi,
-    asinh = math.asinh,
-    sinh = math.sinh,
-    complex = math.complex,
-    matrix = math.matrix,
-    unit = math.unit,
-    bigmath = math.create({number: 'BigNumber', precision: 20}),
-    biggermath = math.create({precision: 21}),
-    asinhBig = bigmath.asinh,
-    Big = bigmath.bignumber;
+import assert from "assert";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
+var error = require('../../../lib/error/index'), math = require('../../../index'), pi = math.pi, asinh = math.asinh, sinh = math.sinh, complex = math.complex, matrix = math.matrix, unit = math.unit, bigmath = math.create({number: 'BigNumber', precision: 20}), biggermath = math.create({precision: 21}), asinhBig = bigmath.asinh, Big = bigmath.bignumber;
 
 describe('asinh', function() {
   it('should return the hyperbolic arcsin of a boolean', function () {
-    approx.equal(asinh(true), 0.8813735870195430);
+    toolsapprox_equaljs(asinh(true), 0.8813735870195430);
     assert.equal(asinh(false), 0);
   });
 
@@ -24,12 +13,12 @@ describe('asinh', function() {
   });
 
   it('should return the hyperbolic arcsin of a number', function() {
-    approx.equal(asinh(-2), -1.44363547517881034249327674027311);
-    approx.equal(asinh(-1), -0.88137358701954302523260932497979);
-    approx.equal(asinh(0), 0);
-    approx.equal(asinh(1), 0.88137358701954302523260932497979);
-    approx.equal(asinh(2), 1.44363547517881034249327674027311);
-    approx.equal(asinh(pi), 1.8622957433108482198883613251826);
+    toolsapprox_equaljs(asinh(-2), -1.44363547517881034249327674027311);
+    toolsapprox_equaljs(asinh(-1), -0.88137358701954302523260932497979);
+    toolsapprox_equaljs(asinh(0), 0);
+    toolsapprox_equaljs(asinh(1), 0.88137358701954302523260932497979);
+    toolsapprox_equaljs(asinh(2), 1.44363547517881034249327674027311);
+    toolsapprox_equaljs(asinh(pi), 1.8622957433108482198883613251826);
   });
 
   it('should return the hyperbolic arcsin of a bignumber', function() {
@@ -46,11 +35,11 @@ describe('asinh', function() {
   });
 
   it('should be the inverse function of hyperbolic sin', function() {
-    approx.equal(asinh(sinh(-1)), -1);
-    approx.equal(asinh(sinh(0)), 0);
-    approx.equal(asinh(sinh(0.1)), 0.1);
-    approx.equal(asinh(sinh(0.5)), 0.5);
-    approx.equal(asinh(sinh(2)), 2);
+    toolsapprox_equaljs(asinh(sinh(-1)), -1);
+    toolsapprox_equaljs(asinh(sinh(0)), 0);
+    toolsapprox_equaljs(asinh(sinh(0.1)), 0.1);
+    toolsapprox_equaljs(asinh(sinh(0.5)), 0.5);
+    toolsapprox_equaljs(asinh(sinh(2)), 2);
   });
 
   it('should be the inverse function of bignumber sinh', function() {

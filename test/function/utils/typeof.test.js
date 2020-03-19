@@ -1,6 +1,4 @@
-// test typeof
-var assert = require('assert');
-var math = require('../../../index');
+import assert from "assert";
 var Index = math.type.Index;
 var Range = math.type.Range;
 var Matrix = math.type.Matrix;

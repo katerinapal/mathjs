@@ -1,7 +1,5 @@
-// test ceil
-var assert = require('assert');
-var approx = require('../../../tools/approx');
-var math = require('../../../index');
+import assert from "assert";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
 var bignumber = math.bignumber;
 var complex = math.complex;
 var fraction = math.fraction;
@@ -21,17 +19,17 @@ describe('ceil', function() {
   });
 
   it('should return the ceil of a number', function() {
-    approx.equal(ceil(0), 0);
-    approx.equal(ceil(1), 1);
-    approx.equal(ceil(1.3), 2);
-    approx.equal(ceil(1.8), 2);
-    approx.equal(ceil(2), 2);
-    approx.equal(ceil(-1), -1);
-    approx.equal(ceil(-1.3), -1);
-    approx.equal(ceil(-1.8), -1);
-    approx.equal(ceil(-2), -2);
-    approx.equal(ceil(-2.1), -2);
-    approx.equal(ceil(math.pi), 4);
+    toolsapprox_equaljs(ceil(0), 0);
+    toolsapprox_equaljs(ceil(1), 1);
+    toolsapprox_equaljs(ceil(1.3), 2);
+    toolsapprox_equaljs(ceil(1.8), 2);
+    toolsapprox_equaljs(ceil(2), 2);
+    toolsapprox_equaljs(ceil(-1), -1);
+    toolsapprox_equaljs(ceil(-1.3), -1);
+    toolsapprox_equaljs(ceil(-1.8), -1);
+    toolsapprox_equaljs(ceil(-2), -2);
+    toolsapprox_equaljs(ceil(-2.1), -2);
+    toolsapprox_equaljs(ceil(math.pi), 4);
   });
 
   it('should return the ceil of a big number', function () {

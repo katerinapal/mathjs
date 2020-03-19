@@ -1,6 +1,5 @@
-var assert = require('assert');
-var math = require('../../../index');
-var approx = require('../../../tools/approx');
+import assert from "assert";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
 var pi = math.pi;
 var acos = math.acos;
 var cos = math.cos;
@@ -15,20 +14,20 @@ var Big = bigmath.bignumber;
 
 describe('acos', function() {
   it('should return the arccos of a boolean', function () {
-    approx.equal(acos(true), 0);
-    approx.equal(acos(false), 0.5 * pi);
+    toolsapprox_equaljs(acos(true), 0);
+    toolsapprox_equaljs(acos(false), 0.5 * pi);
   });
 
   it('should return the arccos of null', function () {
-    approx.equal(acos(null), 0.5 * pi);
+    toolsapprox_equaljs(acos(null), 0.5 * pi);
   });
 
   it('should return the arccos of a number', function() {
-    approx.equal(acos(-1) / pi, 1);
-    approx.equal(acos(-0.5) / pi, 2 / 3);
-    approx.equal(acos(0) / pi, 0.5);
-    approx.equal(acos(0.5) / pi, 1 / 3);
-    approx.equal(acos(1) / pi, 0);
+    toolsapprox_equaljs(acos(-1) / pi, 1);
+    toolsapprox_equaljs(acos(-0.5) / pi, 2 / 3);
+    toolsapprox_equaljs(acos(0) / pi, 0.5);
+    toolsapprox_equaljs(acos(0.5) / pi, 1 / 3);
+    toolsapprox_equaljs(acos(1) / pi, 0);
 
     approx.deepEqual(acos(-2), complex('3.14159265358979 - 1.31695789692482i'));
     approx.deepEqual(acos(2), complex('1.316957896924817i'));
@@ -56,11 +55,11 @@ describe('acos', function() {
   });
 
   it('should be the inverse function of cos', function() {
-    approx.equal(acos(cos(-1)), 1);
-    approx.equal(acos(cos(0)), 0);
-    approx.equal(acos(cos(0.1)), 0.1);
-    approx.equal(acos(cos(0.5)), 0.5);
-    approx.equal(acos(cos(2)), 2);
+    toolsapprox_equaljs(acos(cos(-1)), 1);
+    toolsapprox_equaljs(acos(cos(0)), 0);
+    toolsapprox_equaljs(acos(cos(0.1)), 0.1);
+    toolsapprox_equaljs(acos(cos(0.5)), 0.5);
+    toolsapprox_equaljs(acos(cos(2)), 2);
   });
 
   it('should be the inverse function of bignumber cos', function() {

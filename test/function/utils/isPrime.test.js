@@ -1,5 +1,4 @@
-var assert = require('assert');
-var math = require('../../../index');
+import assert from "assert";
 var isPrime = math.isPrime;
 var bignumber = math.bignumber;
 var complex = math.complex;

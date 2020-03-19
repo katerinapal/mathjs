@@ -1,7 +1,5 @@
-// test subtract
-var assert = require('assert');
-var approx = require('../../../tools/approx');
-var math = require('../../../index');
+import assert from "assert";
+import { deepEqual as toolsapprox_deepEqualjs } from "../../../tools/approx";
 var bignumber = math.bignumber;
 var subtract = math.subtract;
 
@@ -91,7 +89,7 @@ describe('subtract', function() {
   });
 
   it('should subtract two quantities of the same unit', function() {
-    approx.deepEqual(subtract(math.unit(5, 'km'), math.unit(100, 'mile')), math.unit(-155.93, 'km'));
+    toolsapprox_deepEqualjs(subtract(math.unit(5, 'km'), math.unit(100, 'mile')), math.unit(-155.93, 'km'));
 
     assert.deepEqual(subtract(math.unit(math.bignumber(5), 'km'), math.unit(math.bignumber(2), 'km')), math.unit(math.bignumber(3), 'km'));
 

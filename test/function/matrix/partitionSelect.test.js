@@ -1,6 +1,4 @@
-var assert = require('assert');
-var error = require('../../../lib/error/index');
-var math = require('../../../index');
+import assert from "assert";
 var matrix = math.matrix;
 var partitionSelect = math.partitionSelect;
 

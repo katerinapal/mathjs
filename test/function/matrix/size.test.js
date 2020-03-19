@@ -1,9 +1,6 @@
+import assert from "assert";
 // test size
-var assert = require('assert'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    size = math.size,
-    matrix = math.matrix;
+var error = require('../../../lib/error/index'), math = require('../../../index'), size = math.size, matrix = math.matrix;
 
 describe('size', function() {
 

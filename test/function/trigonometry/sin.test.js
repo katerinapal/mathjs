@@ -1,35 +1,28 @@
-var assert = require('assert'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    approx = require('../../../tools/approx'),
-    pi = math.pi,
-    complex = math.complex,
-    matrix = math.matrix,
-    unit = math.unit,
-    sin = math.sin,
-    bigmath = math.create({precision: 242});
+import assert from "assert";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
+var error = require('../../../lib/error/index'), math = require('../../../index'), pi = math.pi, complex = math.complex, matrix = math.matrix, unit = math.unit, sin = math.sin, bigmath = math.create({precision: 242});
 
 describe('sin', function() {
   it('should return the sine of a boolean', function () {
-    approx.equal(sin(true), 0.841470984807897);
-    approx.equal(sin(false), 0);
+    toolsapprox_equaljs(sin(true), 0.841470984807897);
+    toolsapprox_equaljs(sin(false), 0);
   });
 
   it('should return the sine of null', function () {
-    approx.equal(sin(null), 0);
+    toolsapprox_equaljs(sin(null), 0);
   });
 
   it('should return the sine of a number', function() {
-    approx.equal(sin(0), 0);
-    approx.equal(sin(pi/8), 0.382683432365090);
-    approx.equal(sin(pi/4), Math.SQRT1_2);
-    approx.equal(sin(pi/2), 1);
-    approx.equal(sin(pi*3/4), 0.707106781186548);
-    approx.equal(sin(pi), 0);
-    approx.equal(sin(pi*5/4), -0.707106781186548);
-    approx.equal(sin(pi*3/2), -1);
-    approx.equal(sin(pi*7/4), -0.707106781186548);
-    approx.equal(sin(pi*2), 0);
+    toolsapprox_equaljs(sin(0), 0);
+    toolsapprox_equaljs(sin(pi/8), 0.382683432365090);
+    toolsapprox_equaljs(sin(pi/4), Math.SQRT1_2);
+    toolsapprox_equaljs(sin(pi/2), 1);
+    toolsapprox_equaljs(sin(pi*3/4), 0.707106781186548);
+    toolsapprox_equaljs(sin(pi), 0);
+    toolsapprox_equaljs(sin(pi*5/4), -0.707106781186548);
+    toolsapprox_equaljs(sin(pi*3/2), -1);
+    toolsapprox_equaljs(sin(pi*7/4), -0.707106781186548);
+    toolsapprox_equaljs(sin(pi*2), 0);
   });
 
   it('should return the sine of a bignumber', function() {
@@ -54,7 +47,7 @@ describe('sin', function() {
 
     // we've had a bug in reducing the period, affecting integer values around multiples of tau (like 6, 7)
     for (var x = -20; x < 20; x += 1) {
-      approx.equal(bigmath.sin(bigmath.bignumber(x)).toNumber(), Math.sin(x));
+      toolsapprox_equaljs(bigmath.sin(bigmath.bignumber(x)).toNumber(), Math.sin(x));
     }
 
     var bigPi = bigmath.pi;
@@ -85,11 +78,11 @@ describe('sin', function() {
   });
 
   it('should return the sine of an angle', function() {
-    approx.equal(sin(unit('45deg')), 0.707106781186548);
-    approx.equal(sin(unit('-45deg')), -0.707106781186548);
+    toolsapprox_equaljs(sin(unit('45deg')), 0.707106781186548);
+    toolsapprox_equaljs(sin(unit('-45deg')), -0.707106781186548);
 
     assert(sin(unit(math.bignumber(45), 'deg')).isBigNumber);
-    approx.equal(sin(unit(math.bignumber(45), 'deg')).toNumber(), 0.707106781186548);
+    toolsapprox_equaljs(sin(unit(math.bignumber(45), 'deg')).toNumber(), 0.707106781186548);
 
     approx.deepEqual(sin(unit(complex('1+i'), 'rad')), complex(1.298457581415977, 0.634963914784736));
   });

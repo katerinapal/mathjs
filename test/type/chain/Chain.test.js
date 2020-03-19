@@ -1,7 +1,4 @@
-// test chain
-var assert = require('assert');
-var approx = require('../../../tools/approx');
-var math = require('../../../index');
+import assert from "assert";
 var Chain = math.type.Chain;
 
 describe('Chain', function() {

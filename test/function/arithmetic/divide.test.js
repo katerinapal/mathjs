@@ -1,8 +1,5 @@
-// test divide
-var assert = require('assert');
-var math = require('../../../index');
-var error = require('../../../lib/error/index');
-var approx = require('../../../tools/approx');
+import assert from "assert";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
 var divide = math.divide;
 var bignumber = math.bignumber;
 var complex = math.complex;
@@ -35,7 +32,7 @@ describe('divide', function() {
   it('should divide mixed numbers and booleans', function() {
     assert.equal(divide(2, true), 2);
     assert.equal(divide(2, false), Infinity);
-    approx.equal(divide(true, 2), 0.5);
+    toolsapprox_equaljs(divide(true, 2), 0.5);
     assert.equal(divide(false, 2), 0);
   });
 
@@ -131,7 +128,7 @@ describe('divide', function() {
 
     assert.equal(divide(10, math.unit(math.fraction(4), 'mg/s')).toString(), '5/2 s / mg');
 
-    approx.equal(math.format(divide(10, math.unit(math.complex(1,2), 'm/s')), 14), '(2 - 4i) s / m');
+    toolsapprox_equaljs(math.format(divide(10, math.unit(math.complex(1,2), 'm/s')), 14), '(2 - 4i) s / m');
   });
 
   it('should divide two units', function() {

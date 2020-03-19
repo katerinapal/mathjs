@@ -1,5 +1,4 @@
-var assert = require('assert');
-var math = require('../../../index');
+import assert from "assert";
 var BigNumber = math.type.BigNumber;
 var Complex = math.type.Complex;
 var DenseMatrix = math.type.DenseMatrix;

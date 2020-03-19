@@ -1,7 +1,5 @@
-// test mod
-var assert = require('assert');
-var approx = require('../../../tools/approx');
-var math = require('../../../index');
+import assert from "assert";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
 var bignumber = math.bignumber;
 var matrix = math.matrix;
 var sparse = math.sparse;
@@ -29,13 +27,13 @@ describe('mod', function() {
     assert.equal(mod(0, 0), 0);
     assert.equal(mod(7, 0), 7);
 
-    approx.equal(mod(7, 2), 1);
-    approx.equal(mod(9, 3), 0);
-    approx.equal(mod(10, 4), 2);
-    approx.equal(mod(-10, 4), 2);
-    approx.equal(mod(8.2, 3), 2.2);
-    approx.equal(mod(4, 1.5), 1);
-    approx.equal(mod(0, 3), 0);
+    toolsapprox_equaljs(mod(7, 2), 1);
+    toolsapprox_equaljs(mod(9, 3), 0);
+    toolsapprox_equaljs(mod(10, 4), 2);
+    toolsapprox_equaljs(mod(-10, 4), 2);
+    toolsapprox_equaljs(mod(8.2, 3), 2.2);
+    toolsapprox_equaljs(mod(4, 1.5), 1);
+    toolsapprox_equaljs(mod(0, 3), 0);
   });
 
   it('should throw an error if the modulus is negative', function() {

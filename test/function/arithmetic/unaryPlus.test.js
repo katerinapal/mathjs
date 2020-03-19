@@ -1,7 +1,4 @@
-// test unary plus
-var assert = require('assert');
-var math = require('../../../index');
-var error = require('../../../lib/error/index');
+import assert from "assert";
 var bignumber = math.bignumber;
 var fraction = math.fraction;
 

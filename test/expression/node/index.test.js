@@ -1,6 +1,4 @@
-// test the contents of index.js
-var assert = require('assert');
-var index = require('../../../lib/expression/node/index');
+import assert from "assert";
 
 describe('node/index', function() {
 

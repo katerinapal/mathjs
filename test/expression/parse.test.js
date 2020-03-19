@@ -1,8 +1,6 @@
-// test parse
-var assert = require('assert');
-var approx = require('../../tools/approx');
-var math = require('../../index');
-var ArgumentsError = require('../../lib/error/ArgumentsError');
+import assert from "assert";
+import { equal as toolsapprox_equaljs } from "../../tools/approx";
+import { ArgumentsError as liberrorArgumentsError_ArgumentsErrorjs } from "../../lib/error/ArgumentsError";
 var parse = math.expression.parse;
 var ConditionalNode = math.expression.node.ConditionalNode;
 var OperatorNode = math.expression.node.OperatorNode;
@@ -26,7 +24,7 @@ function parseAndEval(expr, scope) {
 describe('parse', function() {
 
   it('should parse a single expression', function() {
-    approx.equal(parse('2 + 6 / 3').compile().eval(), 4);
+    toolsapprox_equaljs(parse('2 + 6 / 3').compile().eval(), 4);
   });
 
   it('should parse an empty expression', function() {
@@ -177,8 +175,8 @@ describe('parse', function() {
   });
 
   it('should throw an error if called with wrong number of arguments', function() {
-    assert.throws(function () {parse();}, ArgumentsError);
-    assert.throws(function () {parse(1,2,3);}, ArgumentsError);
+    assert.throws(function () {parse();}, liberrorArgumentsError_ArgumentsErrorjs);
+    assert.throws(function () {parse(1,2,3);}, liberrorArgumentsError_ArgumentsErrorjs);
     assert.throws(function () {parse([1, 2]);}, TypeError);
   });
 
@@ -235,7 +233,7 @@ describe('parse', function() {
     });
 
     it('should parse a number followed by e', function() {
-      approx.equal(parseAndEval('2e'), 2 * Math.E);
+      toolsapprox_equaljs(parseAndEval('2e'), 2 * Math.E);
     });
 
     it('should throw an error with invalid numbers', function() {
@@ -765,7 +763,7 @@ describe('parse', function() {
     });
 
     it('should invoke a function on an object with the right context', function () {
-      approx.equal(parseAndEval('(2.54 cm).toNumeric("inch")'), 1);
+      toolsapprox_equaljs(parseAndEval('(2.54 cm).toNumeric("inch")'), 1);
       assert.deepEqual(parseAndEval('bignumber(2).plus(3)'), math.bignumber(5));
       assert.deepEqual(parseAndEval('bignumber(2)["plus"](3)'), math.bignumber(5));
     });
@@ -849,8 +847,8 @@ describe('parse', function() {
 
     it('should parse constants', function() {
       assert.deepEqual(parseAndEval('i'), new Complex(0, 1));
-      approx.equal(parseAndEval('pi'), Math.PI);
-      approx.equal(parseAndEval('e'), Math.E);
+      toolsapprox_equaljs(parseAndEval('pi'), Math.PI);
+      toolsapprox_equaljs(parseAndEval('e'), Math.E);
     });
 
   });
@@ -863,7 +861,7 @@ describe('parse', function() {
       assert.equal(parseAndEval('a + 2', scope), 2.75);
       assert.equal(parseAndEval('a = 2', scope), 2);
       assert.equal(parseAndEval('a + 2', scope), 4);
-      approx.equal(parseAndEval('pi * 2', scope), 6.283185307179586);
+      toolsapprox_equaljs(parseAndEval('pi * 2', scope), 6.283185307179586);
     });
 
     it('should throw an error on undefined symbol', function() {
@@ -977,10 +975,10 @@ describe('parse', function() {
 
   describe ('parentheses', function () {
     it('should parse parentheses overriding the default precedence', function () {
-      approx.equal(parseAndEval('2 - (2 - 2)'), 2);
-      approx.equal(parseAndEval('2 - ((2 - 2) - 2)'), 4);
-      approx.equal(parseAndEval('3 * (2 + 3)'), 15);
-      approx.equal(parseAndEval('(2 + 3) * 3'), 15);
+      toolsapprox_equaljs(parseAndEval('2 - (2 - 2)'), 2);
+      toolsapprox_equaljs(parseAndEval('2 - ((2 - 2) - 2)'), 4);
+      toolsapprox_equaljs(parseAndEval('3 * (2 + 3)'), 15);
+      toolsapprox_equaljs(parseAndEval('(2 + 3) * 3'), 15);
     });
 
     it('should throw an error in case of unclosed parentheses', function () {
@@ -991,8 +989,8 @@ describe('parse', function() {
   describe ('operators', function () {
 
     it('should parse operations', function() {
-      approx.equal(parseAndEval('(2+3)/4'), 1.25);
-      approx.equal(parseAndEval('2+3/4'), 2.75);
+      toolsapprox_equaljs(parseAndEval('(2+3)/4'), 1.25);
+      toolsapprox_equaljs(parseAndEval('2+3/4'), 2.75);
       assert.equal(parse('0 + 2').toString(), '0 + 2');
     });
 
@@ -1054,16 +1052,16 @@ describe('parse', function() {
     });
 
     it('should parse mod %', function() {
-      approx.equal(parseAndEval('8 % 3'), 2);
+      toolsapprox_equaljs(parseAndEval('8 % 3'), 2);
     });
 
     it('should parse operator mod', function() {
-      approx.equal(parseAndEval('8 mod 3'), 2);
+      toolsapprox_equaljs(parseAndEval('8 mod 3'), 2);
     });
 
     it('should parse multiply *', function() {
-      approx.equal(parseAndEval('4 * 2'), 8);
-      approx.equal(parseAndEval('8 * 2 * 2'), 32);
+      toolsapprox_equaljs(parseAndEval('4 * 2'), 8);
+      toolsapprox_equaljs(parseAndEval('8 * 2 * 2'), 32);
     });
 
     it('should parse implicit multiplication', function() {
@@ -1141,9 +1139,9 @@ describe('parse', function() {
     });
 
     it('should parse pow ^', function() {
-      approx.equal(parseAndEval('2^3'), 8);
-      approx.equal(parseAndEval('-2^2'), -4);  // -(2^2)
-      approx.equal(parseAndEval('2^3^4'), 2.41785163922926e+24); // 2^(3^4)
+      toolsapprox_equaljs(parseAndEval('2^3'), 8);
+      toolsapprox_equaljs(parseAndEval('-2^2'), -4);  // -(2^2)
+      toolsapprox_equaljs(parseAndEval('2^3^4'), 2.41785163922926e+24); // 2^(3^4)
     });
 
     it('should parse smaller <', function() {
@@ -1644,7 +1642,7 @@ describe('parse', function() {
 
   describe('functions', function () {
     it('should evaluate function "mod"', function () {
-      approx.equal(parseAndEval('mod(8, 3)'), 2);
+      toolsapprox_equaljs(parseAndEval('mod(8, 3)'), 2);
 
     });
 
@@ -1695,11 +1693,11 @@ describe('parse', function() {
     });
 
     it('should work with mixed numbers and bignumbers', function() {
-      approx.equal(bigmath.eval('pi + 1'), 4.141592653589793);
+      toolsapprox_equaljs(bigmath.eval('pi + 1'), 4.141592653589793);
     });
 
     it('should evaluate functions not supporting bignumbers', function() {
-      approx.equal(bigmath.eval('sin(0.1)'), 0.09983341664682815);
+      toolsapprox_equaljs(bigmath.eval('sin(0.1)'), 0.09983341664682815);
     });
 
     it('should create a range from bignumbers', function() {

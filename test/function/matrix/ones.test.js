@@ -1,9 +1,6 @@
+import assert from "assert";
 // test ones
-var assert = require('assert'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    ones = math.ones,
-    matrix = math.matrix;
+var error = require('../../../lib/error/index'), math = require('../../../index'), ones = math.ones, matrix = math.matrix;
 
 describe('ones', function() {
 

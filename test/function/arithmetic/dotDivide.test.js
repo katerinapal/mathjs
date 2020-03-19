@@ -1,9 +1,7 @@
+import assert from "assert";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
 // test dotDivide (element-wise divide)
-var assert = require('assert'),
-    math = require('../../../index'),
-    approx = require('../../../tools/approx'),
-    dotDivide = math.dotDivide,
-    complex = math.complex;
+var math = require('../../../index'), dotDivide = math.dotDivide, complex = math.complex;
 
 describe('dotDivide', function() {
 
@@ -27,7 +25,7 @@ describe('dotDivide', function() {
   it('should add mixed numbers and booleans', function() {
     assert.equal(dotDivide(2, true), 2);
     assert.equal(dotDivide(2, false), Infinity);
-    approx.equal(dotDivide(true, 2), 0.5);
+    toolsapprox_equaljs(dotDivide(true, 2), 0.5);
     assert.equal(dotDivide(false, 2), 0);
   });
 

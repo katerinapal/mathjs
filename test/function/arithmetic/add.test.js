@@ -1,8 +1,5 @@
-// test add
-var assert = require('assert');
-var approx = require('../../../tools/approx');
-var math = require('../../../index');
-var BigNumber = require('decimal.js');
+import assert from "assert";
+import decimaljs from "decimal.js";
 var add = math.add;
 
 // TODO: make unit tests independent of math

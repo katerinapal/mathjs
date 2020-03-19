@@ -1,5 +1,4 @@
-var assert = require('assert');
-var math = require('../../../index');
+import assert from "assert";
 var isNumeric = math.isNumeric;
 var bignumber = math.bignumber;
 var fraction = math.fraction;

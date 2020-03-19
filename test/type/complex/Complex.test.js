@@ -1,7 +1,4 @@
-// test data type Complex
-
-var assert = require('assert');
-var math = require('../../../index');
+import assert from "assert";
 var Unit = math.type.Unit;
 var Complex = math.type.Complex;
 

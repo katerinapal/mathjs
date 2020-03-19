@@ -1,5 +1,4 @@
-var assert = require('assert');
-var math = require('../../../../index');
+import assert from "assert";
 var unit = math.unit;
 var Unit = math.type.Unit;
 

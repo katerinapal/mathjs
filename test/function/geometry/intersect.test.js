@@ -1,6 +1,4 @@
-var assert = require('assert');
-var error = require('../../../lib/error/index');
-var math = require('../../../index');
+import assert from "assert";
 
 describe('intersect', function() {
   it('should calculate the intersection point of two 2D lines', function() {

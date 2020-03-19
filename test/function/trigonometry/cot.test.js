@@ -1,36 +1,28 @@
-var assert = require('assert'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    approx = require('../../../tools/approx'),
-    pi = math.pi,
-    complex = math.complex,
-    matrix = math.matrix,
-    unit = math.unit,
-    cot = math.cot,
-    bigmath = math.create({number: 'BigNumber', precision: 20}),
-    biggermath = math.create({number: 'BigNumber', precision: 22});
+import assert from "assert";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
+var error = require('../../../lib/error/index'), math = require('../../../index'), pi = math.pi, complex = math.complex, matrix = math.matrix, unit = math.unit, cot = math.cot, bigmath = math.create({number: 'BigNumber', precision: 20}), biggermath = math.create({number: 'BigNumber', precision: 22});
 
 describe('cot', function() {
   it('should return the cotan of a boolean', function () {
-    approx.equal(cot(true), 0.642092615934331);
-    approx.equal(cot(false), Infinity);
+    toolsapprox_equaljs(cot(true), 0.642092615934331);
+    toolsapprox_equaljs(cot(false), Infinity);
   });
 
   it('should return the cotan of null', function () {
-    approx.equal(cot(null), Infinity);
+    toolsapprox_equaljs(cot(null), Infinity);
   });
 
   it('should return the cotan of a number', function() {
-    approx.equal(cot(0), Infinity);
-    approx.equal(1 / cot(pi*1/8), 0.414213562373095);
-    approx.equal(1 / cot(pi*1/4), 1);
-    approx.equal(cot(pi*2/4), 0);
-    approx.equal(1 / cot(pi*3/4), -1);
-    approx.equal(1 / cot(pi*4/4), 0);
-    approx.equal(1 / cot(pi*5/4), 1);
-    approx.equal(cot(pi*6/4), 0);
-    approx.equal(1 / cot(pi*7/4), -1);
-    approx.equal(1 / cot(pi*8/4), 0);
+    toolsapprox_equaljs(cot(0), Infinity);
+    toolsapprox_equaljs(1 / cot(pi*1/8), 0.414213562373095);
+    toolsapprox_equaljs(1 / cot(pi*1/4), 1);
+    toolsapprox_equaljs(cot(pi*2/4), 0);
+    toolsapprox_equaljs(1 / cot(pi*3/4), -1);
+    toolsapprox_equaljs(1 / cot(pi*4/4), 0);
+    toolsapprox_equaljs(1 / cot(pi*5/4), 1);
+    toolsapprox_equaljs(cot(pi*6/4), 0);
+    toolsapprox_equaljs(1 / cot(pi*7/4), -1);
+    toolsapprox_equaljs(1 / cot(pi*8/4), 0);
   });
 
   it('should return the cotan of a bignumber', function() {
@@ -66,11 +58,11 @@ describe('cot', function() {
   });
 
   it('should return the cotan of an angle', function() {
-    approx.equal(cot(unit('45deg')), 1);
-    approx.equal(cot(unit('-45deg')), -1);
+    toolsapprox_equaljs(cot(unit('45deg')), 1);
+    toolsapprox_equaljs(cot(unit('-45deg')), -1);
 
     assert(cot(unit(math.bignumber(45), 'deg')).isBigNumber);
-    approx.equal(cot(unit(math.bignumber(45), 'deg')).toNumber(), 1);
+    toolsapprox_equaljs(cot(unit(math.bignumber(45), 'deg')).toNumber(), 1);
 
     approx.deepEqual(cot(math.unit(complex('1+i'), 'rad')), complex(0.217621561854403, -0.868014142895925));
   });

@@ -1,8 +1,5 @@
-// test cbrt
-var assert = require('assert');
-var approx = require('../../../tools/approx');
-var error = require('../../../lib/error/index');
-var math = require('../../../index');
+import assert from "assert";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
 var cbrt = math.cbrt;
 var bignumber = math.bignumber;
 var complex = math.complex;
@@ -25,7 +22,7 @@ describe('cbrt', function() {
     assert.equal(cbrt(64), 4);
     assert.equal(cbrt(125), 5);
 
-    approx.equal(cbrt(10), 2.1544346900318834);
+    toolsapprox_equaljs(cbrt(10), 2.1544346900318834);
   });
 
   it('should return the cubic root of a negative number', function() {

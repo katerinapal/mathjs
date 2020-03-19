@@ -1,6 +1,4 @@
-// test compile
-var assert = require('assert');
-var math = require('../../../index');
+import assert from "assert";
 
 describe('compile', function() {
 

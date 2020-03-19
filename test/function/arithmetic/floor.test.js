@@ -1,7 +1,5 @@
-// test floor
-var assert = require('assert');
-var approx = require('../../../tools/approx');
-var math = require('../../../index');
+import assert from "assert";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
 var bignumber = math.bignumber;
 var complex = math.complex;
 var fraction = math.fraction;
@@ -21,17 +19,17 @@ describe('floor', function() {
   });
 
   it('should floor numbers correctly', function() {
-    approx.equal(floor(0), 0);
-    approx.equal(floor(1), 1);
-    approx.equal(floor(1.3), 1);
-    approx.equal(floor(1.8), 1);
-    approx.equal(floor(2), 2);
-    approx.equal(floor(-1), -1);
-    approx.equal(floor(-1.3), -2);
-    approx.equal(floor(-1.8), -2);
-    approx.equal(floor(-2), -2);
-    approx.equal(floor(-2.1), -3);
-    approx.equal(floor(math.pi), 3);
+    toolsapprox_equaljs(floor(0), 0);
+    toolsapprox_equaljs(floor(1), 1);
+    toolsapprox_equaljs(floor(1.3), 1);
+    toolsapprox_equaljs(floor(1.8), 1);
+    toolsapprox_equaljs(floor(2), 2);
+    toolsapprox_equaljs(floor(-1), -1);
+    toolsapprox_equaljs(floor(-1.3), -2);
+    toolsapprox_equaljs(floor(-1.8), -2);
+    toolsapprox_equaljs(floor(-2), -2);
+    toolsapprox_equaljs(floor(-2.1), -3);
+    toolsapprox_equaljs(floor(math.pi), 3);
   });
 
   it('should floor big numbers correctly', function() {

@@ -1,8 +1,5 @@
-var assert = require('assert'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    matrix = math.matrix,
-    flatten = math.flatten;
+import assert from "assert";
+var error = require('../../../lib/error/index'), math = require('../../../index'), matrix = math.matrix, flatten = math.flatten;
 
 describe('flatten', function() {
 

@@ -1,43 +1,41 @@
-// test object utils
-var assert = require('assert'),
-    approx = require('../../tools/approx'),
-    object = require('../../lib/utils/object');
+import assert from "assert";
+import { clone as libutilsobject_clonejs } from "../../lib/utils/object";
 
 describe ('object', function () {
 
   describe('clone', function() {
 
     it('should clone undefined', function () {
-      assert.strictEqual(object.clone(undefined), undefined);
+      assert.strictEqual(libutilsobject_clonejs(undefined), undefined);
     });
 
     it('should clone null', function () {
-      assert.strictEqual(object.clone(null), null);
+      assert.strictEqual(libutilsobject_clonejs(null), null);
     });
 
     it('should clone booleans', function () {
-      assert.strictEqual(object.clone(true), true);
-      assert.strictEqual(object.clone(false), false);
-      assert.ok(object.clone(new Boolean(true)) instanceof Boolean);
-      assert.equal(object.clone(new Boolean(true)), true);
-      assert.equal(object.clone(new Boolean(false)), false);
+      assert.strictEqual(libutilsobject_clonejs(true), true);
+      assert.strictEqual(libutilsobject_clonejs(false), false);
+      assert.ok(libutilsobject_clonejs(new Boolean(true)) instanceof Boolean);
+      assert.equal(libutilsobject_clonejs(new Boolean(true)), true);
+      assert.equal(libutilsobject_clonejs(new Boolean(false)), false);
     });
 
     it('should clone numbers', function () {
-      assert.strictEqual(object.clone(2.3), 2.3);
-      assert.ok(object.clone(new Number(2.3)) instanceof Number);
-      assert.equal(object.clone(new Number(2.3)), 2.3);
+      assert.strictEqual(libutilsobject_clonejs(2.3), 2.3);
+      assert.ok(libutilsobject_clonejs(new Number(2.3)) instanceof Number);
+      assert.equal(libutilsobject_clonejs(new Number(2.3)), 2.3);
     });
 
     it('should clone strings', function () {
-      assert.strictEqual(object.clone('hello'), 'hello');
-      assert.ok(object.clone(new String('hello')) instanceof String);
-      assert.equal(object.clone(new String('hello')), 'hello');
+      assert.strictEqual(libutilsobject_clonejs('hello'), 'hello');
+      assert.ok(libutilsobject_clonejs(new String('hello')) instanceof String);
+      assert.equal(libutilsobject_clonejs(new String('hello')), 'hello');
     });
 
     it('should (deep) clone objects', function () {
       var obj = {a: {b: 'c', d: new Date(2014,0,1)}};
-      var clone = object.clone(obj);
+      var clone = libutilsobject_clonejs(obj);
 
       assert.deepEqual(obj, clone);
 
@@ -52,7 +50,7 @@ describe ('object', function () {
 
     it('should clone dates', function () {
       var d1 = new Date(2014,1,1);
-      var d2 = object.clone(d1);
+      var d2 = libutilsobject_clonejs(d1);
       assert.equal(d1.valueOf(), d2.valueOf());
       d1.setMonth(2);
       assert.notEqual(d1, d2);
@@ -61,7 +59,7 @@ describe ('object', function () {
     it('should (deep) clone arrays', function () {
       var d = new Date(2014,0,1);
       var arr = [1, 2, d, {a: 3}]
-      var clone = object.clone(arr);
+      var clone = libutilsobject_clonejs(arr);
 
       assert.deepEqual(arr, clone);
       assert.notStrictEqual(arr, clone);
@@ -77,7 +75,7 @@ describe ('object', function () {
     });
 
     it('should throw an error in case of an unsupported type', function () {
-      assert.throws(function () {object.clone(/a regexp/)}, /Cannot clone/);
+      assert.throws(function () {libutilsobject_clonejs(/a regexp/)}, /Cannot clone/);
     });
   });
 

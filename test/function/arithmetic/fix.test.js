@@ -1,7 +1,5 @@
-// test fix
-var assert = require('assert');
-var approx = require('../../../tools/approx');
-var math = require('../../../index');
+import assert from "assert";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
 var bignumber = math.bignumber;
 var complex = math.complex;
 var fraction = math.fraction;
@@ -21,17 +19,17 @@ describe('fix', function() {
   });
 
   it('should round numbers correctly', function() {
-    approx.equal(fix(0), 0);
-    approx.equal(fix(1), 1);
-    approx.equal(fix(1.3), 1);
-    approx.equal(fix(1.8), 1);
-    approx.equal(fix(2), 2);
-    approx.equal(fix(-1), -1);
-    approx.equal(fix(-1.3), -1);
-    approx.equal(fix(-1.8), -1);
-    approx.equal(fix(-2), -2);
-    approx.equal(fix(-2.1), -2);
-    approx.equal(fix(math.pi), 3);
+    toolsapprox_equaljs(fix(0), 0);
+    toolsapprox_equaljs(fix(1), 1);
+    toolsapprox_equaljs(fix(1.3), 1);
+    toolsapprox_equaljs(fix(1.8), 1);
+    toolsapprox_equaljs(fix(2), 2);
+    toolsapprox_equaljs(fix(-1), -1);
+    toolsapprox_equaljs(fix(-1.3), -1);
+    toolsapprox_equaljs(fix(-1.8), -1);
+    toolsapprox_equaljs(fix(-2), -2);
+    toolsapprox_equaljs(fix(-2.1), -2);
+    toolsapprox_equaljs(fix(math.pi), 3);
   });
 
   it('should round big numbers correctly', function() {

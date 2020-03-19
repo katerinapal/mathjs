@@ -1,26 +1,17 @@
+import assert from "assert";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
 // test dotMultiply (element-wise multiply)
-var assert = require('assert'),
-    math = require('../../../index'),
-    approx = require('../../../tools/approx'),
-    error = require('../../../lib/error/index'),
-    dotMultiply = math.dotMultiply,
-    divide = math.divide,
-    matrix = math.matrix,
-    sparse = math.sparse,
-    complex = math.complex,
-    range = math.range,
-    i = math.i,
-    unit = math.unit;
+var math = require('../../../index'), error = require('../../../lib/error/index'), dotMultiply = math.dotMultiply, divide = math.divide, matrix = math.matrix, sparse = math.sparse, complex = math.complex, range = math.range, i = math.i, unit = math.unit;
 
 describe('dotMultiply', function() {
 
   it('should multiply 2 numbers', function() {
     // number
-    approx.equal(dotMultiply(2, 3), 6);
-    approx.equal(dotMultiply(-2, 3), -6);
-    approx.equal(dotMultiply(-2, -3), 6);
-    approx.equal(dotMultiply(5, 0), 0);
-    approx.equal(dotMultiply(0, 5), 0);
+    toolsapprox_equaljs(dotMultiply(2, 3), 6);
+    toolsapprox_equaljs(dotMultiply(-2, 3), -6);
+    toolsapprox_equaljs(dotMultiply(-2, -3), 6);
+    toolsapprox_equaljs(dotMultiply(5, 0), 0);
+    toolsapprox_equaljs(dotMultiply(0, 5), 0);
   });
 
   it('should multiply booleans', function() {

@@ -1,5 +1,4 @@
-var assert = require('assert');
-var math = require('../../../index');
+import assert from "assert";
 var Spa = math.type.Spa;
 
 describe('Spa', function() {

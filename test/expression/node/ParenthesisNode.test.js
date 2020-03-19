@@ -1,7 +1,4 @@
-// test SymbolNode
-var assert = require('assert');
-var approx = require('../../../tools/approx');
-var math = require('../../../index');
+import assert from "assert";
 var Node = math.expression.node.Node;
 var ConstantNode = math.expression.node.ConstantNode;
 var OperatorNode = math.expression.node.OperatorNode;

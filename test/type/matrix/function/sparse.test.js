@@ -1,7 +1,6 @@
+import assert from "assert";
 // test matrix construction
-var assert = require('assert'),
-    math = require('../../../../index'),
-    sparse = math.sparse;
+var math = require('../../../../index'), sparse = math.sparse;
 
 describe('sparse', function() {
 

@@ -1,31 +1,23 @@
-var assert = require('assert'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    approx = require('../../../tools/approx'),
-    pi = math.pi,
-    complex = math.complex,
-    matrix = math.matrix,
-    unit = math.unit,
-    sech = math.sech,
-    bigmath = math.create({precision: 20}),
-    biggermath = math.create({number: 'BigNumber', precision: 21});
+import assert from "assert";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
+var error = require('../../../lib/error/index'), math = require('../../../index'), pi = math.pi, complex = math.complex, matrix = math.matrix, unit = math.unit, sech = math.sech, bigmath = math.create({precision: 20}), biggermath = math.create({number: 'BigNumber', precision: 21});
 
 describe('sech', function() {
   it('should return the sech of a boolean', function () {
-    approx.equal(sech(true), 0.64805427366389);
-    approx.equal(sech(false), 1);
+    toolsapprox_equaljs(sech(true), 0.64805427366389);
+    toolsapprox_equaljs(sech(false), 1);
   });
 
   it('should return the sech of null', function () {
-    approx.equal(sech(null), 1);
+    toolsapprox_equaljs(sech(null), 1);
   });
 
   it('should return the sech of a number', function() {
-    approx.equal(sech(0), 1);
-    approx.equal(sech(pi), 0.086266738334054);
-    approx.equal(sech(1), 0.64805427366389);
-    approx.equal(sech(2), 0.26580222883408);
-    approx.equal(sech(3), 0.099327927419433);
+    toolsapprox_equaljs(sech(0), 1);
+    toolsapprox_equaljs(sech(pi), 0.086266738334054);
+    toolsapprox_equaljs(sech(1), 0.64805427366389);
+    toolsapprox_equaljs(sech(2), 0.26580222883408);
+    toolsapprox_equaljs(sech(3), 0.099327927419433);
   });
 
   it('should return the sech of a bignumber', function() {
@@ -48,11 +40,11 @@ describe('sech', function() {
   });
 
   it('should return the sech of an angle', function() {
-    approx.equal(sech(unit('90deg')), 0.39853681533839);
-    approx.equal(sech(unit('-45deg')), 0.75493970871413);
+    toolsapprox_equaljs(sech(unit('90deg')), 0.39853681533839);
+    toolsapprox_equaljs(sech(unit('-45deg')), 0.75493970871413);
 
     assert(sech(unit(math.bignumber(90), 'deg')).isBigNumber);
-    approx.equal(sech(unit(math.bignumber(90), 'deg')).toNumber(), 0.39853681533839);
+    toolsapprox_equaljs(sech(unit(math.bignumber(90), 'deg')).toNumber(), 0.39853681533839);
 
     approx.deepEqual(sech(unit(complex('2 + i'), 'rad')), complex(0.15117629826558, -0.22697367539372));
   });

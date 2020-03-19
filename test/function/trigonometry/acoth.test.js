@@ -1,7 +1,5 @@
-var assert = require('assert');
-var error = require('../../../lib/error/index');
-var math = require('../../../index');
-var approx = require('../../../tools/approx');
+import assert from "assert";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
 var pi = math.pi;
 var acoth = math.acoth;
 var coth = math.coth;
@@ -32,10 +30,10 @@ describe('acoth', function() {
     //assert.ok(isNaN(acoth(0)));
     //assert.ok(isNaN(acoth(0.5)));
 
-    approx.equal(acoth(-2), -0.54930614433405484569762261846);
+    toolsapprox_equaljs(acoth(-2), -0.54930614433405484569762261846);
     assert.equal(acoth(-1), -Infinity);
     assert.equal(acoth(1), Infinity);
-    approx.equal(acoth(2), 0.54930614433405484569762261846);
+    toolsapprox_equaljs(acoth(2), 0.54930614433405484569762261846);
     assert.equal(acoth(Infinity), 0);
   });
 
@@ -64,11 +62,11 @@ describe('acoth', function() {
   });
 
   it('should be the inverse function of hyperbolic cot', function() {
-    approx.equal(acoth(coth(-2)), -2);
-    approx.equal(acoth(coth(-1)), -1);
-    approx.equal(acoth(coth(0)), 0);
-    approx.equal(acoth(coth(1)), 1);
-    approx.equal(acoth(coth(2)), 2);
+    toolsapprox_equaljs(acoth(coth(-2)), -2);
+    toolsapprox_equaljs(acoth(coth(-1)), -1);
+    toolsapprox_equaljs(acoth(coth(0)), 0);
+    toolsapprox_equaljs(acoth(coth(1)), 1);
+    toolsapprox_equaljs(acoth(coth(2)), 2);
   });
 
   it('should be the inverse function of bignumber coth', function() {

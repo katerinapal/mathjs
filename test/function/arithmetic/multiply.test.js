@@ -1,26 +1,18 @@
+import assert from "assert";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
 // test multiply
-var assert = require('assert'),
-    math = require('../../../index'),
-    approx = require('../../../tools/approx'),
-    market = require('../../../tools/matrixmarket'),
-    multiply = math.multiply,
-    divide = math.divide,
-    matrix = math.matrix,
-    complex = math.complex,
-    bignumber = math.bignumber,
-    i = math.i,
-    unit = math.unit;
+var math = require('../../../index'), market = require('../../../tools/matrixmarket'), multiply = math.multiply, divide = math.divide, matrix = math.matrix, complex = math.complex, bignumber = math.bignumber, i = math.i, unit = math.unit;
 
 describe('multiply', function() {
 
   describe('Scalar', function () {
 
     it('should multiply two numbers correctly', function() {
-      approx.equal(multiply(2, 3), 6);
-      approx.equal(multiply(-2, 3), -6);
-      approx.equal(multiply(-2, -3), 6);
-      approx.equal(multiply(5, 0), 0);
-      approx.equal(multiply(0, 5), 0);
+      toolsapprox_equaljs(multiply(2, 3), 6);
+      toolsapprox_equaljs(multiply(-2, 3), -6);
+      toolsapprox_equaljs(multiply(-2, -3), 6);
+      toolsapprox_equaljs(multiply(5, 0), 0);
+      toolsapprox_equaljs(multiply(0, 5), 0);
       approx.deepEqual(multiply(0, Infinity), NaN);
       approx.deepEqual(multiply(2, Infinity), Infinity);
       approx.deepEqual(multiply(-2, Infinity), -Infinity);

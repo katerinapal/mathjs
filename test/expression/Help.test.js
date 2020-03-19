@@ -1,6 +1,4 @@
-// test Help
-var assert = require('assert');
-var math = require('../../index');
+import assert from "assert";
 var Help = math.type.Help;
 
 describe('help', function() {

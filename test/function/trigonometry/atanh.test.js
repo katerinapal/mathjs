@@ -1,7 +1,5 @@
-var assert = require('assert');
-var error = require('../../../lib/error/index');
-var math = require('../../../index');
-var approx = require('../../../tools/approx');
+import assert from "assert";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
 var pi = math.pi;
 var atanh = math.atanh;
 var tanh = math.tanh;
@@ -30,11 +28,11 @@ describe('atanh', function() {
     //assert.ok(isNaN(atanh(-2)));
     //assert.ok(isNaN(atanh(2)));
 
-    approx.equal(atanh(-1), -Infinity);
-    approx.equal(atanh(-0.5), -0.54930614433405484569762261846);
-    approx.equal(atanh(0), 0);
-    approx.equal(atanh(0.5), 0.54930614433405484569762261846);
-    approx.equal(atanh(1), Infinity);
+    toolsapprox_equaljs(atanh(-1), -Infinity);
+    toolsapprox_equaljs(atanh(-0.5), -0.54930614433405484569762261846);
+    toolsapprox_equaljs(atanh(0), 0);
+    toolsapprox_equaljs(atanh(0.5), 0.54930614433405484569762261846);
+    toolsapprox_equaljs(atanh(1), Infinity);
   });
 
 
@@ -58,10 +56,10 @@ describe('atanh', function() {
   });
 
   it('should be the inverse function of hyperbolic tan', function() {
-    approx.equal(atanh(tanh(-1)), -1);
-    approx.equal(atanh(tanh(0)), 0);
-    approx.equal(atanh(tanh(0.1)), 0.1);
-    approx.equal(atanh(tanh(0.5)), 0.5);
+    toolsapprox_equaljs(atanh(tanh(-1)), -1);
+    toolsapprox_equaljs(atanh(tanh(0)), 0);
+    toolsapprox_equaljs(atanh(tanh(0.1)), 0.1);
+    toolsapprox_equaljs(atanh(tanh(0.5)), 0.5);
   });
 
   it('should be the inverse function of bignumber tanh', function() {

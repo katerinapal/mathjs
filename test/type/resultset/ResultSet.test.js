@@ -1,7 +1,4 @@
-// test data type ResultSet
-
-var assert = require('assert');
-var math = require('../../../index');
+import assert from "assert";
 var Unit = math.type.Unit;
 var Complex = math.type.Complex;
 var ResultSet = math.type.ResultSet;

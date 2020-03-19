@@ -1,18 +1,10 @@
-var assert = require('assert'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    approx = require('../../../tools/approx'),
-    pi = math.pi,
-    complex = math.complex,
-    matrix = math.matrix,
-    unit = math.unit,
-    sec = math.sec,
-    bigmath = math.create({number: 'BigNumber', precision: 20}),
-    biggermath = math.create({number: 'BigNumber', precision: 21});
+import assert from "assert";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
+var error = require('../../../lib/error/index'), math = require('../../../index'), pi = math.pi, complex = math.complex, matrix = math.matrix, unit = math.unit, sec = math.sec, bigmath = math.create({number: 'BigNumber', precision: 20}), biggermath = math.create({number: 'BigNumber', precision: 21});
 
 describe('sec', function() {
   it('should return the secant of a boolean', function () {
-    approx.equal(sec(true), 1.85081571768093);
+    toolsapprox_equaljs(sec(true), 1.85081571768093);
     assert.equal(sec(false), 1);
   });
 
@@ -21,25 +13,25 @@ describe('sec', function() {
   });
 
   it('should return the secant of a number', function() {
-    approx.equal(1 / sec(0), 1);
-    approx.equal(1 / sec(pi*1/4), 0.707106781186548);
-    approx.equal(1 / sec(pi*1/8), 0.923879532511287);
-    approx.equal(1 / sec(pi*2/4), 0);
-    approx.equal(1 / sec(pi*3/4), -0.707106781186548);
-    approx.equal(1 / sec(pi*4/4), -1);
-    approx.equal(1 / sec(pi*5/4), -0.707106781186548);
-    approx.equal(1 / sec(pi*6/4), 0);
-    approx.equal(1 / sec(pi*7/4), 0.707106781186548);
-    approx.equal(1 / sec(pi*8/4), 1);
-    approx.equal(1 / sec(pi/4), math.sqrt(2)/2);
+    toolsapprox_equaljs(1 / sec(0), 1);
+    toolsapprox_equaljs(1 / sec(pi*1/4), 0.707106781186548);
+    toolsapprox_equaljs(1 / sec(pi*1/8), 0.923879532511287);
+    toolsapprox_equaljs(1 / sec(pi*2/4), 0);
+    toolsapprox_equaljs(1 / sec(pi*3/4), -0.707106781186548);
+    toolsapprox_equaljs(1 / sec(pi*4/4), -1);
+    toolsapprox_equaljs(1 / sec(pi*5/4), -0.707106781186548);
+    toolsapprox_equaljs(1 / sec(pi*6/4), 0);
+    toolsapprox_equaljs(1 / sec(pi*7/4), 0.707106781186548);
+    toolsapprox_equaljs(1 / sec(pi*8/4), 1);
+    toolsapprox_equaljs(1 / sec(pi/4), math.sqrt(2)/2);
 
-    approx.equal(math.pow(sec(pi/4), 2), 2);
-    approx.equal(sec(0), 1);
-    approx.equal(sec(pi), -1);
-    approx.equal(sec(-pi), -1);
-    approx.equal(math.pow(sec(-pi/4), 2), 2);
-    approx.equal(sec(2*pi), 1);
-    approx.equal(sec(-2*pi), 1);
+    toolsapprox_equaljs(math.pow(sec(pi/4), 2), 2);
+    toolsapprox_equaljs(sec(0), 1);
+    toolsapprox_equaljs(sec(pi), -1);
+    toolsapprox_equaljs(sec(-pi), -1);
+    toolsapprox_equaljs(math.pow(sec(-pi/4), 2), 2);
+    toolsapprox_equaljs(sec(2*pi), 1);
+    toolsapprox_equaljs(sec(-2*pi), 1);
   });
 
   it('should return the secant of a bignumber', function() {
@@ -75,11 +67,11 @@ describe('sec', function() {
   });
 
   it('should return the secant of an angle', function() {
-    approx.equal(sec(unit('45deg')), 1.41421356237310);
-    approx.equal(sec(unit('-45deg')), 1.41421356237310);
+    toolsapprox_equaljs(sec(unit('45deg')), 1.41421356237310);
+    toolsapprox_equaljs(sec(unit('-45deg')), 1.41421356237310);
 
     assert(sec(unit(math.bignumber(45), 'deg')).isBigNumber);
-    approx.equal(sec(unit(math.bignumber(45), 'deg')).toNumber(), 1.41421356237310);
+    toolsapprox_equaljs(sec(unit(math.bignumber(45), 'deg')).toNumber(), 1.41421356237310);
 
     approx.deepEqual(sec(unit(complex('1+i'), 'rad')), complex(0.498337030555187, 0.591083841721045));
   });

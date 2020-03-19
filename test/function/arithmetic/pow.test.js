@@ -1,8 +1,5 @@
-// test exp
-var assert = require('assert');
-var approx = require('../../../tools/approx');
-var error = require('../../../lib/error/index');
-var math = require('../../../index');
+import assert from "assert";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
 var mathPredictable = math.create({predictable: true});
 var bignumber = math.bignumber;
 var fraction = math.fraction;
@@ -37,23 +34,23 @@ describe('pow', function() {
   });
 
   it('should return a real-valued root if one exists with predictable:true', function() {
-    approx.equal(mathPredictable.pow(-8, 1/3), -2);
-    approx.equal(mathPredictable.pow(-8, 2/3), 4);
-    approx.equal(mathPredictable.pow(-8, 3/3), -8);
-    approx.equal(mathPredictable.pow(-8, 4/3), 16);
-    approx.equal(mathPredictable.pow(-8, 5/3), -32);
-    approx.equal(mathPredictable.pow(-8, -5/3), -0.03125);
-    approx.equal(mathPredictable.pow(-1, 2/3), 1);
-    approx.equal(mathPredictable.pow(-1, 50/99), 1);
-    approx.equal(mathPredictable.pow(-1, 49/99), -1);
-    approx.equal(mathPredictable.pow(-17, 29/137), -1.8216292479175);
-    approx.equal(mathPredictable.pow(-1, 0), 1);
-    approx.equal(mathPredictable.pow(-1, 0.2), -1);
-    approx.equal(mathPredictable.pow(-1, 1), -1);
+    toolsapprox_equaljs(mathPredictable.pow(-8, 1/3), -2);
+    toolsapprox_equaljs(mathPredictable.pow(-8, 2/3), 4);
+    toolsapprox_equaljs(mathPredictable.pow(-8, 3/3), -8);
+    toolsapprox_equaljs(mathPredictable.pow(-8, 4/3), 16);
+    toolsapprox_equaljs(mathPredictable.pow(-8, 5/3), -32);
+    toolsapprox_equaljs(mathPredictable.pow(-8, -5/3), -0.03125);
+    toolsapprox_equaljs(mathPredictable.pow(-1, 2/3), 1);
+    toolsapprox_equaljs(mathPredictable.pow(-1, 50/99), 1);
+    toolsapprox_equaljs(mathPredictable.pow(-1, 49/99), -1);
+    toolsapprox_equaljs(mathPredictable.pow(-17, 29/137), -1.8216292479175);
+    toolsapprox_equaljs(mathPredictable.pow(-1, 0), 1);
+    toolsapprox_equaljs(mathPredictable.pow(-1, 0.2), -1);
+    toolsapprox_equaljs(mathPredictable.pow(-1, 1), -1);
 
-    approx.equal(mathPredictable.pow(4, 2), 16);
-    approx.equal(mathPredictable.pow(4, 0.5), 2);
-    approx.equal(mathPredictable.pow(-4, 2), 16);
+    toolsapprox_equaljs(mathPredictable.pow(4, 2), 16);
+    toolsapprox_equaljs(mathPredictable.pow(4, 0.5), 2);
+    toolsapprox_equaljs(mathPredictable.pow(-4, 2), 16);
 
     assert(isNaN(mathPredictable.pow(-1, 49/100)));
     assert(isNaN(mathPredictable.pow(-17, 29/138)));

@@ -1,7 +1,5 @@
-var assert = require('assert');
-var error = require('../../../lib/error/index');
-var math = require('../../../index');
-var approx = require('../../../tools/approx');
+import assert from "assert";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
 var pi = math.pi;
 var complex = math.complex;
 var matrix = math.matrix;
@@ -16,7 +14,7 @@ var Big = bigmath.bignumber;
 
 describe('asin', function() {
   it('should return the arcsin of a boolean', function () {
-    approx.equal(asin(true), 0.5 * pi);
+    toolsapprox_equaljs(asin(true), 0.5 * pi);
     assert.equal(asin(false), 0);
   });
 
@@ -25,11 +23,11 @@ describe('asin', function() {
   });
 
   it('should return the arcsin of a number', function() {
-    approx.equal(asin(-1) / pi, -0.5);
-    approx.equal(asin(-0.5) / pi, -1/6);
-    approx.equal(asin(0) / pi, 0);
-    approx.equal(asin(0.5) / pi, 1/6);
-    approx.equal(asin(1) / pi, 0.5);
+    toolsapprox_equaljs(asin(-1) / pi, -0.5);
+    toolsapprox_equaljs(asin(-0.5) / pi, -1/6);
+    toolsapprox_equaljs(asin(0) / pi, 0);
+    toolsapprox_equaljs(asin(0.5) / pi, 1/6);
+    toolsapprox_equaljs(asin(1) / pi, 0.5);
 
     approx.deepEqual(asin(-2), complex('-1.57079632679490 + 1.31695789692482i'));
     approx.deepEqual(asin(2), complex('1.57079632679490 - 1.31695789692482i'));
@@ -67,11 +65,11 @@ describe('asin', function() {
   });
 
   it('should be the inverse function of sin', function() {
-    approx.equal(asin(sin(-1)), -1);
-    approx.equal(asin(sin(0)), 0);
-    approx.equal(asin(sin(0.1)), 0.1);
-    approx.equal(asin(sin(0.5)), 0.5);
-    approx.equal(asin(sin(2)), 1.14159265358979);
+    toolsapprox_equaljs(asin(sin(-1)), -1);
+    toolsapprox_equaljs(asin(sin(0)), 0);
+    toolsapprox_equaljs(asin(sin(0.1)), 0.1);
+    toolsapprox_equaljs(asin(sin(0.5)), 0.5);
+    toolsapprox_equaljs(asin(sin(2)), 1.14159265358979);
   });
 
   it('should be the inverse function of bignumber sin', function() {

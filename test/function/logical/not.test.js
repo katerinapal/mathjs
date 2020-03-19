@@ -1,6 +1,4 @@
-// test not
-var assert = require('assert');
-var math = require('../../../index');
+import assert from "assert";
 var bignumber = math.bignumber;
 var complex = math.complex;
 var matrix = math.matrix;

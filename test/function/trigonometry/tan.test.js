@@ -1,38 +1,28 @@
-var assert = require('assert'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    approx = require('../../../tools/approx'),
-    pi = math.pi,
-    complex = math.complex,
-    matrix = math.matrix,
-    unit = math.unit,
-    tan = math.tan,
-    piBigmath = math.create({number: 'BigNumber', precision: 21}),
-    bigmath = math.create({precision: 20}),
-    Big = bigmath.bignumber,
-    bigTan = bigmath.tan;
+import assert from "assert";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
+var error = require('../../../lib/error/index'), math = require('../../../index'), pi = math.pi, complex = math.complex, matrix = math.matrix, unit = math.unit, tan = math.tan, piBigmath = math.create({number: 'BigNumber', precision: 21}), bigmath = math.create({precision: 20}), Big = bigmath.bignumber, bigTan = bigmath.tan;
 
 describe('tan', function() {
   it('should return the tangent of a boolean', function () {
-    approx.equal(tan(true), 1.55740772465490);
-    approx.equal(tan(false), 0);
+    toolsapprox_equaljs(tan(true), 1.55740772465490);
+    toolsapprox_equaljs(tan(false), 0);
   });
 
   it('should return the tangent of null', function () {
-    approx.equal(tan(null), 0);
+    toolsapprox_equaljs(tan(null), 0);
   });
 
   it('should return the tangent of a number', function() {
-    approx.equal(tan(0), 0);
-    approx.equal(tan(pi*1/4), 1);
-    approx.equal(tan(pi*1/8), 0.414213562373095);
+    toolsapprox_equaljs(tan(0), 0);
+    toolsapprox_equaljs(tan(pi*1/4), 1);
+    toolsapprox_equaljs(tan(pi*1/8), 0.414213562373095);
     assert.ok(tan(pi*2/4) > 1e10);
-    approx.equal(tan(pi*3/4), -1);
-    approx.equal(tan(pi*4/4), 0);
-    approx.equal(tan(pi*5/4), 1);
+    toolsapprox_equaljs(tan(pi*3/4), -1);
+    toolsapprox_equaljs(tan(pi*4/4), 0);
+    toolsapprox_equaljs(tan(pi*5/4), 1);
     assert.ok(tan(pi*6/4) > 1e10);
-    approx.equal(tan(pi*7/4), -1);
-    approx.equal(tan(pi*8/4), 0);
+    toolsapprox_equaljs(tan(pi*7/4), -1);
+    toolsapprox_equaljs(tan(pi*8/4), 0);
   });
 
   it('should return the tangent of a bignumber', function() { 
@@ -59,11 +49,11 @@ describe('tan', function() {
   });
 
   it('should return the tangent of an angle', function() {
-    approx.equal(tan(unit(' 60deg')), math.sqrt(3));
-    approx.equal(tan(unit('-135deg')), 1);
+    toolsapprox_equaljs(tan(unit(' 60deg')), math.sqrt(3));
+    toolsapprox_equaljs(tan(unit('-135deg')), 1);
 
     assert(tan(unit(math.bignumber(60), 'deg')).isBigNumber);
-    approx.equal(tan(unit(math.bignumber(60), 'deg')).toNumber(), math.sqrt(3));
+    toolsapprox_equaljs(tan(unit(math.bignumber(60), 'deg')).toNumber(), math.sqrt(3));
 
     approx.deepEqual(tan(unit(complex('1+i'), 'rad')), complex(0.271752585319512, 1.083923327338695));
   });

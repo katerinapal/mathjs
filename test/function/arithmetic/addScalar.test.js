@@ -1,8 +1,6 @@
-// test add
-var assert = require('assert');
-var approx = require('../../../tools/approx');
-var math = require('../../../index');
-var BigNumber = require('decimal.js');
+import assert from "assert";
+import { deepEqual as toolsapprox_deepEqualjs } from "../../../tools/approx";
+import decimaljs from "decimal.js";
 var add = math.add;
 
 // TODO: make unit tests independent of math
@@ -93,11 +91,11 @@ describe('add', function() {
   });
 
   it('should add two measures of the same unit', function() {
-    approx.deepEqual(add(math.unit(5, 'km'), math.unit(100, 'mile')), math.unit(165.93, 'km'));
+    toolsapprox_deepEqualjs(add(math.unit(5, 'km'), math.unit(100, 'mile')), math.unit(165.93, 'km'));
 
-    approx.deepEqual(add(math.unit(math.fraction(1,3), 'm'), math.unit(math.fraction(1,3), 'm')).toString(), '2/3 m');
+    toolsapprox_deepEqualjs(add(math.unit(math.fraction(1,3), 'm'), math.unit(math.fraction(1,3), 'm')).toString(), '2/3 m');
 
-    approx.deepEqual(add(math.unit(math.complex(-3, 2), 'g'), math.unit(math.complex(5, -6), 'g')).toString(), '(2 - 4i) g');
+    toolsapprox_deepEqualjs(add(math.unit(math.complex(-3, 2), 'g'), math.unit(math.complex(5, -6), 'g')).toString(), '(2 - 4i) g');
   });
 
   it('should throw an error for two measures of different units', function() {

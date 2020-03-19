@@ -1,7 +1,5 @@
-// test usolve
-var assert = require('assert'),
-    approx = require('../../../../tools/approx'),
-    math = require('../../../../index');
+import assert from "assert";
+import { deepEqual as toolsapprox_deepEqualjs } from "../../../../tools/approx";
 
 describe('usolve', function () {
 
@@ -17,7 +15,7 @@ describe('usolve', function () {
 
     var x = math.usolve(m, b);
 
-    approx.deepEqual(x, [-1, -1, -1, 4]);
+    toolsapprox_deepEqualjs(x, [-1, -1, -1, 4]);
   });
 
   it('should solve linear system 4 x 4, array and column array', function () {
@@ -36,7 +34,7 @@ describe('usolve', function () {
     ];
     var x = math.usolve(m, b);
 
-    approx.deepEqual(x, [[-1], [-1], [-1], [4]]);
+    toolsapprox_deepEqualjs(x, [[-1], [-1], [-1], [4]]);
   });
 
   it('should solve linear system 4 x 4, matrices', function () {
@@ -52,7 +50,7 @@ describe('usolve', function () {
     var x = math.usolve(m, b);
 
     assert(x instanceof math.type.Matrix);
-    approx.deepEqual(x, math.matrix([[-1], [-1], [-1], [4]]));
+    toolsapprox_deepEqualjs(x, math.matrix([[-1], [-1], [-1], [4]]));
   });
 
   it('should solve linear system 4 x 4, sparse matrices', function () {
@@ -68,7 +66,7 @@ describe('usolve', function () {
     var x = math.usolve(m, b);
 
     assert(x instanceof math.type.Matrix);
-    approx.deepEqual(x, math.matrix([[-1], [-1], [-1], [4]]));
+    toolsapprox_deepEqualjs(x, math.matrix([[-1], [-1], [-1], [4]]));
   });
 
   it('should solve linear system 4 x 4, matrix and column matrix', function () {
@@ -89,7 +87,7 @@ describe('usolve', function () {
     var x = math.usolve(m, b);
 
     assert(x instanceof math.type.Matrix);
-    approx.deepEqual(x, math.matrix([[-1], [-1], [-1], [4]]));
+    toolsapprox_deepEqualjs(x, math.matrix([[-1], [-1], [-1], [4]]));
   });
 
   it('should solve linear system 4 x 4, sparse matrix and column matrix', function () {
@@ -110,7 +108,7 @@ describe('usolve', function () {
     var x = math.usolve(m, b);
 
     assert(x instanceof math.type.Matrix);
-    approx.deepEqual(x, math.matrix([[-1], [-1], [-1], [4]]));
+    toolsapprox_deepEqualjs(x, math.matrix([[-1], [-1], [-1], [4]]));
   });
 
   it('should throw exception when matrix is singular', function () {

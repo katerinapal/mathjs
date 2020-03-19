@@ -1,8 +1,6 @@
-var assert = require('assert'),
-    approx = require('../../../tools/approx'),
-    math = require('../../../index'),
-    bignumber = math.bignumber,
-    quantileSeq = math.quantileSeq;
+import assert from "assert";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
+var math = require('../../../index'), bignumber = math.bignumber, quantileSeq = math.quantileSeq;
 
 describe('quantileSeq', function() {
 
@@ -15,10 +13,10 @@ describe('quantileSeq', function() {
     assert.equal(quantileSeq(lst, 0.25, false), 2.325);
     assert.equal(quantileSeq(lst, 0.3), 2.45);
     assert.equal(quantileSeq(lst, 0.4), 2.7);
-    approx.equal(quantileSeq(lst, 0.5), 2.9);
+    toolsapprox_equaljs(quantileSeq(lst, 0.5), 2.9);
     assert.equal(quantileSeq(lst, 0.6), 3.1);
     assert.equal(quantileSeq(lst, 0.7), 3.2);
-    approx.equal(quantileSeq(lst, 0.75), 3.25);
+    toolsapprox_equaljs(quantileSeq(lst, 0.75), 3.25);
     assert.equal(quantileSeq(lst, 0.8), 3.3);
     assert.equal(quantileSeq(lst, 0.9), 3.5);
     assert.equal(quantileSeq(lst, 1), 3.7);
@@ -32,10 +30,10 @@ describe('quantileSeq', function() {
     assert.equal(quantileSeq(lst, 0.25, true), 2.325);
     assert.equal(quantileSeq(lst, 0.3, true), 2.45);
     assert.equal(quantileSeq(lst, 0.4, true), 2.7);
-    approx.equal(quantileSeq(lst, 0.5, true), 2.9);
+    toolsapprox_equaljs(quantileSeq(lst, 0.5, true), 2.9);
     assert.equal(quantileSeq(lst, 0.6, true), 3.1);
     assert.equal(quantileSeq(lst, 0.7, true), 3.2);
-    approx.equal(quantileSeq(lst, 0.75, true), 3.25);
+    toolsapprox_equaljs(quantileSeq(lst, 0.75, true), 3.25);
     assert.equal(quantileSeq(lst, 0.8, true), 3.3);
     assert.equal(quantileSeq(lst, 0.9, true), 3.5);
     assert.equal(quantileSeq(lst, 1, true), 3.7);
@@ -60,7 +58,7 @@ describe('quantileSeq', function() {
 
   // FIXME: should return the quantileSeq of an array of bignumbers with number probability
   it.skip('should return the quantileSeq of an array of bignumbers with number probability', function() {
-    approx.equal(quantileSeq([bignumber(0.5377),bignumber(1.8339),bignumber(-2.2588),bignumber(0.8622),
+    toolsapprox_equaljs(quantileSeq([bignumber(0.5377),bignumber(1.8339),bignumber(-2.2588),bignumber(0.8622),
                               bignumber(0.3188),bignumber(-1.3077),bignumber(-0.4336),bignumber(0.3426),
                               bignumber(3.5784),bignumber(2.7694)],0.3),
                               0.09308);
@@ -82,28 +80,28 @@ describe('quantileSeq', function() {
   });
 
   it('should return the quantileSeq from a 2d array', function() {
-    approx.equal(quantileSeq([
+    toolsapprox_equaljs(quantileSeq([
       [3.7, 2.7, 3.3],
       [1.3, 2.2, 3.1]
     ], 0.75), 3.25);
   });
 
   it('should return the quantileSeq from an ascending 2d array', function() {
-    approx.equal(quantileSeq([
+    toolsapprox_equaljs(quantileSeq([
       [1.3, 2.2, 2.7],
       [3.1, 3.3, 3.7]
     ], 0.75, true), 3.25);
   });
 
   it('should return the quantileSeq from a 2d matrix', function() {
-    approx.equal(quantileSeq(math.matrix([
+    toolsapprox_equaljs(quantileSeq(math.matrix([
       [3.7, 2.7, 3.3],
       [1.3, 2.2, 3.1]
     ]), 0.75), 3.25);
   });
 
   it('should return the quantileSeq from an ascending 2d matrix', function() {
-    approx.equal(quantileSeq(math.matrix([
+    toolsapprox_equaljs(quantileSeq(math.matrix([
       [1.3, 2.2, 2.7],
       [3.1, 3.3, 3.7]
     ]), 0.75, true), 3.25);

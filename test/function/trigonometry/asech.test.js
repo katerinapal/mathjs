@@ -1,7 +1,5 @@
-var assert = require('assert');
-var error = require('../../../lib/error/index');
-var math = require('../../../index');
-var approx = require('../../../tools/approx');
+import assert from "assert";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
 var pi = math.pi;
 var asech = math.asech;
 var sech = math.sech;
@@ -31,9 +29,9 @@ describe('asech', function() {
     //assert.ok(isNaN(asech(2)));
 
     assert.equal(asech(0), Infinity);
-    approx.equal(asech(0.25), 2.0634370688955605467272811726201);
-    approx.equal(asech(0.5), 1.31695789692481670862504634730797);
-    approx.equal(asech(0.75), 0.7953654612239056305278909331478);
+    toolsapprox_equaljs(asech(0.25), 2.0634370688955605467272811726201);
+    toolsapprox_equaljs(asech(0.5), 1.31695789692481670862504634730797);
+    toolsapprox_equaljs(asech(0.75), 0.7953654612239056305278909331478);
     assert.equal(asech(1), 0);
   });
 
@@ -61,11 +59,11 @@ describe('asech', function() {
   });
 
   it('should be the inverse function of hyperbolic sec', function() {
-    approx.equal(asech(sech(-1)), 1);
-    approx.equal(asech(sech(0)), 0);
-    approx.equal(asech(sech(0.1)), 0.1);
-    approx.equal(asech(sech(0.5)), 0.5);
-    approx.equal(asech(sech(2)), 2);
+    toolsapprox_equaljs(asech(sech(-1)), 1);
+    toolsapprox_equaljs(asech(sech(0)), 0);
+    toolsapprox_equaljs(asech(sech(0.1)), 0.1);
+    toolsapprox_equaljs(asech(sech(0.5)), 0.5);
+    toolsapprox_equaljs(asech(sech(2)), 2);
   });
 
   it('should be the inverse function of bignumber sech', function() {

@@ -1,8 +1,4 @@
-// test sqrt
-var assert = require('assert');
-var approx = require('../../../tools/approx');
-var error = require('../../../lib/error/index');
-var math = require('../../../index');
+import assert from "assert";
 var mathPredictable = math.create({predictable: true});
 var sqrt = math.sqrt;
 var bignumber = math.bignumber;

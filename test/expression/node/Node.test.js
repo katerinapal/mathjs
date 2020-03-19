@@ -1,7 +1,4 @@
-// test Node
-var assert = require('assert');
-var approx = require('../../../tools/approx');
-var math = require('../../../index');
+import assert from "assert";
 var Node = math.expression.node.Node;
 
 describe('Node', function() {

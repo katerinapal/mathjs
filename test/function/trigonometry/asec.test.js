@@ -1,7 +1,5 @@
-var assert = require('assert');
-var error = require('../../../lib/error/index');
-var math = require('../../../index');
-var approx = require('../../../tools/approx');
+import assert from "assert";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
 var pi = math.pi;
 var asec = math.asec;
 var sec = math.sec;
@@ -27,10 +25,10 @@ describe('asec', function() {
   });
 
   it('should return the arcsec of a number', function() {
-    approx.equal(asec(-2) / pi, 2 / 3);
-    approx.equal(asec(-1) / pi, 1);
-    approx.equal(asec(1) / pi, 0);
-    approx.equal(asec(2) / pi, 1 / 3);
+    toolsapprox_equaljs(asec(-2) / pi, 2 / 3);
+    toolsapprox_equaljs(asec(-1) / pi, 1);
+    toolsapprox_equaljs(asec(1) / pi, 0);
+    toolsapprox_equaljs(asec(2) / pi, 1 / 3);
 
     approx.deepEqual(asec(-0.5), complex(pi, -1.3169578969248));
     approx.deepEqual(asec(0.5), complex(0, 1.3169578969248));
@@ -69,11 +67,11 @@ describe('asec', function() {
   });
 
   it('should be the inverse function of sec', function() {
-    approx.equal(asec(sec(-1)), 1);
-    approx.equal(asec(sec(0)), 0);
-    approx.equal(asec(sec(0.1)), 0.1);
-    approx.equal(asec(sec(0.5)), 0.5);
-    approx.equal(asec(sec(2)), 2);
+    toolsapprox_equaljs(asec(sec(-1)), 1);
+    toolsapprox_equaljs(asec(sec(0)), 0);
+    toolsapprox_equaljs(asec(sec(0.1)), 0.1);
+    toolsapprox_equaljs(asec(sec(0.5)), 0.5);
+    toolsapprox_equaljs(asec(sec(2)), 2);
   });
 
   it('should be the inverse function of bignumber sec', function() {
