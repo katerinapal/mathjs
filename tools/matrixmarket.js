@@ -1,13 +1,36 @@
-import fs from "fs";
-import zlib from "zlib";
-import tar from "tar";
-import q from "q";
-import typedfunction from "typed-function";
+"use strict";
+
+var _fs = require("fs");
+
+var _fs2 = _interopRequireDefault(_fs);
+
+var _zlib = require("zlib");
+
+var _zlib2 = _interopRequireDefault(_zlib);
+
+var _tar = require("tar");
+
+var _tar2 = _interopRequireDefault(_tar);
+
+var _q = require("q");
+
+var _q2 = _interopRequireDefault(_q);
+
+var _typedFunction = require("typed-function");
+
+var _typedFunction2 = _interopRequireDefault(_typedFunction);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 'use strict';
 
-var math = require('../index'), Spa = math.type.Spa, DenseMatrix = math.type.DenseMatrix, SparseMatrix = math.type.SparseMatrix, FibonacciHeap = math.type.FibonacciHeap;
+var math = require('../index'),
+    Spa = math.type.Spa,
+    DenseMatrix = math.type.DenseMatrix,
+    SparseMatrix = math.type.SparseMatrix,
+    FibonacciHeap = math.type.FibonacciHeap;
 
-var _importFromStream = function (stream, deferred) {
+var _importFromStream = function _importFromStream(stream, deferred) {
 
   // header regex
   var headerRegex = /%%MatrixMarket ([a-zA-Z]+) ([a-zA-Z]+) ([a-zA-Z]+) ([a-zA-Z]+)/;
@@ -16,7 +39,7 @@ var _importFromStream = function (stream, deferred) {
   var coordinatePatternRegex = /(\d+) (\d+)/;
   var arrayHeaderRegex = /(\d+) (\d+)/;
   var arrayDataRegex = /(\d+)/;
-  
+
   // Matrix Market supported formats
   var typecodes = ['matrix'];
   var formats = ['coordinate', 'array'];
@@ -27,10 +50,10 @@ var _importFromStream = function (stream, deferred) {
   var mm = null;
   var buffer = '';
 
-  var readHeader = function (line) {
+  var readHeader = function readHeader(line) {
     // check line is a header
     var matches = line.match(headerRegex);
-    if (matches !== null) {      
+    if (matches !== null) {
       // get matches values
       var typecode = matches[1];
       var format = matches[2];
@@ -63,7 +86,7 @@ var _importFromStream = function (stream, deferred) {
         // close stream
         stream.close();
       }
-      
+
       // initialize matrix market structure
       mm = {
         typecode: typecode,
@@ -72,8 +95,7 @@ var _importFromStream = function (stream, deferred) {
         qualifier: qualifier,
         data: null
       };
-    }
-    else {
+    } else {
       // invalid header
       deferred.reject(new Error('Invalid file header: ' + line));
       // close stream
@@ -81,7 +103,7 @@ var _importFromStream = function (stream, deferred) {
     }
   };
 
-  var readStructure = function (line) {
+  var readStructure = function readStructure(line) {
     // vars
     var matches;
     // check matrix format
@@ -111,7 +133,7 @@ var _importFromStream = function (stream, deferred) {
     }
   };
 
-  var readValue = function (text) {
+  var readValue = function readValue(text) {
     // check datatype
     switch (mm.datatype) {
       case 'real':
@@ -121,7 +143,7 @@ var _importFromStream = function (stream, deferred) {
     }
   };
 
-  var readData = function (line) {
+  var readData = function readData(line) {
     // vars
     var matches;
     // check matrix format
@@ -137,30 +159,30 @@ var _importFromStream = function (stream, deferred) {
           var c = parseInt(matches[2]) - 1;
           var v = readValue(matches.length === 4 ? matches[3] : null);
           // insert entry
-          mm.data.insert(c, {i: r, j: c, v: v});
+          mm.data.insert(c, { i: r, j: c, v: v });
           // check matrix is simmetric
           if (mm.qualifier === 'symmetric' && c !== r) {
             // insert entry
-            mm.data.insert(r, {i: c, j: r, v: v});
+            mm.data.insert(r, { i: c, j: r, v: v });
           }
         }
         break;
-      case 'array':          
+      case 'array':
         // check data line is correct
         matches = line.match(arrayDataRegex);
         if (matches !== null) {
           // get values in row
           var values = [];
-          for (var j = 1; j < matches.length; j++)
+          for (var j = 1; j < matches.length; j++) {
             values.push(readValue(matches[j]));
-          // push entry
+          } // push entry
           mm.data.push(values);
         }
         break;
     }
   };
 
-  var processLine = function (line) {
+  var processLine = function processLine(line) {
     // check this is the first line
     if (mm !== null) {
       // skip all comments
@@ -169,19 +191,17 @@ var _importFromStream = function (stream, deferred) {
         if (mm.data !== null) {
           // it is a data row
           readData(line);
-        }
-        else {
+        } else {
           // read matrix structure
           readStructure(line);
         }
       }
-    }
-    else {
+    } else {
       // read header, initialize data
       readHeader(line);
     }
   };
-   
+
   stream.on('data', function (chunk) {
     // concatenate chunk
     buffer += chunk;
@@ -199,7 +219,7 @@ var _importFromStream = function (stream, deferred) {
       index = buffer.indexOf('\n');
     }
   });
-  
+
   stream.on('end', function () {
     // check mm
     if (mm !== null) {
@@ -216,12 +236,11 @@ var _importFromStream = function (stream, deferred) {
           var p = -1;
           var spa = new Spa(mm.rows);
           // push value 
-          var pushValue = function (i, v) {
+          var pushValue = function pushValue(i, v) {
             // push row
             index.push(i);
             // check there is a value (pattern matrix)
-            if (values)
-              values.push(v);
+            if (values) values.push(v);
           };
           // extract node (column sorted)            
           var n = d.extractMinimum();
@@ -257,7 +276,7 @@ var _importFromStream = function (stream, deferred) {
             ptr: ptr,
             size: [mm.rows, mm.columns],
             datatype: datatype
-          }));   
+          }));
           break;
         case 'array':
           // resolve promise
@@ -269,17 +288,17 @@ var _importFromStream = function (stream, deferred) {
       }
     }
   });
-  
+
   stream.on('error', function (e) {
     // reject promise
     deferred.reject(new Error(e));
   });
 };
 
-var _importFile = function (filename, deferred) {
+var _importFile = function _importFile(filename, deferred) {
   return function () {
     // input stream
-    var input = fs.createReadStream(filename);
+    var input = _fs2.default.createReadStream(filename);
     // import from stream
     _importFromStream(input, deferred);
   };
@@ -289,9 +308,9 @@ var _importFile = function (filename, deferred) {
  * Imports a Matrix Market matrix from the filesystem. (http://math.nist.gov/MatrixMarket/)
  */
 var _import = typed('importMatrix', {
-  'Array': function (files) {
+  'Array': function Array(files) {
     // array of promises
-    var promises = [];    
+    var promises = [];
     // loop files
     for (var i = 0; i < files.length; i++) {
       // file name
@@ -299,14 +318,14 @@ var _import = typed('importMatrix', {
       // create deferred instance
       var deferred = Q.defer();
       // check file exists, import file
-      fs.exists(filename, _importFile(filename, deferred));
+      _fs2.default.exists(filename, _importFile(filename, deferred));
       // import file
       promises.push(deferred.promise);
     }
     // return promise
     return Q.all(promises);
   },
-  'string, Array': function (archive, files) {
+  'string, Array': function stringArray(archive, files) {
     // array of deferrred & promises
     var deferred = [];
     var promises = [];
@@ -317,13 +336,13 @@ var _import = typed('importMatrix', {
       promises[i] = d.promise;
     }
     // check archive exists
-    fs.exists(archive, function () {
+    _fs2.default.exists(archive, function () {
       // input stream
-      var input = fs.createReadStream(archive);
+      var input = _fs2.default.createReadStream(archive);
       // gz
-      input = input.pipe(zlib.createUnzip());
+      input = input.pipe(_zlib2.default.createUnzip());
       // tar
-      input = input.pipe(tar.Parse());
+      input = input.pipe(_tar2.default.Parse());
       // process entries
       input.on('entry', function (e) {
         // check we need to process entry
@@ -333,7 +352,7 @@ var _import = typed('importMatrix', {
           var d = deferred[index];
           // process entry
           _importFromStream(e, d);
-        }                             
+        }
       });
       // error
       input.on('error', function (e) {
@@ -345,7 +364,7 @@ var _import = typed('importMatrix', {
           // reject promise with error
           d.reject(new Error(e));
         }
-      });      
+      });
     });
     // return promise
     return Q.all(promises);

@@ -1,28 +1,34 @@
-import assert from "assert";
+'use strict';
+
+var _assert = require('assert');
+
+var _assert2 = _interopRequireDefault(_assert);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 var Node = math.expression.node.Node;
 
-describe('parse', function() {
+describe('parse', function () {
 
-  it('should parse an expression', function() {
+  it('should parse an expression', function () {
     var node = math.parse('(5+3)/4');
-    assert.ok(node instanceof Node);
-    assert.equal(node.compile().eval(), 2);
+    _assert2.default.ok(node instanceof Node);
+    _assert2.default.equal(node.compile().eval(), 2);
   });
 
-  it('should parse multiple expressions', function() {
+  it('should parse multiple expressions', function () {
     var nodes = math.parse(['2+3', '4+5']);
-    assert.ok(Array.isArray(nodes));
-    assert.equal(nodes.length, 2);
+    _assert2.default.ok(Array.isArray(nodes));
+    _assert2.default.equal(nodes.length, 2);
 
-    assert.ok(nodes[0] instanceof Node);
-    assert.ok(nodes[1] instanceof Node);
-    assert.equal(nodes[0].compile().eval(), 5);
-    assert.equal(nodes[1].compile().eval(), 9);
+    _assert2.default.ok(nodes[0] instanceof Node);
+    _assert2.default.ok(nodes[1] instanceof Node);
+    _assert2.default.equal(nodes[0].compile().eval(), 5);
+    _assert2.default.equal(nodes[1].compile().eval(), 9);
   });
 
   it('should LaTeX parse', function () {
     var expression = math.parse('parse(expr,options)');
-    assert.equal(expression.toTex(), '\\mathrm{parse}\\left( expr, options\\right)');
+    _assert2.default.equal(expression.toTex(), '\\mathrm{parse}\\left( expr, options\\right)');
   });
-
 });
