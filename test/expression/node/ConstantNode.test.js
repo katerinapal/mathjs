@@ -1,175 +1,195 @@
-import assert from "assert";
-import { indexjs as index_indexjsjs } from "../../../index";
-var Node = index_indexjsjs.expression.node.Node;
-var ConstantNode = index_indexjsjs.expression.node.ConstantNode;
-var SymbolNode = index_indexjsjs.expression.node.SymbolNode;
+"use strict";
 
-describe('ConstantNode', function() {
+var _assert = require("assert");
 
-  it ('should create a ConstantNode with value type', function () {
+var _assert2 = _interopRequireDefault(_assert);
+
+var _index = require("../../../index");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Node = _index.indexjs.expression.node.Node;
+var ConstantNode = _index.indexjs.expression.node.ConstantNode;
+var SymbolNode = _index.indexjs.expression.node.SymbolNode;
+
+describe('ConstantNode', function () {
+
+  it('should create a ConstantNode with value type', function () {
     var a = new ConstantNode('3', 'number');
-    assert(a instanceof Node);
-    assert.equal(a.type, 'ConstantNode');
+    (0, _assert2.default)(a instanceof Node);
+    _assert2.default.equal(a.type, 'ConstantNode');
   });
 
-  it ('should create a ConstantNode without value type', function () {
+  it('should create a ConstantNode without value type', function () {
     var a = new ConstantNode(3);
-    assert(a instanceof Node);
-    assert.equal(a.type, 'ConstantNode');
+    (0, _assert2.default)(a instanceof Node);
+    _assert2.default.equal(a.type, 'ConstantNode');
     // TODO: extensively test each of the supported types
 
-    assert.deepEqual(new ConstantNode(3), new ConstantNode('3', 'number'));
-    assert.deepEqual(new ConstantNode('hello'), new ConstantNode('hello', 'string'));
-    assert.deepEqual(new ConstantNode(true), new ConstantNode('true', 'boolean'));
-    assert.deepEqual(new ConstantNode(false), new ConstantNode('false', 'boolean'));
-    assert.deepEqual(new ConstantNode(null), new ConstantNode('null', 'null'));
-    assert.deepEqual(new ConstantNode(undefined), new ConstantNode('undefined', 'undefined'));
+    _assert2.default.deepEqual(new ConstantNode(3), new ConstantNode('3', 'number'));
+    _assert2.default.deepEqual(new ConstantNode('hello'), new ConstantNode('hello', 'string'));
+    _assert2.default.deepEqual(new ConstantNode(true), new ConstantNode('true', 'boolean'));
+    _assert2.default.deepEqual(new ConstantNode(false), new ConstantNode('false', 'boolean'));
+    _assert2.default.deepEqual(new ConstantNode(null), new ConstantNode('null', 'null'));
+    _assert2.default.deepEqual(new ConstantNode(undefined), new ConstantNode('undefined', 'undefined'));
   });
 
-  it ('should have isConstantNode', function () {
+  it('should have isConstantNode', function () {
     var node = new ConstantNode(1);
-    assert(node.isConstantNode);
+    (0, _assert2.default)(node.isConstantNode);
   });
 
-  it ('should throw an error when calling without new operator', function () {
-    assert.throws(function () {ConstantNode('3', 'number')}, SyntaxError);
+  it('should throw an error when calling without new operator', function () {
+    _assert2.default.throws(function () {
+      ConstantNode('3', 'number');
+    }, SyntaxError);
   });
 
-  it ('should throw an error in case of wrong construction arguments', function () {
-    assert.throws(function () {new ConstantNode(3, 'number');}, TypeError);
-    assert.throws(function () {new ConstantNode(new Date());}, TypeError);
-    assert.throws(function () {new ConstantNode('3', Number);}, TypeError);
+  it('should throw an error in case of wrong construction arguments', function () {
+    _assert2.default.throws(function () {
+      new ConstantNode(3, 'number');
+    }, TypeError);
+    _assert2.default.throws(function () {
+      new ConstantNode(new Date());
+    }, TypeError);
+    _assert2.default.throws(function () {
+      new ConstantNode('3', Number);
+    }, TypeError);
   });
 
-  it ('should throw an error in case of unknown type of constant', function () {
-    assert.throws(function () {new ConstantNode('3', 'bla').compile();}, TypeError);
+  it('should throw an error in case of unknown type of constant', function () {
+    _assert2.default.throws(function () {
+      new ConstantNode('3', 'bla').compile();
+    }, TypeError);
   });
 
-  it ('should compile a ConstantNode', function () {
+  it('should compile a ConstantNode', function () {
     var expr = new ConstantNode('2.3', 'number').compile();
-    assert.strictEqual(expr.eval(), 2.3);
+    _assert2.default.strictEqual(expr.eval(), 2.3);
 
     expr = new ConstantNode('002.3', 'number').compile();
-    assert.strictEqual(expr.eval(), 2.3);
+    _assert2.default.strictEqual(expr.eval(), 2.3);
 
     expr = new ConstantNode('hello', 'string').compile();
-    assert.strictEqual(expr.eval(), 'hello');
+    _assert2.default.strictEqual(expr.eval(), 'hello');
 
     expr = new ConstantNode('true', 'boolean').compile();
-    assert.strictEqual(expr.eval(), true);
+    _assert2.default.strictEqual(expr.eval(), true);
 
     expr = new ConstantNode('undefined', 'undefined').compile();
-    assert.strictEqual(expr.eval(), undefined);
+    _assert2.default.strictEqual(expr.eval(), undefined);
 
     expr = new ConstantNode('null', 'null').compile();
-    assert.strictEqual(expr.eval(), null);
-
+    _assert2.default.strictEqual(expr.eval(), null);
   });
 
-  it ('should compile a ConstantNode with bigmath', function () {
+  it('should compile a ConstantNode with bigmath', function () {
     var expr = new bigmath.expression.node.ConstantNode('2.3', 'number').compile();
-    assert.deepEqual(expr.eval(), new bigmath.type.BigNumber(2.3));
+    _assert2.default.deepEqual(expr.eval(), new bigmath.type.BigNumber(2.3));
   });
 
-  it ('should find a ConstantNode', function () {
+  it('should find a ConstantNode', function () {
     var a = new ConstantNode('2', 'number');
-    assert.deepEqual(a.filter(function (node) {return node instanceof ConstantNode}),  [a]);
-    assert.deepEqual(a.filter(function (node) {return node instanceof SymbolNode}), []);
+    _assert2.default.deepEqual(a.filter(function (node) {
+      return node instanceof ConstantNode;
+    }), [a]);
+    _assert2.default.deepEqual(a.filter(function (node) {
+      return node instanceof SymbolNode;
+    }), []);
   });
 
-  it ('should run forEach on a ConstantNode', function () {
+  it('should run forEach on a ConstantNode', function () {
     var a = new ConstantNode(2);
     a.forEach(function () {
-      assert.ok(false, 'should not execute, constant has no childs')
+      _assert2.default.ok(false, 'should not execute, constant has no childs');
     });
   });
 
-  it ('should map a ConstantNode', function () {
+  it('should map a ConstantNode', function () {
     var a = new ConstantNode(2);
     var b = a.map(function () {
-      assert.ok(false, 'should not execute, constant has no childs')
+      _assert2.default.ok(false, 'should not execute, constant has no childs');
     });
 
-    assert.notStrictEqual(b, a);
-    assert.deepEqual(b, a);
+    _assert2.default.notStrictEqual(b, a);
+    _assert2.default.deepEqual(b, a);
   });
 
-  it ('should transform a ConstantNode', function () {
+  it('should transform a ConstantNode', function () {
     var a = new ConstantNode(2);
     var b = new ConstantNode(3);
     var c = a.transform(function (node) {
       return node instanceof ConstantNode && node.value == '2' ? b : node;
     });
-    assert.deepEqual(c,  b);
+    _assert2.default.deepEqual(c, b);
 
     // no match should leave the node as is
     var d = a.transform(function (node) {
       return node instanceof ConstantNode && node.value == '99' ? b : node;
     });
-    assert.notStrictEqual(d, a);
-    assert.deepEqual(d,  a);
+    _assert2.default.notStrictEqual(d, a);
+    _assert2.default.deepEqual(d, a);
   });
 
-  it ('should clone a ConstantNode', function () {
+  it('should clone a ConstantNode', function () {
     var a = new ConstantNode(2);
     var b = a.clone();
 
-    assert(b instanceof ConstantNode);
-    assert.deepEqual(a, b);
-    assert.notStrictEqual(a, b);
-    assert.equal(a.value, b.value);
-    assert.equal(a.valueType, b.valueType);
+    (0, _assert2.default)(b instanceof ConstantNode);
+    _assert2.default.deepEqual(a, b);
+    _assert2.default.notStrictEqual(a, b);
+    _assert2.default.equal(a.value, b.value);
+    _assert2.default.equal(a.valueType, b.valueType);
   });
 
-  it ('should stringify a ConstantNode', function () {
-    assert.equal(new ConstantNode('3', 'number').toString(), '3');
-    assert.deepEqual(new ConstantNode('3', 'number').toString(), '3');
-    assert.equal(new ConstantNode('hi', 'string').toString(), '"hi"');
-    assert.equal(new ConstantNode('true', 'boolean').toString(), 'true');
-    assert.equal(new ConstantNode('false', 'boolean').toString(), 'false');
-    assert.equal(new ConstantNode('undefined', 'undefined').toString(), 'undefined');
-    assert.equal(new ConstantNode('null', 'null').toString(), 'null');
+  it('should stringify a ConstantNode', function () {
+    _assert2.default.equal(new ConstantNode('3', 'number').toString(), '3');
+    _assert2.default.deepEqual(new ConstantNode('3', 'number').toString(), '3');
+    _assert2.default.equal(new ConstantNode('hi', 'string').toString(), '"hi"');
+    _assert2.default.equal(new ConstantNode('true', 'boolean').toString(), 'true');
+    _assert2.default.equal(new ConstantNode('false', 'boolean').toString(), 'false');
+    _assert2.default.equal(new ConstantNode('undefined', 'undefined').toString(), 'undefined');
+    _assert2.default.equal(new ConstantNode('null', 'null').toString(), 'null');
   });
 
-  it ('should stringify a ConstantNode with custom toString', function () {
+  it('should stringify a ConstantNode with custom toString', function () {
     //Also checks if the custom functions get passed on to the children
-    var customFunction = function (node, options) {
+    var customFunction = function customFunction(node, options) {
       if (node.type === 'ConstantNode') {
-        return 'const(' + node.value + ', ' + node.valueType + ')'
+        return 'const(' + node.value + ', ' + node.valueType + ')';
       }
     };
 
     var n = new ConstantNode(1);
 
-    assert.equal(n.toString({handler: customFunction}), 'const(1, number)');
+    _assert2.default.equal(n.toString({ handler: customFunction }), 'const(1, number)');
   });
 
-  it ('should LaTeX a ConstantNode', function () {
-    assert.equal(new ConstantNode('3', 'number').toTex(), '3');
-    assert.deepEqual(new ConstantNode('3', 'number').toTex(), '3');
-    assert.equal(new ConstantNode('hi', 'string').toTex(), '\\mathtt{"hi"}');
-    assert.equal(new ConstantNode('true', 'boolean').toTex(), 'true');
-    assert.equal(new ConstantNode('false', 'boolean').toTex(), 'false');
-    assert.equal(new ConstantNode('undefined', 'undefined').toTex(), 'undefined');
-    assert.equal(new ConstantNode('null', 'null').toTex(), 'null');
+  it('should LaTeX a ConstantNode', function () {
+    _assert2.default.equal(new ConstantNode('3', 'number').toTex(), '3');
+    _assert2.default.deepEqual(new ConstantNode('3', 'number').toTex(), '3');
+    _assert2.default.equal(new ConstantNode('hi', 'string').toTex(), '\\mathtt{"hi"}');
+    _assert2.default.equal(new ConstantNode('true', 'boolean').toTex(), 'true');
+    _assert2.default.equal(new ConstantNode('false', 'boolean').toTex(), 'false');
+    _assert2.default.equal(new ConstantNode('undefined', 'undefined').toTex(), 'undefined');
+    _assert2.default.equal(new ConstantNode('null', 'null').toTex(), 'null');
   });
 
-  it ('should LaTeX a ConstantNode in exponential notation', function () {
+  it('should LaTeX a ConstantNode in exponential notation', function () {
     var n = new ConstantNode('1e10', 'number');
-    assert.equal(n.toTex(), '1\\cdot10^{10}');
+    _assert2.default.equal(n.toTex(), '1\\cdot10^{10}');
   });
 
-  it ('should LaTeX a ConstantNode with custom toTex', function () {
+  it('should LaTeX a ConstantNode with custom toTex', function () {
     //Also checks if the custom functions get passed on to the children
-    var customFunction = function (node, options) {
+    var customFunction = function customFunction(node, options) {
       if (node.type === 'ConstantNode') {
-        return 'const\\left(' + node.value + ', ' + node.valueType + '\\right)'
+        return 'const\\left(' + node.value + ', ' + node.valueType + '\\right)';
       }
     };
 
     var n = new ConstantNode(1);
 
-    assert.equal(n.toTex({handler: customFunction}), 'const\\left(1, number\\right)');
+    _assert2.default.equal(n.toTex({ handler: customFunction }), 'const\\left(1, number\\right)');
   });
-
 });

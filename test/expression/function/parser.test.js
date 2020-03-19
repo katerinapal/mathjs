@@ -1,19 +1,26 @@
-import assert from "assert";
-import { indexjs as index_indexjsjs } from "../../../index";
-var Parser = index_indexjsjs.expression.Parser;
+"use strict";
 
-describe('parser', function() {
+var _assert = require("assert");
 
-  it('should create a parser', function() {
-    var parser = index_indexjsjs.parser();
+var _assert2 = _interopRequireDefault(_assert);
 
-    assert(parser instanceof Parser);
+var _index = require("../../../index");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Parser = _index.indexjs.expression.Parser;
+
+describe('parser', function () {
+
+  it('should create a parser', function () {
+    var parser = _index.indexjs.parser();
+
+    (0, _assert2.default)(parser instanceof Parser);
   });
 
-  it('should LaTeX parser', function () { //This doesn't really make sense in a way
-    var expression = index_indexjsjs.parse('parser()');
-    assert.equal(expression.toTex(), '\\mathrm{parser}\\left(\\right)');
+  it('should LaTeX parser', function () {
+    //This doesn't really make sense in a way
+    var expression = _index.indexjs.parse('parser()');
+    _assert2.default.equal(expression.toTex(), '\\mathrm{parser}\\left(\\right)');
   });
-
 });
-

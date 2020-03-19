@@ -1,171 +1,190 @@
-import assert from "assert";
-import { equal as toolsapprox_equaljs } from "../../../tools/approx";
-import { indexjs as index_indexjsjs } from "../../../index";
-var matrix = index_indexjsjs.matrix;
-var sparse = index_indexjsjs.sparse;
-var unit = index_indexjsjs.unit;
-var nthRoot = index_indexjsjs.nthRoot;
-var big = index_indexjsjs.bignumber;
-var complex = index_indexjsjs.complex;
+"use strict";
 
+var _assert = require("assert");
 
-describe('nthRoot', function() {
+var _assert2 = _interopRequireDefault(_assert);
+
+var _approx = require("../../../tools/approx");
+
+var _index = require("../../../index");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var matrix = _index.indexjs.matrix;
+var sparse = _index.indexjs.sparse;
+var unit = _index.indexjs.unit;
+var nthRoot = _index.indexjs.nthRoot;
+var big = _index.indexjs.bignumber;
+var complex = _index.indexjs.complex;
+
+describe('nthRoot', function () {
 
   it('should return the nthRoot of a boolean value', function () {
-    assert.equal(nthRoot(true), 1);
-    assert.equal(nthRoot(false), 0);
-    assert.equal(nthRoot(1,true), 1);
+    _assert2.default.equal(nthRoot(true), 1);
+    _assert2.default.equal(nthRoot(false), 0);
+    _assert2.default.equal(nthRoot(1, true), 1);
   });
 
   it('should return the nthRoot of null', function () {
-    assert.equal(nthRoot(null), 0);
+    _assert2.default.equal(nthRoot(null), 0);
   });
 
-  it('should return the nthRoot for numbers', function() {
-    toolsapprox_equaljs(nthRoot(4), 2);
-    toolsapprox_equaljs(nthRoot(9), 3);
-    toolsapprox_equaljs(nthRoot(8, 3), 2);
-    toolsapprox_equaljs(nthRoot(64, 3), 4);
-    toolsapprox_equaljs(nthRoot(2, 2.5), 1.31950791077289);
-    toolsapprox_equaljs(nthRoot(2.5, 2), 1.58113883008419);
-    toolsapprox_equaljs(nthRoot(0.1+0.2), 0.5477225575051662); // a value containing a round-off error
-    toolsapprox_equaljs(nthRoot(0, 3), 0);
-    toolsapprox_equaljs(nthRoot(0, 2), 0);
-    toolsapprox_equaljs(nthRoot(0.0001, 3), 0.0464158883361278);
+  it('should return the nthRoot for numbers', function () {
+    (0, _approx.equal)(nthRoot(4), 2);
+    (0, _approx.equal)(nthRoot(9), 3);
+    (0, _approx.equal)(nthRoot(8, 3), 2);
+    (0, _approx.equal)(nthRoot(64, 3), 4);
+    (0, _approx.equal)(nthRoot(2, 2.5), 1.31950791077289);
+    (0, _approx.equal)(nthRoot(2.5, 2), 1.58113883008419);
+    (0, _approx.equal)(nthRoot(0.1 + 0.2), 0.5477225575051662); // a value containing a round-off error
+    (0, _approx.equal)(nthRoot(0, 3), 0);
+    (0, _approx.equal)(nthRoot(0, 2), 0);
+    (0, _approx.equal)(nthRoot(0.0001, 3), 0.0464158883361278);
   });
 
-  it('should return the nthRoot for very large numbers', function() {
-    toolsapprox_equaljs(nthRoot(2e150 * 2e150), 2e150);
-    toolsapprox_equaljs(nthRoot(Math.pow(2, 1000)), 3.273390607896142e+150);
+  it('should return the nthRoot for very large numbers', function () {
+    (0, _approx.equal)(nthRoot(2e150 * 2e150), 2e150);
+    (0, _approx.equal)(nthRoot(Math.pow(2, 1000)), 3.273390607896142e+150);
   });
 
-  it('should return the nthRoot for small large numbers', function() {
-    toolsapprox_equaljs(nthRoot(4e-300), 2e-150);
+  it('should return the nthRoot for small large numbers', function () {
+    (0, _approx.equal)(nthRoot(4e-300), 2e-150);
   });
 
-  it('should return the nthRoot for negative numbers', function() {
-    toolsapprox_equaljs(nthRoot(-64, 3), -4);
-    toolsapprox_equaljs(nthRoot(-8, 3), -2);
+  it('should return the nthRoot for negative numbers', function () {
+    (0, _approx.equal)(nthRoot(-64, 3), -4);
+    (0, _approx.equal)(nthRoot(-8, 3), -2);
     // Newton's method fails in this particular case: --ericman314
-    toolsapprox_equaljs(nthRoot(-2, 3), -1.2599210498949);
+    (0, _approx.equal)(nthRoot(-2, 3), -1.2599210498949);
   });
 
-  it('should return the nthRoot for negative roots', function() {
-    toolsapprox_equaljs(nthRoot(64, -3), 0.25);
-    toolsapprox_equaljs(nthRoot(-64, -3), -0.25);
+  it('should return the nthRoot for negative roots', function () {
+    (0, _approx.equal)(nthRoot(64, -3), 0.25);
+    (0, _approx.equal)(nthRoot(-64, -3), -0.25);
   });
 
-  it('should return the nthRoot for zero', function() {
-    assert.equal(nthRoot(0, 2), 0);
-    assert.equal(nthRoot(0, -2), Infinity);
+  it('should return the nthRoot for zero', function () {
+    _assert2.default.equal(nthRoot(0, 2), 0);
+    _assert2.default.equal(nthRoot(0, -2), Infinity);
   });
 
-  it('should return the nthRoot for infinity', function() {
-    toolsapprox_equaljs(nthRoot(Infinity, 2), Infinity);
-    toolsapprox_equaljs(nthRoot(-Infinity, 3), -Infinity);
-    toolsapprox_equaljs(nthRoot(Infinity, -3), 0);
+  it('should return the nthRoot for infinity', function () {
+    (0, _approx.equal)(nthRoot(Infinity, 2), Infinity);
+    (0, _approx.equal)(nthRoot(-Infinity, 3), -Infinity);
+    (0, _approx.equal)(nthRoot(Infinity, -3), 0);
   });
 
-  it('should throw an error when n is zero', function() {
-    assert.throws(function () {nthRoot(4, 0);}, /Root must be non-zero/);
+  it('should throw an error when n is zero', function () {
+    _assert2.default.throws(function () {
+      nthRoot(4, 0);
+    }, /Root must be non-zero/);
   });
 
-  it('should throw an error when value is negative and root is even', function() {
-    assert.throws(function () {nthRoot(-27, 2);}, /Root must be odd when a is negative/);
-    assert.throws(function () {nthRoot(-27, 2.5);}, /Root must be odd when a is negative/);
+  it('should throw an error when value is negative and root is even', function () {
+    _assert2.default.throws(function () {
+      nthRoot(-27, 2);
+    }, /Root must be odd when a is negative/);
+    _assert2.default.throws(function () {
+      nthRoot(-27, 2.5);
+    }, /Root must be odd when a is negative/);
   });
 
-  it('should throw an error if invalid number of arguments', function() {
-    assert.throws(function () {nthRoot();}, /TypeError: Too few arguments/);
-    assert.throws(function () {nthRoot(1, 2, 3);}, /TypeError: Too many arguments/);
+  it('should throw an error if invalid number of arguments', function () {
+    _assert2.default.throws(function () {
+      nthRoot();
+    }, /TypeError: Too few arguments/);
+    _assert2.default.throws(function () {
+      nthRoot(1, 2, 3);
+    }, /TypeError: Too many arguments/);
   });
 
-  it('should return the nthRoot of bignumbers', function() {
-    assert.deepEqual(nthRoot(big(4)), big(2));
-    assert.deepEqual(nthRoot(big(9)), big(3));
-    assert.deepEqual(nthRoot(big(8), big(3)), big(2));
-    assert.deepEqual(nthRoot(big(64), big(3)), big(4));
+  it('should return the nthRoot of bignumbers', function () {
+    _assert2.default.deepEqual(nthRoot(big(4)), big(2));
+    _assert2.default.deepEqual(nthRoot(big(9)), big(3));
+    _assert2.default.deepEqual(nthRoot(big(8), big(3)), big(2));
+    _assert2.default.deepEqual(nthRoot(big(64), big(3)), big(4));
   });
 
-  it('should return the nthRoot of negative bignumber values', function() {
-    assert.deepEqual(nthRoot(big(-2), big(3)), big('-1.259921049894873164767210607278228350570251464701507980081975112'));
-    assert.deepEqual(nthRoot(big(-64), big(3)), big(-4));
+  it('should return the nthRoot of negative bignumber values', function () {
+    _assert2.default.deepEqual(nthRoot(big(-2), big(3)), big('-1.259921049894873164767210607278228350570251464701507980081975112'));
+    _assert2.default.deepEqual(nthRoot(big(-64), big(3)), big(-4));
   });
 
-  it('should return the nthRoot of negative bignumber roots', function() {
-    assert.deepEqual(nthRoot(big(64), big(-3)), big(0.25));
-    assert.deepEqual(nthRoot(big(-64), big(3)), big(-4));
-    assert.deepEqual(nthRoot(big(-64), big(-3)), big(-0.25));
+  it('should return the nthRoot of negative bignumber roots', function () {
+    _assert2.default.deepEqual(nthRoot(big(64), big(-3)), big(0.25));
+    _assert2.default.deepEqual(nthRoot(big(-64), big(3)), big(-4));
+    _assert2.default.deepEqual(nthRoot(big(-64), big(-3)), big(-0.25));
   });
 
-  it('should return the nthRoot for bignumber zero', function() {
-    assert.deepEqual(nthRoot(big(0), big(2)).toString(), '0');
-    assert.deepEqual(nthRoot(big(0), big(-2)).toString(), 'Infinity');
+  it('should return the nthRoot for bignumber zero', function () {
+    _assert2.default.deepEqual(nthRoot(big(0), big(2)).toString(), '0');
+    _assert2.default.deepEqual(nthRoot(big(0), big(-2)).toString(), 'Infinity');
   });
 
-  it('should return the nthRoot for bignumber infinity', function() {
-    assert.deepEqual(nthRoot(big(Infinity), big(2)).toString(), 'Infinity');
-    assert.deepEqual(nthRoot(big(-Infinity), big(3)).toString(), '-Infinity');
-    assert.deepEqual(nthRoot(big(Infinity), big(-3)), big(0));
+  it('should return the nthRoot for bignumber infinity', function () {
+    _assert2.default.deepEqual(nthRoot(big(Infinity), big(2)).toString(), 'Infinity');
+    _assert2.default.deepEqual(nthRoot(big(-Infinity), big(3)).toString(), '-Infinity');
+    _assert2.default.deepEqual(nthRoot(big(Infinity), big(-3)), big(0));
   });
 
-  it('should return an array of Complex Roots in Polar form', function() {
+  it('should return an array of Complex Roots in Polar form', function () {
     var roots = nthRoot(complex("-1"), 6);
-    var roots1 = [
-      {r: 1, phi: Math.PI/6},
-      {r: 1, phi: Math.PI/2},
-      {r: 1, phi: (5 * Math.PI)/6},
-      {r: 1, phi: (7 * Math.PI)/6},
-      {r: 1, phi: (9 * Math.PI)/6},
-      {r: 1, phi: (11 * Math.PI)/6}
-    ];
+    var roots1 = [{ r: 1, phi: Math.PI / 6 }, { r: 1, phi: Math.PI / 2 }, { r: 1, phi: 5 * Math.PI / 6 }, { r: 1, phi: 7 * Math.PI / 6 }, { r: 1, phi: 9 * Math.PI / 6 }, { r: 1, phi: 11 * Math.PI / 6 }];
 
     roots.forEach(function (value, index, array) {
-      assert.equal(value.r, roots1[index].r);
-      assert.equal(value.phi, roots1[index].phi);
+      _assert2.default.equal(value.r, roots1[index].r);
+      _assert2.default.equal(value.phi, roots1[index].phi);
     });
   });
 
-  it('should throw an error when used with a complex number and root is less than 0', function() {
-    assert.throws(function () {nthRoot(complex("-1"), -1);});
+  it('should throw an error when used with a complex number and root is less than 0', function () {
+    _assert2.default.throws(function () {
+      nthRoot(complex("-1"), -1);
+    });
   });
 
-  it('should throw an error when used with a complex number and root is not an integer', function() {
-    assert.throws(function() {nthRoot(complex("-1 + 2i"), 0.5);});
+  it('should throw an error when used with a complex number and root is not an integer', function () {
+    _assert2.default.throws(function () {
+      nthRoot(complex("-1 + 2i"), 0.5);
+    });
   });
 
-  it('should throw an error when used on a unit', function() {
-    assert.throws(function () {nthRoot(unit('5cm'));});
+  it('should throw an error when used on a unit', function () {
+    _assert2.default.throws(function () {
+      nthRoot(unit('5cm'));
+    });
   });
 
-  it('should throw an error when used on a string', function() {
-    assert.throws(function () {nthRoot('text');});
+  it('should throw an error when used on a string', function () {
+    _assert2.default.throws(function () {
+      nthRoot('text');
+    });
   });
 
   describe('Array', function () {
-    
+
     it('should return the nthRoot for array - scalar', function () {
-      approx.deepEqual(nthRoot([8, 27,  64], 3), [2, 3, 4]);
+      approx.deepEqual(nthRoot([8, 27, 64], 3), [2, 3, 4]);
       approx.deepEqual(nthRoot(64, [2, 3, 8]), [8, 4, 1.6817928305074290860622509524664]);
     });
-    
+
     it('should return the nthRoot for array - array', function () {
       approx.deepEqual(nthRoot([[64, 3125], [0, -1]], [[3, 5], [1, 3]]), [[4, 5], [0, -1]]);
     });
-    
+
     it('should return the nthRoot for array - dense matrix', function () {
       approx.deepEqual(nthRoot([[64, 3125], [0, -1]], matrix([[3, 5], [1, 3]])), matrix([[4, 5], [0, -1]]));
     });
-    
+
     it('should return the nthRoot for array - sparse matrix', function () {
       approx.deepEqual(nthRoot([[64, 3125], [0, -1]], sparse([[3, 5], [1, 3]])), matrix([[4, 5], [0, -1]]));
     });
   });
-  
+
   describe('DenseMatrix', function () {
 
     it('should return the nthRoot for dense matrix - scalar', function () {
-      approx.deepEqual(nthRoot(matrix([8, 27,  64]), 3), matrix([2, 3, 4]));
+      approx.deepEqual(nthRoot(matrix([8, 27, 64]), 3), matrix([2, 3, 4]));
       approx.deepEqual(nthRoot(64, matrix([2, 3, 8])), matrix([8, 4, 1.6817928305074290860622509524664]));
     });
 
@@ -203,7 +222,7 @@ describe('nthRoot', function() {
   });
 
   it('should LaTeX nthRoot', function () {
-    var expression = index_indexjsjs.parse('nthRoot(8,3)');
-    assert.equal(expression.toTex(), '\\sqrt[3]{8}');
+    var expression = _index.indexjs.parse('nthRoot(8,3)');
+    _assert2.default.equal(expression.toTex(), '\\sqrt[3]{8}');
   });
 });
