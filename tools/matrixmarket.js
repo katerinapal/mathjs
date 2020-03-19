@@ -1,16 +1,12 @@
+import fs from "fs";
+import zlib from "zlib";
+import tar from "tar";
+import { indexjs as index_indexjsjs } from "../index";
+import q from "q";
+import typedfunction from "typed-function";
 'use strict';
 
-var fs = require('fs'),
-    zlib = require('zlib'),
-    tar = require('tar'),
-    math = require('../index'),
-    Q = require('q'),
-    typed = require('typed-function'),
-    
-    Spa = math.type.Spa,
-    DenseMatrix = math.type.DenseMatrix,
-    SparseMatrix = math.type.SparseMatrix,
-    FibonacciHeap = math.type.FibonacciHeap;
+var Spa = index_indexjsjs.type.Spa, DenseMatrix = index_indexjsjs.type.DenseMatrix, SparseMatrix = index_indexjsjs.type.SparseMatrix, FibonacciHeap = index_indexjsjs.type.FibonacciHeap;
 
 var _importFromStream = function (stream, deferred) {
 
@@ -357,6 +353,8 @@ var _import = typed('importMatrix', {
   }
 });
 
-module.exports = {
+var matrixmarketjs_matrixmarketjs = {
   import: _import
 };
+
+export { matrixmarketjs_matrixmarketjs as matrixmarketjs };

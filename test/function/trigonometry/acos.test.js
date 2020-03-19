@@ -1,34 +1,34 @@
-var assert = require('assert');
-var math = require('../../../index');
-var approx = require('../../../tools/approx');
-var pi = math.pi;
-var acos = math.acos;
-var cos = math.cos;
-var complex = math.complex;
-var matrix = math.matrix;
-var unit = math.unit;
-var bigmath = math.create({number: 'BigNumber', precision: 20});
-var mathPredictable = math.create({predictable: true});
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
+var pi = index_indexjsjs.pi;
+var acos = index_indexjsjs.acos;
+var cos = index_indexjsjs.cos;
+var complex = index_indexjsjs.complex;
+var matrix = index_indexjsjs.matrix;
+var unit = index_indexjsjs.unit;
+var bigmath = index_indexjsjs.create({number: 'BigNumber', precision: 20});
+var mathPredictable = index_indexjsjs.create({predictable: true});
 var acosBig = bigmath.acos;
 var cosBig = bigmath.cos;
 var Big = bigmath.bignumber;
 
 describe('acos', function() {
   it('should return the arccos of a boolean', function () {
-    approx.equal(acos(true), 0);
-    approx.equal(acos(false), 0.5 * pi);
+    toolsapprox_equaljs(acos(true), 0);
+    toolsapprox_equaljs(acos(false), 0.5 * pi);
   });
 
   it('should return the arccos of null', function () {
-    approx.equal(acos(null), 0.5 * pi);
+    toolsapprox_equaljs(acos(null), 0.5 * pi);
   });
 
   it('should return the arccos of a number', function() {
-    approx.equal(acos(-1) / pi, 1);
-    approx.equal(acos(-0.5) / pi, 2 / 3);
-    approx.equal(acos(0) / pi, 0.5);
-    approx.equal(acos(0.5) / pi, 1 / 3);
-    approx.equal(acos(1) / pi, 0);
+    toolsapprox_equaljs(acos(-1) / pi, 1);
+    toolsapprox_equaljs(acos(-0.5) / pi, 2 / 3);
+    toolsapprox_equaljs(acos(0) / pi, 0.5);
+    toolsapprox_equaljs(acos(0.5) / pi, 1 / 3);
+    toolsapprox_equaljs(acos(1) / pi, 0);
 
     approx.deepEqual(acos(-2), complex('3.14159265358979 - 1.31695789692482i'));
     approx.deepEqual(acos(2), complex('1.316957896924817i'));
@@ -56,11 +56,11 @@ describe('acos', function() {
   });
 
   it('should be the inverse function of cos', function() {
-    approx.equal(acos(cos(-1)), 1);
-    approx.equal(acos(cos(0)), 0);
-    approx.equal(acos(cos(0.1)), 0.1);
-    approx.equal(acos(cos(0.5)), 0.5);
-    approx.equal(acos(cos(2)), 2);
+    toolsapprox_equaljs(acos(cos(-1)), 1);
+    toolsapprox_equaljs(acos(cos(0)), 0);
+    toolsapprox_equaljs(acos(cos(0.1)), 0.1);
+    toolsapprox_equaljs(acos(cos(0.5)), 0.5);
+    toolsapprox_equaljs(acos(cos(2)), 2);
   });
 
   it('should be the inverse function of bignumber cos', function() {
@@ -110,7 +110,7 @@ describe('acos', function() {
   });
 
   it('should LaTeX acos', function () {
-    var expression = math.parse('acos(1)');
+    var expression = index_indexjsjs.parse('acos(1)');
     assert.equal(expression.toTex(), '\\cos^{-1}\\left(1\\right)');
   });
 

@@ -1,13 +1,12 @@
-var assert = require('assert');
-
-var math = require('../../index');
-var operators = require('../../lib/expression/operators');
-var OperatorNode = math.expression.node.OperatorNode;
-var AssignmentNode = math.expression.node.AssignmentNode;
-var SymbolNode = math.expression.node.SymbolNode;
-var ConstantNode = math.expression.node.ConstantNode;
-var Node = math.expression.node.Node;
-var ParenthesisNode = math.expression.node.ParenthesisNode;
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../index";
+import { getPrecedence as libexpressionoperators_getPrecedencejs } from "../../lib/expression/operators";
+var OperatorNode = index_indexjsjs.expression.node.OperatorNode;
+var AssignmentNode = index_indexjsjs.expression.node.AssignmentNode;
+var SymbolNode = index_indexjsjs.expression.node.SymbolNode;
+var ConstantNode = index_indexjsjs.expression.node.ConstantNode;
+var Node = index_indexjsjs.expression.node.Node;
+var ParenthesisNode = index_indexjsjs.expression.node.ParenthesisNode;
 
 describe('operators', function () {
   it('should return the precedence of a node', function () {
@@ -17,14 +16,14 @@ describe('operators', function () {
     var n1 = new AssignmentNode(new SymbolNode('a'), a);
     var n2 = new OperatorNode('or', 'or', [a, b]);
 
-    assert.equal(operators.getPrecedence(n1, 'keep'), 0);
-    assert.equal(operators.getPrecedence(n2, 'keep'), 2);
+    assert.equal(libexpressionoperators_getPrecedencejs(n1, 'keep'), 0);
+    assert.equal(libexpressionoperators_getPrecedencejs(n2, 'keep'), 2);
   });
 
   it('should return null if precedence is not defined for a node', function () {
     var n = new Node();
 
-    assert.equal(operators.getPrecedence(n, 'keep'), null);
+    assert.equal(libexpressionoperators_getPrecedencejs(n, 'keep'), null);
   });
 
   it ('should return the precedence of a ParenthesisNode', function () {
@@ -34,9 +33,9 @@ describe('operators', function () {
 
     var p = new ParenthesisNode(op);
 
-    assert.equal(operators.getPrecedence(p, 'all'), operators.getPrecedence(op, 'all'));
-    assert.equal(operators.getPrecedence(p, 'auto'), operators.getPrecedence(op, 'all'));
-    assert.equal(operators.getPrecedence(p, 'keep'), null);
+    assert.equal(libexpressionoperators_getPrecedencejs(p, 'all'), libexpressionoperators_getPrecedencejs(op, 'all'));
+    assert.equal(libexpressionoperators_getPrecedencejs(p, 'auto'), libexpressionoperators_getPrecedencejs(op, 'all'));
+    assert.equal(libexpressionoperators_getPrecedencejs(p, 'keep'), null);
   });
 
   it('should return the associativity of a node', function () {

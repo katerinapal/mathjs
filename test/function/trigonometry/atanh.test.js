@@ -1,16 +1,15 @@
-var assert = require('assert');
-var error = require('../../../lib/error/index');
-var math = require('../../../index');
-var approx = require('../../../tools/approx');
-var pi = math.pi;
-var atanh = math.atanh;
-var tanh = math.tanh;
-var complex = math.complex;
-var matrix = math.matrix;
-var unit = math.unit;
-var bigmath = math.create({number: 'BigNumber', precision: 20});
-var biggermath = math.create({precision: 21});
-var predmath = math.create({predictable: true});
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
+var pi = index_indexjsjs.pi;
+var atanh = index_indexjsjs.atanh;
+var tanh = index_indexjsjs.tanh;
+var complex = index_indexjsjs.complex;
+var matrix = index_indexjsjs.matrix;
+var unit = index_indexjsjs.unit;
+var bigmath = index_indexjsjs.create({number: 'BigNumber', precision: 20});
+var biggermath = index_indexjsjs.create({precision: 21});
+var predmath = index_indexjsjs.create({predictable: true});
 var atanhBig = bigmath.atanh;
 var Big = bigmath.bignumber;
 
@@ -30,11 +29,11 @@ describe('atanh', function() {
     //assert.ok(isNaN(atanh(-2)));
     //assert.ok(isNaN(atanh(2)));
 
-    approx.equal(atanh(-1), -Infinity);
-    approx.equal(atanh(-0.5), -0.54930614433405484569762261846);
-    approx.equal(atanh(0), 0);
-    approx.equal(atanh(0.5), 0.54930614433405484569762261846);
-    approx.equal(atanh(1), Infinity);
+    toolsapprox_equaljs(atanh(-1), -Infinity);
+    toolsapprox_equaljs(atanh(-0.5), -0.54930614433405484569762261846);
+    toolsapprox_equaljs(atanh(0), 0);
+    toolsapprox_equaljs(atanh(0.5), 0.54930614433405484569762261846);
+    toolsapprox_equaljs(atanh(1), Infinity);
   });
 
 
@@ -58,10 +57,10 @@ describe('atanh', function() {
   });
 
   it('should be the inverse function of hyperbolic tan', function() {
-    approx.equal(atanh(tanh(-1)), -1);
-    approx.equal(atanh(tanh(0)), 0);
-    approx.equal(atanh(tanh(0.1)), 0.1);
-    approx.equal(atanh(tanh(0.5)), 0.5);
+    toolsapprox_equaljs(atanh(tanh(-1)), -1);
+    toolsapprox_equaljs(atanh(tanh(0)), 0);
+    toolsapprox_equaljs(atanh(tanh(0.1)), 0.1);
+    toolsapprox_equaljs(atanh(tanh(0.5)), 0.5);
   });
 
   it('should be the inverse function of bignumber tanh', function() {
@@ -113,7 +112,7 @@ describe('atanh', function() {
   });
 
   it('should LaTeX atanh', function () {
-    var expression = math.parse('atanh(0.5)');
+    var expression = index_indexjsjs.parse('atanh(0.5)');
     assert.equal(expression.toTex(), '\\tanh^{-1}\\left(0.5\\right)');
   });
 

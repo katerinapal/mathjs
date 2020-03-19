@@ -1,33 +1,26 @@
-var assert = require('assert'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    approx = require('../../../tools/approx'),
-    pi = math.pi,
-    complex = math.complex,
-    matrix = math.matrix,
-    unit = math.unit,
-    csch = math.csch,
-    bigmath = math.create({precision: 20}),
-    biggermath = math.create({number: 'BigNumber', precision: 22});
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
+var error = require('../../../lib/error/index'), pi = index_indexjsjs.pi, complex = index_indexjsjs.complex, matrix = index_indexjsjs.matrix, unit = index_indexjsjs.unit, csch = index_indexjsjs.csch, bigmath = index_indexjsjs.create({precision: 20}), biggermath = index_indexjsjs.create({number: 'BigNumber', precision: 22});
 
 describe('csch', function() {
   it('should return the csch of a boolean', function () {
-    approx.equal(csch(true), 0.85091812823932);
-    approx.equal(csch(false), Number.POSITIVE_INFINITY);
+    toolsapprox_equaljs(csch(true), 0.85091812823932);
+    toolsapprox_equaljs(csch(false), Number.POSITIVE_INFINITY);
   });
 
   it('should return the csch of null', function () {
-    approx.equal(csch(null), Number.POSITIVE_INFINITY);
+    toolsapprox_equaljs(csch(null), Number.POSITIVE_INFINITY);
   });
 
   it('should return the csch of a number', function() {
-    approx.equal(csch(0), Number.POSITIVE_INFINITY);
-    approx.equal(csch(pi), 0.086589537530047);
-    approx.equal(csch(1), 0.85091812823932);
-    approx.equal(csch(2), 0.27572056477178);
-    approx.equal(csch(3), 0.099821569668823);
-    approx.equal(csch(1e-22), Number.POSITIVE_INFINITY);
-    approx.equal(csch(-1e-22), Number.NEGATIVE_INFINITY);
+    toolsapprox_equaljs(csch(0), Number.POSITIVE_INFINITY);
+    toolsapprox_equaljs(csch(pi), 0.086589537530047);
+    toolsapprox_equaljs(csch(1), 0.85091812823932);
+    toolsapprox_equaljs(csch(2), 0.27572056477178);
+    toolsapprox_equaljs(csch(3), 0.099821569668823);
+    toolsapprox_equaljs(csch(1e-22), Number.POSITIVE_INFINITY);
+    toolsapprox_equaljs(csch(-1e-22), Number.NEGATIVE_INFINITY);
   });
 
   it('should return the csch of a bignumber', function() {
@@ -50,11 +43,11 @@ describe('csch', function() {
   });
 
   it('should return the csch of an angle', function() {
-    approx.equal(csch(unit('90deg')), 0.4345372080947);
-    approx.equal(csch(unit('-45deg')), -1.1511838709208);
+    toolsapprox_equaljs(csch(unit('90deg')), 0.4345372080947);
+    toolsapprox_equaljs(csch(unit('-45deg')), -1.1511838709208);
 
-    assert(csch(unit(math.bignumber(90), 'deg')).isBigNumber);
-    approx.equal(csch(unit(math.bignumber(90), 'deg')).toNumber(), 0.4345372080947);
+    assert(csch(unit(index_indexjsjs.bignumber(90), 'deg')).isBigNumber);
+    toolsapprox_equaljs(csch(unit(index_indexjsjs.bignumber(90), 'deg')).toNumber(), 0.4345372080947);
 
     approx.deepEqual(csch(unit(complex('2 + i'), 'rad')), complex(0.14136302161241, -0.22837506559969));
   });
@@ -83,7 +76,7 @@ describe('csch', function() {
   });
 
   it('should LaTeX csch', function () {
-    var expression = math.parse('csch(1)');
+    var expression = index_indexjsjs.parse('csch(1)');
     assert.equal(expression.toTex(), '\\mathrm{csch}\\left(1\\right)');
   });
 });

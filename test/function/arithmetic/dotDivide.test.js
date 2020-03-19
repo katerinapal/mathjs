@@ -1,9 +1,8 @@
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
 // test dotDivide (element-wise divide)
-var assert = require('assert'),
-    math = require('../../../index'),
-    approx = require('../../../tools/approx'),
-    dotDivide = math.dotDivide,
-    complex = math.complex;
+var dotDivide = index_indexjsjs.dotDivide, complex = index_indexjsjs.complex;
 
 describe('dotDivide', function() {
 
@@ -27,7 +26,7 @@ describe('dotDivide', function() {
   it('should add mixed numbers and booleans', function() {
     assert.equal(dotDivide(2, true), 2);
     assert.equal(dotDivide(2, false), Infinity);
-    approx.equal(dotDivide(true, 2), 0.5);
+    toolsapprox_equaljs(dotDivide(true, 2), 0.5);
     assert.equal(dotDivide(false, 2), 0);
   });
 
@@ -49,11 +48,11 @@ describe('dotDivide', function() {
   });
 
   it('should divide a unit by a number', function() {
-    assert.equal(dotDivide(math.unit('5 m'), 10).toString(), '500 mm');
+    assert.equal(dotDivide(index_indexjsjs.unit('5 m'), 10).toString(), '500 mm');
   });
 
   it('should divide a number by a unit', function() {
-    assert.equal(dotDivide(10, math.unit('5 m')).toString(), '2 m^-1');
+    assert.equal(dotDivide(10, index_indexjsjs.unit('5 m')).toString(), '2 m^-1');
   });
 
   /*
@@ -84,14 +83,14 @@ describe('dotDivide', function() {
     
     it('should perform (array ./ dense matrix) element-wise matrix division', function() {
       var a = [[1,2],[3,4]];
-      var b = math.matrix([[5,6],[7,8]]);
-      assert.deepEqual(dotDivide(a, b), math.matrix([[1/5, 2/6], [3/7,4/8]]));
+      var b = index_indexjsjs.matrix([[5,6],[7,8]]);
+      assert.deepEqual(dotDivide(a, b), index_indexjsjs.matrix([[1/5, 2/6], [3/7,4/8]]));
     });
     
     it('should perform (array ./ sparse matrix) element-wise matrix division', function() {
       var a = [[1,2],[3,4]];
-      var b = math.sparse([[5,0],[7,8]]);
-      assert.deepEqual(dotDivide(a, b), math.matrix([[1/5, Infinity], [3/7,4/8]]));
+      var b = index_indexjsjs.sparse([[5,0],[7,8]]);
+      assert.deepEqual(dotDivide(a, b), index_indexjsjs.matrix([[1/5, Infinity], [3/7,4/8]]));
     });
     
     it('should throw an error when dividing element-wise with differing size', function() {
@@ -102,77 +101,77 @@ describe('dotDivide', function() {
   describe('DenseMatrix', function () {
     
     it('should divide all the elements of a dense matrix by one number', function() {
-      assert.deepEqual(dotDivide(math.matrix([2,4,6]), 2), math.matrix([1,2,3]));
-      var a = math.matrix([[1,2],[3,4]]);
-      assert.deepEqual(dotDivide(a, 2), math.matrix([[0.5,1],[1.5,2]]));
-      assert.deepEqual(dotDivide(math.matrix([]), 2), math.matrix([]));
+      assert.deepEqual(dotDivide(index_indexjsjs.matrix([2,4,6]), 2), index_indexjsjs.matrix([1,2,3]));
+      var a = index_indexjsjs.matrix([[1,2],[3,4]]);
+      assert.deepEqual(dotDivide(a, 2), index_indexjsjs.matrix([[0.5,1],[1.5,2]]));
+      assert.deepEqual(dotDivide(index_indexjsjs.matrix([]), 2), index_indexjsjs.matrix([]));
     });
 
     it('should divide 1 over a dense matrix element-wise', function() {
-      approx.deepEqual(dotDivide(1, math.matrix([[1, 4, 7], [ 3, 0, 5], [-1, 9, 11]])), math.matrix([[1, 0.25, 1/7],[1/3, Infinity, 0.2], [-1, 1/9, 1/11]]));
+      approx.deepEqual(dotDivide(1, index_indexjsjs.matrix([[1, 4, 7], [ 3, 0, 5], [-1, 9, 11]])), index_indexjsjs.matrix([[1, 0.25, 1/7],[1/3, Infinity, 0.2], [-1, 1/9, 1/11]]));
     });
 
     it('should perform (dense matrix ./ array) element-wise matrix division', function() {
-      var a = math.matrix([[1,2],[3,4]]);
+      var a = index_indexjsjs.matrix([[1,2],[3,4]]);
       var b = [[5,6],[7,8]];
-      assert.deepEqual(dotDivide(a, b), math.matrix([[1/5, 2/6], [3/7,4/8]]));
+      assert.deepEqual(dotDivide(a, b), index_indexjsjs.matrix([[1/5, 2/6], [3/7,4/8]]));
     });
 
     it('should perform (dense matrix ./ dense matrix) element-wise matrix division', function() {
-      var a = math.matrix([[1,2],[3,4]]);
-      var b = math.matrix([[5,6],[7,8]]);
-      assert.deepEqual(dotDivide(a, b), math.matrix([[1/5, 2/6], [3/7,4/8]]));
+      var a = index_indexjsjs.matrix([[1,2],[3,4]]);
+      var b = index_indexjsjs.matrix([[5,6],[7,8]]);
+      assert.deepEqual(dotDivide(a, b), index_indexjsjs.matrix([[1/5, 2/6], [3/7,4/8]]));
     });
 
     it('should perform (dense matrix ./ sparse matrix) element-wise matrix division', function() {
-      var a = math.matrix([[1,2],[3,4]]);
-      var b = math.sparse([[5,0],[7,8]]);
-      assert.deepEqual(dotDivide(a, b), math.matrix([[1/5, Infinity], [3/7,4/8]]));
+      var a = index_indexjsjs.matrix([[1,2],[3,4]]);
+      var b = index_indexjsjs.sparse([[5,0],[7,8]]);
+      assert.deepEqual(dotDivide(a, b), index_indexjsjs.matrix([[1/5, Infinity], [3/7,4/8]]));
     });
     
     it('should throw an error when dividing element-wise with differing size', function() {
-      assert.throws(function () {dotDivide(math.matrix([[1,2],[3,4]]), math.matrix([[1]]));});
+      assert.throws(function () {dotDivide(index_indexjsjs.matrix([[1,2],[3,4]]), index_indexjsjs.matrix([[1]]));});
     });
   });
   
   describe('SparseMatrix', function () {
 
     it('should divide all the elements of a sparse matrix by one number', function() {
-      assert.deepEqual(dotDivide(math.sparse([[2,0,6],[8,10,12]]), 2), math.sparse([[1,0,3],[4,5,6]]));
-      var a = math.sparse([[1,2],[3,4]]);
-      assert.deepEqual(dotDivide(a, 2), math.sparse([[0.5,1],[1.5,2]]));
-      assert.deepEqual(dotDivide(math.sparse(), 2), math.sparse());
+      assert.deepEqual(dotDivide(index_indexjsjs.sparse([[2,0,6],[8,10,12]]), 2), index_indexjsjs.sparse([[1,0,3],[4,5,6]]));
+      var a = index_indexjsjs.sparse([[1,2],[3,4]]);
+      assert.deepEqual(dotDivide(a, 2), index_indexjsjs.sparse([[0.5,1],[1.5,2]]));
+      assert.deepEqual(dotDivide(index_indexjsjs.sparse(), 2), index_indexjsjs.sparse());
     });
 
     it('should divide 1 over a sparse matrix element-wise', function() {
-      approx.deepEqual(dotDivide(1, math.sparse([[1, 4, 7], [ 3, 0, 5], [-1, 9, 11]])), math.matrix([[1, 0.25, 1/7],[1/3, Infinity, 0.2], [-1, 1/9, 1/11]]));
+      approx.deepEqual(dotDivide(1, index_indexjsjs.sparse([[1, 4, 7], [ 3, 0, 5], [-1, 9, 11]])), index_indexjsjs.matrix([[1, 0.25, 1/7],[1/3, Infinity, 0.2], [-1, 1/9, 1/11]]));
     });
 
     it('should perform (sparse matrix ./ array) element-wise matrix division', function() {
-      var a = math.sparse([[1,2],[3,4]]);
+      var a = index_indexjsjs.sparse([[1,2],[3,4]]);
       var b = [[5,6],[7,8]];
-      assert.deepEqual(dotDivide(a, b), math.sparse([[1/5, 2/6], [3/7,4/8]]));
+      assert.deepEqual(dotDivide(a, b), index_indexjsjs.sparse([[1/5, 2/6], [3/7,4/8]]));
     });
 
     it('should perform (sparse matrix ./ dense matrix) element-wise matrix division', function() {
-      var a = math.sparse([[1,2],[3,4]]);
-      var b = math.matrix([[5,6],[7,8]]);
-      assert.deepEqual(dotDivide(a, b), math.sparse([[1/5, 2/6], [3/7,4/8]]));
+      var a = index_indexjsjs.sparse([[1,2],[3,4]]);
+      var b = index_indexjsjs.matrix([[5,6],[7,8]]);
+      assert.deepEqual(dotDivide(a, b), index_indexjsjs.sparse([[1/5, 2/6], [3/7,4/8]]));
     });
 
     it('should perform (sparse matrix ./ sparse matrix) element-wise matrix division', function() {
-      var a = math.sparse([[1,2],[0,4]]);
-      var b = math.sparse([[5,0],[7,8]]);
-      assert.deepEqual(dotDivide(a, b), math.matrix([[1/5, Infinity], [0,4/8]]));
+      var a = index_indexjsjs.sparse([[1,2],[0,4]]);
+      var b = index_indexjsjs.sparse([[5,0],[7,8]]);
+      assert.deepEqual(dotDivide(a, b), index_indexjsjs.matrix([[1/5, Infinity], [0,4/8]]));
     });
 
     it('should throw an error when dividing element-wise with differing size', function() {
-      assert.throws(function () {dotDivide(math.sparse([[1,2],[3,4]]), math.sparse([[1]]));});
+      assert.throws(function () {dotDivide(index_indexjsjs.sparse([[1,2],[3,4]]), index_indexjsjs.sparse([[1]]));});
     });
   });
 
   it('should LaTeX dotDivide', function () {
-    var expression = math.parse('dotDivide([1,2],[3,4])');
+    var expression = index_indexjsjs.parse('dotDivide([1,2],[3,4])');
     assert.equal(expression.toTex(), '\\left(\\begin{bmatrix}1\\\\2\\\\\\end{bmatrix}.:\\begin{bmatrix}3\\\\4\\\\\\end{bmatrix}\\right)');
   });
 });

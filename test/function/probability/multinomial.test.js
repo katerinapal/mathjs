@@ -1,8 +1,7 @@
-var assert = require('assert'),
-error = require('../../../lib/error/index'),
-math = require('../../../index'),
-multinomial = math.multinomial,
-_ = require('underscore');
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
+import underscore from "underscore";
+var error = require('../../../lib/error/index'), multinomial = index_indexjsjs.multinomial;
 
 describe('multinomial', function() {
 
@@ -13,15 +12,15 @@ describe('multinomial', function() {
   });
 
   it('should calculate the multinomial of n items taken k at a time with BigNumbers', function() {
-    assert.equal(_.isEqual(multinomial([math.bignumber(3), math.bignumber(4), math.bignumber(5)]), math.bignumber(27720)),true);
-    assert.deepEqual(multinomial([math.bignumber(10), math.bignumber(1), math.bignumber(2)]), math.bignumber(858));
+    assert.equal(_.isEqual(multinomial([index_indexjsjs.bignumber(3), index_indexjsjs.bignumber(4), index_indexjsjs.bignumber(5)]), index_indexjsjs.bignumber(27720)),true);
+    assert.deepEqual(multinomial([index_indexjsjs.bignumber(10), index_indexjsjs.bignumber(1), index_indexjsjs.bignumber(2)]), index_indexjsjs.bignumber(858));
   });
 
   it('should not work with non-integer and negative input', function() {
     assert.throws(function() {multinomial([0.5,3])}, TypeError);
-      assert.throws(function() {multinomial([math.bignumber(3), math.bignumber(0.5)])}, TypeError);
-      assert.throws(function() {multinomial([math.bignumber(3.5), math.bignumber(-3)])}, TypeError);
-      assert.throws(function() {multinomial([math.bignumber(3.5), 1/3])}, TypeError);
+      assert.throws(function() {multinomial([index_indexjsjs.bignumber(3), index_indexjsjs.bignumber(0.5)])}, TypeError);
+      assert.throws(function() {multinomial([index_indexjsjs.bignumber(3.5), index_indexjsjs.bignumber(-3)])}, TypeError);
+      assert.throws(function() {multinomial([index_indexjsjs.bignumber(3.5), 1/3])}, TypeError);
     });
 
   it('should not work with the wrong number or type of arguments', function() {

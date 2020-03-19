@@ -1,22 +1,20 @@
-// test string utils
-var assert = require('assert');
-var approx = require('../../tools/approx');
-var BigNumber = require('decimal.js');
-var math = require('../../index');
-var string = require('../../lib/utils/string');
+import assert from "assert";
+import decimaljs from "decimal.js";
+import { indexjs as index_indexjsjs } from "../../index";
+import { isString as libutilsstring_isStringjs } from "../../lib/utils/string";
 
 describe ('string', function () {
 
   it('isString', function() {
-    assert.equal(string.isString('hi'), true);
-    assert.equal(string.isString(String('hi')), true);
+    assert.equal(libutilsstring_isStringjs('hi'), true);
+    assert.equal(libutilsstring_isStringjs(String('hi')), true);
 
-    assert.equal(string.isString(23), false);
-    assert.equal(string.isString(true), false);
-    assert.equal(string.isString(new Date()), false);
+    assert.equal(libutilsstring_isStringjs(23), false);
+    assert.equal(libutilsstring_isStringjs(true), false);
+    assert.equal(libutilsstring_isStringjs(new Date()), false);
 
     // we don't support non primitive Strings anymore
-    assert.equal(string.isString(new String('hi')), false);
+    assert.equal(libutilsstring_isStringjs(new String('hi')), false);
   });
 
   it('endsWith', function() {
@@ -51,19 +49,19 @@ describe ('string', function () {
     });
 
     it ('should format a fraction without options', function () {
-      assert.equal(string.format(math.fraction(1,3)), '1/3');
-      assert.equal(string.format(math.fraction(2,6)), '1/3');
-      assert.equal(string.format(math.fraction(-0.125)), '-1/8');
+      assert.equal(string.format(index_indexjsjs.fraction(1,3)), '1/3');
+      assert.equal(string.format(index_indexjsjs.fraction(2,6)), '1/3');
+      assert.equal(string.format(index_indexjsjs.fraction(-0.125)), '-1/8');
     });
 
     it ('should format a fraction with option fraction=\'ratio\'', function () {
-      assert.equal(string.format(math.fraction(1,3), {fraction: 'ratio'}), '1/3');
-      assert.equal(string.format(math.fraction(2,6), {fraction: 'ratio'}), '1/3');
+      assert.equal(string.format(index_indexjsjs.fraction(1,3), {fraction: 'ratio'}), '1/3');
+      assert.equal(string.format(index_indexjsjs.fraction(2,6), {fraction: 'ratio'}), '1/3');
     });
 
     it ('should format a fraction with option fraction=\'decimal\'', function () {
-      assert.equal(string.format(math.fraction(1,3), {fraction: 'decimal'}), '0.(3)');
-      assert.equal(string.format(math.fraction(2,6), {fraction: 'decimal'}), '0.(3)');
+      assert.equal(string.format(index_indexjsjs.fraction(1,3), {fraction: 'decimal'}), '0.(3)');
+      assert.equal(string.format(index_indexjsjs.fraction(2,6), {fraction: 'decimal'}), '0.(3)');
     });
 
     it ('should format a number with configuration', function () {
@@ -83,7 +81,7 @@ describe ('string', function () {
     it ('should format an object', function () {
       var obj = {
         a: 1.1111,
-        b: math.complex(2.2222,3)
+        b: index_indexjsjs.complex(2.2222,3)
       };
 
       assert.equal(string.format(obj), '{"a": 1.1111, "b": 2.2222 + 3i}');

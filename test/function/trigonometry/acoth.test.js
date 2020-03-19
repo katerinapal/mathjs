@@ -1,16 +1,15 @@
-var assert = require('assert');
-var error = require('../../../lib/error/index');
-var math = require('../../../index');
-var approx = require('../../../tools/approx');
-var pi = math.pi;
-var acoth = math.acoth;
-var coth = math.coth;
-var complex = math.complex;
-var matrix = math.matrix;
-var unit = math.unit;
-var bigmath = math.create({number: 'BigNumber', precision: 20});
-var biggermath = math.create({precision: 21});
-var predmath = math.create({predictable: true});
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
+var pi = index_indexjsjs.pi;
+var acoth = index_indexjsjs.acoth;
+var coth = index_indexjsjs.coth;
+var complex = index_indexjsjs.complex;
+var matrix = index_indexjsjs.matrix;
+var unit = index_indexjsjs.unit;
+var bigmath = index_indexjsjs.create({number: 'BigNumber', precision: 20});
+var biggermath = index_indexjsjs.create({precision: 21});
+var predmath = index_indexjsjs.create({predictable: true});
 var acothBig = bigmath.acoth;
 var Big = bigmath.bignumber;
 
@@ -32,10 +31,10 @@ describe('acoth', function() {
     //assert.ok(isNaN(acoth(0)));
     //assert.ok(isNaN(acoth(0.5)));
 
-    approx.equal(acoth(-2), -0.54930614433405484569762261846);
+    toolsapprox_equaljs(acoth(-2), -0.54930614433405484569762261846);
     assert.equal(acoth(-1), -Infinity);
     assert.equal(acoth(1), Infinity);
-    approx.equal(acoth(2), 0.54930614433405484569762261846);
+    toolsapprox_equaljs(acoth(2), 0.54930614433405484569762261846);
     assert.equal(acoth(Infinity), 0);
   });
 
@@ -64,11 +63,11 @@ describe('acoth', function() {
   });
 
   it('should be the inverse function of hyperbolic cot', function() {
-    approx.equal(acoth(coth(-2)), -2);
-    approx.equal(acoth(coth(-1)), -1);
-    approx.equal(acoth(coth(0)), 0);
-    approx.equal(acoth(coth(1)), 1);
-    approx.equal(acoth(coth(2)), 2);
+    toolsapprox_equaljs(acoth(coth(-2)), -2);
+    toolsapprox_equaljs(acoth(coth(-1)), -1);
+    toolsapprox_equaljs(acoth(coth(0)), 0);
+    toolsapprox_equaljs(acoth(coth(1)), 1);
+    toolsapprox_equaljs(acoth(coth(2)), 2);
   });
 
   it('should be the inverse function of bignumber coth', function() {
@@ -114,7 +113,7 @@ describe('acoth', function() {
   });
 
   it('should LaTeX acoth', function () {
-    var expression = math.parse('acoth(2)');
+    var expression = index_indexjsjs.parse('acoth(2)');
     assert.equal(expression.toTex(), '\\coth^{-1}\\left(2\\right)');
   });
 

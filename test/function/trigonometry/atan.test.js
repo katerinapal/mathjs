@@ -1,33 +1,24 @@
-var assert = require('assert'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    approx = require('../../../tools/approx'),
-    pi = math.pi,
-    complex = math.complex,
-    matrix = math.matrix,
-    unit = math.unit,
-    atan = math.atan,
-    tan = math.tan,
-    bigmath = math.create({number: 'BigNumber', precision: 20}),
-    atanBig = bigmath.atan,
-    Big = bigmath.bignumber;
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
+var error = require('../../../lib/error/index'), pi = index_indexjsjs.pi, complex = index_indexjsjs.complex, matrix = index_indexjsjs.matrix, unit = index_indexjsjs.unit, atan = index_indexjsjs.atan, tan = index_indexjsjs.tan, bigmath = index_indexjsjs.create({number: 'BigNumber', precision: 20}), atanBig = bigmath.atan, Big = bigmath.bignumber;
 
 describe('atan', function() {
   it('should return the arctan of a boolean', function () {
-    approx.equal(atan(true), 0.25 * pi);
-    approx.equal(atan(false), 0);
+    toolsapprox_equaljs(atan(true), 0.25 * pi);
+    toolsapprox_equaljs(atan(false), 0);
   });
 
   it('should return the arctan of null', function () {
-    approx.equal(atan(null), 0);
+    toolsapprox_equaljs(atan(null), 0);
   });
 
   it('should return the arctan of a number', function() {
-    approx.equal(atan(-1) / pi, -0.25);
-    approx.equal(atan(-0.5) / pi, -0.147583617650433);
-    approx.equal(atan(0) / pi, 0);
-    approx.equal(atan(0.5) / pi, 0.147583617650433);
-    approx.equal(atan(1) / pi, 0.25);
+    toolsapprox_equaljs(atan(-1) / pi, -0.25);
+    toolsapprox_equaljs(atan(-0.5) / pi, -0.147583617650433);
+    toolsapprox_equaljs(atan(0) / pi, 0);
+    toolsapprox_equaljs(atan(0.5) / pi, 0.147583617650433);
+    toolsapprox_equaljs(atan(1) / pi, 0.25);
   });
 
   it('should return the arctan of a bignumber', function() {
@@ -57,11 +48,11 @@ describe('atan', function() {
   });
 
   it('should be the inverse function of tan', function() {
-    approx.equal(atan(tan(-1)), -1);
-    approx.equal(atan(tan(0)), 0);
-    approx.equal(atan(tan(0.1)), 0.1);
-    approx.equal(atan(tan(0.5)), 0.5);
-    approx.equal(atan(tan(2)), -1.14159265358979);
+    toolsapprox_equaljs(atan(tan(-1)), -1);
+    toolsapprox_equaljs(atan(tan(0)), 0);
+    toolsapprox_equaljs(atan(tan(0.1)), 0.1);
+    toolsapprox_equaljs(atan(tan(0.5)), 0.5);
+    toolsapprox_equaljs(atan(tan(2)), -1.14159265358979);
   });
 
   it('should be the inverse function of bignumber tan', function() {
@@ -109,7 +100,7 @@ describe('atan', function() {
   });
 
   it('should LaTeX atan', function () {
-    var expression = math.parse('atan(10)');
+    var expression = index_indexjsjs.parse('atan(10)');
     assert.equal(expression.toTex(), '\\tan^{-1}\\left(10\\right)');
   });
 

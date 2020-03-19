@@ -1,26 +1,20 @@
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
+import { matrixmarketjs as toolsmatrixmarket_matrixmarketjsjs } from "../../../tools/matrixmarket";
 // test multiply
-var assert = require('assert'),
-    math = require('../../../index'),
-    approx = require('../../../tools/approx'),
-    market = require('../../../tools/matrixmarket'),
-    multiply = math.multiply,
-    divide = math.divide,
-    matrix = math.matrix,
-    complex = math.complex,
-    bignumber = math.bignumber,
-    i = math.i,
-    unit = math.unit;
+var multiply = index_indexjsjs.multiply, divide = index_indexjsjs.divide, matrix = index_indexjsjs.matrix, complex = index_indexjsjs.complex, bignumber = index_indexjsjs.bignumber, i = index_indexjsjs.i, unit = index_indexjsjs.unit;
 
 describe('multiply', function() {
 
   describe('Scalar', function () {
 
     it('should multiply two numbers correctly', function() {
-      approx.equal(multiply(2, 3), 6);
-      approx.equal(multiply(-2, 3), -6);
-      approx.equal(multiply(-2, -3), 6);
-      approx.equal(multiply(5, 0), 0);
-      approx.equal(multiply(0, 5), 0);
+      toolsapprox_equaljs(multiply(2, 3), 6);
+      toolsapprox_equaljs(multiply(-2, 3), -6);
+      toolsapprox_equaljs(multiply(-2, -3), 6);
+      toolsapprox_equaljs(multiply(5, 0), 0);
+      toolsapprox_equaljs(multiply(0, 5), 0);
       approx.deepEqual(multiply(0, Infinity), NaN);
       approx.deepEqual(multiply(2, Infinity), Infinity);
       approx.deepEqual(multiply(-2, Infinity), -Infinity);
@@ -82,8 +76,8 @@ describe('multiply', function() {
       approx.deepEqual(multiply(complex(2, 3), 0), complex(0, 0));
       approx.deepEqual(multiply(complex(0, 3), complex(0, -4)), complex(12, 0));
       approx.deepEqual(multiply(multiply(3, i), multiply(-4, i)), complex(12, 0));
-      approx.deepEqual(multiply(math.i, Infinity), complex(NaN, Infinity));
-      approx.deepEqual(multiply(Infinity, math.i), complex(NaN, Infinity));
+      approx.deepEqual(multiply(index_indexjsjs.i, Infinity), complex(NaN, Infinity));
+      approx.deepEqual(multiply(Infinity, index_indexjsjs.i), complex(NaN, Infinity));
 
       approx.deepEqual(multiply(complex(2,0), complex(0,2)), complex(0, 4));
       approx.deepEqual(multiply(complex(0,2), complex(0,2)), -4);
@@ -114,26 +108,26 @@ describe('multiply', function() {
     });
 
     it('should multiply mixed complex numbers and numbers', function() {
-      assert.deepEqual(multiply(math.complex(6, -4), 2), math.complex(12, -8));
-      assert.deepEqual(multiply(2, math.complex(2, 4)), math.complex(4, 8));
+      assert.deepEqual(multiply(index_indexjsjs.complex(6, -4), 2), index_indexjsjs.complex(12, -8));
+      assert.deepEqual(multiply(2, index_indexjsjs.complex(2, 4)), index_indexjsjs.complex(4, 8));
     });
 
     it('should multiply mixed complex numbers and big numbers', function() {
-      assert.deepEqual(multiply(math.complex(6, -4), math.bignumber(2)), math.complex(12, -8));
-      assert.deepEqual(multiply(math.bignumber(2), math.complex(2, 4)), math.complex(4, 8));
+      assert.deepEqual(multiply(index_indexjsjs.complex(6, -4), index_indexjsjs.bignumber(2)), index_indexjsjs.complex(12, -8));
+      assert.deepEqual(multiply(index_indexjsjs.bignumber(2), index_indexjsjs.complex(2, 4)), index_indexjsjs.complex(4, 8));
     });
 
     it('should multiply two fractions', function() {
-      var a = math.fraction(1,4);
-      assert.equal(multiply(a, math.fraction(1,2)).toString(), '0.125');
+      var a = index_indexjsjs.fraction(1,4);
+      assert.equal(multiply(a, index_indexjsjs.fraction(1,2)).toString(), '0.125');
       assert.equal(a.toString(), '0.25');
 
-      assert.equal(multiply(math.fraction(2), math.fraction(1,3)).toString(), '0.(6)');
+      assert.equal(multiply(index_indexjsjs.fraction(2), index_indexjsjs.fraction(1,3)).toString(), '0.(6)');
     });
 
     it('should multiply mixed fractions and numbers', function() {
-      assert.deepEqual(multiply(2, math.fraction(1,3)), math.fraction(2,3));
-      assert.deepEqual(multiply(math.fraction(1,3), 2), math.fraction(2,3));
+      assert.deepEqual(multiply(2, index_indexjsjs.fraction(1,3)), index_indexjsjs.fraction(2,3));
+      assert.deepEqual(multiply(index_indexjsjs.fraction(1,3), 2), index_indexjsjs.fraction(2,3));
     });
 
     it('should multiply a number and a unit correctly', function() {
@@ -144,13 +138,13 @@ describe('multiply', function() {
       assert.equal(multiply(unit('5 mm'), 0).toString(), '0 mm');
       assert.equal(multiply(unit('celsius'), 10).toString(), '10 celsius');
 
-      assert.equal(multiply(unit(math.fraction(1,4), 'm'), 3).toString(), '3/4 m');
-      assert.equal(multiply(3, unit(math.fraction(1,4), 'm')).toString(), '3/4 m');
-      assert.equal(multiply(math.fraction(1,4), unit(3, 'm')).toString(), '3/4 m');
-      assert.equal(multiply(unit(3, 'm'), math.fraction(1,4)).toString(), '3/4 m');
+      assert.equal(multiply(unit(index_indexjsjs.fraction(1,4), 'm'), 3).toString(), '3/4 m');
+      assert.equal(multiply(3, unit(index_indexjsjs.fraction(1,4), 'm')).toString(), '3/4 m');
+      assert.equal(multiply(index_indexjsjs.fraction(1,4), unit(3, 'm')).toString(), '3/4 m');
+      assert.equal(multiply(unit(3, 'm'), index_indexjsjs.fraction(1,4)).toString(), '3/4 m');
 
-      assert.equal(multiply(unit(math.complex(9, 8), 'm'), 2).toString(), '(18 + 16i) m');
-      assert.equal(math.format(multiply(unit(math.complex(2, 3), 'g'), math.complex(4, 5)), 14), '(-7 + 22i) g');
+      assert.equal(multiply(unit(index_indexjsjs.complex(9, 8), 'm'), 2).toString(), '(18 + 16i) m');
+      assert.equal(index_indexjsjs.format(multiply(unit(index_indexjsjs.complex(2, 3), 'g'), index_indexjsjs.complex(4, 5)), 14), '(-7 + 22i) g');
     });
 
     it('should multiply a number and a unit without value correctly', function() {
@@ -168,7 +162,7 @@ describe('multiply', function() {
       assert.equal(multiply(unit('65 mi/h'), unit('2 h')).to('mi').toString(), '130 mi');
       assert.equal(multiply(unit('2 L'), unit('1 s^-1')).toString(), '2 L / s');
       assert.equal(multiply(unit('2 m/s'), unit('0.5 s/m')).toString(), '1');
-      assert.equal(multiply(unit(math.complex(3,-4), 'N'), unit(math.complex(7,-2), 'm')).toString(), '(13 - 34i) J');
+      assert.equal(multiply(unit(index_indexjsjs.complex(3,-4), 'N'), unit(index_indexjsjs.complex(7,-2), 'm')).toString(), '(13 - 34i) J');
     });
 
     it('should multiply valueless units correctly', function() {
@@ -292,24 +286,24 @@ describe('multiply', function() {
       var r = multiply(v, [[3], [4], [6], [0], [1], [2], [0]]);
       assert.deepEqual(r, [[39]]);
 
-      r = multiply(v, math.matrix([[3], [4], [6], [0], [1], [2], [0]], 'dense'));
-      assert.deepEqual(r, math.matrix([[39]], 'dense'));
+      r = multiply(v, index_indexjsjs.matrix([[3], [4], [6], [0], [1], [2], [0]], 'dense'));
+      assert.deepEqual(r, index_indexjsjs.matrix([[39]], 'dense'));
 
-      r = multiply(v, math.matrix([[3], [4], [6], [0], [1], [2], [0]], 'sparse'));
-      assert.deepEqual(r, math.matrix([[39]], 'sparse'));
+      r = multiply(v, index_indexjsjs.matrix([[3], [4], [6], [0], [1], [2], [0]], 'sparse'));
+      assert.deepEqual(r, index_indexjsjs.matrix([[39]], 'sparse'));
     });
 
     it('should multiply dense row vector x column vector', function () {
-      var v = math.matrix([[1, 2, 3, 0, 0, 5, 6]], 'dense');
+      var v = index_indexjsjs.matrix([[1, 2, 3, 0, 0, 5, 6]], 'dense');
 
       var r = multiply(v, [[3], [4], [6], [0], [1], [2], [0]]);
-      assert.deepEqual(r, math.matrix([[39]]));
+      assert.deepEqual(r, index_indexjsjs.matrix([[39]]));
 
-      r = multiply(v, math.matrix([[3], [4], [6], [0], [1], [2], [0]], 'dense'));
-      assert.deepEqual(r, math.matrix([[39]]));
+      r = multiply(v, index_indexjsjs.matrix([[3], [4], [6], [0], [1], [2], [0]], 'dense'));
+      assert.deepEqual(r, index_indexjsjs.matrix([[39]]));
 
-      r = multiply(v, math.matrix([[3], [4], [6], [0], [1], [2], [0]], 'sparse'));
-      assert.deepEqual(r, math.matrix([[39]], 'sparse'));
+      r = multiply(v, index_indexjsjs.matrix([[3], [4], [6], [0], [1], [2], [0]], 'sparse'));
+      assert.deepEqual(r, index_indexjsjs.matrix([[39]], 'sparse'));
     });
 
     it('should throw an error when multiplying empty vectors', function () {
@@ -335,7 +329,7 @@ describe('multiply', function() {
   describe('Dense Matrix', function () {
 
     it('should multiply matrix x scalar', function() {
-      var m = math.matrix([
+      var m = index_indexjsjs.matrix([
         [2, 0],
         [4, 0]
       ]);
@@ -344,13 +338,13 @@ describe('multiply', function() {
       assert.deepEqual(r._size, m._size);
       assert.deepEqual(r._data, [[6, 0], [12, 0]]);
 
-      r = multiply(m, math.complex(3, 3));
+      r = multiply(m, index_indexjsjs.complex(3, 3));
       assert.deepEqual(r._size, m._size);
-      assert.deepEqual(r._data, [[math.complex(6, 6), math.complex(0, 0)], [math.complex(12, 12), math.complex(0, 0)]]);
+      assert.deepEqual(r._data, [[index_indexjsjs.complex(6, 6), index_indexjsjs.complex(0, 0)], [index_indexjsjs.complex(12, 12), index_indexjsjs.complex(0, 0)]]);
 
-      r = multiply(m, math.bignumber(3));
+      r = multiply(m, index_indexjsjs.bignumber(3));
       assert.deepEqual(r._size, m._size);
-      assert.deepEqual(r._data, [[math.bignumber(6), math.bignumber(0)], [math.bignumber(12), math.bignumber(0)]]);
+      assert.deepEqual(r._data, [[index_indexjsjs.bignumber(6), index_indexjsjs.bignumber(0)], [index_indexjsjs.bignumber(12), index_indexjsjs.bignumber(0)]]);
 
       r = multiply(m, true);
       assert.deepEqual(r._size, m._size);
@@ -362,12 +356,12 @@ describe('multiply', function() {
     });
 
     it('should multiply matrix x matrix with zeros', function() {
-      var m = math.matrix([
+      var m = index_indexjsjs.matrix([
         [2, 0],
         [4, 0]
       ]);
 
-      var r = multiply(m, math.matrix([
+      var r = multiply(m, index_indexjsjs.matrix([
         [2, 0],
         [4, 0]
       ]));
@@ -378,7 +372,7 @@ describe('multiply', function() {
           [8, 0]
         ]);
 
-      r = multiply(m, math.matrix([
+      r = multiply(m, index_indexjsjs.matrix([
         [2, 0],
         [4, 0]
       ], 'sparse'));
@@ -391,9 +385,9 @@ describe('multiply', function() {
     });
 
     it('should multiply matrix x matrix', function() {
-      var m = math.matrix([[1, 2], [3, 4]], 'dense');
+      var m = index_indexjsjs.matrix([[1, 2], [3, 4]], 'dense');
 
-      var r = multiply(m, math.matrix([[5, 6], [7, 8]], 'sparse'));
+      var r = multiply(m, index_indexjsjs.matrix([[5, 6], [7, 8]], 'sparse'));
       assert.deepEqual(
         r.valueOf(),
         [
@@ -401,7 +395,7 @@ describe('multiply', function() {
           [43, 50]
         ]);
 
-      r = multiply(m, math.matrix([[5, 6], [7, 8]], 'dense'));
+      r = multiply(m, index_indexjsjs.matrix([[5, 6], [7, 8]], 'dense'));
       assert.deepEqual(
         r.valueOf(),
         [
@@ -411,8 +405,8 @@ describe('multiply', function() {
     });
 
     it('should multiply matrix x matrix, number datatype', function() {
-      var m1 = math.matrix([[1, 2], [3, 4]], 'dense', 'number');
-      var m2 = math.matrix([[5, 6], [7, 8]], 'dense', 'number');
+      var m1 = index_indexjsjs.matrix([[1, 2], [3, 4]], 'dense', 'number');
+      var m2 = index_indexjsjs.matrix([[5, 6], [7, 8]], 'dense', 'number');
 
       var r = multiply(m1, m2);
       assert(r.datatype() === 'number');
@@ -425,7 +419,7 @@ describe('multiply', function() {
     });
 
     it('should multiply matrix x array', function() {
-      var m = math.matrix([
+      var m = index_indexjsjs.matrix([
         [2, 0],
         [4, 0]
       ]);
@@ -458,7 +452,7 @@ describe('multiply', function() {
     });
 
     it('should multiply matrix x vector array', function() {
-      var m = math.matrix([
+      var m = index_indexjsjs.matrix([
         [2, 0],
         [4, 0]
       ]);
@@ -478,41 +472,41 @@ describe('multiply', function() {
     });
 
     it ('should NOT squeeze scalar results of matrix * matrix', function () {
-      var a = math.matrix(
+      var a = index_indexjsjs.matrix(
         [
           [1, 2, 3]
         ]);
-      var b = math.matrix(
+      var b = index_indexjsjs.matrix(
         [
           [4], 
           [5], 
           [6]
         ]);
-      assert.deepEqual(multiply(a, b), math.matrix([[32]]));
+      assert.deepEqual(multiply(a, b), index_indexjsjs.matrix([[32]]));
     });
 
     it ('should NOT squeeze scalar results of matrix * vector', function () {
-      var a = math.matrix(
+      var a = index_indexjsjs.matrix(
         [
           [1, 2, 3]
         ]);
       var b = [4, 5, 6];
-      assert.deepEqual(multiply(a, b), math.matrix([32]));
+      assert.deepEqual(multiply(a, b), index_indexjsjs.matrix([32]));
     });
 
     it('should throw an error when multiplying matrices with incompatible sizes', function() {
       // vector * vector
-      assert.throws(function () {multiply(math.matrix([1,1], 'dense'), [1, 1, 1]);});
+      assert.throws(function () {multiply(index_indexjsjs.matrix([1,1], 'dense'), [1, 1, 1]);});
 
       // matrix * matrix
-      assert.throws(function () {multiply(math.matrix([[1,1]], 'dense'), [[1,1]]);});
-      assert.throws(function () {multiply(math.matrix([[1,1]], 'dense'), [[1,1], [1,1], [1,1]]);});
+      assert.throws(function () {multiply(index_indexjsjs.matrix([[1,1]], 'dense'), [[1,1]]);});
+      assert.throws(function () {multiply(index_indexjsjs.matrix([[1,1]], 'dense'), [[1,1], [1,1], [1,1]]);});
 
       // matrix * vector
-      assert.throws(function () {multiply(math.matrix([[1,1], [1,1]], 'dense'), [1,1,1]);});
+      assert.throws(function () {multiply(index_indexjsjs.matrix([[1,1], [1,1]], 'dense'), [1,1,1]);});
 
       // vector * matrix
-      assert.throws(function () {multiply(math.matrix([1,1,1], 'dense'), [[1,1], [1,1]]);});
+      assert.throws(function () {multiply(index_indexjsjs.matrix([1,1,1], 'dense'), [[1,1], [1,1]]);});
     });
 
     it('should multiply triangular matrices', function () {
@@ -566,7 +560,7 @@ describe('multiply', function() {
   describe('Sparse Matrix', function () {
 
     it('should multiply matrix x scalar', function() {
-      var m = math.matrix([[2, 0], [4, 0]], 'sparse');
+      var m = index_indexjsjs.matrix([[2, 0], [4, 0]], 'sparse');
 
       var r = multiply(m, 3);
       assert.deepEqual(r._size, m._size);
@@ -574,15 +568,15 @@ describe('multiply', function() {
       assert.deepEqual(r._index, m._index);
       assert.deepEqual(r._ptr, m._ptr);
 
-      r = multiply(m, math.complex(3, 3));
+      r = multiply(m, index_indexjsjs.complex(3, 3));
       assert.deepEqual(r._size, m._size);
-      assert.deepEqual(r._values, [math.complex(6, 6), math.complex(12, 12)]);
+      assert.deepEqual(r._values, [index_indexjsjs.complex(6, 6), index_indexjsjs.complex(12, 12)]);
       assert.deepEqual(r._index, m._index);
       assert.deepEqual(r._ptr, m._ptr);
 
-      r = multiply(m, math.bignumber(3));
+      r = multiply(m, index_indexjsjs.bignumber(3));
       assert.deepEqual(r._size, m._size);
-      assert.deepEqual(r._values, [math.bignumber(6), math.bignumber(12)]);
+      assert.deepEqual(r._values, [index_indexjsjs.bignumber(6), index_indexjsjs.bignumber(12)]);
       assert.deepEqual(r._index, m._index);
       assert.deepEqual(r._ptr, m._ptr);
 
@@ -600,9 +594,9 @@ describe('multiply', function() {
     });
 
     it('should multiply matrix x matrix with zeros', function() {
-      var m = math.matrix([[2, 0], [4, 0]], 'sparse');
+      var m = index_indexjsjs.matrix([[2, 0], [4, 0]], 'sparse');
 
-      var r = multiply(m, math.matrix([[2, 0], [4, 0]], 'sparse'));
+      var r = multiply(m, index_indexjsjs.matrix([[2, 0], [4, 0]], 'sparse'));
       assert.deepEqual(
         r.valueOf(),
         [
@@ -610,7 +604,7 @@ describe('multiply', function() {
           [8, 0]
         ]);
 
-      r = multiply(m, math.matrix([[2, 0], [4, 0]], 'dense'));
+      r = multiply(m, index_indexjsjs.matrix([[2, 0], [4, 0]], 'dense'));
       assert.deepEqual(
         r.valueOf(),
         [
@@ -620,9 +614,9 @@ describe('multiply', function() {
     });
 
     it('should multiply matrix x matrix', function() {
-      var m = math.matrix([[1, 2], [3, 4]], 'sparse');
+      var m = index_indexjsjs.matrix([[1, 2], [3, 4]], 'sparse');
 
-      var r = multiply(m, math.matrix([[5, 6], [7, 8]], 'sparse'));
+      var r = multiply(m, index_indexjsjs.matrix([[5, 6], [7, 8]], 'sparse'));
       assert.deepEqual(
         r.valueOf(),
         [
@@ -630,7 +624,7 @@ describe('multiply', function() {
           [43, 50]
         ]);
 
-      r = multiply(m, math.matrix([[5, 6], [7, 8]], 'dense'));
+      r = multiply(m, index_indexjsjs.matrix([[5, 6], [7, 8]], 'dense'));
       assert.deepEqual(
         r.valueOf(),
         [
@@ -640,8 +634,8 @@ describe('multiply', function() {
     });
     
     it('should multiply matrix x matrix, number datatype', function() {
-      var m1 = math.matrix([[1, 2], [3, 4]], 'sparse', 'number');
-      var m2 = math.matrix([[5, 6], [7, 8]], 'sparse', 'number');
+      var m1 = index_indexjsjs.matrix([[1, 2], [3, 4]], 'sparse', 'number');
+      var m2 = index_indexjsjs.matrix([[5, 6], [7, 8]], 'sparse', 'number');
       
       var r = multiply(m1, m2);
       assert(r.datatype() === 'number');
@@ -654,7 +648,7 @@ describe('multiply', function() {
     });
 
     it('should multiply matrix x array', function() {
-      var m = math.matrix([[2, 0], [4, 0]], 'sparse');
+      var m = index_indexjsjs.matrix([[2, 0], [4, 0]], 'sparse');
 
       var r = multiply(m, 
                        [
@@ -682,7 +676,7 @@ describe('multiply', function() {
     });
 
     it('should multiply matrix x vector array', function() {
-      var m = math.matrix([[2, 0], [4, 0]], 'sparse');
+      var m = index_indexjsjs.matrix([[2, 0], [4, 0]], 'sparse');
 
       var r = multiply(m, 
                        [
@@ -698,40 +692,40 @@ describe('multiply', function() {
     });
 
     it ('should NOT squeeze scalar results of matrix * matrix', function () {
-      var a = math.matrix([[1, 2, 3]], 'sparse');
-      var b = math.matrix([[4], [5], [6]], 'sparse');
-      assert.deepEqual(multiply(a, b), math.matrix([[32]], 'sparse'));
+      var a = index_indexjsjs.matrix([[1, 2, 3]], 'sparse');
+      var b = index_indexjsjs.matrix([[4], [5], [6]], 'sparse');
+      assert.deepEqual(multiply(a, b), index_indexjsjs.matrix([[32]], 'sparse'));
     });
 
     it ('should NOT squeeze scalar results of matrix * vector', function () {
-      var a = math.matrix([[1, 2, 3]], 'sparse');
+      var a = index_indexjsjs.matrix([[1, 2, 3]], 'sparse');
       var b = [4, 5, 6];
-      assert.deepEqual(multiply(a, b), math.matrix([32], 'sparse'));
+      assert.deepEqual(multiply(a, b), index_indexjsjs.matrix([32], 'sparse'));
     });
 
     it('should throw an error when multiplying matrices with incompatible sizes', function() {
       // vector * vector
-      assert.throws(function () {math.matrix([1,1], 'sparse').multiply([1, 1, 1]);});
+      assert.throws(function () {index_indexjsjs.matrix([1,1], 'sparse').multiply([1, 1, 1]);});
 
       // matrix * matrix
-      assert.throws(function () {math.matrix([[1,1]], 'sparse').multiply([[1,1]]);});
-      assert.throws(function () {math.matrix([[1,1]], 'sparse').multiply([[1,1], [1,1], [1,1]]);});
+      assert.throws(function () {index_indexjsjs.matrix([[1,1]], 'sparse').multiply([[1,1]]);});
+      assert.throws(function () {index_indexjsjs.matrix([[1,1]], 'sparse').multiply([[1,1], [1,1], [1,1]]);});
 
       // matrix * vector
-      assert.throws(function () {math.matrix([[1,1], [1,1]], 'sparse').multiply([1,1,1]);});
+      assert.throws(function () {index_indexjsjs.matrix([[1,1], [1,1]], 'sparse').multiply([1,1,1]);});
 
       // vector * matrix
-      assert.throws(function () {math.matrix([1,1,1], 'sparse').multiply([[1,1], [1,1]]);});
+      assert.throws(function () {index_indexjsjs.matrix([1,1,1], 'sparse').multiply([[1,1], [1,1]]);});
     });
 
     it('should multiply triangular matrices', function () {
-      var l = math.matrix([
+      var l = index_indexjsjs.matrix([
         [1, 0, 0, 0],
         [-0.5, 1, 0, 0],  
         [0, -0.7, 1, 0],  
         [0.0666667, -0.4, -0.5714286, 1]
       ], 'sparse');
-      var u = math.matrix([
+      var u = index_indexjsjs.matrix([
         [240, -2700, 6480, -4200],
         [0, -150, 540, -420],
         [0, 0, -42, 56],
@@ -771,14 +765,14 @@ describe('multiply', function() {
     
     it('should multiply two pattern matrices correctly', function() {
 
-      var a = new math.type.SparseMatrix({
+      var a = new index_indexjsjs.type.SparseMatrix({
         values: undefined,
         index: [0, 1, 2, 0],
         ptr: [0, 2, 3, 4],
         size: [3, 3]
       });
 
-      var b = new math.type.SparseMatrix({
+      var b = new index_indexjsjs.type.SparseMatrix({
         values: undefined,
         index: [0, 1, 2, 1],
         ptr: [0, 3, 3, 4],
@@ -798,14 +792,14 @@ describe('multiply', function() {
 
     it('should multiply pattern and value matrices correctly', function() {
 
-      var a = new math.type.SparseMatrix({
+      var a = new index_indexjsjs.type.SparseMatrix({
         values: undefined,
         index: [0, 1, 2, 0],
         ptr: [0, 2, 3, 4],
         size: [3, 3]
       });
 
-      var b = new math.type.SparseMatrix({
+      var b = new index_indexjsjs.type.SparseMatrix({
         values: [1, 2, 3, 4],
         index: [0, 1, 2, 1],
         ptr: [0, 3, 3, 4],
@@ -825,14 +819,14 @@ describe('multiply', function() {
 
     it('should multiply value and pattern matrices correctly', function() {
 
-      var a = new math.type.SparseMatrix({
+      var a = new index_indexjsjs.type.SparseMatrix({
         values: [1, 2, 3, 4],
         index: [0, 1, 2, 0],
         ptr: [0, 2, 3, 4],
         size: [3, 3]
       });
 
-      var b = new math.type.SparseMatrix({
+      var b = new index_indexjsjs.type.SparseMatrix({
         values: undefined,
         index: [0, 1, 2, 1],
         ptr: [0, 3, 3, 4],
@@ -855,12 +849,12 @@ describe('multiply', function() {
 
     it('should multiply matrix x matrix 1220 x 1220, Matrix Market, sparse x sparse', function (done) {
       // import matrix
-      market.import('tools/matrices/fpga_dcop_01.tar.gz', ['fpga_dcop_01/fpga_dcop_01.mtx'])
+      toolsmatrixmarket_matrixmarketjsjs.import('tools/matrices/fpga_dcop_01.tar.gz', ['fpga_dcop_01/fpga_dcop_01.mtx'])
         .then(function (matrices) {
           // matrix
           var m = matrices[0];
           // multiply matrices, used to compare performance in different implementations
-          math.multiply(m, m);
+          index_indexjsjs.multiply(m, m);
           // indicate test has completed
           done();
         })
@@ -872,7 +866,7 @@ describe('multiply', function() {
   });
 
   it('should LaTeX mutliply', function () {
-    var expression = math.parse('multiply(2,3)');
+    var expression = index_indexjsjs.parse('multiply(2,3)');
     assert.equal(expression.toTex(), '\\left(2\\cdot3\\right)');
   });
 });

@@ -1,38 +1,31 @@
-var assert = require('assert'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    approx = require('../../../tools/approx'),
-    pi = math.pi,
-    complex = math.complex,
-    matrix = math.matrix,
-    unit = math.unit,
-    cos = math.cos,
-    bigmath = math.create({number: 'BigNumber', precision: 15}),
-    biggermath = math.create({number: 'BigNumber', precision: 238});
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
+var error = require('../../../lib/error/index'), pi = index_indexjsjs.pi, complex = index_indexjsjs.complex, matrix = index_indexjsjs.matrix, unit = index_indexjsjs.unit, cos = index_indexjsjs.cos, bigmath = index_indexjsjs.create({number: 'BigNumber', precision: 15}), biggermath = index_indexjsjs.create({number: 'BigNumber', precision: 238});
 
 
 describe('cos', function() {
   it('should return the cosine of a boolean', function () {
-    approx.equal(cos(true), 0.54030230586814);
-    approx.equal(cos(false), 1);
+    toolsapprox_equaljs(cos(true), 0.54030230586814);
+    toolsapprox_equaljs(cos(false), 1);
   });
 
   it('should return the cosine of null', function () {
-    approx.equal(cos(null), 1);
+    toolsapprox_equaljs(cos(null), 1);
   });
 
   it('should return the cosine of a number', function() {
-    approx.equal(cos(0), 1);
-    approx.equal(cos(pi*1/4), 0.707106781186548);
-    approx.equal(cos(pi*1/8), 0.923879532511287);
-    approx.equal(cos(pi*2/4), 0);
-    approx.equal(cos(pi*3/4), -0.707106781186548);
-    approx.equal(cos(pi*4/4), -1);
-    approx.equal(cos(pi*5/4), -0.707106781186548);
-    approx.equal(cos(pi*6/4), 0);
-    approx.equal(cos(pi*7/4), 0.707106781186548);
-    approx.equal(cos(pi*8/4), 1);
-    approx.equal(cos(pi/4), Math.SQRT1_2);
+    toolsapprox_equaljs(cos(0), 1);
+    toolsapprox_equaljs(cos(pi*1/4), 0.707106781186548);
+    toolsapprox_equaljs(cos(pi*1/8), 0.923879532511287);
+    toolsapprox_equaljs(cos(pi*2/4), 0);
+    toolsapprox_equaljs(cos(pi*3/4), -0.707106781186548);
+    toolsapprox_equaljs(cos(pi*4/4), -1);
+    toolsapprox_equaljs(cos(pi*5/4), -0.707106781186548);
+    toolsapprox_equaljs(cos(pi*6/4), 0);
+    toolsapprox_equaljs(cos(pi*7/4), 0.707106781186548);
+    toolsapprox_equaljs(cos(pi*8/4), 1);
+    toolsapprox_equaljs(cos(pi/4), Math.SQRT1_2);
   });
 
   it('should return the cosine of a bignumber', function() {
@@ -63,7 +56,7 @@ describe('cos', function() {
 
     // we've had a bug in reducing the period, affecting integer values around multiples of tau (like 6, 7)
     for (var x = -20; x < 20; x += 1) {
-      approx.equal(bigmath.cos(bigmath.bignumber(x)).toNumber(), Math.cos(x));
+      toolsapprox_equaljs(bigmath.cos(bigmath.bignumber(x)).toNumber(), Math.cos(x));
     }
 
     assert.deepEqual(bigmath.cos(bigPi.div(4)).toString(), '0.7071067811865475');
@@ -89,11 +82,11 @@ describe('cos', function() {
   });
 
   it('should return the cosine of an angle', function() {
-    approx.equal(cos(unit('45deg')), 0.707106781186548);
-    approx.equal(cos(unit('-135deg')), -0.707106781186548);
+    toolsapprox_equaljs(cos(unit('45deg')), 0.707106781186548);
+    toolsapprox_equaljs(cos(unit('-135deg')), -0.707106781186548);
 
-    assert(cos(unit(math.bignumber(45), 'deg')).isBigNumber);
-    approx.equal(cos(unit(math.bignumber(45), 'deg')).toNumber(), 0.707106781186548);
+    assert(cos(unit(index_indexjsjs.bignumber(45), 'deg')).isBigNumber);
+    toolsapprox_equaljs(cos(unit(index_indexjsjs.bignumber(45), 'deg')).toNumber(), 0.707106781186548);
 
     approx.deepEqual(cos(unit(complex(1,1), 'rad')), complex(0.833730025131149, -0.988897705762865));
   });
@@ -122,7 +115,7 @@ describe('cos', function() {
   });
 
   it('should LaTeX cos', function () {
-    var expression = math.parse('cos(1)');
+    var expression = index_indexjsjs.parse('cos(1)');
     assert.equal(expression.toTex(), '\\cos\\left(1\\right)');
   });
 

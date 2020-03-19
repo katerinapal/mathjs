@@ -1,13 +1,12 @@
-// test nthRoot
-var assert = require('assert');
-var approx = require('../../../tools/approx');
-var math = require('../../../index');
-var matrix = math.matrix;
-var sparse = math.sparse;
-var unit = math.unit;
-var nthRoot = math.nthRoot;
-var big = math.bignumber;
-var complex = math.complex;
+import assert from "assert";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
+import { indexjs as index_indexjsjs } from "../../../index";
+var matrix = index_indexjsjs.matrix;
+var sparse = index_indexjsjs.sparse;
+var unit = index_indexjsjs.unit;
+var nthRoot = index_indexjsjs.nthRoot;
+var big = index_indexjsjs.bignumber;
+var complex = index_indexjsjs.complex;
 
 
 describe('nthRoot', function() {
@@ -23,37 +22,37 @@ describe('nthRoot', function() {
   });
 
   it('should return the nthRoot for numbers', function() {
-    approx.equal(nthRoot(4), 2);
-    approx.equal(nthRoot(9), 3);
-    approx.equal(nthRoot(8, 3), 2);
-    approx.equal(nthRoot(64, 3), 4);
-    approx.equal(nthRoot(2, 2.5), 1.31950791077289);
-    approx.equal(nthRoot(2.5, 2), 1.58113883008419);
-    approx.equal(nthRoot(0.1+0.2), 0.5477225575051662); // a value containing a round-off error
-    approx.equal(nthRoot(0, 3), 0);
-    approx.equal(nthRoot(0, 2), 0);
-    approx.equal(nthRoot(0.0001, 3), 0.0464158883361278);
+    toolsapprox_equaljs(nthRoot(4), 2);
+    toolsapprox_equaljs(nthRoot(9), 3);
+    toolsapprox_equaljs(nthRoot(8, 3), 2);
+    toolsapprox_equaljs(nthRoot(64, 3), 4);
+    toolsapprox_equaljs(nthRoot(2, 2.5), 1.31950791077289);
+    toolsapprox_equaljs(nthRoot(2.5, 2), 1.58113883008419);
+    toolsapprox_equaljs(nthRoot(0.1+0.2), 0.5477225575051662); // a value containing a round-off error
+    toolsapprox_equaljs(nthRoot(0, 3), 0);
+    toolsapprox_equaljs(nthRoot(0, 2), 0);
+    toolsapprox_equaljs(nthRoot(0.0001, 3), 0.0464158883361278);
   });
 
   it('should return the nthRoot for very large numbers', function() {
-    approx.equal(nthRoot(2e150 * 2e150), 2e150);
-    approx.equal(nthRoot(Math.pow(2, 1000)), 3.273390607896142e+150);
+    toolsapprox_equaljs(nthRoot(2e150 * 2e150), 2e150);
+    toolsapprox_equaljs(nthRoot(Math.pow(2, 1000)), 3.273390607896142e+150);
   });
 
   it('should return the nthRoot for small large numbers', function() {
-    approx.equal(nthRoot(4e-300), 2e-150);
+    toolsapprox_equaljs(nthRoot(4e-300), 2e-150);
   });
 
   it('should return the nthRoot for negative numbers', function() {
-    approx.equal(nthRoot(-64, 3), -4);
-    approx.equal(nthRoot(-8, 3), -2);
+    toolsapprox_equaljs(nthRoot(-64, 3), -4);
+    toolsapprox_equaljs(nthRoot(-8, 3), -2);
     // Newton's method fails in this particular case: --ericman314
-    approx.equal(nthRoot(-2, 3), -1.2599210498949);
+    toolsapprox_equaljs(nthRoot(-2, 3), -1.2599210498949);
   });
 
   it('should return the nthRoot for negative roots', function() {
-    approx.equal(nthRoot(64, -3), 0.25);
-    approx.equal(nthRoot(-64, -3), -0.25);
+    toolsapprox_equaljs(nthRoot(64, -3), 0.25);
+    toolsapprox_equaljs(nthRoot(-64, -3), -0.25);
   });
 
   it('should return the nthRoot for zero', function() {
@@ -62,9 +61,9 @@ describe('nthRoot', function() {
   });
 
   it('should return the nthRoot for infinity', function() {
-    approx.equal(nthRoot(Infinity, 2), Infinity);
-    approx.equal(nthRoot(-Infinity, 3), -Infinity);
-    approx.equal(nthRoot(Infinity, -3), 0);
+    toolsapprox_equaljs(nthRoot(Infinity, 2), Infinity);
+    toolsapprox_equaljs(nthRoot(-Infinity, 3), -Infinity);
+    toolsapprox_equaljs(nthRoot(Infinity, -3), 0);
   });
 
   it('should throw an error when n is zero', function() {
@@ -204,7 +203,7 @@ describe('nthRoot', function() {
   });
 
   it('should LaTeX nthRoot', function () {
-    var expression = math.parse('nthRoot(8,3)');
+    var expression = index_indexjsjs.parse('nthRoot(8,3)');
     assert.equal(expression.toTex(), '\\sqrt[3]{8}');
   });
 });

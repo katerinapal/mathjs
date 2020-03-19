@@ -1,11 +1,8 @@
-// test ConstantNode
-var assert = require('assert');
-var approx = require('../../../tools/approx');
-var math = require('../../../index');
-var bigmath = require('../../../index').create({number: 'BigNumber'});
-var Node = math.expression.node.Node;
-var ConstantNode = math.expression.node.ConstantNode;
-var SymbolNode = math.expression.node.SymbolNode;
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
+var Node = index_indexjsjs.expression.node.Node;
+var ConstantNode = index_indexjsjs.expression.node.ConstantNode;
+var SymbolNode = index_indexjsjs.expression.node.SymbolNode;
 
 describe('ConstantNode', function() {
 

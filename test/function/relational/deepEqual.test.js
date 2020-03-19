@@ -1,11 +1,7 @@
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
 // test deepEqual
-var assert = require('assert'),
-    math = require('../../../index'),
-    bignumber = math.bignumber,
-    complex = math.complex,
-    matrix = math.matrix,
-    unit = math.unit,
-    deepEqual = math.deepEqual;
+var bignumber = index_indexjsjs.bignumber, complex = index_indexjsjs.complex, matrix = index_indexjsjs.matrix, unit = index_indexjsjs.unit, deepEqual = index_indexjsjs.deepEqual;
 
 describe('deepEqual', function() {
 
@@ -53,7 +49,7 @@ describe('deepEqual', function() {
   });
 
   it('should LaTeX deepEqual', function () {
-    var expression = math.parse('deepEqual([1,2],[1,3])');
+    var expression = index_indexjsjs.parse('deepEqual([1,2],[1,3])');
     assert.equal(expression.toTex(), '\\mathrm{deepEqual}\\left(\\begin{bmatrix}1\\\\2\\\\\\end{bmatrix},\\begin{bmatrix}1\\\\3\\\\\\end{bmatrix}\\right)');
   });
 

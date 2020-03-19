@@ -1,11 +1,8 @@
-// test sqrt
-var assert = require('assert');
-var approx = require('../../../tools/approx');
-var error = require('../../../lib/error/index');
-var math = require('../../../index');
-var mathPredictable = math.create({predictable: true});
-var sqrt = math.sqrt;
-var bignumber = math.bignumber;
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
+var mathPredictable = index_indexjsjs.create({predictable: true});
+var sqrt = index_indexjsjs.sqrt;
+var bignumber = index_indexjsjs.bignumber;
 
 describe('sqrt', function() {
   it('should return the square root of a boolean', function () {
@@ -27,8 +24,8 @@ describe('sqrt', function() {
   });
 
   it('should return the square root of a negative number', function() {
-    assert.deepEqual(sqrt(-4), math.complex(0, 2));
-    assert.deepEqual(sqrt(-16), math.complex(0, 4));
+    assert.deepEqual(sqrt(-4), index_indexjsjs.complex(0, 2));
+    assert.deepEqual(sqrt(-16), index_indexjsjs.complex(0, 4));
   });
 
   it('should return the square root of a negative number when predictable:true', function() {
@@ -46,12 +43,12 @@ describe('sqrt', function() {
     assert.deepEqual(sqrt(bignumber(25)), bignumber(5));
 
     // validate whether we are really working at high precision
-    var bigmath = math.create({precision: 100});
+    var bigmath = index_indexjsjs.create({precision: 100});
     assert.deepEqual(bigmath.sqrt(bigmath.bignumber(2)), bigmath.bignumber('1.414213562373095048801688724209698078569671875376948073176679737990732478462107038850387534327641573'));
   });
 
   it('should return the square root of a negative bignumber', function() {
-    assert.deepEqual(sqrt(bignumber(-4)), math.complex(0, 2));
+    assert.deepEqual(sqrt(bignumber(-4)), index_indexjsjs.complex(0, 2));
   });
 
   it('should return the square root of a negative bignumber when predictable:true', function() {
@@ -60,19 +57,19 @@ describe('sqrt', function() {
   });
 
   it('should return the square root of a complex number', function() {
-    assert.deepEqual(sqrt(math.complex(3, -4)), math.complex(2, -1));
-    assert.deepEqual(sqrt(math.complex(1e10, 1e-10)), math.complex(1e5, 5e-16));
+    assert.deepEqual(sqrt(index_indexjsjs.complex(3, -4)), index_indexjsjs.complex(2, -1));
+    assert.deepEqual(sqrt(index_indexjsjs.complex(1e10, 1e-10)), index_indexjsjs.complex(1e5, 5e-16));
   });
 
   it('should return the square root of a unit', function() {
-    assert.equal(sqrt(math.unit('25 m^2/s^2')).toString(), '5 m / s');
-    assert.equal(sqrt(math.unit('4 kg')).toString(), '2 kg^0.5');
+    assert.equal(sqrt(index_indexjsjs.unit('25 m^2/s^2')).toString(), '5 m / s');
+    assert.equal(sqrt(index_indexjsjs.unit('4 kg')).toString(), '2 kg^0.5');
   });
 
   it('should return a Unit with a Complex value when computing the square root of a negative unit', function() {
     // Update this when support for complex units is added
     //assert.equal(sqrt(math.unit('-25 m^2/s^2')).toString(), 'NaN m / s');
-    assert.equal(math.format(sqrt(math.unit('-25 m^2/s^2')), 14), '(5i) m / s');
+    assert.equal(index_indexjsjs.format(sqrt(index_indexjsjs.unit('-25 m^2/s^2')), 14), '(5i) m / s');
   });
 
   it('should throw an error when used with a string', function() {
@@ -84,7 +81,7 @@ describe('sqrt', function() {
   it('should return the square root of each element of a matrix', function() {
     assert.deepEqual(sqrt([4,9,16,25]), [2,3,4,5]);
     assert.deepEqual(sqrt([[4,9],[16,25]]), [[2,3],[4,5]]);
-    assert.deepEqual(sqrt(math.matrix([[4,9],[16,25]])), math.matrix([[2,3],[4,5]]));
+    assert.deepEqual(sqrt(index_indexjsjs.matrix([[4,9],[16,25]])), index_indexjsjs.matrix([[2,3],[4,5]]));
   });
 
   it('should throw an error in case of invalid number of arguments', function() {
@@ -93,7 +90,7 @@ describe('sqrt', function() {
   });
 
   it('should LaTeX sqrt', function () {
-    var expression = math.parse('sqrt(2)');
+    var expression = index_indexjsjs.parse('sqrt(2)');
     assert.equal(expression.toTex(), '\\sqrt{2}');
   });
 

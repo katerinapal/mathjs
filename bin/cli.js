@@ -1,52 +1,8 @@
 #!/usr/bin/env node
-/**
- * math.js
- * https://github.com/josdejong/mathjs
- *
- * Math.js is an extensive math library for JavaScript and Node.js,
- * It features real and complex numbers, units, matrices, a large set of
- * mathematical functions, and a flexible expression parser.
- *
- * Usage:
- *
- *     mathjs [scriptfile(s)] {OPTIONS}
- *
- * Options:
- *
- *     --version, -v       Show application version
- *     --help,    -h       Show this message
- *     --tex               Generate LaTeX instead of evaluating
- *     --string            Generate string instead of evaluating
- *     --parenthesis=      Set the parenthesis option to
- *                         either of "keep", "auto" and "all"
- *
- * Example usage:
- *     mathjs                                 Open a command prompt
- *     mathjs script.txt                      Run a script file
- *     mathjs script1.txt script2.txt         Run two script files
- *     mathjs script.txt > results.txt        Run a script file, output to file
- *     cat script.txt | mathjs                Run input stream
- *     cat script.txt | mathjs > results.txt  Run input stream, output to file
- *
- * @license
- * Copyright (C) 2013-2016 Jos de Jong <wjosdejong@gmail.com>
- *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy
- * of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- */
-
-var math = require('../index');
+import { indexjs as index_indexjsjs } from "../index";
+import fs from "fs";
+import readline from "readline";
 var scope = {};
-var fs = require('fs');
 
 var PRECISION = 14; // decimals
 
@@ -56,14 +12,14 @@ var PRECISION = 14; // decimals
  * @param {*} value
  */
 function format(value) {
-  return math.format(value, {
+  return index_indexjsjs.format(value, {
     fn: function (value) {
       if (typeof value === 'number') {
         // round numbers
-        return math.format(value, PRECISION);
+        return index_indexjsjs.format(value, PRECISION);
       }
       else {
-        return math.format(value);
+        return index_indexjsjs.format(value);
       }
     }
   });
@@ -99,8 +55,8 @@ function completer (text) {
 
     // math functions and constants
     var ignore = ['expr', 'type'];
-    for (var func in math) {
-      if (math.hasOwnProperty(func)) {
+    for (var func in index_indexjsjs) {
+      if (index_indexjsjs.hasOwnProperty(func)) {
         if (func.indexOf(keyword) == 0 && ignore.indexOf(func) == -1) {
           matches.push(func);
         }
@@ -108,7 +64,7 @@ function completer (text) {
     }
 
     // units
-    var Unit = math.type.Unit;
+    var Unit = index_indexjsjs.type.Unit;
     for (name in Unit.UNITS) {
       if (Unit.UNITS.hasOwnProperty(name)) {
         if (name.indexOf(keyword) == 0) {
@@ -159,12 +115,11 @@ function completer (text) {
  * @param parenthesis Parenthesis option
  */
 function runStream (input, output, mode, parenthesis) {
-  var readline = require('readline'),
-      rl = readline.createInterface({
-        input: input || process.stdin,
-        output: output || process.stdout,
-        completer: completer
-      });
+  var rl = readline.createInterface({
+    input: input || process.stdin,
+    output: output || process.stdout,
+    completer: completer
+  });
 
   if (rl.output.isTTY) {
     rl.setPrompt('> ');
@@ -200,7 +155,7 @@ function runStream (input, output, mode, parenthesis) {
           case 'eval':
             // evaluate expression
             try {
-              var node = math.parse(expr);
+              var node = index_indexjsjs.parse(expr);
               var res = node.eval(scope);
 
               if (res && res.isResultSet) {
@@ -224,7 +179,7 @@ function runStream (input, output, mode, parenthesis) {
                     console.log(format(res));
                   }
                 }
-                else if (res instanceof math.type.Help) {
+                else if (res instanceof index_indexjsjs.type.Help) {
                   console.log(res.toString());
                 }
                 else {
@@ -240,7 +195,7 @@ function runStream (input, output, mode, parenthesis) {
 
           case 'string':
             try {
-              var string = math.parse(expr).toString({parenthesis: parenthesis});
+              var string = index_indexjsjs.parse(expr).toString({parenthesis: parenthesis});
               console.log(string);
             }
             catch (err) {
@@ -250,7 +205,7 @@ function runStream (input, output, mode, parenthesis) {
 
           case 'tex':
             try {
-              var tex = math.parse(expr).toTex({parenthesis: parenthesis});
+              var tex = index_indexjsjs.parse(expr).toTex({parenthesis: parenthesis});
               console.log(tex);
             }
             catch (err) {
