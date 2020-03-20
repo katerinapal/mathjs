@@ -1,13 +1,12 @@
-var assert = require('assert');
-
-var math = require('../../index');
-var operators = require('../../lib/expression/operators');
-var OperatorNode = math.expression.node.OperatorNode;
-var AssignmentNode = math.expression.node.AssignmentNode;
-var SymbolNode = math.expression.node.SymbolNode;
-var ConstantNode = math.expression.node.ConstantNode;
-var Node = math.expression.node.Node;
-var ParenthesisNode = math.expression.node.ParenthesisNode;
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../index";
+import { operatorsjs as libexpressionoperators_operatorsjsjs } from "../../lib/expression/operators";
+var OperatorNode = index_indexjsjs.expression.node.OperatorNode;
+var AssignmentNode = index_indexjsjs.expression.node.AssignmentNode;
+var SymbolNode = index_indexjsjs.expression.node.SymbolNode;
+var ConstantNode = index_indexjsjs.expression.node.ConstantNode;
+var Node = index_indexjsjs.expression.node.Node;
+var ParenthesisNode = index_indexjsjs.expression.node.ParenthesisNode;
 
 describe('operators', function () {
   it('should return the precedence of a node', function () {

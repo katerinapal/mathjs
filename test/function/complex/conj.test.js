@@ -1,6 +1,6 @@
-var assert = require('assert');
-var math = require('../../../index');
-var conj = math.conj;
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
+var conj = index_indexjsjs.conj;
 
 describe('conj', function() {
   it('should compute the conjugate of a boolean', function () {
@@ -19,28 +19,28 @@ describe('conj', function() {
     assert.equal(conj(-2), -2);
   });
   it('should compute the conjugate of a bignumber', function () {
-    assert.deepEqual(conj(math.bignumber(2)), math.bignumber(2));
+    assert.deepEqual(conj(index_indexjsjs.bignumber(2)), index_indexjsjs.bignumber(2));
   });
 
   it('should calculate the conjugate of a complex number correctly', function() {
-    assert.equal(conj(math.complex('2 + 3i')).toString(), '2 - 3i');
+    assert.equal(conj(index_indexjsjs.complex('2 + 3i')).toString(), '2 - 3i');
     assert.equal(conj(123).toString(), '123');
-    assert.equal(conj(math.complex('2 - 3i')).toString(), '2 + 3i');
-    assert.equal(conj(math.complex('2')).toString(), '2');
-    assert.equal(conj(math.complex('-4i')).toString(), '4i');
-    assert.equal(conj(math.i).toString(), '-i');
+    assert.equal(conj(index_indexjsjs.complex('2 - 3i')).toString(), '2 + 3i');
+    assert.equal(conj(index_indexjsjs.complex('2')).toString(), '2');
+    assert.equal(conj(index_indexjsjs.complex('-4i')).toString(), '4i');
+    assert.equal(conj(index_indexjsjs.i).toString(), '-i');
   });
 
   it('should calculate the conjugate for each element in a matrix', function() {
-    assert.equal(math.format(conj([math.complex('2+3i'), math.complex('3-4i')])),
+    assert.equal(index_indexjsjs.format(conj([index_indexjsjs.complex('2+3i'), index_indexjsjs.complex('3-4i')])),
         '[2 - 3i, 3 + 4i]');
-    assert.equal(conj(math.matrix([math.complex('2+3i'), math.complex('3-4i')])).toString(),
+    assert.equal(conj(index_indexjsjs.matrix([index_indexjsjs.complex('2+3i'), index_indexjsjs.complex('3-4i')])).toString(),
         '[2 - 3i, 3 + 4i]');
   });
 
   it('should throw an error when called with an unsupported type of argument', function() {
     assert.throws(function () {conj(new Date())}, /TypeError: Unexpected type of argument/);
-    assert.throws(function () {conj(math.unit('5cm'))}, /TypeError: Unexpected type of argument/);
+    assert.throws(function () {conj(index_indexjsjs.unit('5cm'))}, /TypeError: Unexpected type of argument/);
   });
 
   it('should throw an error in case of invalid number of arguments', function() {
@@ -49,7 +49,7 @@ describe('conj', function() {
   });
 
   it('should LaTeX conj', function () {
-    var expression = math.parse('conj(1+i)');
+    var expression = index_indexjsjs.parse('conj(1+i)');
     assert.equal(expression.toTex(), '\\left(1+ i\\right)^*');
   });
 

@@ -1,17 +1,7 @@
-var assert = require('assert'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    approx = require('../../../tools/approx'),
-    pi = math.pi,
-    asinh = math.asinh,
-    sinh = math.sinh,
-    complex = math.complex,
-    matrix = math.matrix,
-    unit = math.unit,
-    bigmath = math.create({number: 'BigNumber', precision: 20}),
-    biggermath = math.create({precision: 21}),
-    asinhBig = bigmath.asinh,
-    Big = bigmath.bignumber;
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
+import { approxjs as toolsapprox_approxjsjs } from "../../../tools/approx";
+var error = require('../../../lib/error/index'), pi = index_indexjsjs.pi, asinh = index_indexjsjs.asinh, sinh = index_indexjsjs.sinh, complex = index_indexjsjs.complex, matrix = index_indexjsjs.matrix, unit = index_indexjsjs.unit, bigmath = index_indexjsjs.create({number: 'BigNumber', precision: 20}), biggermath = index_indexjsjs.create({precision: 21}), asinhBig = bigmath.asinh, Big = bigmath.bignumber;
 
 describe('asinh', function() {
   it('should return the hyperbolic arcsin of a boolean', function () {
@@ -95,7 +85,7 @@ describe('asinh', function() {
   });
 
   it('should LaTeX asinh', function () {
-    var expression = math.parse('asinh(2)');
+    var expression = index_indexjsjs.parse('asinh(2)');
     assert.equal(expression.toTex(), '\\sinh^{-1}\\left(2\\right)');
   });
 

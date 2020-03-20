@@ -1,16 +1,7 @@
-var assert = require('assert'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    approx = require('../../../tools/approx'),
-    pi = math.pi,
-    complex = math.complex,
-    matrix = math.matrix,
-    unit = math.unit,
-    tan = math.tan,
-    piBigmath = math.create({number: 'BigNumber', precision: 21}),
-    bigmath = math.create({precision: 20}),
-    Big = bigmath.bignumber,
-    bigTan = bigmath.tan;
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
+import { approxjs as toolsapprox_approxjsjs } from "../../../tools/approx";
+var error = require('../../../lib/error/index'), pi = index_indexjsjs.pi, complex = index_indexjsjs.complex, matrix = index_indexjsjs.matrix, unit = index_indexjsjs.unit, tan = index_indexjsjs.tan, piBigmath = index_indexjsjs.create({number: 'BigNumber', precision: 21}), bigmath = index_indexjsjs.create({precision: 20}), Big = bigmath.bignumber, bigTan = bigmath.tan;
 
 describe('tan', function() {
   it('should return the tangent of a boolean', function () {
@@ -59,11 +50,11 @@ describe('tan', function() {
   });
 
   it('should return the tangent of an angle', function() {
-    approx.equal(tan(unit(' 60deg')), math.sqrt(3));
+    approx.equal(tan(unit(' 60deg')), index_indexjsjs.sqrt(3));
     approx.equal(tan(unit('-135deg')), 1);
 
-    assert(tan(unit(math.bignumber(60), 'deg')).isBigNumber);
-    approx.equal(tan(unit(math.bignumber(60), 'deg')).toNumber(), math.sqrt(3));
+    assert(tan(unit(index_indexjsjs.bignumber(60), 'deg')).isBigNumber);
+    approx.equal(tan(unit(index_indexjsjs.bignumber(60), 'deg')).toNumber(), index_indexjsjs.sqrt(3));
 
     approx.deepEqual(tan(unit(complex('1+i'), 'rad')), complex(0.271752585319512, 1.083923327338695));
   });
@@ -92,7 +83,7 @@ describe('tan', function() {
   });
 
   it('should LaTeX tan', function () {
-    var expression = math.parse('tan(1)');
+    var expression = index_indexjsjs.parse('tan(1)');
     assert.equal(expression.toTex(), '\\tan\\left(1\\right)');
   });
 

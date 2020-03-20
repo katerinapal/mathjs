@@ -1,10 +1,10 @@
-var assert = require('assert');
-var math = require('../../../index');
-var isNegative = math.isNegative;
-var bignumber = math.bignumber;
-var fraction = math.fraction;
-var complex = math.complex;
-var unit = math.unit;
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
+var isNegative = index_indexjsjs.isNegative;
+var bignumber = index_indexjsjs.bignumber;
+var fraction = index_indexjsjs.fraction;
+var complex = index_indexjsjs.complex;
+var unit = index_indexjsjs.unit;
 
 describe('isNegative', function() {
 
@@ -58,7 +58,7 @@ describe('isNegative', function() {
   });
 
   it('should test isNegative element wise on a Matrix', function() {
-    assert.deepEqual(isNegative(math.matrix([0, 5, 0, -3])), math.matrix([false, false, false, true]));
+    assert.deepEqual(isNegative(index_indexjsjs.matrix([0, 5, 0, -3])), index_indexjsjs.matrix([false, false, false, true]));
   });
 
   it('should throw an error in case of unsupported data types', function() {

@@ -1,15 +1,13 @@
-// test FunctionNode
-var assert = require('assert');
-var approx = require('../../../tools/approx');
-var math = require('../../../index');
-var Node = math.expression.node.Node;
-var ConstantNode = math.expression.node.ConstantNode;
-var SymbolNode = math.expression.node.SymbolNode;
-var FunctionNode = math.expression.node.FunctionNode;
-var OperatorNode = math.expression.node.OperatorNode;
-var RangeNode = math.expression.node.RangeNode;
-var IndexNode = math.expression.node.IndexNode;
-var AccessorNode = math.expression.node.AccessorNode;
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
+var Node = index_indexjsjs.expression.node.Node;
+var ConstantNode = index_indexjsjs.expression.node.ConstantNode;
+var SymbolNode = index_indexjsjs.expression.node.SymbolNode;
+var FunctionNode = index_indexjsjs.expression.node.FunctionNode;
+var OperatorNode = index_indexjsjs.expression.node.OperatorNode;
+var RangeNode = index_indexjsjs.expression.node.RangeNode;
+var IndexNode = index_indexjsjs.expression.node.IndexNode;
+var AccessorNode = index_indexjsjs.expression.node.AccessorNode;
 
 describe('FunctionNode', function() {
 
@@ -99,7 +97,7 @@ describe('FunctionNode', function() {
   });
 
   it ('should compile a FunctionNode with a raw function', function () {
-    var mymath = math.create();
+    var mymath = index_indexjsjs.create();
     function myFunction (args, _math, _scope) {
       assert.equal(args.length, 2);
       assert(args[0] instanceof mymath.expression.node.Node);
@@ -121,7 +119,7 @@ describe('FunctionNode', function() {
   });
 
   it ('should compile a FunctionNode containing an index resolving to a function with rawArgs', function () {
-    var mymath = math.create();
+    var mymath = index_indexjsjs.create();
     function myFunction (args, _math, _scope) {
       assert.equal(args.length, 2);
       assert(args[0] instanceof mymath.expression.node.Node);
@@ -149,7 +147,7 @@ describe('FunctionNode', function() {
   });
 
   it ('should compile a FunctionNode with overloaded a raw function', function () {
-    var mymath = math.create();
+    var mymath = index_indexjsjs.create();
     function myFunction (args, _math, _scope) {
       assert.ok(false, 'should not be executed');
     }
@@ -487,7 +485,7 @@ describe('FunctionNode', function() {
   });
 
   it ('should LaTeX a FunctionNode with callback attached to the function', function () {
-    var customMath = math.create();
+    var customMath = index_indexjsjs.create();
     customMath.add.toTex = function (node, options) {
       return node.args[0].toTex(options) + ' plus ' + node.args[1].toTex(options);
     };
@@ -496,14 +494,14 @@ describe('FunctionNode', function() {
   });
 
   it ('should LaTeX a FunctionNode with template string attached to the function', function () {
-    var customMath = math.create();
+    var customMath = index_indexjsjs.create();
     customMath.add.toTex = '${args[0]} plus ${args[1]}';
 
     assert.equal(customMath.parse('add(1,2)').toTex(), '1 plus 2');
   });
 
   it ('should LaTeX a FunctionNode with object of callbacks attached to the function', function () {
-    var customMath = math.create();
+    var customMath = index_indexjsjs.create();
     customMath.sum.toTex = {
       2: "${args[0]}+${args[1]}",
       3: function (node, options) {
@@ -516,35 +514,35 @@ describe('FunctionNode', function() {
   });
 
   it ('should LaTeX templates with string properties', function () {
-    var customMath = math.create();
+    var customMath = index_indexjsjs.create();
     customMath.add.toTex = '${name}';
 
     assert.equal(customMath.parse('add(1,2)').toTex(), 'add');
   });
 
   it ('should LaTeX templates with node properties', function () {
-    var customMath = math.create();
+    var customMath = index_indexjsjs.create();
     customMath.add.toTex = '${args[0]} plus ${args[1]}';
 
     assert.equal(customMath.parse('add(1,2)').toTex(), '1 plus 2');
   });
 
   it ('should LaTeX templates with properties that are arrays of Nodes', function () {
-    var customMath = math.create();
+    var customMath = index_indexjsjs.create();
     customMath.add.toTex = '${args}';
 
     assert.equal(customMath.parse('add(1,2)').toTex(), '1,2');
   });
 
   it ('should throw an Error for templates with properties that don\'t exist', function () {
-    var customMath = math.create();
+    var customMath = index_indexjsjs.create();
     customMath.add.toTex = '${some_property}';
 
     assert.throws(function () {customMath.parse('add(1,2)').toTex()}, ReferenceError);
   });
 
   it ('should throw an Error for templates with properties that aren\'t Nodes or Strings or Arrays of Nodes', function () {
-    var customMath = math.create();
+    var customMath = index_indexjsjs.create();
     customMath.add.toTex = '${some_property}';
     var tree = customMath.parse('add(1,2)');
 
@@ -557,7 +555,7 @@ describe('FunctionNode', function() {
   });
 
   it ('should throw an Error for templates with properties that are arrays of non Nodes', function () {
-    var customMath = math.create();
+    var customMath = index_indexjsjs.create();
     customMath.add.toTex = '${some_property}';
     var tree = customMath.parse('add(1,2)');
     tree.some_property = [1,2];

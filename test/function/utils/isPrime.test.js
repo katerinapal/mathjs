@@ -1,8 +1,8 @@
-var assert = require('assert');
-var math = require('../../../index');
-var isPrime = math.isPrime;
-var bignumber = math.bignumber;
-var complex = math.complex;
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
+var isPrime = index_indexjsjs.isPrime;
+var bignumber = index_indexjsjs.bignumber;
+var complex = index_indexjsjs.complex;
 
 describe('isPrime', function() {
 

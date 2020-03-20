@@ -1,12 +1,7 @@
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
 // test equal
-var assert = require('assert'),
-    math = require('../../../index'),
-    bignumber = math.bignumber,
-    complex = math.complex,
-    matrix = math.matrix,
-    sparse = math.sparse,
-    unit = math.unit,
-    equal = math.equal;
+var bignumber = index_indexjsjs.bignumber, complex = index_indexjsjs.complex, matrix = index_indexjsjs.matrix, sparse = index_indexjsjs.sparse, unit = index_indexjsjs.unit, equal = index_indexjsjs.equal;
 
 describe('equal', function() {
 
@@ -91,26 +86,26 @@ describe('equal', function() {
   });
 
   it('should compare mixed complex numbers and bignumbers (downgrades to numbers)', function() {
-    assert.deepEqual(equal(math.complex(6, 0), bignumber(6)), true);
-    assert.deepEqual(equal(math.complex(6, -2), bignumber(6)), false);
-    assert.deepEqual(equal(bignumber(6), math.complex(6, 0)), true);
-    assert.deepEqual(equal(bignumber(6), math.complex(6, 4)), false);
+    assert.deepEqual(equal(index_indexjsjs.complex(6, 0), bignumber(6)), true);
+    assert.deepEqual(equal(index_indexjsjs.complex(6, -2), bignumber(6)), false);
+    assert.deepEqual(equal(bignumber(6), index_indexjsjs.complex(6, 0)), true);
+    assert.deepEqual(equal(bignumber(6), index_indexjsjs.complex(6, 4)), false);
   });
 
   it('should compare two fractions', function() {
-    var a = math.fraction(3);
-    assert.strictEqual(equal(a, math.fraction(2)).valueOf(), false);
+    var a = index_indexjsjs.fraction(3);
+    assert.strictEqual(equal(a, index_indexjsjs.fraction(2)).valueOf(), false);
     assert.equal(a.toString(), '3');
 
-    assert.strictEqual(equal(math.fraction(2), math.fraction(3)).valueOf(), false);
-    assert.strictEqual(equal(math.fraction(3), math.fraction(3)).valueOf(), true);
+    assert.strictEqual(equal(index_indexjsjs.fraction(2), index_indexjsjs.fraction(3)).valueOf(), false);
+    assert.strictEqual(equal(index_indexjsjs.fraction(3), index_indexjsjs.fraction(3)).valueOf(), true);
 
-    assert.strictEqual(equal(math.add(math.fraction(0.1), math.fraction(0.2)), math.fraction(0.3)).valueOf(), true); // this would fail with numbers
+    assert.strictEqual(equal(index_indexjsjs.add(index_indexjsjs.fraction(0.1), index_indexjsjs.fraction(0.2)), index_indexjsjs.fraction(0.3)).valueOf(), true); // this would fail with numbers
   });
 
   it('should compare mixed fractions and numbers', function() {
-    assert.strictEqual(equal(1, math.fraction(1,3)), false);
-    assert.strictEqual(equal(math.fraction(2), 2), true);
+    assert.strictEqual(equal(1, index_indexjsjs.fraction(1,3)), false);
+    assert.strictEqual(equal(index_indexjsjs.fraction(2), 2), true);
   });
 
   it('should compare two units correctly', function() {
@@ -138,17 +133,17 @@ describe('equal', function() {
   });
 
   it('should apply configuration option epsilon', function() {
-    var mymath = math.create();
+    var mymath = index_indexjsjs.create();
     assert.equal(mymath.equal(1, 0.991), false);
-    assert.equal(mymath.equal(math.bignumber(1), math.bignumber(0.991)), false);
+    assert.equal(mymath.equal(index_indexjsjs.bignumber(1), index_indexjsjs.bignumber(0.991)), false);
 
     mymath.config({epsilon: 1e-2});
     assert.equal(mymath.equal(1, 0.991), true);
-    assert.equal(mymath.equal(math.bignumber(1), math.bignumber(0.991)), true);
+    assert.equal(mymath.equal(index_indexjsjs.bignumber(1), index_indexjsjs.bignumber(0.991)), true);
   });
 
   it('should throw an error when comparing a unit with a big number', function() {
-    assert.throws( function () {equal(math.unit('5 m'), bignumber(10)).toString(); });
+    assert.throws( function () {equal(index_indexjsjs.unit('5 m'), bignumber(10)).toString(); });
   });
 
   it('should throw an error when comparing a unit with a number', function() {
@@ -156,7 +151,7 @@ describe('equal', function() {
   });
 
   it('should throw an error for two measures of different units', function() {
-    assert.throws(function () {equal(math.unit(5, 'km'), math.unit(100, 'gram'));});
+    assert.throws(function () {equal(index_indexjsjs.unit(5, 'km'), index_indexjsjs.unit(100, 'gram'));});
   });
 
   it('should compare two strings correctly', function() {
@@ -235,7 +230,7 @@ describe('equal', function() {
   });
 
   it('should LaTeX equal', function () {
-    var expression = math.parse('equal(1,2)');
+    var expression = index_indexjsjs.parse('equal(1,2)');
     assert.equal(expression.toTex(), '\\left(1=2\\right)');
   });
 });

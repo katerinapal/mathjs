@@ -1,10 +1,8 @@
-// test data type ResultSet
-
-var assert = require('assert');
-var math = require('../../../index');
-var Unit = math.type.Unit;
-var Complex = math.type.Complex;
-var ResultSet = math.type.ResultSet;
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
+var Unit = index_indexjsjs.type.Unit;
+var Complex = index_indexjsjs.type.Complex;
+var ResultSet = index_indexjsjs.type.ResultSet;
 
 describe('ResultSet', function () {
 
@@ -33,12 +31,12 @@ describe('ResultSet', function () {
   });
 
   it('should have a property isResultSet', function () {
-    var a = new math.type.ResultSet([]);
+    var a = new index_indexjsjs.type.ResultSet([]);
     assert.strictEqual(a.isResultSet, true);
   });
 
   it('should have a property type', function () {
-    var a = new math.type.ResultSet([]);
+    var a = new index_indexjsjs.type.ResultSet([]);
     assert.strictEqual(a.type, 'ResultSet');
   });
 
