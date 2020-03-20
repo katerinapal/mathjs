@@ -1,56 +1,69 @@
-import assert from "assert";
-import { indexjs as index_indexjsjs } from "../../../index";
-var conj = index_indexjsjs.conj;
+"use strict";
 
-describe('conj', function() {
+var _assert = require("assert");
+
+var _assert2 = _interopRequireDefault(_assert);
+
+var _index = require("../../../index");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var conj = _index.indexjs.conj;
+
+describe('conj', function () {
   it('should compute the conjugate of a boolean', function () {
-    assert.strictEqual(conj(true), 1);
-    assert.strictEqual(conj(false), 0);
+    _assert2.default.strictEqual(conj(true), 1);
+    _assert2.default.strictEqual(conj(false), 0);
   });
 
   it('should compute the conjugate of null', function () {
-    assert.strictEqual(conj(null), 0);
+    _assert2.default.strictEqual(conj(null), 0);
   });
 
   it('should compute the conjugate of a number', function () {
-    assert.equal(conj(1), 1);
-    assert.equal(conj(2), 2);
-    assert.equal(conj(0), 0);
-    assert.equal(conj(-2), -2);
+    _assert2.default.equal(conj(1), 1);
+    _assert2.default.equal(conj(2), 2);
+    _assert2.default.equal(conj(0), 0);
+    _assert2.default.equal(conj(-2), -2);
   });
   it('should compute the conjugate of a bignumber', function () {
-    assert.deepEqual(conj(index_indexjsjs.bignumber(2)), index_indexjsjs.bignumber(2));
+    _assert2.default.deepEqual(conj(_index.indexjs.bignumber(2)), _index.indexjs.bignumber(2));
   });
 
-  it('should calculate the conjugate of a complex number correctly', function() {
-    assert.equal(conj(index_indexjsjs.complex('2 + 3i')).toString(), '2 - 3i');
-    assert.equal(conj(123).toString(), '123');
-    assert.equal(conj(index_indexjsjs.complex('2 - 3i')).toString(), '2 + 3i');
-    assert.equal(conj(index_indexjsjs.complex('2')).toString(), '2');
-    assert.equal(conj(index_indexjsjs.complex('-4i')).toString(), '4i');
-    assert.equal(conj(index_indexjsjs.i).toString(), '-i');
+  it('should calculate the conjugate of a complex number correctly', function () {
+    _assert2.default.equal(conj(_index.indexjs.complex('2 + 3i')).toString(), '2 - 3i');
+    _assert2.default.equal(conj(123).toString(), '123');
+    _assert2.default.equal(conj(_index.indexjs.complex('2 - 3i')).toString(), '2 + 3i');
+    _assert2.default.equal(conj(_index.indexjs.complex('2')).toString(), '2');
+    _assert2.default.equal(conj(_index.indexjs.complex('-4i')).toString(), '4i');
+    _assert2.default.equal(conj(_index.indexjs.i).toString(), '-i');
   });
 
-  it('should calculate the conjugate for each element in a matrix', function() {
-    assert.equal(index_indexjsjs.format(conj([index_indexjsjs.complex('2+3i'), index_indexjsjs.complex('3-4i')])),
-        '[2 - 3i, 3 + 4i]');
-    assert.equal(conj(index_indexjsjs.matrix([index_indexjsjs.complex('2+3i'), index_indexjsjs.complex('3-4i')])).toString(),
-        '[2 - 3i, 3 + 4i]');
+  it('should calculate the conjugate for each element in a matrix', function () {
+    _assert2.default.equal(_index.indexjs.format(conj([_index.indexjs.complex('2+3i'), _index.indexjs.complex('3-4i')])), '[2 - 3i, 3 + 4i]');
+    _assert2.default.equal(conj(_index.indexjs.matrix([_index.indexjs.complex('2+3i'), _index.indexjs.complex('3-4i')])).toString(), '[2 - 3i, 3 + 4i]');
   });
 
-  it('should throw an error when called with an unsupported type of argument', function() {
-    assert.throws(function () {conj(new Date())}, /TypeError: Unexpected type of argument/);
-    assert.throws(function () {conj(index_indexjsjs.unit('5cm'))}, /TypeError: Unexpected type of argument/);
+  it('should throw an error when called with an unsupported type of argument', function () {
+    _assert2.default.throws(function () {
+      conj(new Date());
+    }, /TypeError: Unexpected type of argument/);
+    _assert2.default.throws(function () {
+      conj(_index.indexjs.unit('5cm'));
+    }, /TypeError: Unexpected type of argument/);
   });
 
-  it('should throw an error in case of invalid number of arguments', function() {
-    assert.throws(function () {conj()}, /TypeError: Too few arguments/);
-    assert.throws(function () {conj(1, 2)}, /TypeError: Too many arguments/);
+  it('should throw an error in case of invalid number of arguments', function () {
+    _assert2.default.throws(function () {
+      conj();
+    }, /TypeError: Too few arguments/);
+    _assert2.default.throws(function () {
+      conj(1, 2);
+    }, /TypeError: Too many arguments/);
   });
 
   it('should LaTeX conj', function () {
-    var expression = index_indexjsjs.parse('conj(1+i)');
-    assert.equal(expression.toTex(), '\\left(1+ i\\right)^*');
+    var expression = _index.indexjs.parse('conj(1+i)');
+    _assert2.default.equal(expression.toTex(), '\\left(1+ i\\right)^*');
   });
-
 });

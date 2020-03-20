@@ -1,10 +1,16 @@
-import assert from "assert";
-import { keywordsjs as libexpressionkeywords_keywordsjsjs } from "../../lib/expression/keywords";
+"use strict";
 
-describe('keywords', function() {
+var _assert = require("assert");
 
-  it('should return a map with reserved keywords', function() {
-    assert.deepEqual(Object.keys(libexpressionkeywords_keywordsjsjs).sort(), ['end'].sort());
+var _assert2 = _interopRequireDefault(_assert);
+
+var _keywords = require("../../lib/expression/keywords");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+describe('keywords', function () {
+
+  it('should return a map with reserved keywords', function () {
+    _assert2.default.deepEqual(Object.keys(_keywords.keywordsjs).sort(), ['end'].sort());
   });
-
 });

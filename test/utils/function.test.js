@@ -1,104 +1,122 @@
-import assert from "assert";
-import * as libutilsfunction_functionjsjs from "../../lib/utils/function";
+"use strict";
 
-describe('util.function', function() {
+var _assert = require("assert");
+
+var _assert2 = _interopRequireDefault(_assert);
+
+var _function = require("../../lib/utils/function");
+
+var libutilsfunction_functionjsjs = _interopRequireWildcard(_function);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+describe('util.function', function () {
 
   describe('memoize', function () {
 
     it('should memoize a function with one argument', function () {
-      var f = function (x) {return x * x};
+      var f = function f(x) {
+        return x * x;
+      };
 
       var m = functionUtils.memoize(f);
 
-      assert.strictEqual(m(2), 4);
-      assert.strictEqual(m(3), 9);
+      _assert2.default.strictEqual(m(2), 4);
+      _assert2.default.strictEqual(m(3), 9);
     });
 
     it('should memoize a function with two arguments', function () {
-      var f = function (x, y) {return x * y};
+      var f = function f(x, y) {
+        return x * y;
+      };
 
       var m = functionUtils.memoize(f);
 
-      assert.strictEqual(m(2, 3), 6);
+      _assert2.default.strictEqual(m(2, 3), 6);
 
       // hash should differ
-      assert.strictEqual(m(1, 23), 23);
-      assert.strictEqual(m(12, 3), 36);
+      _assert2.default.strictEqual(m(1, 23), 23);
+      _assert2.default.strictEqual(m(12, 3), 36);
     });
 
     it('should memoize a function with objects as arguments', function () {
-      var f = function (obj) {return obj.x * obj.y};
+      var f = function f(obj) {
+        return obj.x * obj.y;
+      };
 
       var m = functionUtils.memoize(f);
 
-      assert.strictEqual(m({x: 2, y: 3}), 6);
-      assert.deepEqual(Object.keys(m.cache), ['[{"x":2,"y":3}]']);
-      assert.strictEqual(m.cache['[{"x":2,"y":3}]'], 6);
+      _assert2.default.strictEqual(m({ x: 2, y: 3 }), 6);
+      _assert2.default.deepEqual(Object.keys(m.cache), ['[{"x":2,"y":3}]']);
+      _assert2.default.strictEqual(m.cache['[{"x":2,"y":3}]'], 6);
     });
 
     it('should memoize a function with a custom hashIt function', function () {
-      var f = function (obj) {return obj.id};
-      var hashIt = function (args) {
+      var f = function f(obj) {
+        return obj.id;
+      };
+      var hashIt = function hashIt(args) {
         return 'id:' + args[0].id;
       };
 
       var m = functionUtils.memoize(f, hashIt);
 
-      assert.strictEqual(m({id: 2}), 2);
-      assert.deepEqual(Object.keys(m.cache), ['id:2']);
-      assert.strictEqual(m.cache['id:2'], 2);
+      _assert2.default.strictEqual(m({ id: 2 }), 2);
+      _assert2.default.deepEqual(Object.keys(m.cache), ['id:2']);
+      _assert2.default.strictEqual(m.cache['id:2'], 2);
     });
 
     it('should really return the cached result', function () {
       var a = 2;
-      var f = function (x) {return a}; // trick: no pure function
+      var f = function f(x) {
+        return a;
+      }; // trick: no pure function
 
       var m = functionUtils.memoize(f);
 
-      assert.strictEqual(m(4), 2);
+      _assert2.default.strictEqual(m(4), 2);
       a = 3;
-      assert.strictEqual(m(4), 2);
+      _assert2.default.strictEqual(m(4), 2);
     });
-
   });
 
-  describe ('maxArgumentCount', function () {
+  describe('maxArgumentCount', function () {
 
-    it('should calculate the max argument count of a typed function', function() {
-      var a = function () {};
+    it('should calculate the max argument count of a typed function', function () {
+      var a = function a() {};
       a.signatures = {
-        'number, number': function () {},
-        'number': function () {}
+        'number, number': function numberNumber() {},
+        'number': function number() {}
       };
-      assert.equal(functionUtils.maxArgumentCount(a), 2);
+      _assert2.default.equal(functionUtils.maxArgumentCount(a), 2);
 
-      var b = function () {};
+      var b = function b() {};
       b.signatures = {
-        'number': function () {},
-        'number, number': function () {}
+        'number': function number() {},
+        'number, number': function numberNumber() {}
       };
-      assert.equal(functionUtils.maxArgumentCount(b), 2);
+      _assert2.default.equal(functionUtils.maxArgumentCount(b), 2);
 
-      var c = function () {};
+      var c = function c() {};
       c.signatures = {
-        'number': function () {},
-        'BigNumber': function () {}
+        'number': function number() {},
+        'BigNumber': function BigNumber() {}
       };
-      assert.equal(functionUtils.maxArgumentCount(c), 1);
+      _assert2.default.equal(functionUtils.maxArgumentCount(c), 1);
 
-      var d = function () {};
+      var d = function d() {};
       d.signatures = {
-        'number,number': function () {},
-        'number': function () {},
-        'number,any,number': function () {}
+        'number,number': function numberNumber() {},
+        'number': function number() {},
+        'number,any,number': function numberAnyNumber() {}
       };
-      assert.equal(functionUtils.maxArgumentCount(d), 3);
+      _assert2.default.equal(functionUtils.maxArgumentCount(d), 3);
     });
 
-    it('should return -1 for regular functions', function() {
-      assert.equal(functionUtils.maxArgumentCount(function () {}), -1);
+    it('should return -1 for regular functions', function () {
+      _assert2.default.equal(functionUtils.maxArgumentCount(function () {}), -1);
     });
-
   });
-
 });
