@@ -1,7 +1,6 @@
-var assert = require('assert'),
-    error = require('../../lib/error/index'),
-    math = require('../../index'),
-    string = math.string;
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../index";
+var error = require('../../lib/error/index'), string = index_indexjsjs.string;
 
 describe('string', function() {
 
@@ -29,8 +28,8 @@ describe('string', function() {
   });
 
   it('should convert the elements of a matrix to strings', function() {
-    assert.deepEqual(string(math.matrix([[2,true],['hi',null]])),
-        math.matrix([['2', 'true'],['hi', 'null']]));
+    assert.deepEqual(string(index_indexjsjs.matrix([[2,true],['hi',null]])),
+        index_indexjsjs.matrix([['2', 'true'],['hi', 'null']]));
   });
 
   it('should convert a number to string', function() {
@@ -41,15 +40,15 @@ describe('string', function() {
   });
 
   it('should convert a bignumber to string', function() {
-    assert.equal(string(math.bignumber('2.3e+500')), '2.3e+500');
+    assert.equal(string(index_indexjsjs.bignumber('2.3e+500')), '2.3e+500');
   });
 
   it('should convert a complex number to string', function() {
-    assert.equal(string(math.complex(2,3)), '2 + 3i');
+    assert.equal(string(index_indexjsjs.complex(2,3)), '2 + 3i');
   });
 
   it('should convert a unit to string', function() {
-    assert.equal(string(math.unit('5cm')), '50 mm');
+    assert.equal(string(index_indexjsjs.unit('5cm')), '50 mm');
   });
 
   it('should throw an error if called with wrong number of arguments', function() {

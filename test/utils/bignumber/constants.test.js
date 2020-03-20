@@ -1,16 +1,15 @@
-// test bignumber utils
-var assert = require('assert');
-var BigNumber = require('decimal.js');
+import assert from "assert";
+import BigNumber from "decimal.js";
+import { e as libutilsbignumberconstants_ejs } from "../../../lib/utils/bignumber/constants";
 var Big32 = BigNumber.clone({precision: 32});
 var Big64 = BigNumber.clone({precision: 64});
-var constants = require('../../../lib/utils/bignumber/constants');
 
 describe('bignumber', function() {
 
   it('should calculate a bignumber e', function() {
-    assert.equal(constants.e(Big32),
+    assert.equal(libutilsbignumberconstants_ejs(Big32),
         '2.7182818284590452353602874713527');
-    assert.equal(constants.e(Big64),
+    assert.equal(libutilsbignumberconstants_ejs(Big64),
         '2.718281828459045235360287471352662497757247093699959574966967628');
   });
 

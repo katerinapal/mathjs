@@ -1,7 +1,5 @@
-// test number utils
-var assert = require('assert'),
-    approx = require('../../tools/approx'),
-    number = require('../../lib/utils/number');
+import assert from "assert";
+import { isNumber as libutilsnumber_isNumberjs } from "../../lib/utils/number";
 
 describe('number', function() {
 
@@ -21,27 +19,27 @@ describe('number', function() {
   });
 
   it('isNumber', function() {
-    assert.equal(number.isNumber(1), true);
-    assert.equal(number.isNumber(2e+3), true);
-    assert.equal(number.isNumber(Number(2.3)), true);
-    assert.equal(number.isNumber(NaN), true);
-    assert.equal(number.isNumber(-23), true);
-    assert.equal(number.isNumber(parseFloat('123')), true);
+    assert.equal(libutilsnumber_isNumberjs(1), true);
+    assert.equal(libutilsnumber_isNumberjs(2e+3), true);
+    assert.equal(libutilsnumber_isNumberjs(Number(2.3)), true);
+    assert.equal(libutilsnumber_isNumberjs(NaN), true);
+    assert.equal(libutilsnumber_isNumberjs(-23), true);
+    assert.equal(libutilsnumber_isNumberjs(parseFloat('123')), true);
 
-    assert.equal(number.isNumber('23'), false);
-    assert.equal(number.isNumber('str'), false);
-    assert.equal(number.isNumber(new Date()), false);
-    assert.equal(number.isNumber({}), false);
-    assert.equal(number.isNumber([]), false);
-    assert.equal(number.isNumber(/regexp/), false);
-    assert.equal(number.isNumber(true), false);
-    assert.equal(number.isNumber(false), false);
-    assert.equal(number.isNumber(null), false);
-    assert.equal(number.isNumber(undefined), false);
-    assert.equal(number.isNumber(), false);
+    assert.equal(libutilsnumber_isNumberjs('23'), false);
+    assert.equal(libutilsnumber_isNumberjs('str'), false);
+    assert.equal(libutilsnumber_isNumberjs(new Date()), false);
+    assert.equal(libutilsnumber_isNumberjs({}), false);
+    assert.equal(libutilsnumber_isNumberjs([]), false);
+    assert.equal(libutilsnumber_isNumberjs(/regexp/), false);
+    assert.equal(libutilsnumber_isNumberjs(true), false);
+    assert.equal(libutilsnumber_isNumberjs(false), false);
+    assert.equal(libutilsnumber_isNumberjs(null), false);
+    assert.equal(libutilsnumber_isNumberjs(undefined), false);
+    assert.equal(libutilsnumber_isNumberjs(), false);
 
     // we don't support non primitive Numbers anymore
-    assert.equal(number.isNumber(new Number(23)), false);
+    assert.equal(libutilsnumber_isNumberjs(new Number(23)), false);
   });
 
   it('sign', function() {

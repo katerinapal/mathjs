@@ -1,20 +1,11 @@
-var assert = require('assert'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    approx = require('../../../tools/approx'),
-    pi = math.pi,
-    acsch = math.acsch,
-    csch = math.csch,
-    complex = math.complex,
-    matrix = math.matrix,
-    unit = math.unit,
-    bigmath = math.create({number: 'BigNumber', precision: 20}),
-    acschBig = bigmath.acsch,
-    Big = bigmath.bignumber;
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
+var error = require('../../../lib/error/index'), pi = index_indexjsjs.pi, acsch = index_indexjsjs.acsch, csch = index_indexjsjs.csch, complex = index_indexjsjs.complex, matrix = index_indexjsjs.matrix, unit = index_indexjsjs.unit, bigmath = index_indexjsjs.create({number: 'BigNumber', precision: 20}), acschBig = bigmath.acsch, Big = bigmath.bignumber;
 
 describe('acsch', function() {
   it('should return the hyperbolic arccsc of a boolean', function () {
-    approx.equal(acsch(true), 0.8813735870195430);
+    toolsapprox_equaljs(acsch(true), 0.8813735870195430);
     assert.equal(acsch(false), Infinity);
   });
 
@@ -23,12 +14,12 @@ describe('acsch', function() {
   });
 
   it('should return the hyperbolic arccsc of a number', function() {
-    approx.equal(acsch(-2), -0.48121182505960344749775891342437);
-    approx.equal(acsch(-1), -0.88137358701954302523260932497979);
+    toolsapprox_equaljs(acsch(-2), -0.48121182505960344749775891342437);
+    toolsapprox_equaljs(acsch(-1), -0.88137358701954302523260932497979);
     assert.equal(acsch(0), Infinity);
-    approx.equal(acsch(1), 0.88137358701954302523260932497979);
-    approx.equal(acsch(2), 0.48121182505960344749775891342437);
-    approx.equal(acsch(pi), 0.3131658804508683758718693082657);
+    toolsapprox_equaljs(acsch(1), 0.88137358701954302523260932497979);
+    toolsapprox_equaljs(acsch(2), 0.48121182505960344749775891342437);
+    toolsapprox_equaljs(acsch(pi), 0.3131658804508683758718693082657);
   });
 
   it('should return the hyperbolic arccsc of a bignumber', function() {
@@ -45,11 +36,11 @@ describe('acsch', function() {
   });
 
   it('should be the inverse function of hyperbolic csc', function() {
-    approx.equal(acsch(csch(-1)), -1);
-    approx.equal(acsch(csch(0)), 0);
-    approx.equal(acsch(csch(0.1)), 0.1);
-    approx.equal(acsch(csch(0.5)), 0.5);
-    approx.equal(acsch(csch(2)), 2);
+    toolsapprox_equaljs(acsch(csch(-1)), -1);
+    toolsapprox_equaljs(acsch(csch(0)), 0);
+    toolsapprox_equaljs(acsch(csch(0.1)), 0.1);
+    toolsapprox_equaljs(acsch(csch(0.5)), 0.5);
+    toolsapprox_equaljs(acsch(csch(2)), 2);
   });
 
   it('should be the inverse function of bignumber csch', function() {
@@ -94,7 +85,7 @@ describe('acsch', function() {
   });
 
   it('should LaTeX acsch', function () {
-    var expression = math.parse('acsch(2)');
+    var expression = index_indexjsjs.parse('acsch(2)');
     assert.equal(expression.toTex(), '\\mathrm{csch}^{-1}\\left(2\\right)');
   });
 

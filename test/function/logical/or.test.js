@@ -1,12 +1,7 @@
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
 // test or
-var assert = require('assert'),
-    math = require('../../../index'),
-    bignumber = math.bignumber,
-    complex = math.complex,
-    matrix = math.matrix,
-    sparse = math.sparse,
-    unit = math.unit,
-    or = math.or;
+var bignumber = index_indexjsjs.bignumber, complex = index_indexjsjs.complex, matrix = index_indexjsjs.matrix, sparse = index_indexjsjs.sparse, unit = index_indexjsjs.unit, or = index_indexjsjs.or;
 
 describe('or', function () {
 
@@ -221,7 +216,7 @@ describe('or', function () {
   });
 
   it('should LaTeX or', function () {
-    var expression = math.parse('or(1,2)');
+    var expression = index_indexjsjs.parse('or(1,2)');
     assert.equal(expression.toTex(), '\\left(1\\vee2\\right)');
   });
 });

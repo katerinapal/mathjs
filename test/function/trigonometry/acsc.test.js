@@ -1,22 +1,21 @@
-var assert = require('assert');
-var error = require('../../../lib/error/index');
-var math = require('../../../index');
-var approx = require('../../../tools/approx');
-var pi = math.pi;
-var complex = math.complex;
-var matrix = math.matrix;
-var unit = math.unit;
-var acsc = math.acsc;
-var csc = math.csc;
-var bigmath = math.create({number: 'BigNumber', precision: 20});
-var biggermath = math.create({precision: 21});
-var predmath = math.create({predictable: true});
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
+var pi = index_indexjsjs.pi;
+var complex = index_indexjsjs.complex;
+var matrix = index_indexjsjs.matrix;
+var unit = index_indexjsjs.unit;
+var acsc = index_indexjsjs.acsc;
+var csc = index_indexjsjs.csc;
+var bigmath = index_indexjsjs.create({number: 'BigNumber', precision: 20});
+var biggermath = index_indexjsjs.create({precision: 21});
+var predmath = index_indexjsjs.create({predictable: true});
 var acscBig = bigmath.acsc;
 var Big = bigmath.bignumber;
 
 describe('acsc', function() {
   it('should return the arccsc of a boolean', function () {
-    approx.equal(acsc(true), pi / 2);
+    toolsapprox_equaljs(acsc(true), pi / 2);
     assert.deepEqual(acsc(false), complex(pi / 2, Infinity));
     //assert.ok(isNaN(acsc(false)));
   });
@@ -27,12 +26,12 @@ describe('acsc', function() {
   });
 
   it('should return the arccsc of a number', function() {
-    approx.equal(acsc(-2) / pi, -1/6);
-    approx.equal(acsc(-1) / pi, -0.5);
+    toolsapprox_equaljs(acsc(-2) / pi, -1/6);
+    toolsapprox_equaljs(acsc(-1) / pi, -0.5);
     assert.deepEqual(acsc(0), complex(pi / 2, Infinity));
     //assert.ok(isNaN(acsc(0)));
-    approx.equal(acsc(1) / pi, 0.5);
-    approx.equal(acsc(2) / pi, 1/6);
+    toolsapprox_equaljs(acsc(1) / pi, 0.5);
+    toolsapprox_equaljs(acsc(2) / pi, 1/6);
   });
 
   it('should return the arccsc of a number when predictable:true', function() {
@@ -71,11 +70,11 @@ describe('acsc', function() {
   });
 
   it('should be the inverse function of csc', function() {
-    approx.equal(acsc(csc(-1)), -1);
-    approx.equal(acsc(csc(0)), 0);
-    approx.equal(acsc(csc(0.1)), 0.1);
-    approx.equal(acsc(csc(0.5)), 0.5);
-    approx.equal(acsc(csc(2)), 1.14159265358979);
+    toolsapprox_equaljs(acsc(csc(-1)), -1);
+    toolsapprox_equaljs(acsc(csc(0)), 0);
+    toolsapprox_equaljs(acsc(csc(0.1)), 0.1);
+    toolsapprox_equaljs(acsc(csc(0.5)), 0.5);
+    toolsapprox_equaljs(acsc(csc(2)), 1.14159265358979);
   });
 
   it('should be the inverse function of bignumber csc', function() {
@@ -137,7 +136,7 @@ describe('acsc', function() {
   });
 
   it('should LaTex acsc', function () {
-    var expression = math.parse('acsc(2)');
+    var expression = index_indexjsjs.parse('acsc(2)');
     assert.equal(expression.toTex(), '\\csc^{-1}\\left(2\\right)');
   });
 

@@ -1,11 +1,10 @@
-// test mod
-var assert = require('assert');
-var approx = require('../../../tools/approx');
-var math = require('../../../index');
-var bignumber = math.bignumber;
-var matrix = math.matrix;
-var sparse = math.sparse;
-var mod = math.mod;
+import assert from "assert";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
+import { indexjs as index_indexjsjs } from "../../../index";
+var bignumber = index_indexjsjs.bignumber;
+var matrix = index_indexjsjs.matrix;
+var sparse = index_indexjsjs.sparse;
+var mod = index_indexjsjs.mod;
 
 describe('mod', function() {
 
@@ -29,13 +28,13 @@ describe('mod', function() {
     assert.equal(mod(0, 0), 0);
     assert.equal(mod(7, 0), 7);
 
-    approx.equal(mod(7, 2), 1);
-    approx.equal(mod(9, 3), 0);
-    approx.equal(mod(10, 4), 2);
-    approx.equal(mod(-10, 4), 2);
-    approx.equal(mod(8.2, 3), 2.2);
-    approx.equal(mod(4, 1.5), 1);
-    approx.equal(mod(0, 3), 0);
+    toolsapprox_equaljs(mod(7, 2), 1);
+    toolsapprox_equaljs(mod(9, 3), 0);
+    toolsapprox_equaljs(mod(10, 4), 2);
+    toolsapprox_equaljs(mod(-10, 4), 2);
+    toolsapprox_equaljs(mod(8.2, 3), 2.2);
+    toolsapprox_equaljs(mod(4, 1.5), 1);
+    toolsapprox_equaljs(mod(0, 3), 0);
   });
 
   it('should throw an error if the modulus is negative', function() {
@@ -88,9 +87,9 @@ describe('mod', function() {
   });
 
   it('should throw an error if used on complex numbers', function() {
-    assert.throws(function () {mod(math.complex(1,2), 3);}, TypeError);
-    assert.throws(function () {mod(3, math.complex(1,2));}, TypeError);
-    assert.throws(function () {mod(bignumber(3), math.complex(1,2));}, TypeError);
+    assert.throws(function () {mod(index_indexjsjs.complex(1,2), 3);}, TypeError);
+    assert.throws(function () {mod(3, index_indexjsjs.complex(1,2));}, TypeError);
+    assert.throws(function () {mod(bignumber(3), index_indexjsjs.complex(1,2));}, TypeError);
   });
 
   it('should convert string to number', function() {
@@ -101,18 +100,18 @@ describe('mod', function() {
   });
 
   it('should calculate modulus of two fractions', function() {
-    var b = math.fraction(8);
-    var a = mod(b, math.fraction(3));
+    var b = index_indexjsjs.fraction(8);
+    var a = mod(b, index_indexjsjs.fraction(3));
     assert.equal(a.toString(), '2');
     assert.equal(b.toString(), '8');
-    assert(a instanceof math.type.Fraction);
+    assert(a instanceof index_indexjsjs.type.Fraction);
 
-    assert.equal(mod(math.fraction(4.55), math.fraction(0.05)).toString(), '0');
+    assert.equal(mod(index_indexjsjs.fraction(4.55), index_indexjsjs.fraction(0.05)).toString(), '0');
   });
 
   it('should calculate modulus of mixed fractions and numbers', function() {
-    assert.deepEqual(mod(8, math.fraction(3)), math.fraction(2));
-    assert.deepEqual(mod(math.fraction(8), 3), math.fraction(2));
+    assert.deepEqual(mod(8, index_indexjsjs.fraction(3)), index_indexjsjs.fraction(2));
+    assert.deepEqual(mod(index_indexjsjs.fraction(8), 3), index_indexjsjs.fraction(2));
   });
 
   describe('Array', function () {
@@ -176,7 +175,7 @@ describe('mod', function() {
   });
   
   it('should LaTeX mod', function () {
-    var expression = math.parse('mod(11,2)');
+    var expression = index_indexjsjs.parse('mod(11,2)');
     assert.equal(expression.toTex(), '\\left(11\\mod2\\right)');
   });
 });

@@ -1,19 +1,17 @@
-// test parse
-var assert = require('assert');
-var error = require('../../../lib/error/index');
-var math = require('../../../index');
-var Node = math.expression.node.Node;
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
+var Node = index_indexjsjs.expression.node.Node;
 
 describe('parse', function() {
 
   it('should parse an expression', function() {
-    var node = math.parse('(5+3)/4');
+    var node = index_indexjsjs.parse('(5+3)/4');
     assert.ok(node instanceof Node);
     assert.equal(node.compile().eval(), 2);
   });
 
   it('should parse multiple expressions', function() {
-    var nodes = math.parse(['2+3', '4+5']);
+    var nodes = index_indexjsjs.parse(['2+3', '4+5']);
     assert.ok(Array.isArray(nodes));
     assert.equal(nodes.length, 2);
 
@@ -24,7 +22,7 @@ describe('parse', function() {
   });
 
   it('should LaTeX parse', function () {
-    var expression = math.parse('parse(expr,options)');
+    var expression = index_indexjsjs.parse('parse(expr,options)');
     assert.equal(expression.toTex(), '\\mathrm{parse}\\left( expr, options\\right)');
   });
 

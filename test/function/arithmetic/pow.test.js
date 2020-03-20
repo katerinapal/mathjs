@@ -1,16 +1,14 @@
-// test exp
-var assert = require('assert');
-var approx = require('../../../tools/approx');
-var error = require('../../../lib/error/index');
-var math = require('../../../index');
-var mathPredictable = math.create({predictable: true});
-var bignumber = math.bignumber;
-var fraction = math.fraction;
-var complex = math.complex;
-var matrix = math.matrix;
-var unit = math.unit;
-var range = math.range;
-var pow = math.pow;
+import assert from "assert";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
+import { indexjs as index_indexjsjs } from "../../../index";
+var mathPredictable = index_indexjsjs.create({predictable: true});
+var bignumber = index_indexjsjs.bignumber;
+var fraction = index_indexjsjs.fraction;
+var complex = index_indexjsjs.complex;
+var matrix = index_indexjsjs.matrix;
+var unit = index_indexjsjs.unit;
+var range = index_indexjsjs.range;
+var pow = index_indexjsjs.pow;
 
 describe('pow', function() {
 
@@ -37,23 +35,23 @@ describe('pow', function() {
   });
 
   it('should return a real-valued root if one exists with predictable:true', function() {
-    approx.equal(mathPredictable.pow(-8, 1/3), -2);
-    approx.equal(mathPredictable.pow(-8, 2/3), 4);
-    approx.equal(mathPredictable.pow(-8, 3/3), -8);
-    approx.equal(mathPredictable.pow(-8, 4/3), 16);
-    approx.equal(mathPredictable.pow(-8, 5/3), -32);
-    approx.equal(mathPredictable.pow(-8, -5/3), -0.03125);
-    approx.equal(mathPredictable.pow(-1, 2/3), 1);
-    approx.equal(mathPredictable.pow(-1, 50/99), 1);
-    approx.equal(mathPredictable.pow(-1, 49/99), -1);
-    approx.equal(mathPredictable.pow(-17, 29/137), -1.8216292479175);
-    approx.equal(mathPredictable.pow(-1, 0), 1);
-    approx.equal(mathPredictable.pow(-1, 0.2), -1);
-    approx.equal(mathPredictable.pow(-1, 1), -1);
+    toolsapprox_equaljs(mathPredictable.pow(-8, 1/3), -2);
+    toolsapprox_equaljs(mathPredictable.pow(-8, 2/3), 4);
+    toolsapprox_equaljs(mathPredictable.pow(-8, 3/3), -8);
+    toolsapprox_equaljs(mathPredictable.pow(-8, 4/3), 16);
+    toolsapprox_equaljs(mathPredictable.pow(-8, 5/3), -32);
+    toolsapprox_equaljs(mathPredictable.pow(-8, -5/3), -0.03125);
+    toolsapprox_equaljs(mathPredictable.pow(-1, 2/3), 1);
+    toolsapprox_equaljs(mathPredictable.pow(-1, 50/99), 1);
+    toolsapprox_equaljs(mathPredictable.pow(-1, 49/99), -1);
+    toolsapprox_equaljs(mathPredictable.pow(-17, 29/137), -1.8216292479175);
+    toolsapprox_equaljs(mathPredictable.pow(-1, 0), 1);
+    toolsapprox_equaljs(mathPredictable.pow(-1, 0.2), -1);
+    toolsapprox_equaljs(mathPredictable.pow(-1, 1), -1);
 
-    approx.equal(mathPredictable.pow(4, 2), 16);
-    approx.equal(mathPredictable.pow(4, 0.5), 2);
-    approx.equal(mathPredictable.pow(-4, 2), 16);
+    toolsapprox_equaljs(mathPredictable.pow(4, 2), 16);
+    toolsapprox_equaljs(mathPredictable.pow(4, 0.5), 2);
+    toolsapprox_equaljs(mathPredictable.pow(-4, 2), 16);
 
     assert(isNaN(mathPredictable.pow(-1, 49/100)));
     assert(isNaN(mathPredictable.pow(-17, 29/138)));
@@ -113,17 +111,17 @@ describe('pow', function() {
   });
 
   it('should exponentiate a fraction to an integer power', function() {
-    assert.deepEqual(math.pow(fraction(3), fraction(2)), fraction(9));
-    assert.deepEqual(math.pow(fraction(1.5), fraction(2)), fraction(2.25));
-    assert.deepEqual(math.pow(fraction(1.5), fraction(-2)), fraction(4, 9));
-    assert.deepEqual(math.pow(fraction(1.5), 2), fraction(2.25));
+    assert.deepEqual(index_indexjsjs.pow(fraction(3), fraction(2)), fraction(9));
+    assert.deepEqual(index_indexjsjs.pow(fraction(1.5), fraction(2)), fraction(2.25));
+    assert.deepEqual(index_indexjsjs.pow(fraction(1.5), fraction(-2)), fraction(4, 9));
+    assert.deepEqual(index_indexjsjs.pow(fraction(1.5), 2), fraction(2.25));
   });
 
   it('should exponentiate a fraction to an non-integer power', function() {
     assert.throws(function () {mathPredictable.pow(fraction(3), fraction(1.5))}, /Function pow does not support non-integer exponents for fractions/);
 
-    assert.strictEqual(math.pow(fraction(4), 1.5), 8);
-    assert.strictEqual(math.pow(fraction(4), fraction(1.5)), 8);
+    assert.strictEqual(index_indexjsjs.pow(fraction(4), 1.5), 8);
+    assert.strictEqual(index_indexjsjs.pow(fraction(4), fraction(1.5)), 8);
   });
 
   it('should throw an error if used with wrong number of arguments', function() {
@@ -172,8 +170,8 @@ describe('pow', function() {
   });
 
   it('should exponentiate a complex number to the given bignumber power', function() {
-    approx.deepEqual(pow(complex(3, 0), math.bignumber(2)), complex(9, 0));
-    approx.deepEqual(pow(complex(0, 2), math.bignumber(2)), complex(-4, 0));
+    approx.deepEqual(pow(complex(3, 0), index_indexjsjs.bignumber(2)), complex(9, 0));
+    approx.deepEqual(pow(complex(0, 2), index_indexjsjs.bignumber(2)), complex(-4, 0));
   });
 
   it('should correctly calculate unit ^ number', function() {
@@ -218,7 +216,7 @@ describe('pow', function() {
   });
 
   it('should compute large size of square matrix', function() {
-    var a = math.eye(30).valueOf();
+    var a = index_indexjsjs.eye(30).valueOf();
     approx.deepEqual(pow(a, 1000), a);
     approx.deepEqual(pow(matrix(a), 1000), matrix(a));
   });
@@ -236,7 +234,7 @@ describe('pow', function() {
   });
 
   it('should LaTeX pow', function () {
-    var expression = math.parse('pow(2,10)');
+    var expression = index_indexjsjs.parse('pow(2,10)');
     assert.equal(expression.toTex(), '\\left(2\\right)^{10}');
   });
 

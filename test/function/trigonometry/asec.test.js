@@ -1,16 +1,15 @@
-var assert = require('assert');
-var error = require('../../../lib/error/index');
-var math = require('../../../index');
-var approx = require('../../../tools/approx');
-var pi = math.pi;
-var asec = math.asec;
-var sec = math.sec;
-var complex = math.complex;
-var matrix = math.matrix;
-var unit = math.unit;
-var bigmath = math.create({number: 'BigNumber', precision: 20});
-var biggermath = math.create({precision: 21});
-var predmath = math.create({predictable: true});
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
+var pi = index_indexjsjs.pi;
+var asec = index_indexjsjs.asec;
+var sec = index_indexjsjs.sec;
+var complex = index_indexjsjs.complex;
+var matrix = index_indexjsjs.matrix;
+var unit = index_indexjsjs.unit;
+var bigmath = index_indexjsjs.create({number: 'BigNumber', precision: 20});
+var biggermath = index_indexjsjs.create({precision: 21});
+var predmath = index_indexjsjs.create({predictable: true});
 var asecBig = bigmath.asec;
 var Big = bigmath.bignumber;
 
@@ -27,10 +26,10 @@ describe('asec', function() {
   });
 
   it('should return the arcsec of a number', function() {
-    approx.equal(asec(-2) / pi, 2 / 3);
-    approx.equal(asec(-1) / pi, 1);
-    approx.equal(asec(1) / pi, 0);
-    approx.equal(asec(2) / pi, 1 / 3);
+    toolsapprox_equaljs(asec(-2) / pi, 2 / 3);
+    toolsapprox_equaljs(asec(-1) / pi, 1);
+    toolsapprox_equaljs(asec(1) / pi, 0);
+    toolsapprox_equaljs(asec(2) / pi, 1 / 3);
 
     approx.deepEqual(asec(-0.5), complex(pi, -1.3169578969248));
     approx.deepEqual(asec(0.5), complex(0, 1.3169578969248));
@@ -69,11 +68,11 @@ describe('asec', function() {
   });
 
   it('should be the inverse function of sec', function() {
-    approx.equal(asec(sec(-1)), 1);
-    approx.equal(asec(sec(0)), 0);
-    approx.equal(asec(sec(0.1)), 0.1);
-    approx.equal(asec(sec(0.5)), 0.5);
-    approx.equal(asec(sec(2)), 2);
+    toolsapprox_equaljs(asec(sec(-1)), 1);
+    toolsapprox_equaljs(asec(sec(0)), 0);
+    toolsapprox_equaljs(asec(sec(0.1)), 0.1);
+    toolsapprox_equaljs(asec(sec(0.5)), 0.5);
+    toolsapprox_equaljs(asec(sec(2)), 2);
   });
 
   it('should be the inverse function of bignumber sec', function() {
@@ -118,7 +117,7 @@ describe('asec', function() {
   });
 
   it('should LaTeX asec', function () {
-    var expression = math.parse('asec(2)');
+    var expression = index_indexjsjs.parse('asec(2)');
     assert.equal(expression.toTex(), '\\sec^{-1}\\left(2\\right)');
   });
 

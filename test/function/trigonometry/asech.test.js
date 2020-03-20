@@ -1,16 +1,15 @@
-var assert = require('assert');
-var error = require('../../../lib/error/index');
-var math = require('../../../index');
-var approx = require('../../../tools/approx');
-var pi = math.pi;
-var asech = math.asech;
-var sech = math.sech;
-var complex = math.complex;
-var matrix = math.matrix;
-var unit = math.unit;
-var bigmath = math.create({number: 'BigNumber', precision: 20});
-var biggermath = math.create({precision: 22});
-var predmath = math.create({predictable: true});
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
+var pi = index_indexjsjs.pi;
+var asech = index_indexjsjs.asech;
+var sech = index_indexjsjs.sech;
+var complex = index_indexjsjs.complex;
+var matrix = index_indexjsjs.matrix;
+var unit = index_indexjsjs.unit;
+var bigmath = index_indexjsjs.create({number: 'BigNumber', precision: 20});
+var biggermath = index_indexjsjs.create({precision: 22});
+var predmath = index_indexjsjs.create({predictable: true});
 var asechBig = bigmath.asech;
 var Big = bigmath.bignumber;
 
@@ -31,9 +30,9 @@ describe('asech', function() {
     //assert.ok(isNaN(asech(2)));
 
     assert.equal(asech(0), Infinity);
-    approx.equal(asech(0.25), 2.0634370688955605467272811726201);
-    approx.equal(asech(0.5), 1.31695789692481670862504634730797);
-    approx.equal(asech(0.75), 0.7953654612239056305278909331478);
+    toolsapprox_equaljs(asech(0.25), 2.0634370688955605467272811726201);
+    toolsapprox_equaljs(asech(0.5), 1.31695789692481670862504634730797);
+    toolsapprox_equaljs(asech(0.75), 0.7953654612239056305278909331478);
     assert.equal(asech(1), 0);
   });
 
@@ -61,11 +60,11 @@ describe('asech', function() {
   });
 
   it('should be the inverse function of hyperbolic sec', function() {
-    approx.equal(asech(sech(-1)), 1);
-    approx.equal(asech(sech(0)), 0);
-    approx.equal(asech(sech(0.1)), 0.1);
-    approx.equal(asech(sech(0.5)), 0.5);
-    approx.equal(asech(sech(2)), 2);
+    toolsapprox_equaljs(asech(sech(-1)), 1);
+    toolsapprox_equaljs(asech(sech(0)), 0);
+    toolsapprox_equaljs(asech(sech(0.1)), 0.1);
+    toolsapprox_equaljs(asech(sech(0.5)), 0.5);
+    toolsapprox_equaljs(asech(sech(2)), 2);
   });
 
   it('should be the inverse function of bignumber sech', function() {
@@ -114,7 +113,7 @@ describe('asech', function() {
   });
 
   it('should LaTeX asech', function () {
-    var expression = math.parse('asech(1)');
+    var expression = index_indexjsjs.parse('asech(1)');
     assert.equal(expression.toTex(), '\\mathrm{sech}^{-1}\\left(1\\right)');
   });
 

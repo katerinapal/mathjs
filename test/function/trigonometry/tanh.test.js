@@ -1,30 +1,24 @@
-var assert = require('assert'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    approx = require('../../../tools/approx'),
-    pi = math.pi,
-    complex = math.complex,
-    matrix = math.matrix,
-    unit = math.unit,
-    tanh = math.tanh,
-    bigmath = math.create({number: 'BigNumber', precision: 20});
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
+var error = require('../../../lib/error/index'), pi = index_indexjsjs.pi, complex = index_indexjsjs.complex, matrix = index_indexjsjs.matrix, unit = index_indexjsjs.unit, tanh = index_indexjsjs.tanh, bigmath = index_indexjsjs.create({number: 'BigNumber', precision: 20});
 
 describe('tanh', function() {
   it('should return the tanh of a boolean', function () {
-    approx.equal(tanh(true), 0.76159415595576);
-    approx.equal(tanh(false), 0);
+    toolsapprox_equaljs(tanh(true), 0.76159415595576);
+    toolsapprox_equaljs(tanh(false), 0);
   });
 
   it('should return the tanh of null', function () {
-    approx.equal(tanh(null), 0);
+    toolsapprox_equaljs(tanh(null), 0);
   });
 
   it('should return the tanh of a number', function() {
-    approx.equal(tanh(0), 0);
-    approx.equal(tanh(pi), 0.99627207622075);
-    approx.equal(tanh(1), 0.76159415595576);
-    approx.equal(tanh(2), 0.96402758007582);
-    approx.equal(tanh(3), 0.99505475368673);
+    toolsapprox_equaljs(tanh(0), 0);
+    toolsapprox_equaljs(tanh(pi), 0.99627207622075);
+    toolsapprox_equaljs(tanh(1), 0.76159415595576);
+    toolsapprox_equaljs(tanh(2), 0.96402758007582);
+    toolsapprox_equaljs(tanh(3), 0.99505475368673);
   });
 
   it('should return the tanh of a bignumber', function() {
@@ -58,11 +52,11 @@ describe('tanh', function() {
   });
 
   it('should return the tanh of an angle', function() {
-    approx.equal(tanh(unit('90deg')), 0.91715233566727);
-    approx.equal(tanh(unit('-45deg')), -0.65579420263267);
+    toolsapprox_equaljs(tanh(unit('90deg')), 0.91715233566727);
+    toolsapprox_equaljs(tanh(unit('-45deg')), -0.65579420263267);
 
-    assert(tanh(unit(math.bignumber(90), 'deg')).isBigNumber);
-    approx.equal(tanh(unit(math.bignumber(90), 'deg')).toNumber(), 0.91715233566727);
+    assert(tanh(unit(index_indexjsjs.bignumber(90), 'deg')).isBigNumber);
+    toolsapprox_equaljs(tanh(unit(index_indexjsjs.bignumber(90), 'deg')).toNumber(), 0.91715233566727);
 
     approx.deepEqual(tanh(unit(complex('2 + i'), 'rad')), complex(1.0147936161466, 0.033812826079897));
   });
@@ -91,7 +85,7 @@ describe('tanh', function() {
   });
 
   it('should LaTeX tanh', function () {
-    var expression = math.parse('tanh(1)');
+    var expression = index_indexjsjs.parse('tanh(1)');
     assert.equal(expression.toTex(), '\\tanh\\left(1\\right)');
   });
 });

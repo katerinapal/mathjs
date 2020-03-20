@@ -1,8 +1,7 @@
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
 // test bitNot
-var assert = require('assert'),
-    math = require('../../../index'),
-    bignumber = math.bignumber,
-    bitNot = math.bitNot;
+var bignumber = index_indexjsjs.bignumber, bitNot = index_indexjsjs.bitNot;
 
 describe('bitNot', function () {
   it('should return bitwise not of a boolean', function () {
@@ -36,13 +35,13 @@ describe('bitNot', function () {
   });
 
   it('should throw an error if used with a unit', function() {
-    assert.throws(function () {bitNot(math.unit('5cm'))}, /TypeError: Unexpected type of argument/);
+    assert.throws(function () {bitNot(index_indexjsjs.unit('5cm'))}, /TypeError: Unexpected type of argument/);
   });
 
   it('should perform element-wise bitwise not on a matrix', function () {
-    a2 = math.matrix([[1,2],[3,4]]);
+    a2 = index_indexjsjs.matrix([[1,2],[3,4]]);
     var a7 = bitNot(a2);
-    assert.ok(a7 instanceof math.type.Matrix);
+    assert.ok(a7 instanceof index_indexjsjs.type.Matrix);
     assert.deepEqual(a7.size(), [2,2]);
     assert.deepEqual(a7.valueOf(), [[-2,-3],[-4,-5]]);
   });
@@ -62,7 +61,7 @@ describe('bitNot', function () {
   });
 
   it('should LaTeX bitNot', function () {
-    var expression = math.parse('bitNot(4)');
+    var expression = index_indexjsjs.parse('bitNot(4)');
     assert.equal(expression.toTex(), '~\\left(4\\right)');
   });
 
