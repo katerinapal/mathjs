@@ -1,7 +1,5 @@
-// test object utils
-var assert = require('assert'),
-    approx = require('../../tools/approx'),
-    object = require('../../lib/utils/object');
+import assert from "assert";
+import * as libutilsobject_objectjsjs from "../../lib/utils/object";
 
 describe ('object', function () {
 

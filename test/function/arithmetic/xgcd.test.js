@@ -1,9 +1,6 @@
+import assert from "assert";
 // test xgcd
-var assert = require('assert'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index').create({matrix: 'Array'}),
-    gcd = math.gcd,
-    xgcd = math.xgcd;
+var error = require('../../../lib/error/index'), gcd = math.gcd, xgcd = math.xgcd;
 
 describe('xgcd', function() {
 

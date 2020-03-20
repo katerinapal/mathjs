@@ -1,15 +1,12 @@
-// test AccessorNode
-var assert = require('assert');
-var approx = require('../../../tools/approx');
-var math = require('../../../index');
-var bigmath = require('../../../index').create({number: 'BigNumber'});
-var Node = math.expression.node.Node;
-var ConstantNode = math.expression.node.ConstantNode;
-var OperatorNode = math.expression.node.OperatorNode;
-var SymbolNode = math.expression.node.SymbolNode;
-var AccessorNode = math.expression.node.AccessorNode;
-var IndexNode = math.expression.node.IndexNode;
-var RangeNode = math.expression.node.RangeNode;
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
+var Node = index_indexjsjs.expression.node.Node;
+var ConstantNode = index_indexjsjs.expression.node.ConstantNode;
+var OperatorNode = index_indexjsjs.expression.node.OperatorNode;
+var SymbolNode = index_indexjsjs.expression.node.SymbolNode;
+var AccessorNode = index_indexjsjs.expression.node.AccessorNode;
+var IndexNode = index_indexjsjs.expression.node.IndexNode;
+var RangeNode = index_indexjsjs.expression.node.RangeNode;
 
 describe('AccessorNode', function() {
 
@@ -108,7 +105,7 @@ describe('AccessorNode', function() {
     var expr = n.compile();
 
     var scope = {
-      a: math.matrix([1,2,3])
+      a: index_indexjsjs.matrix([1,2,3])
     };
     assert.throws(function () { expr.eval(scope) }, /Index out of range \(4 > 3\)/);
   });

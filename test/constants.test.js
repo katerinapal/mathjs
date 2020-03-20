@@ -1,71 +1,71 @@
-var assert = require('assert'),
-    math = require('../index'),
-    approx = require('../tools/approx');
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../index";
+import { equal as toolsapprox_equaljs } from "../tools/approx";
 
 describe('constants', function() {
 
   describe('number', function () {
 
     it('should have pi', function() {
-      approx.equal(math.pi, 3.14159265358979323846264338327950288419716939937510582097494459230781640628620899862803482534211706798214808651328230664);
-      approx.equal(math.sin(math.pi / 2), 1);
-      approx.equal(math.PI, math.pi);
+      toolsapprox_equaljs(index_indexjsjs.pi, 3.14159265358979323846264338327950288419716939937510582097494459230781640628620899862803482534211706798214808651328230664);
+      toolsapprox_equaljs(index_indexjsjs.sin(index_indexjsjs.pi / 2), 1);
+      toolsapprox_equaljs(index_indexjsjs.PI, index_indexjsjs.pi);
     });
 
     it('should have tau', function() {
-      approx.equal(math.tau, 6.28318530717959);
+      toolsapprox_equaljs(index_indexjsjs.tau, 6.28318530717959);
     });
 
     it('should have phi, golden ratio', function() {
-      approx.equal(math.phi, 1.61803398874989484820458683436563811772030917980576286213545);
+      toolsapprox_equaljs(index_indexjsjs.phi, 1.61803398874989484820458683436563811772030917980576286213545);
     });
 
     it('should have e (euler constant)', function() {
-      approx.equal(math.e, 2.71828182845905);
-      assert.equal(math.round(math.add(1,math.pow(math.e, math.multiply(math.pi, math.i))), 5), 0);
-      assert.equal(math.round(math.eval('1+e^(pi*i)'), 5), 0);
+      toolsapprox_equaljs(index_indexjsjs.e, 2.71828182845905);
+      assert.equal(index_indexjsjs.round(index_indexjsjs.add(1,index_indexjsjs.pow(index_indexjsjs.e, index_indexjsjs.multiply(index_indexjsjs.pi, index_indexjsjs.i))), 5), 0);
+      assert.equal(index_indexjsjs.round(index_indexjsjs.eval('1+e^(pi*i)'), 5), 0);
     });
 
     it('should have LN2', function() {
-      approx.equal(math.LN2, 0.69314718055994530941723212145817656807550013436025525412068000949339362196969471560586332699641868754200148102057068573);
+      toolsapprox_equaljs(index_indexjsjs.LN2, 0.69314718055994530941723212145817656807550013436025525412068000949339362196969471560586332699641868754200148102057068573);
     });
 
     it('should have LN10', function() {
-      approx.equal(math.LN10, 2.30258509299404568401799145468436420760110148862877297603332790096757260967735248023599720508959829834196778404228624863);
+      toolsapprox_equaljs(index_indexjsjs.LN10, 2.30258509299404568401799145468436420760110148862877297603332790096757260967735248023599720508959829834196778404228624863);
    });
 
     it('should have LOG2E', function() {
-      approx.equal(math.LOG2E, 1.44269504088896340735992468100189213742664595415298593413544940693110921918118507988552662289350634449699751830965254425);
+      toolsapprox_equaljs(index_indexjsjs.LOG2E, 1.44269504088896340735992468100189213742664595415298593413544940693110921918118507988552662289350634449699751830965254425);
    });
 
     it('should have LOG10E', function() {
-      approx.equal(math.LOG10E, 0.43429448190325182765112891891660508229439700580366656611445378316586464920887077472922494933843174831870610674476630373);
+      toolsapprox_equaljs(index_indexjsjs.LOG10E, 0.43429448190325182765112891891660508229439700580366656611445378316586464920887077472922494933843174831870610674476630373);
    });
 
     it('should have PI', function() {
-      approx.equal(math.PI, 3.14159265358979);
+      toolsapprox_equaljs(index_indexjsjs.PI, 3.14159265358979);
    });
 
     it('should have SQRT1_2', function() {
-      approx.equal(math.SQRT1_2, 0.70710678118654752440084436210484903928483593768847403658833986899536623923105351942519376716382078636750692311545614851);
+      toolsapprox_equaljs(index_indexjsjs.SQRT1_2, 0.70710678118654752440084436210484903928483593768847403658833986899536623923105351942519376716382078636750692311545614851);
    });
 
     it('should have SQRT2', function() {
-      approx.equal(math.SQRT2, 1.41421356237309504880168872420969807856967187537694807317667973799073247846210703885038753432764157273501384623091229702);
+      toolsapprox_equaljs(index_indexjsjs.SQRT2, 1.41421356237309504880168872420969807856967187537694807317667973799073247846210703885038753432764157273501384623091229702);
    });
 
     it('should have Infinity', function() {
-      assert.strictEqual(math.Infinity, Infinity);
+      assert.strictEqual(index_indexjsjs.Infinity, Infinity);
     });
 
     it('should have NaN', function() {
-      assert.ok(isNaN(math.NaN));
+      assert.ok(isNaN(index_indexjsjs.NaN));
     });
 
   });
 
   describe('bignumber', function () {
-    var bigmath = math.create({number: 'BigNumber', precision: 64});
+    var bigmath = index_indexjsjs.create({number: 'BigNumber', precision: 64});
 
     it('should have bignumber pi', function() {
       assert.equal(bigmath.pi.toString(),  '3.141592653589793238462643383279502884197169399375105820974944592');
@@ -124,26 +124,26 @@ describe('constants', function() {
   });
 
   it('should have i', function() {
-    assert.equal(math.i.re, 0);
-    assert.equal(math.i.im, 1);
-    assert.deepEqual(math.i, math.complex(0,1));
-    assert.deepEqual(math.sqrt(-1), math.i);
-    assert.deepEqual(math.eval('i'), math.complex(0, 1));
+    assert.equal(index_indexjsjs.i.re, 0);
+    assert.equal(index_indexjsjs.i.im, 1);
+    assert.deepEqual(index_indexjsjs.i, index_indexjsjs.complex(0,1));
+    assert.deepEqual(index_indexjsjs.sqrt(-1), index_indexjsjs.i);
+    assert.deepEqual(index_indexjsjs.eval('i'), index_indexjsjs.complex(0, 1));
   });
 
   it('should have true and false', function() {
-    assert.strictEqual(math.true, true);
-    assert.strictEqual(math.false, false);
-    assert.strictEqual(math.eval('true'), true);
-    assert.strictEqual(math.eval('false'), false);
+    assert.strictEqual(index_indexjsjs.true, true);
+    assert.strictEqual(index_indexjsjs.false, false);
+    assert.strictEqual(index_indexjsjs.eval('true'), true);
+    assert.strictEqual(index_indexjsjs.eval('false'), false);
   });
 
   it('should have null', function() {
-    assert.strictEqual(math['null'], null);
+    assert.strictEqual(index_indexjsjs['null'], null);
   });
 
   it('should have version number', function() {
-    assert.equal(math.version, require('../package.json').version);
+    assert.equal(index_indexjsjs.version, require('../package.json').version);
   });
 
 });

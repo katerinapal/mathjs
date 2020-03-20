@@ -1,9 +1,7 @@
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
 // test gcd
-var assert = require('assert'),
-    math = require('../../../index'),
-    matrix = math.matrix,
-    sparse = math.sparse,
-    gcd = math.gcd;
+var matrix = index_indexjsjs.matrix, sparse = index_indexjsjs.sparse, gcd = index_indexjsjs.gcd;
 
 describe('gcd', function() {
 
@@ -48,24 +46,24 @@ describe('gcd', function() {
   });
 
   it('should calculate gcd for BigNumbers', function() {
-    assert.deepEqual(gcd(math.bignumber(12), math.bignumber(8)), math.bignumber(4));
-    assert.deepEqual(gcd(math.bignumber(8), math.bignumber(12)), math.bignumber(4));
+    assert.deepEqual(gcd(index_indexjsjs.bignumber(12), index_indexjsjs.bignumber(8)), index_indexjsjs.bignumber(4));
+    assert.deepEqual(gcd(index_indexjsjs.bignumber(8), index_indexjsjs.bignumber(12)), index_indexjsjs.bignumber(4));
   });
 
   it('should calculate gcd for mixed BigNumbers and Numbers', function() {
-    assert.deepEqual(gcd(math.bignumber(12), 8), math.bignumber(4));
-    assert.deepEqual(gcd(8, math.bignumber(12)), math.bignumber(4));
+    assert.deepEqual(gcd(index_indexjsjs.bignumber(12), 8), index_indexjsjs.bignumber(4));
+    assert.deepEqual(gcd(8, index_indexjsjs.bignumber(12)), index_indexjsjs.bignumber(4));
   });
 
   it('should find the greatest common divisor of fractions', function () {
-    var a = math.fraction(5,8);
-    assert.equal(gcd(a, math.fraction(3,7)).toString(), '0.017(857142)');
+    var a = index_indexjsjs.fraction(5,8);
+    assert.equal(gcd(a, index_indexjsjs.fraction(3,7)).toString(), '0.017(857142)');
     assert.equal(a.toString(), '0.625');
   });
 
   it('should find the greatest common divisor of mixed numbers and fractions', function () {
-    assert.deepEqual(gcd(math.fraction(12), 8), math.fraction(4));
-    assert.deepEqual(gcd(12, math.fraction(8)), math.fraction(4));
+    assert.deepEqual(gcd(index_indexjsjs.fraction(12), 8), index_indexjsjs.fraction(4));
+    assert.deepEqual(gcd(12, index_indexjsjs.fraction(8)), index_indexjsjs.fraction(4));
   });
 
   it('should find the greatest common divisor of booleans', function() {
@@ -91,7 +89,7 @@ describe('gcd', function() {
   });
 
   it('should throw an error with complex numbers', function() {
-    assert.throws(function () {gcd(math.complex(1,3),2); }, /TypeError: Unexpected type of argument/);
+    assert.throws(function () {gcd(index_indexjsjs.complex(1,3),2); }, /TypeError: Unexpected type of argument/);
   });
 
   it('should convert strings to numbers', function() {
@@ -103,7 +101,7 @@ describe('gcd', function() {
   });
 
   it('should throw an error with units', function() {
-    assert.throws(function () { gcd(math.unit('5cm'), 2); }, /TypeError: Unexpected type of argument/);
+    assert.throws(function () { gcd(index_indexjsjs.unit('5cm'), 2); }, /TypeError: Unexpected type of argument/);
   });
   
   describe('Array', function () {
@@ -167,7 +165,7 @@ describe('gcd', function() {
   });
 
   it('should LaTeX gcd', function () {
-    var expression = math.parse('gcd(2,3)');
+    var expression = index_indexjsjs.parse('gcd(2,3)');
     assert.equal(expression.toTex(), '\\gcd\\left(2,3\\right)');
   });
 });

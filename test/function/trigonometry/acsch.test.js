@@ -1,16 +1,7 @@
-var assert = require('assert'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    approx = require('../../../tools/approx'),
-    pi = math.pi,
-    acsch = math.acsch,
-    csch = math.csch,
-    complex = math.complex,
-    matrix = math.matrix,
-    unit = math.unit,
-    bigmath = math.create({number: 'BigNumber', precision: 20}),
-    acschBig = bigmath.acsch,
-    Big = bigmath.bignumber;
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
+import { approxjs as toolsapprox_approxjsjs } from "../../../tools/approx";
+var error = require('../../../lib/error/index'), pi = index_indexjsjs.pi, acsch = index_indexjsjs.acsch, csch = index_indexjsjs.csch, complex = index_indexjsjs.complex, matrix = index_indexjsjs.matrix, unit = index_indexjsjs.unit, bigmath = index_indexjsjs.create({number: 'BigNumber', precision: 20}), acschBig = bigmath.acsch, Big = bigmath.bignumber;
 
 describe('acsch', function() {
   it('should return the hyperbolic arccsc of a boolean', function () {
@@ -94,7 +85,7 @@ describe('acsch', function() {
   });
 
   it('should LaTeX acsch', function () {
-    var expression = math.parse('acsch(2)');
+    var expression = index_indexjsjs.parse('acsch(2)');
     assert.equal(expression.toTex(), '\\mathrm{csch}^{-1}\\left(2\\right)');
   });
 

@@ -1,5 +1,5 @@
-var assert = require('assert');
-var functionUtils = require('../../lib/utils/function');
+import assert from "assert";
+import * as libutilsfunction_functionjsjs from "../../lib/utils/function";
 
 describe('util.function', function() {
 

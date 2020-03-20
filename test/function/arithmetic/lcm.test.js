@@ -1,8 +1,6 @@
-var assert = require('assert'),
-    math = require('../../../index'),
-    matrix = math.matrix,
-    sparse = math.sparse,
-    lcm = math.lcm;
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
+var matrix = index_indexjsjs.matrix, sparse = index_indexjsjs.sparse, lcm = index_indexjsjs.lcm;
 
 describe('lcm', function() {
 
@@ -37,13 +35,13 @@ describe('lcm', function() {
   });
 
   it('should calculate lcm for BigNumbers', function() {
-    assert.deepEqual(lcm(math.bignumber(4), math.bignumber(6)), math.bignumber(12));
-    assert.deepEqual(lcm(math.bignumber(4), math.bignumber(6)), math.bignumber(12));
+    assert.deepEqual(lcm(index_indexjsjs.bignumber(4), index_indexjsjs.bignumber(6)), index_indexjsjs.bignumber(12));
+    assert.deepEqual(lcm(index_indexjsjs.bignumber(4), index_indexjsjs.bignumber(6)), index_indexjsjs.bignumber(12));
   });
 
   it('should calculate lcm for mixed BigNumbers and Numbers', function() {
-    assert.deepEqual(lcm(math.bignumber(4), 6), math.bignumber(12));
-    assert.deepEqual(lcm(4, math.bignumber(6)), math.bignumber(12));
+    assert.deepEqual(lcm(index_indexjsjs.bignumber(4), 6), index_indexjsjs.bignumber(12));
+    assert.deepEqual(lcm(4, index_indexjsjs.bignumber(6)), index_indexjsjs.bignumber(12));
   });
 
   it('should find the lowest common multiple of booleans', function() {
@@ -65,7 +63,7 @@ describe('lcm', function() {
   });
 
   it('should throw an error with complex numbers', function() {
-    assert.throws(function () {lcm(math.complex(1,3),2); }, TypeError, 'Function lcm(complex, number) not supported');
+    assert.throws(function () {lcm(index_indexjsjs.complex(1,3),2); }, TypeError, 'Function lcm(complex, number) not supported');
   });
 
   it('should convert strings to numbers', function() {
@@ -78,28 +76,28 @@ describe('lcm', function() {
   });
 
   it('should find the least common multiple of fractions', function () {
-    var a = math.fraction(5,8);
-    assert.equal(lcm(a, math.fraction(3,7)).toString(), '15');
+    var a = index_indexjsjs.fraction(5,8);
+    assert.equal(lcm(a, index_indexjsjs.fraction(3,7)).toString(), '15');
     assert.equal(a.toString(), '0.625');
   });
 
   it('should find the least common multiple of mixed numbers and fractions', function () {
-    assert.deepEqual(lcm(math.fraction(12), 8), math.fraction(24));
-    assert.deepEqual(lcm(12, math.fraction(8)), math.fraction(24));
+    assert.deepEqual(lcm(index_indexjsjs.fraction(12), 8), index_indexjsjs.fraction(24));
+    assert.deepEqual(lcm(12, index_indexjsjs.fraction(8)), index_indexjsjs.fraction(24));
   });
   
   it('should find the least common even for edge cases', function () {
-    assert.deepEqual(lcm(math.fraction(-3), math.fraction(3)), math.fraction(3));
-    assert.deepEqual(lcm(math.fraction(3), math.fraction(-3)), math.fraction(3));
-    assert.deepEqual(lcm(math.fraction(0), math.fraction(3)), math.fraction(0));
-    assert.deepEqual(lcm(math.fraction(3), math.fraction(0)), math.fraction(0));
-    assert.deepEqual(lcm(math.fraction(0), math.fraction(0)), math.fraction(0));
-    assert.deepEqual(lcm(math.fraction(200), math.fraction(333)), math.fraction(66600));
-    assert.deepEqual(lcm(math.fraction(9999), math.fraction(8888)), math.fraction(79992));
+    assert.deepEqual(lcm(index_indexjsjs.fraction(-3), index_indexjsjs.fraction(3)), index_indexjsjs.fraction(3));
+    assert.deepEqual(lcm(index_indexjsjs.fraction(3), index_indexjsjs.fraction(-3)), index_indexjsjs.fraction(3));
+    assert.deepEqual(lcm(index_indexjsjs.fraction(0), index_indexjsjs.fraction(3)), index_indexjsjs.fraction(0));
+    assert.deepEqual(lcm(index_indexjsjs.fraction(3), index_indexjsjs.fraction(0)), index_indexjsjs.fraction(0));
+    assert.deepEqual(lcm(index_indexjsjs.fraction(0), index_indexjsjs.fraction(0)), index_indexjsjs.fraction(0));
+    assert.deepEqual(lcm(index_indexjsjs.fraction(200), index_indexjsjs.fraction(333)), index_indexjsjs.fraction(66600));
+    assert.deepEqual(lcm(index_indexjsjs.fraction(9999), index_indexjsjs.fraction(8888)), index_indexjsjs.fraction(79992));
   });
 
   it('should throw an error with units', function() {
-    assert.throws(function () { lcm(math.unit('5cm'), 2); }, TypeError, 'Function lcm(unit, number) not supported');
+    assert.throws(function () { lcm(index_indexjsjs.unit('5cm'), 2); }, TypeError, 'Function lcm(unit, number) not supported');
   });
 
   describe('Array', function () {
@@ -163,7 +161,7 @@ describe('lcm', function() {
   });
 
   it('should LaTeX lcm', function () {
-    var expression = math.parse('lcm(2,3)');
+    var expression = index_indexjsjs.parse('lcm(2,3)');
     assert.equal(expression.toTex(), '\\mathrm{lcm}\\left(2,3\\right)');
   });
 });
