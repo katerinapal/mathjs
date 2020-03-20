@@ -1,73 +1,86 @@
-import assert from "assert";
-import { indexjs as index_indexjsjs } from "../../../index";
-var unit = index_indexjsjs.unit;
-var bignumber = index_indexjsjs.bignumber;
-var fraction = index_indexjsjs.fraction;
-var matrix = index_indexjsjs.matrix;
-var range = index_indexjsjs.range;
-var cube = index_indexjsjs.cube;
+"use strict";
 
-describe('cube', function() {
+var _assert = require("assert");
+
+var _assert2 = _interopRequireDefault(_assert);
+
+var _index = require("../../../index");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var unit = _index.indexjs.unit;
+var bignumber = _index.indexjs.bignumber;
+var fraction = _index.indexjs.fraction;
+var matrix = _index.indexjs.matrix;
+var range = _index.indexjs.range;
+var cube = _index.indexjs.cube;
+
+describe('cube', function () {
   it('should return the cube of a boolean', function () {
-    assert.equal(cube(true), 1);
-    assert.equal(cube(false), 0);
+    _assert2.default.equal(cube(true), 1);
+    _assert2.default.equal(cube(false), 0);
   });
 
   it('should return the cube of null', function () {
-    assert.equal(index_indexjsjs.ceil(null), 0);
+    _assert2.default.equal(_index.indexjs.ceil(null), 0);
   });
 
-  it('should return the cube of a number', function() {
-    assert.equal(cube(4), 64);
-    assert.equal(cube(-2), -8);
-    assert.equal(cube(0), 0);
+  it('should return the cube of a number', function () {
+    _assert2.default.equal(cube(4), 64);
+    _assert2.default.equal(cube(-2), -8);
+    _assert2.default.equal(cube(0), 0);
   });
 
-  it('should return the cube of a big number', function() {
-    assert.deepEqual(cube(bignumber(4)), bignumber(64));
-    assert.deepEqual(cube(bignumber(-2)), bignumber(-8));
-    assert.deepEqual(cube(bignumber(0)), bignumber(0));
+  it('should return the cube of a big number', function () {
+    _assert2.default.deepEqual(cube(bignumber(4)), bignumber(64));
+    _assert2.default.deepEqual(cube(bignumber(-2)), bignumber(-8));
+    _assert2.default.deepEqual(cube(bignumber(0)), bignumber(0));
   });
 
-  it('should return the cube of a fraction', function() {
+  it('should return the cube of a fraction', function () {
     var a = fraction(0.5);
-    assert(cube(a) instanceof index_indexjsjs.type.Fraction);
-    assert.equal(cube(a).toString(), '0.125');
-    assert.equal(a.toString(), '0.5');
+    (0, _assert2.default)(cube(a) instanceof _index.indexjs.type.Fraction);
+    _assert2.default.equal(cube(a).toString(), '0.125');
+    _assert2.default.equal(a.toString(), '0.5');
   });
 
-  it('should return the cube of a complex number', function() {
-    assert.deepEqual(cube(index_indexjsjs.complex('2i')), index_indexjsjs.complex('-8i'));
-    assert.deepEqual(cube(index_indexjsjs.complex('2+3i')), index_indexjsjs.complex('-46+9i'));
-    assert.deepEqual(cube(index_indexjsjs.complex('2')), index_indexjsjs.complex('8'));
+  it('should return the cube of a complex number', function () {
+    _assert2.default.deepEqual(cube(_index.indexjs.complex('2i')), _index.indexjs.complex('-8i'));
+    _assert2.default.deepEqual(cube(_index.indexjs.complex('2+3i')), _index.indexjs.complex('-46+9i'));
+    _assert2.default.deepEqual(cube(_index.indexjs.complex('2')), _index.indexjs.complex('8'));
   });
 
-  it('should return the cube of a unit', function() {
-    assert.equal(cube(index_indexjsjs.unit('4 cm')).toString(), '64 cm^3');
-    assert.equal(cube(index_indexjsjs.unit('-2 cm')).toString(), '-8 cm^3');
-    assert.equal(cube(index_indexjsjs.unit('0 cm')).toString(), '0 cm^3');
+  it('should return the cube of a unit', function () {
+    _assert2.default.equal(cube(_index.indexjs.unit('4 cm')).toString(), '64 cm^3');
+    _assert2.default.equal(cube(_index.indexjs.unit('-2 cm')).toString(), '-8 cm^3');
+    _assert2.default.equal(cube(_index.indexjs.unit('0 cm')).toString(), '0 cm^3');
   });
 
-  it('should throw an error with strings', function() {
-    assert.throws(function () {cube('text')});
+  it('should throw an error with strings', function () {
+    _assert2.default.throws(function () {
+      cube('text');
+    });
   });
 
-  it('should throw an error if there\'s wrong number of args', function() {
-    assert.throws(function () {cube()}, /TypeError: Too few arguments/);
-    assert.throws(function () {cube(1, 2)}, /TypeError: Too many arguments/);
+  it('should throw an error if there\'s wrong number of args', function () {
+    _assert2.default.throws(function () {
+      cube();
+    }, /TypeError: Too few arguments/);
+    _assert2.default.throws(function () {
+      cube(1, 2);
+    }, /TypeError: Too many arguments/);
   });
 
-  it('should cube each element in a matrix, array or range', function() {
+  it('should cube each element in a matrix, array or range', function () {
     // array, matrix, range
     // arrays are evaluated element wise
-    assert.deepEqual(cube([2,3,4,5]), [8,27,64,125]);
-    assert.deepEqual(cube(matrix([2,3,4,5])), matrix([8,27,64,125]));
-    assert.deepEqual(cube(matrix([[1,2],[3,4]])), matrix([[1,8],[27,64]]));
+    _assert2.default.deepEqual(cube([2, 3, 4, 5]), [8, 27, 64, 125]);
+    _assert2.default.deepEqual(cube(matrix([2, 3, 4, 5])), matrix([8, 27, 64, 125]));
+    _assert2.default.deepEqual(cube(matrix([[1, 2], [3, 4]])), matrix([[1, 8], [27, 64]]));
   });
 
   it('should LaTeX cube', function () {
-    var expression = index_indexjsjs.parse('cube(2)');
-    assert.equal(expression.toTex(), '\\left(2\\right)^3');
+    var expression = _index.indexjs.parse('cube(2)');
+    _assert2.default.equal(expression.toTex(), '\\left(2\\right)^3');
   });
-
 });

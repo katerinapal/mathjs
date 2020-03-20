@@ -1,11 +1,20 @@
-import assert from "assert";
-import { indexjs as index_indexjsjs } from "../index";
+"use strict";
 
-describe('factory', function() {
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-  it('should get a default instance of mathjs', function() {
-    assert.strictEqual(typeof index_indexjsjs, 'object');
-    assert.deepEqual(index_indexjsjs.config(), {
+var _assert = require("assert");
+
+var _assert2 = _interopRequireDefault(_assert);
+
+var _index = require("../index");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+describe('factory', function () {
+
+  it('should get a default instance of mathjs', function () {
+    _assert2.default.strictEqual(typeof _index.indexjs === "undefined" ? "undefined" : _typeof(_index.indexjs), 'object');
+    _assert2.default.deepEqual(_index.indexjs.config(), {
       matrix: 'Matrix',
       number: 'number',
       precision: 64,
@@ -14,14 +23,14 @@ describe('factory', function() {
     });
   });
 
-  it('should create an instance of math.js with custom configuration', function() {
-    var math1 = index_indexjsjs.create({
+  it('should create an instance of math.js with custom configuration', function () {
+    var math1 = _index.indexjs.create({
       matrix: 'Array',
       number: 'BigNumber'
     });
 
-    assert.strictEqual(typeof math1, 'object');
-    assert.deepEqual(math1.config(), {
+    _assert2.default.strictEqual(typeof math1 === "undefined" ? "undefined" : _typeof(math1), 'object');
+    _assert2.default.deepEqual(math1.config(), {
       matrix: 'Array',
       number: 'BigNumber',
       precision: 64,
@@ -30,30 +39,30 @@ describe('factory', function() {
     });
   });
 
-  it('two instances of math.js should be isolated from each other', function() {
-    var math1 = index_indexjsjs.create();
-    var math2 = index_indexjsjs.create({
+  it('two instances of math.js should be isolated from each other', function () {
+    var math1 = _index.indexjs.create();
+    var math2 = _index.indexjs.create({
       matrix: 'Array'
     });
 
-    assert.notStrictEqual(index_indexjsjs, math1);
-    assert.notStrictEqual(index_indexjsjs, math2);
-    assert.notStrictEqual(math1, math2);
-    assert.notDeepEqual(math1.config(), math2.config());
-    assert.notDeepEqual(index_indexjsjs.config(), math2.config());
+    _assert2.default.notStrictEqual(_index.indexjs, math1);
+    _assert2.default.notStrictEqual(_index.indexjs, math2);
+    _assert2.default.notStrictEqual(math1, math2);
+    _assert2.default.notDeepEqual(math1.config(), math2.config());
+    _assert2.default.notDeepEqual(_index.indexjs.config(), math2.config());
 
     // changing config should not affect the other
-    math1.config({number: 'BigNumber'});
-    assert.strictEqual(index_indexjsjs.config().number, 'number');
-    assert.strictEqual(math1.config().number, 'BigNumber');
-    assert.strictEqual(math2.config().number, 'number');
+    math1.config({ number: 'BigNumber' });
+    _assert2.default.strictEqual(_index.indexjs.config().number, 'number');
+    _assert2.default.strictEqual(math1.config().number, 'BigNumber');
+    _assert2.default.strictEqual(math2.config().number, 'number');
   });
 
-  it('should apply configuration using the config function', function() {
-    var math1 = index_indexjsjs.create();
+  it('should apply configuration using the config function', function () {
+    var math1 = _index.indexjs.create();
 
     var config = math1.config();
-    assert.deepEqual(config, {
+    _assert2.default.deepEqual(config, {
       matrix: 'Matrix',
       number: 'number',
       precision: 64,
@@ -67,16 +76,15 @@ describe('factory', function() {
 
   // TODO: test whether the namespace is correct: has functions like sin, constants like pi, objects like type and error.
 
-  it('should throw an error when ES5 is not supported', function() {
+  it('should throw an error when ES5 is not supported', function () {
     var create = Object.create;
     Object.create = undefined; // fake missing Object.create function
 
-    assert.throws(function () {
-      var math1 = index_indexjsjs.create();
+    _assert2.default.throws(function () {
+      var math1 = _index.indexjs.create();
     }, /ES5 not supported/);
 
     // restore Object.create
     Object.create = create;
   });
-
 });

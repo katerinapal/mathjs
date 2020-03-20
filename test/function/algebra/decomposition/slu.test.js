@@ -1,94 +1,72 @@
-import { deepEqual as toolsapprox_deepEqualjs } from "../../../../tools/approx";
-import { indexjs as index_indexjsjs } from "../../../../index";
-import { matrixmarketjs as toolsmatrixmarket_matrixmarketjsjs } from "../../../../tools/matrixmarket";
+"use strict";
+
+var _approx = require("../../../../tools/approx");
+
+var _index = require("../../../../index");
+
+var _matrixmarket = require("../../../../tools/matrixmarket");
 
 describe('slu', function () {
 
   it('should decompose matrix, 4 x 4, natural ordering (order=0), partial pivoting', function () {
 
-    var m = index_indexjsjs.sparse(
-      [
-        [4.5,   0, 3.2,   0],
-        [3.1, 2.9,   0, 0.9],
-        [0,   1.7,   3,   0],
-        [3.5, 0.4,   0,   1]
-      ]);
+    var m = _index.indexjs.sparse([[4.5, 0, 3.2, 0], [3.1, 2.9, 0, 0.9], [0, 1.7, 3, 0], [3.5, 0.4, 0, 1]]);
 
     // partial pivoting
-    var r = index_indexjsjs.slu(m, 0, 1);
+    var r = _index.indexjs.slu(m, 0, 1);
 
     // verify M[p,q]=L*U
-    toolsapprox_deepEqualjs(_permute(m, r.p, r.q).valueOf(), index_indexjsjs.multiply(r.L, r.U).valueOf());
+    (0, _approx.deepEqual)(_permute(m, r.p, r.q).valueOf(), _index.indexjs.multiply(r.L, r.U).valueOf());
   });
 
   it('should decompose matrix, 4 x 4, amd(A+A\') (order=1)', function () {
 
-    var m = index_indexjsjs.sparse(
-      [
-        [4.5,   0, 3.2,   0],
-        [3.1, 2.9,   0, 0.9],
-        [0,   1.7,   3,   0],
-        [3.5, 0.4,   0,   1]
-      ]);
+    var m = _index.indexjs.sparse([[4.5, 0, 3.2, 0], [3.1, 2.9, 0, 0.9], [0, 1.7, 3, 0], [3.5, 0.4, 0, 1]]);
 
     // partial pivoting
-    var r = index_indexjsjs.slu(m, 1, 1);
+    var r = _index.indexjs.slu(m, 1, 1);
 
     // verify M[p,q]=L*U
-    toolsapprox_deepEqualjs(_permute(m, r.p, r.q).valueOf(), index_indexjsjs.multiply(r.L, r.U).valueOf());
+    (0, _approx.deepEqual)(_permute(m, r.p, r.q).valueOf(), _index.indexjs.multiply(r.L, r.U).valueOf());
   });
 
   it('should decompose matrix, 4 x 4, amd(A\'*A) (order=2), partial pivoting', function () {
 
-    var m = index_indexjsjs.sparse(
-      [
-        [4.5,   0, 3.2,   0],
-        [3.1, 2.9,   0, 0.9],
-        [0,   1.7,   3,   0],
-        [3.5, 0.4,   0,   1]
-      ]);
+    var m = _index.indexjs.sparse([[4.5, 0, 3.2, 0], [3.1, 2.9, 0, 0.9], [0, 1.7, 3, 0], [3.5, 0.4, 0, 1]]);
 
     // partial pivoting
-    var r = index_indexjsjs.slu(m, 2, 1);
+    var r = _index.indexjs.slu(m, 2, 1);
 
     // verify M[p,q]=L*U
-    toolsapprox_deepEqualjs(_permute(m, r.p, r.q).valueOf(), index_indexjsjs.multiply(r.L, r.U).valueOf());
+    (0, _approx.deepEqual)(_permute(m, r.p, r.q).valueOf(), _index.indexjs.multiply(r.L, r.U).valueOf());
   });
 
   it('should decompose matrix, 4 x 4, amd(A\'*A) (order=3), partial pivoting', function () {
 
-    var m = index_indexjsjs.sparse(
-      [
-        [4.5,   0, 3.2,   0],
-        [3.1, 2.9,   0, 0.9],
-        [0,   1.7,   3,   0],
-        [3.5, 0.4,   0,   1]
-      ]);
+    var m = _index.indexjs.sparse([[4.5, 0, 3.2, 0], [3.1, 2.9, 0, 0.9], [0, 1.7, 3, 0], [3.5, 0.4, 0, 1]]);
 
     // partial pivoting
-    var r = index_indexjsjs.slu(m, 3, 1);
+    var r = _index.indexjs.slu(m, 3, 1);
 
     // verify M[p,q]=L*U
-    toolsapprox_deepEqualjs(_permute(m, r.p, r.q).valueOf(), index_indexjsjs.multiply(r.L, r.U).valueOf());
+    (0, _approx.deepEqual)(_permute(m, r.p, r.q).valueOf(), _index.indexjs.multiply(r.L, r.U).valueOf());
   });
 
   it('should decompose matrix, 48 x 48, natural ordering (order=0), full pivoting, matrix market', function (done) {
     // import matrix
-    toolsmatrixmarket_matrixmarketjsjs.import('tools/matrices/bcsstk01.tar.gz', ['bcsstk01/bcsstk01.mtx'])
-      .then(function (matrices) {
-        // matrix
-        var m = matrices[0];
+    _matrixmarket.matrixmarketjs.import('tools/matrices/bcsstk01.tar.gz', ['bcsstk01/bcsstk01.mtx']).then(function (matrices) {
+      // matrix
+      var m = matrices[0];
 
-        // full pivoting
-        var r = index_indexjsjs.slu(m, 0, 0.001);
+      // full pivoting
+      var r = _index.indexjs.slu(m, 0, 0.001);
 
-        // verify M[p,q]=L*U
-        toolsapprox_deepEqualjs(_permute(m, r.p, r.q).valueOf(), index_indexjsjs.multiply(r.L, r.U).valueOf());
+      // verify M[p,q]=L*U
+      (0, _approx.deepEqual)(_permute(m, r.p, r.q).valueOf(), _index.indexjs.multiply(r.L, r.U).valueOf());
 
-        // indicate test has completed
-        done();
-      })
-      .fail(function (error) {
+      // indicate test has completed
+      done();
+    }).fail(function (error) {
       // indicate test has completed
       done(error);
     });
@@ -96,74 +74,68 @@ describe('slu', function () {
 
   it('should decompose matrix, 48 x 48, amd(A+A\') (order=1), full pivoting, matrix market', function (done) {
     // import matrix
-    toolsmatrixmarket_matrixmarketjsjs.import('tools/matrices/bcsstk01.tar.gz', ['bcsstk01/bcsstk01.mtx'])
-      .then(function (matrices) {
-        // matrix
-        var m = matrices[0];
+    _matrixmarket.matrixmarketjs.import('tools/matrices/bcsstk01.tar.gz', ['bcsstk01/bcsstk01.mtx']).then(function (matrices) {
+      // matrix
+      var m = matrices[0];
 
-        // full pivoting
-        var r = index_indexjsjs.slu(m, 1, 0.001);
+      // full pivoting
+      var r = _index.indexjs.slu(m, 1, 0.001);
 
-        // verify M[p,q]=L*U
-        toolsapprox_deepEqualjs(_permute(m, r.p, r.q).valueOf(), index_indexjsjs.multiply(r.L, r.U).valueOf());
+      // verify M[p,q]=L*U
+      (0, _approx.deepEqual)(_permute(m, r.p, r.q).valueOf(), _index.indexjs.multiply(r.L, r.U).valueOf());
 
-        // indicate test has completed
-        done();
-      })
-      .fail(function (error) {
-        // indicate test has completed
-        done(error);
-      });
+      // indicate test has completed
+      done();
+    }).fail(function (error) {
+      // indicate test has completed
+      done(error);
+    });
   });
 
   it('should decompose matrix, 48 x 48, amd(A\'*A) (order=2), full pivoting, matrix market', function (done) {
     // import matrix
-    toolsmatrixmarket_matrixmarketjsjs.import('tools/matrices/bcsstk01.tar.gz', ['bcsstk01/bcsstk01.mtx'])
-      .then(function (matrices) {
-        // matrix
-        var m = matrices[0];
+    _matrixmarket.matrixmarketjs.import('tools/matrices/bcsstk01.tar.gz', ['bcsstk01/bcsstk01.mtx']).then(function (matrices) {
+      // matrix
+      var m = matrices[0];
 
-        // full pivoting
-        var r = index_indexjsjs.slu(m, 2, 0.001);
+      // full pivoting
+      var r = _index.indexjs.slu(m, 2, 0.001);
 
-        // verify M[p,q]=L*U
-        toolsapprox_deepEqualjs(_permute(m, r.p, r.q).valueOf(), index_indexjsjs.multiply(r.L, r.U).valueOf());
+      // verify M[p,q]=L*U
+      (0, _approx.deepEqual)(_permute(m, r.p, r.q).valueOf(), _index.indexjs.multiply(r.L, r.U).valueOf());
 
-        // indicate test has completed
-        done();
-      })
-      .fail(function (error) {
-        // indicate test has completed
-        done(error);
-      });
+      // indicate test has completed
+      done();
+    }).fail(function (error) {
+      // indicate test has completed
+      done(error);
+    });
   });
 
   it('should decompose matrix, 48 x 48, amd(A\'*A) (order=3), full pivoting, matrix market', function (done) {
     // import matrix
-    toolsmatrixmarket_matrixmarketjsjs.import('tools/matrices/bcsstk01.tar.gz', ['bcsstk01/bcsstk01.mtx'])
-      .then(function (matrices) {
-        // matrix
-        var m = matrices[0];
+    _matrixmarket.matrixmarketjs.import('tools/matrices/bcsstk01.tar.gz', ['bcsstk01/bcsstk01.mtx']).then(function (matrices) {
+      // matrix
+      var m = matrices[0];
 
-        // full pivoting
-        var r = index_indexjsjs.slu(m, 3, 0.001);
+      // full pivoting
+      var r = _index.indexjs.slu(m, 3, 0.001);
 
-        // verify M[p,q]=L*U
-        toolsapprox_deepEqualjs(_permute(m, r.p, r.q).valueOf(), index_indexjsjs.multiply(r.L, r.U).valueOf());
+      // verify M[p,q]=L*U
+      (0, _approx.deepEqual)(_permute(m, r.p, r.q).valueOf(), _index.indexjs.multiply(r.L, r.U).valueOf());
 
-        // indicate test has completed
-        done();
-      })
-      .fail(function (error) {
-        // indicate test has completed
-        done(error);
-      });
+      // indicate test has completed
+      done();
+    }).fail(function (error) {
+      // indicate test has completed
+      done(error);
+    });
   });
-  
+
   /**
    * C = A(p,q) where p is the row permutation vector and q the column permutation vector.
    */
-  var _permute = function (A, pinv, q) {
+  var _permute = function _permute(A, pinv, q) {
     // matrix arrays
     var values = A._values;
     var index = A._index;
@@ -176,19 +148,19 @@ describe('slu', function () {
     var cindex = [];
     var cptr = [];
     // loop columns
-    for (var k = 0 ; k < n ; k++) {
+    for (var k = 0; k < n; k++) {
       cptr[k] = cindex.length;
       // column in C
-      var j = q ? (q[k]) : k;
+      var j = q ? q[k] : k;
       // values in column j
       for (var t = ptr[j]; t < ptr[j + 1]; t++) {
         cvalues.push(values[t]);
-        cindex.push(pinv ? (pinv[index[t]]) : index[t]);
+        cindex.push(pinv ? pinv[index[t]] : index[t]);
       }
     }
     cptr[n] = cindex.length;
     // return matrix
-    return new index_indexjsjs.type.SparseMatrix({
+    return new _index.indexjs.type.SparseMatrix({
       values: cvalues,
       index: cindex,
       ptr: cptr,
