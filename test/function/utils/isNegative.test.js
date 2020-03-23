@@ -1,70 +1,83 @@
-import assert from "assert";
-import { indexjs as index_indexjsjs } from "../../../index";
-var isNegative = index_indexjsjs.isNegative;
-var bignumber = index_indexjsjs.bignumber;
-var fraction = index_indexjsjs.fraction;
-var complex = index_indexjsjs.complex;
-var unit = index_indexjsjs.unit;
+"use strict";
 
-describe('isNegative', function() {
+var _assert = require("assert");
 
-  it('should test whether a number is negative', function() {
-    assert.strictEqual(isNegative(0), false);
-    assert.strictEqual(isNegative(-0), false);
-    assert.strictEqual(isNegative(2), false);
-    assert.strictEqual(isNegative(-3), true);
-    assert.strictEqual(isNegative(Infinity), false);
-    assert.strictEqual(isNegative(-Infinity), true);
-    assert.strictEqual(isNegative(NaN), false);
+var _assert2 = _interopRequireDefault(_assert);
+
+var _index = require("../../../index");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var isNegative = _index.indexjs.isNegative;
+var bignumber = _index.indexjs.bignumber;
+var fraction = _index.indexjs.fraction;
+var complex = _index.indexjs.complex;
+var unit = _index.indexjs.unit;
+
+describe('isNegative', function () {
+
+  it('should test whether a number is negative', function () {
+    _assert2.default.strictEqual(isNegative(0), false);
+    _assert2.default.strictEqual(isNegative(-0), false);
+    _assert2.default.strictEqual(isNegative(2), false);
+    _assert2.default.strictEqual(isNegative(-3), true);
+    _assert2.default.strictEqual(isNegative(Infinity), false);
+    _assert2.default.strictEqual(isNegative(-Infinity), true);
+    _assert2.default.strictEqual(isNegative(NaN), false);
   });
 
-  it('should test whether a boolean is negative', function() {
-    assert.strictEqual(isNegative(true), false);
-    assert.strictEqual(isNegative(false), false);
+  it('should test whether a boolean is negative', function () {
+    _assert2.default.strictEqual(isNegative(true), false);
+    _assert2.default.strictEqual(isNegative(false), false);
   });
 
-  it('should test whether a BigNumber is negative', function() {
-    assert.strictEqual(isNegative(bignumber(0)), false);
-    assert.strictEqual(isNegative(bignumber(-0)), false);
-    assert.strictEqual(isNegative(bignumber(2)), false);
-    assert.strictEqual(isNegative(bignumber(-3)), true);
-    assert.strictEqual(isNegative(bignumber(Infinity)), false);
-    assert.strictEqual(isNegative(bignumber(-Infinity)), true);
-    assert.strictEqual(isNegative(bignumber(NaN)), false);
+  it('should test whether a BigNumber is negative', function () {
+    _assert2.default.strictEqual(isNegative(bignumber(0)), false);
+    _assert2.default.strictEqual(isNegative(bignumber(-0)), false);
+    _assert2.default.strictEqual(isNegative(bignumber(2)), false);
+    _assert2.default.strictEqual(isNegative(bignumber(-3)), true);
+    _assert2.default.strictEqual(isNegative(bignumber(Infinity)), false);
+    _assert2.default.strictEqual(isNegative(bignumber(-Infinity)), true);
+    _assert2.default.strictEqual(isNegative(bignumber(NaN)), false);
   });
 
-  it('should test whether a Fraction is negative', function() {
-    assert.strictEqual(isNegative(fraction(2)), false);
-    assert.strictEqual(isNegative(fraction(-3)), true);
-    assert.strictEqual(isNegative(fraction(0)), false);
-    assert.strictEqual(isNegative(fraction(-0)), false);
+  it('should test whether a Fraction is negative', function () {
+    _assert2.default.strictEqual(isNegative(fraction(2)), false);
+    _assert2.default.strictEqual(isNegative(fraction(-3)), true);
+    _assert2.default.strictEqual(isNegative(fraction(0)), false);
+    _assert2.default.strictEqual(isNegative(fraction(-0)), false);
   });
 
-  it('should test whether a unit is negative', function() {
-    assert.strictEqual(isNegative(unit('0 m')), false);
-    assert.strictEqual(isNegative(unit('0 kB')), false);
-    assert.strictEqual(isNegative(unit('5 cm')), false);
-    assert.strictEqual(isNegative(unit('-3 inch')), true);
+  it('should test whether a unit is negative', function () {
+    _assert2.default.strictEqual(isNegative(unit('0 m')), false);
+    _assert2.default.strictEqual(isNegative(unit('0 kB')), false);
+    _assert2.default.strictEqual(isNegative(unit('5 cm')), false);
+    _assert2.default.strictEqual(isNegative(unit('-3 inch')), true);
   });
 
-  it('should test whether a string contains a negative value', function() {
-    assert.strictEqual(isNegative('2'), false);
-    assert.strictEqual(isNegative('-2'), true);
-    assert.strictEqual(isNegative('0'), false);
+  it('should test whether a string contains a negative value', function () {
+    _assert2.default.strictEqual(isNegative('2'), false);
+    _assert2.default.strictEqual(isNegative('-2'), true);
+    _assert2.default.strictEqual(isNegative('0'), false);
   });
 
-  it('should test isNegative element wise on an Array', function() {
-    assert.deepEqual(isNegative([0, 5, 0, -3]), [false, false, false, true]);
+  it('should test isNegative element wise on an Array', function () {
+    _assert2.default.deepEqual(isNegative([0, 5, 0, -3]), [false, false, false, true]);
   });
 
-  it('should test isNegative element wise on a Matrix', function() {
-    assert.deepEqual(isNegative(index_indexjsjs.matrix([0, 5, 0, -3])), index_indexjsjs.matrix([false, false, false, true]));
+  it('should test isNegative element wise on a Matrix', function () {
+    _assert2.default.deepEqual(isNegative(_index.indexjs.matrix([0, 5, 0, -3])), _index.indexjs.matrix([false, false, false, true]));
   });
 
-  it('should throw an error in case of unsupported data types', function() {
-    assert.throws(function () {isNegative(complex(2, 3))}, /TypeError: Unexpected type of argument/);
-    assert.throws(function () {isNegative(new Date())}, /TypeError: Unexpected type of argument/);
-    assert.throws(function () {isNegative({})}, /TypeError: Unexpected type of argument/);
+  it('should throw an error in case of unsupported data types', function () {
+    _assert2.default.throws(function () {
+      isNegative(complex(2, 3));
+    }, /TypeError: Unexpected type of argument/);
+    _assert2.default.throws(function () {
+      isNegative(new Date());
+    }, /TypeError: Unexpected type of argument/);
+    _assert2.default.throws(function () {
+      isNegative({});
+    }, /TypeError: Unexpected type of argument/);
   });
-
 });

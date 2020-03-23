@@ -1,13 +1,19 @@
-import assert from "assert";
-import { indexjs as index_indexjsjs } from "../index";
+"use strict";
 
-describe('deprecated stuff', function() {
+var _assert = require("assert");
+
+var _assert2 = _interopRequireDefault(_assert);
+
+var _index = require("../index");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+describe('deprecated stuff', function () {
 
   it('should throw a deprecation error when using UpdateNode', function () {
 
-    assert.throws(function () {
-      new index_indexjsjs.expression.node.UpdateNode();
+    _assert2.default.throws(function () {
+      new _index.indexjs.expression.node.UpdateNode();
     }, /UpdateNode is deprecated/);
-
-  })
+  });
 });
