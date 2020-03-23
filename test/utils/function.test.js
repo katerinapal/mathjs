@@ -1,5 +1,5 @@
-var assert = require('assert');
-var functionUtils = require('../../lib/utils/function');
+import assert from "assert";
+import * as libutilsfunction_functionjsjs from "../../lib/utils/function";
 
 describe('util.function', function() {
 
@@ -8,7 +8,7 @@ describe('util.function', function() {
     it('should memoize a function with one argument', function () {
       var f = function (x) {return x * x};
 
-      var m = functionUtils.memoize(f);
+      var m = libutilsfunction_functionjsjs.memoize(f);
 
       assert.strictEqual(m(2), 4);
       assert.strictEqual(m(3), 9);
@@ -17,7 +17,7 @@ describe('util.function', function() {
     it('should memoize a function with two arguments', function () {
       var f = function (x, y) {return x * y};
 
-      var m = functionUtils.memoize(f);
+      var m = libutilsfunction_functionjsjs.memoize(f);
 
       assert.strictEqual(m(2, 3), 6);
 
@@ -29,7 +29,7 @@ describe('util.function', function() {
     it('should memoize a function with objects as arguments', function () {
       var f = function (obj) {return obj.x * obj.y};
 
-      var m = functionUtils.memoize(f);
+      var m = libutilsfunction_functionjsjs.memoize(f);
 
       assert.strictEqual(m({x: 2, y: 3}), 6);
       assert.deepEqual(Object.keys(m.cache), ['[{"x":2,"y":3}]']);
@@ -42,7 +42,7 @@ describe('util.function', function() {
         return 'id:' + args[0].id;
       };
 
-      var m = functionUtils.memoize(f, hashIt);
+      var m = libutilsfunction_functionjsjs.memoize(f, hashIt);
 
       assert.strictEqual(m({id: 2}), 2);
       assert.deepEqual(Object.keys(m.cache), ['id:2']);
@@ -53,7 +53,7 @@ describe('util.function', function() {
       var a = 2;
       var f = function (x) {return a}; // trick: no pure function
 
-      var m = functionUtils.memoize(f);
+      var m = libutilsfunction_functionjsjs.memoize(f);
 
       assert.strictEqual(m(4), 2);
       a = 3;
@@ -70,21 +70,21 @@ describe('util.function', function() {
         'number, number': function () {},
         'number': function () {}
       };
-      assert.equal(functionUtils.maxArgumentCount(a), 2);
+      assert.equal(libutilsfunction_functionjsjs.maxArgumentCount(a), 2);
 
       var b = function () {};
       b.signatures = {
         'number': function () {},
         'number, number': function () {}
       };
-      assert.equal(functionUtils.maxArgumentCount(b), 2);
+      assert.equal(libutilsfunction_functionjsjs.maxArgumentCount(b), 2);
 
       var c = function () {};
       c.signatures = {
         'number': function () {},
         'BigNumber': function () {}
       };
-      assert.equal(functionUtils.maxArgumentCount(c), 1);
+      assert.equal(libutilsfunction_functionjsjs.maxArgumentCount(c), 1);
 
       var d = function () {};
       d.signatures = {
@@ -92,11 +92,11 @@ describe('util.function', function() {
         'number': function () {},
         'number,any,number': function () {}
       };
-      assert.equal(functionUtils.maxArgumentCount(d), 3);
+      assert.equal(libutilsfunction_functionjsjs.maxArgumentCount(d), 3);
     });
 
     it('should return -1 for regular functions', function() {
-      assert.equal(functionUtils.maxArgumentCount(function () {}), -1);
+      assert.equal(libutilsfunction_functionjsjs.maxArgumentCount(function () {}), -1);
     });
 
   });

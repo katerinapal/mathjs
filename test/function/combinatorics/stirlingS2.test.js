@@ -1,7 +1,6 @@
-var assert = require('assert'),
-error = require('../../../lib/error/index'),
-math = require('../../../index'),
-stirlingS2 = math.stirlingS2;
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
+var error = require('../../../lib/error/index'), stirlingS2 = index_indexjsjs.stirlingS2;
 
 describe('stirlingS2', function() {
 
@@ -12,8 +11,8 @@ describe('stirlingS2', function() {
   });
 
   it('should calculate the stirlingS2 of n items taken k at a time with BigNumbers', function(){
-    assert.deepEqual(stirlingS2(math.bignumber(7), math.bignumber(5)),math.bignumber(140));
-    assert.deepEqual(stirlingS2(math.bignumber(8), math.bignumber(6)),math.bignumber(266));
+    assert.deepEqual(stirlingS2(index_indexjsjs.bignumber(7), index_indexjsjs.bignumber(5)),index_indexjsjs.bignumber(140));
+    assert.deepEqual(stirlingS2(index_indexjsjs.bignumber(8), index_indexjsjs.bignumber(6)),index_indexjsjs.bignumber(266));
   });
 
   it('should not work with non-integer and negative input', function() {
@@ -21,9 +20,9 @@ describe('stirlingS2', function() {
     assert.throws(function() {stirlingS2(-2, 3)}, /Non-negative integer value expected/);
 
     assert.throws(function() {stirlingS2(3, 5)}, /k must be less than or equal to n in function stirlingS2/);
-    assert.throws(function() {stirlingS2(math.bignumber(3), math.bignumber(5))}, /k must be less than or equal to n in function stirlingS2/);
-    assert.throws(function() {stirlingS2(math.bignumber(3.5), math.bignumber(-3))}, /Non-negative integer value expected/);
-    assert.throws(function() {stirlingS2(math.bignumber(3.5), 1/3)}, /Non-negative integer value expected/);
+    assert.throws(function() {stirlingS2(index_indexjsjs.bignumber(3), index_indexjsjs.bignumber(5))}, /k must be less than or equal to n in function stirlingS2/);
+    assert.throws(function() {stirlingS2(index_indexjsjs.bignumber(3.5), index_indexjsjs.bignumber(-3))}, /Non-negative integer value expected/);
+    assert.throws(function() {stirlingS2(index_indexjsjs.bignumber(3.5), 1/3)}, /Non-negative integer value expected/);
   });
 
   it('should not work with the wrong number or type of arguments', function() {
@@ -32,7 +31,7 @@ describe('stirlingS2', function() {
   });
 
   it('should LaTeX stirlingS2', function () {
-    var expression = math.parse('stirlingS2(3,2)');
+    var expression = index_indexjsjs.parse('stirlingS2(3,2)');
     assert.equal(expression.toTex(), '\\mathrm{S}\\left(3,2\\right)');
   });
 
