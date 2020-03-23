@@ -1,16 +1,16 @@
-var assert = require('assert');
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
+import { approxjs as toolsapprox_approxjsjs } from "../../../tools/approx";
 var error = require('../../../lib/error/index');
-var math = require('../../../index');
-var approx = require('../../../tools/approx');
-var pi = math.pi;
-var complex = math.complex;
-var matrix = math.matrix;
-var unit = math.unit;
-var asin = math.asin;
-var sin = math.sin;
-var bigmath = math.create({number: 'BigNumber', precision: 20});
-var biggermath = math.create({precision: 21});
-var predmath = math.create({predictable: true});
+var pi = index_indexjsjs.pi;
+var complex = index_indexjsjs.complex;
+var matrix = index_indexjsjs.matrix;
+var unit = index_indexjsjs.unit;
+var asin = index_indexjsjs.asin;
+var sin = index_indexjsjs.sin;
+var bigmath = index_indexjsjs.create({number: 'BigNumber', precision: 20});
+var biggermath = index_indexjsjs.create({precision: 21});
+var predmath = index_indexjsjs.create({predictable: true});
 var asinBig = bigmath.asin;
 var Big = bigmath.bignumber;
 
@@ -135,7 +135,7 @@ describe('asin', function() {
   });
 
   it('should LaTeX asin', function () {
-    var expression = math.parse('asin(0.5)');
+    var expression = index_indexjsjs.parse('asin(0.5)');
     assert.equal(expression.toTex(), '\\sin^{-1}\\left(0.5\\right)');
   });
 

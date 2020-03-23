@@ -1,9 +1,7 @@
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
 // test size
-var assert = require('assert'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    size = math.size,
-    matrix = math.matrix;
+var error = require('../../../lib/error/index'), size = index_indexjsjs.size, matrix = index_indexjsjs.matrix;
 
 describe('size', function() {
 
@@ -28,19 +26,19 @@ describe('size', function() {
   });
 
   it('should calculate the size of a range', function() {
-    assert.deepEqual(size(math.range(2,6)), matrix([4]));
+    assert.deepEqual(size(index_indexjsjs.range(2,6)), matrix([4]));
   });
 
   it('should calculate the size of a scalar', function() {
     assert.deepEqual(size(2), matrix([]));
-    assert.deepEqual(size(math.bignumber(2)), matrix([]));
-    assert.deepEqual(size(math.complex(2,3)), matrix([]));
+    assert.deepEqual(size(index_indexjsjs.bignumber(2)), matrix([]));
+    assert.deepEqual(size(index_indexjsjs.complex(2,3)), matrix([]));
     assert.deepEqual(size(true), matrix([]));
     assert.deepEqual(size(null), matrix([]));
   });
 
   it('should calculate the size of a scalar with setting matrix=="array"', function() {
-    var math2 = math.create({matrix: 'Array'});
+    var math2 = index_indexjsjs.create({matrix: 'Array'});
     assert.deepEqual(math2.size(2), []);
     assert.deepEqual(math2.size(math2.bignumber(2)), []);
     assert.deepEqual(math2.size(math2.complex(2,3)), []);
@@ -62,7 +60,7 @@ describe('size', function() {
   });
 
   it('should LaTeX size', function () {
-    var expression = math.parse('size(1)');
+    var expression = index_indexjsjs.parse('size(1)');
     assert.equal(expression.toTex(), '\\mathrm{size}\\left(1\\right)');
   });
 });

@@ -1,10 +1,6 @@
-var assert = require('assert'),
-    approx = require('../../../tools/approx'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    range = math.range,
-    matrix = math.matrix,
-    bignumber = math.bignumber;
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
+var approx = require('../../../tools/approx'), error = require('../../../lib/error/index'), range = index_indexjsjs.range, matrix = index_indexjsjs.matrix, bignumber = index_indexjsjs.bignumber;
 
 describe('range', function() {
 
@@ -43,7 +39,7 @@ describe('range', function() {
   });
 
   it('should output an array when setting matrix==="array"', function() {
-    var math2 = math.create({
+    var math2 = index_indexjsjs.create({
       matrix: 'Array'
     });
 
@@ -75,14 +71,14 @@ describe('range', function() {
   });
 
   it('should parse a range with bignumbers', function() {
-    var bigmath = math.create({number: 'BigNumber'});
+    var bigmath = index_indexjsjs.create({number: 'BigNumber'});
     var bignumber = bigmath.bignumber;
     assert.deepEqual(bigmath.range('1:3'), matrix([bignumber(1),bignumber(2)]));
     assert.deepEqual(bigmath.range('3:-1:0'), matrix([bignumber(3),bignumber(2),bignumber(1)]));
   });
 
   it('should throw an error when parsing a an invalid string to a bignumber range', function() {
-    var bigmath = math.create({number: 'BigNumber'});
+    var bigmath = index_indexjsjs.create({number: 'BigNumber'});
     assert.throws(function () {bigmath.range('1:a')}, /is no valid range/);
   });
 
@@ -120,19 +116,19 @@ describe('range', function() {
   });
 
   it('should throw an error if called with a unit', function() {
-    assert.throws(function () {range(math.unit('5cm'))}, TypeError);
+    assert.throws(function () {range(index_indexjsjs.unit('5cm'))}, TypeError);
   });
 
   it('should throw an error if called with a complex number', function() {
-    assert.throws(function () {range(math.complex(2,3))}, TypeError);
+    assert.throws(function () {range(index_indexjsjs.complex(2,3))}, TypeError);
   });
 
   it('should throw an error if called with one invalid argument', function() {  
-    assert.throws(function () {range(math.unit('5cm'), 2)}, TypeError);
-    assert.throws(function () {range(2, math.complex(2,3))}, TypeError);
+    assert.throws(function () {range(index_indexjsjs.unit('5cm'), 2)}, TypeError);
+    assert.throws(function () {range(2, index_indexjsjs.complex(2,3))}, TypeError);
     assert.throws(function () {range(2, new Date(), 3)}, TypeError);
-    assert.throws(function () {range(2, 1, math.unit('5cm'))}, TypeError);
-    assert.throws(function () {range(math.complex(2,3), 1, 3)}, TypeError);
+    assert.throws(function () {range(2, 1, index_indexjsjs.unit('5cm'))}, TypeError);
+    assert.throws(function () {range(index_indexjsjs.complex(2,3), 1, 3)}, TypeError);
   });
 
   it('should throw an error if called with an invalid number of arguments', function() {
@@ -149,7 +145,7 @@ describe('range', function() {
 
 
   it('should LaTeX range', function () {
-    var expression = math.parse('range(1,10)');
+    var expression = index_indexjsjs.parse('range(1,10)');
     assert.equal(expression.toTex(), '\\mathrm{range}\\left(1,10\\right)');
   });
 });
