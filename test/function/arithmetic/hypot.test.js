@@ -1,55 +1,74 @@
-import assert from "assert";
-import { equal as toolsapprox_equaljs } from "../../../tools/approx";
-import { indexjs as index_indexjsjs } from "../../../index";
-var hypot = index_indexjsjs.hypot;
-var bignumber = index_indexjsjs.bignumber;
-var fraction = index_indexjsjs.fraction;
+"use strict";
 
-describe('hypot', function() {
+var _assert = require("assert");
+
+var _assert2 = _interopRequireDefault(_assert);
+
+var _approx = require("../../../tools/approx");
+
+var _index = require("../../../index");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var hypot = _index.indexjs.hypot;
+var bignumber = _index.indexjs.bignumber;
+var fraction = _index.indexjs.fraction;
+
+describe('hypot', function () {
   it('should return the hypot of numbers', function () {
-    assert.strictEqual(hypot(3, 4), 5);
-    assert.strictEqual(hypot(3, -4), 5);
-    toolsapprox_equaljs(hypot(3, 4, 5), 7.0710678118654755);
-    assert.strictEqual(hypot(-2), 2);
-    assert.strictEqual(hypot(0), 0);
-    assert.strictEqual(hypot(Infinity), Infinity);
+    _assert2.default.strictEqual(hypot(3, 4), 5);
+    _assert2.default.strictEqual(hypot(3, -4), 5);
+    (0, _approx.equal)(hypot(3, 4, 5), 7.0710678118654755);
+    _assert2.default.strictEqual(hypot(-2), 2);
+    _assert2.default.strictEqual(hypot(0), 0);
+    _assert2.default.strictEqual(hypot(Infinity), Infinity);
   });
 
   it('should return the hypot of BigNumbers', function () {
-    assert.deepEqual(hypot(bignumber(3), bignumber(4)), bignumber(5));
-    assert.deepEqual(hypot(bignumber(3), bignumber(-4)), bignumber(5));
-    assert.deepEqual(hypot(bignumber(3), bignumber(4), bignumber(5)),
-        bignumber('7.07106781186547524400844362104849039284835937688474036588339869'));
-    assert.deepEqual(hypot(bignumber(-2)), bignumber(2));
+    _assert2.default.deepEqual(hypot(bignumber(3), bignumber(4)), bignumber(5));
+    _assert2.default.deepEqual(hypot(bignumber(3), bignumber(-4)), bignumber(5));
+    _assert2.default.deepEqual(hypot(bignumber(3), bignumber(4), bignumber(5)), bignumber('7.07106781186547524400844362104849039284835937688474036588339869'));
+    _assert2.default.deepEqual(hypot(bignumber(-2)), bignumber(2));
   });
 
   it('should return the hypot of an Array with numbers', function () {
-    assert.strictEqual(hypot([3, 4]), 5);
+    _assert2.default.strictEqual(hypot([3, 4]), 5);
   });
 
   it('should return the hypot of an Matrix with numbers', function () {
-    assert.strictEqual(hypot(index_indexjsjs.matrix([3, 4])), 5);
+    _assert2.default.strictEqual(hypot(_index.indexjs.matrix([3, 4])), 5);
   });
 
   it('should return the hypot of an Array with mixed numbers and BigNumbers', function () {
-    assert.deepEqual(hypot([3, bignumber(4)]), bignumber(5));
+    _assert2.default.deepEqual(hypot([3, bignumber(4)]), bignumber(5));
   });
 
-  it('should throw an error in case of invalid number of arguments', function() {
-    assert.throws(function () {hypot()}, /TypeError: Too few arguments/);
-    assert.throws(function () {hypot([], 2)}, /TypeError: Too many arguments/);
+  it('should throw an error in case of invalid number of arguments', function () {
+    _assert2.default.throws(function () {
+      hypot();
+    }, /TypeError: Too few arguments/);
+    _assert2.default.throws(function () {
+      hypot([], 2);
+    }, /TypeError: Too many arguments/);
   });
 
   it('should throw an error in case of unsupported types', function () {
-    assert.throws(function () {hypot(new Date());}, /TypeError: Unexpected type of argument/);
-    assert.throws(function () {hypot([new Date()]);}, /TypeError: Unexpected type of argument/);
-    assert.throws(function () {hypot([2, 3, index_indexjsjs.complex()]);}, /TypeError: Unexpected type of argument/);
-    assert.throws(function () {hypot(undefined);}, /TypeError: Unexpected type of argument/);
+    _assert2.default.throws(function () {
+      hypot(new Date());
+    }, /TypeError: Unexpected type of argument/);
+    _assert2.default.throws(function () {
+      hypot([new Date()]);
+    }, /TypeError: Unexpected type of argument/);
+    _assert2.default.throws(function () {
+      hypot([2, 3, _index.indexjs.complex()]);
+    }, /TypeError: Unexpected type of argument/);
+    _assert2.default.throws(function () {
+      hypot(undefined);
+    }, /TypeError: Unexpected type of argument/);
   });
 
   it('should LaTeX hypot', function () {
-    var expression = index_indexjsjs.parse('hypot(3,4)');
-    assert.equal(expression.toTex(),'\\hypot\\left(3,4\\right)');
+    var expression = _index.indexjs.parse('hypot(3,4)');
+    _assert2.default.equal(expression.toTex(), '\\hypot\\left(3,4\\right)');
   });
-
 });
