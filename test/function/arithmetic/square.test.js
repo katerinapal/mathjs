@@ -1,71 +1,84 @@
-import assert from "assert";
-import { indexjs as index_indexjsjs } from "../../../index";
-var unit = index_indexjsjs.unit;
-var bignumber = index_indexjsjs.bignumber;
-var fraction = index_indexjsjs.fraction;
-var matrix = index_indexjsjs.matrix;
-var range = index_indexjsjs.range;
-var square = index_indexjsjs.square;
+"use strict";
 
-describe('square', function() {
+var _assert = require("assert");
+
+var _assert2 = _interopRequireDefault(_assert);
+
+var _index = require("../../../index");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var unit = _index.indexjs.unit;
+var bignumber = _index.indexjs.bignumber;
+var fraction = _index.indexjs.fraction;
+var matrix = _index.indexjs.matrix;
+var range = _index.indexjs.range;
+var square = _index.indexjs.square;
+
+describe('square', function () {
   it('should return the square of a boolean', function () {
-    assert.equal(square(true), 1);
-    assert.equal(square(false), 0);
+    _assert2.default.equal(square(true), 1);
+    _assert2.default.equal(square(false), 0);
   });
 
   it('should return the square of null', function () {
-    assert.equal(square(null), 0);
+    _assert2.default.equal(square(null), 0);
   });
 
-  it('should return the square of a number', function() {
-    assert.equal(square(4), 16);
-    assert.equal(square(-2), 4);
-    assert.equal(square(0), 0);
+  it('should return the square of a number', function () {
+    _assert2.default.equal(square(4), 16);
+    _assert2.default.equal(square(-2), 4);
+    _assert2.default.equal(square(0), 0);
   });
 
-  it('should return the square of a big number', function() {
-    assert.deepEqual(square(bignumber(4)), bignumber(16));
-    assert.deepEqual(square(bignumber(-2)), bignumber(4));
-    assert.deepEqual(square(bignumber(0)), bignumber(0));
+  it('should return the square of a big number', function () {
+    _assert2.default.deepEqual(square(bignumber(4)), bignumber(16));
+    _assert2.default.deepEqual(square(bignumber(-2)), bignumber(4));
+    _assert2.default.deepEqual(square(bignumber(0)), bignumber(0));
   });
 
-  it('should return the square of a fraction', function() {
+  it('should return the square of a fraction', function () {
     var a = fraction(0.5);
-    assert(square(a) instanceof index_indexjsjs.type.Fraction);
-    assert.equal(square(a).toString(), '0.25');
-    assert.equal(a.toString(), '0.5');
+    (0, _assert2.default)(square(a) instanceof _index.indexjs.type.Fraction);
+    _assert2.default.equal(square(a).toString(), '0.25');
+    _assert2.default.equal(a.toString(), '0.5');
   });
 
-  it('should throw an error if used with wrong number of arguments', function() {
-    assert.throws(function () {square()}, /TypeError: Too few arguments/);
-    assert.throws(function () {square(1, 2)}, /TypeError: Too many arguments/);
+  it('should throw an error if used with wrong number of arguments', function () {
+    _assert2.default.throws(function () {
+      square();
+    }, /TypeError: Too few arguments/);
+    _assert2.default.throws(function () {
+      square(1, 2);
+    }, /TypeError: Too many arguments/);
   });
 
-  it('should return the square of a complex number', function() {
-    assert.deepEqual(square(index_indexjsjs.complex('2i')), index_indexjsjs.complex('-4'));
-    assert.deepEqual(square(index_indexjsjs.complex('2+3i')), index_indexjsjs.complex('-5+12i'));
-    assert.deepEqual(square(index_indexjsjs.complex('2')), index_indexjsjs.complex('4'));
+  it('should return the square of a complex number', function () {
+    _assert2.default.deepEqual(square(_index.indexjs.complex('2i')), _index.indexjs.complex('-4'));
+    _assert2.default.deepEqual(square(_index.indexjs.complex('2+3i')), _index.indexjs.complex('-5+12i'));
+    _assert2.default.deepEqual(square(_index.indexjs.complex('2')), _index.indexjs.complex('4'));
   });
 
-  it('should return the square of a unit', function() {
-    assert.equal(square(index_indexjsjs.unit('4 cm')).toString(), '16 cm^2');
-    assert.equal(square(index_indexjsjs.unit('-2 cm')).toString(), '4 cm^2');
-    assert.equal(square(index_indexjsjs.unit('0 cm')).toString(), '0 cm^2');
+  it('should return the square of a unit', function () {
+    _assert2.default.equal(square(_index.indexjs.unit('4 cm')).toString(), '16 cm^2');
+    _assert2.default.equal(square(_index.indexjs.unit('-2 cm')).toString(), '4 cm^2');
+    _assert2.default.equal(square(_index.indexjs.unit('0 cm')).toString(), '0 cm^2');
   });
 
-  it('should throw an error when used with a string', function() {
-    assert.throws(function () {square('text')});
+  it('should throw an error when used with a string', function () {
+    _assert2.default.throws(function () {
+      square('text');
+    });
   });
 
-  it('should return the square of each element in a matrix', function() {
-    assert.deepEqual(square([2,3,4,5]), [4,9,16,25]);
-    assert.deepEqual(square(matrix([2,3,4,5])), matrix([4,9,16,25]));
-    assert.deepEqual(square(matrix([[1,2],[3,4]])), matrix([[1,4],[9,16]]));
+  it('should return the square of each element in a matrix', function () {
+    _assert2.default.deepEqual(square([2, 3, 4, 5]), [4, 9, 16, 25]);
+    _assert2.default.deepEqual(square(matrix([2, 3, 4, 5])), matrix([4, 9, 16, 25]));
+    _assert2.default.deepEqual(square(matrix([[1, 2], [3, 4]])), matrix([[1, 4], [9, 16]]));
   });
 
   it('should LaTeX square', function () {
-    var expression = index_indexjsjs.parse('square(4)');
-    assert.equal(expression.toTex(), '\\left(4\\right)^2');
+    var expression = _index.indexjs.parse('square(4)');
+    _assert2.default.equal(expression.toTex(), '\\left(4\\right)^2');
   });
-
 });

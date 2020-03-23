@@ -1,114 +1,140 @@
-import assert from "assert";
-import { indexjs as index_indexjsjs } from "../../../index";
+"use strict";
+
+var _assert = require("assert");
+
+var _assert2 = _interopRequireDefault(_assert);
+
+var _index = require("../../../index");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 var approx = require('../../../tools/approx');
-var Node = index_indexjsjs.expression.node.Node;
-var ConstantNode = index_indexjsjs.expression.node.ConstantNode;
-var SymbolNode = index_indexjsjs.expression.node.SymbolNode;
-var OperatorNode = index_indexjsjs.expression.node.OperatorNode;
+var Node = _index.indexjs.expression.node.Node;
+var ConstantNode = _index.indexjs.expression.node.ConstantNode;
+var SymbolNode = _index.indexjs.expression.node.SymbolNode;
+var OperatorNode = _index.indexjs.expression.node.OperatorNode;
 
-describe('SymbolNode', function() {
+describe('SymbolNode', function () {
 
-  it ('should create a SymbolNode', function () {
+  it('should create a SymbolNode', function () {
     var n = new SymbolNode('sqrt');
-    assert(n instanceof SymbolNode);
-    assert(n instanceof Node);
-    assert.equal(n.type, 'SymbolNode');
+    (0, _assert2.default)(n instanceof SymbolNode);
+    (0, _assert2.default)(n instanceof Node);
+    _assert2.default.equal(n.type, 'SymbolNode');
   });
 
-  it ('should have isSymbolNode', function () {
+  it('should have isSymbolNode', function () {
     var node = new SymbolNode('a');
-    assert(node.isSymbolNode);
+    (0, _assert2.default)(node.isSymbolNode);
   });
 
-  it ('should throw an error when calling without new operator', function () {
-    assert.throws(function () {SymbolNode('sqrt')}, SyntaxError);
+  it('should throw an error when calling without new operator', function () {
+    _assert2.default.throws(function () {
+      SymbolNode('sqrt');
+    }, SyntaxError);
   });
 
-  it ('should throw an error when calling with wrong arguments', function () {
-    assert.throws(function () {new SymbolNode()}, TypeError);
-    assert.throws(function () {new SymbolNode(2)}, TypeError);
+  it('should throw an error when calling with wrong arguments', function () {
+    _assert2.default.throws(function () {
+      new SymbolNode();
+    }, TypeError);
+    _assert2.default.throws(function () {
+      new SymbolNode(2);
+    }, TypeError);
   });
 
-  it ('should throw an error when evaluating an undefined symbol', function () {
+  it('should throw an error when evaluating an undefined symbol', function () {
     var scope = {};
     var s = new SymbolNode('foo');
-    assert.throws(function () {s.compile().eval(scope)}, Error);
+    _assert2.default.throws(function () {
+      s.compile().eval(scope);
+    }, Error);
   });
 
-  it ('should compile a SymbolNode', function () {
+  it('should compile a SymbolNode', function () {
     var s = new SymbolNode('a');
 
     var expr = s.compile();
-    var scope = {a: 5};
-    assert.equal(expr.eval(scope), 5);
-    assert.throws(function () {expr.eval({})}, Error);
+    var scope = { a: 5 };
+    _assert2.default.equal(expr.eval(scope), 5);
+    _assert2.default.throws(function () {
+      expr.eval({});
+    }, Error);
 
     var s2 = new SymbolNode('sqrt');
     var expr2 = s2.compile();
     var scope2 = {};
-    assert.strictEqual(expr2.eval(scope2), index_indexjsjs.sqrt);
+    _assert2.default.strictEqual(expr2.eval(scope2), _index.indexjs.sqrt);
   });
 
-  it ('should filter a SymbolNode', function () {
+  it('should filter a SymbolNode', function () {
     var n = new SymbolNode('x');
-    assert.deepEqual(n.filter(function (node) {return node instanceof SymbolNode}),  [n]);
-    assert.deepEqual(n.filter(function (node) {return node.name == 'x'}),  [n]);
-    assert.deepEqual(n.filter(function (node) {return node.name == 'q'}),  []);
-    assert.deepEqual(n.filter(function (node) {return node instanceof ConstantNode}),  []);
+    _assert2.default.deepEqual(n.filter(function (node) {
+      return node instanceof SymbolNode;
+    }), [n]);
+    _assert2.default.deepEqual(n.filter(function (node) {
+      return node.name == 'x';
+    }), [n]);
+    _assert2.default.deepEqual(n.filter(function (node) {
+      return node.name == 'q';
+    }), []);
+    _assert2.default.deepEqual(n.filter(function (node) {
+      return node instanceof ConstantNode;
+    }), []);
   });
 
-  it ('should run forEach on a SymbolNode', function () {
+  it('should run forEach on a SymbolNode', function () {
     var a = new SymbolNode('a');
     a.forEach(function () {
-      assert.ok(false, 'should not execute, symbol has no childs')
+      _assert2.default.ok(false, 'should not execute, symbol has no childs');
     });
   });
 
-  it ('should map a SymbolNode', function () {
+  it('should map a SymbolNode', function () {
     var a = new SymbolNode('a');
     var c = new SymbolNode('c');
     var b = a.map(function () {
-      assert.ok(false, 'should not execute, symbol has no childs')
+      _assert2.default.ok(false, 'should not execute, symbol has no childs');
     });
 
-    assert.notStrictEqual(b, a);
-    assert.deepEqual(b, a);
+    _assert2.default.notStrictEqual(b, a);
+    _assert2.default.deepEqual(b, a);
   });
 
-  it ('should transform a SymbolNode', function () {
+  it('should transform a SymbolNode', function () {
     var a = new SymbolNode('x');
     var b = new SymbolNode('y');
     var c = a.transform(function (node) {
       return node instanceof SymbolNode && node.name == 'x' ? b : node;
     });
-    assert.deepEqual(c,  b);
+    _assert2.default.deepEqual(c, b);
 
     // no match should leave the symbol as is
     var d = a.transform(function (node) {
       return node instanceof SymbolNode && node.name == 'q' ? b : node;
     });
-    assert.deepEqual(d,  a);
+    _assert2.default.deepEqual(d, a);
   });
 
-  it ('should clone a SymbolNode', function () {
+  it('should clone a SymbolNode', function () {
     var a = new SymbolNode('x');
     var b = a.clone();
 
-    assert(b instanceof SymbolNode);
-    assert.deepEqual(a, b);
-    assert.notStrictEqual(a, b);
-    assert.equal(a.name, b.name);
+    (0, _assert2.default)(b instanceof SymbolNode);
+    _assert2.default.deepEqual(a, b);
+    _assert2.default.notStrictEqual(a, b);
+    _assert2.default.equal(a.name, b.name);
   });
 
-  it ('should stringify a SymbolNode', function () {
+  it('should stringify a SymbolNode', function () {
     var s = new SymbolNode('foo');
 
-    assert.equal(s.toString(), 'foo');
+    _assert2.default.equal(s.toString(), 'foo');
   });
 
-  it ('should stringigy a SymbolNode with custom toString', function () {
+  it('should stringigy a SymbolNode with custom toString', function () {
     //Also checks if the custom functions get passed on to the children
-    var customFunction = function (node, options) {
+    var customFunction = function customFunction(node, options) {
       if (node.type === 'SymbolNode') {
         return 'symbol(' + node.name + ')';
       }
@@ -116,18 +142,18 @@ describe('SymbolNode', function() {
 
     var n = new SymbolNode('a');
 
-    assert.equal(n.toString({handler: customFunction}), 'symbol(a)');
+    _assert2.default.equal(n.toString({ handler: customFunction }), 'symbol(a)');
   });
 
-  it ('should LaTeX a SymbolNode', function () {
+  it('should LaTeX a SymbolNode', function () {
     var s = new SymbolNode('foo');
 
-    assert.equal(s.toTex(), ' foo');
+    _assert2.default.equal(s.toTex(), ' foo');
   });
 
-  it ('should LaTeX a SymbolNode with custom toTex', function () {
+  it('should LaTeX a SymbolNode with custom toTex', function () {
     //Also checks if the custom functions get passed on to the children
-    var customFunction = function (node, options) {
+    var customFunction = function customFunction(node, options) {
       if (node.type === 'SymbolNode') {
         return 'symbol(' + node.name + ')';
       }
@@ -135,16 +161,15 @@ describe('SymbolNode', function() {
 
     var n = new SymbolNode('a');
 
-    assert.equal(n.toTex({handler: customFunction}), 'symbol(a)');
+    _assert2.default.equal(n.toTex({ handler: customFunction }), 'symbol(a)');
   });
 
-  it ('should LaTeX a SymbolNode without breaking \\cdot', function () {
+  it('should LaTeX a SymbolNode without breaking \\cdot', function () {
     var a = new ConstantNode(1);
     var b = new SymbolNode('Epsilon');
 
-    var mult = new OperatorNode('*', 'multiply', [a,b]);
+    var mult = new OperatorNode('*', 'multiply', [a, b]);
 
-    assert.equal(mult.toTex(), '1\\cdot E');
+    _assert2.default.equal(mult.toTex(), '1\\cdot E');
   });
-
 });

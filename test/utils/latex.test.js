@@ -1,12 +1,19 @@
-import assert from "assert";
-import { toSymbol as libutilslatex_toSymboljs } from "../../lib/utils/latex";
+"use strict";
 
-describe('util.latex', function() {
+var _assert = require("assert");
+
+var _assert2 = _interopRequireDefault(_assert);
+
+var _latex = require("../../lib/utils/latex");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+describe('util.latex', function () {
   it('should convert symbols with indices', function () {
-    assert.equal(libutilslatex_toSymboljs('alpha_1'), '\\alpha_{1}');
+    _assert2.default.equal((0, _latex.toSymbol)('alpha_1'), '\\alpha_{1}');
   });
 
   it('should convert units', function () {
-    assert.equal(libutilslatex_toSymboljs('deg', true), '^\\circ');
+    _assert2.default.equal((0, _latex.toSymbol)('deg', true), '^\\circ');
   });
 });

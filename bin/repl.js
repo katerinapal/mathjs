@@ -1,6 +1,11 @@
 #!/usr/bin/env node
+"use strict";
 
-import repl from "repl";
+var _repl = require("repl");
+
+var _repl2 = _interopRequireDefault(_repl);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /*
  * This simply preloads mathjs and drops you into a REPL to
@@ -8,4 +13,4 @@ import repl from "repl";
  **/
 math = require('../index');
 
-repl.start({useGlobal: true});
+_repl2.default.start({ useGlobal: true });

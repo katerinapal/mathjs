@@ -1,23 +1,30 @@
-import assert from "assert";
-import { isBoolean as libutilsboolean_isBooleanjs } from "../../lib/utils/boolean";
+"use strict";
+
+var _assert = require("assert");
+
+var _assert2 = _interopRequireDefault(_assert);
+
+var _boolean = require("../../lib/utils/boolean");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 // test boolean utils
 var approx = require('../../tools/approx');
 
-describe ('boolean', function () {
+describe('boolean', function () {
 
-  it('isBoolean', function() {
-    assert.equal(libutilsboolean_isBooleanjs(true), true);
-    assert.equal(libutilsboolean_isBooleanjs(false), true);
-    assert.equal(libutilsboolean_isBooleanjs(Boolean(false)), true);
-    assert.equal(libutilsboolean_isBooleanjs('hi'), false);
-    assert.equal(libutilsboolean_isBooleanjs(23), false);
-    assert.equal(libutilsboolean_isBooleanjs([]), false);
-    assert.equal(libutilsboolean_isBooleanjs({}), false);
-    assert.equal(libutilsboolean_isBooleanjs(new Date()), false);
+  it('isBoolean', function () {
+    _assert2.default.equal((0, _boolean.isBoolean)(true), true);
+    _assert2.default.equal((0, _boolean.isBoolean)(false), true);
+    _assert2.default.equal((0, _boolean.isBoolean)(Boolean(false)), true);
+    _assert2.default.equal((0, _boolean.isBoolean)('hi'), false);
+    _assert2.default.equal((0, _boolean.isBoolean)(23), false);
+    _assert2.default.equal((0, _boolean.isBoolean)([]), false);
+    _assert2.default.equal((0, _boolean.isBoolean)({}), false);
+    _assert2.default.equal((0, _boolean.isBoolean)(new Date()), false);
 
     // we don't support non primitive Boolean anymore
-    assert.equal(libutilsboolean_isBooleanjs(new Boolean(true)), false);
-    assert.equal(libutilsboolean_isBooleanjs(new Boolean(false)), false);
+    _assert2.default.equal((0, _boolean.isBoolean)(new Boolean(true)), false);
+    _assert2.default.equal((0, _boolean.isBoolean)(new Boolean(false)), false);
   });
-
 });
