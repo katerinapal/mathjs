@@ -1,12 +1,11 @@
-// test cube
-var assert = require('assert');
-var math = require('../../../index');
-var unit = math.unit;
-var bignumber = math.bignumber;
-var fraction = math.fraction;
-var matrix = math.matrix;
-var range = math.range;
-var cube = math.cube;
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
+var unit = index_indexjsjs.unit;
+var bignumber = index_indexjsjs.bignumber;
+var fraction = index_indexjsjs.fraction;
+var matrix = index_indexjsjs.matrix;
+var range = index_indexjsjs.range;
+var cube = index_indexjsjs.cube;
 
 describe('cube', function() {
   it('should return the cube of a boolean', function () {
@@ -15,7 +14,7 @@ describe('cube', function() {
   });
 
   it('should return the cube of null', function () {
-    assert.equal(math.ceil(null), 0);
+    assert.equal(index_indexjsjs.ceil(null), 0);
   });
 
   it('should return the cube of a number', function() {
@@ -32,21 +31,21 @@ describe('cube', function() {
 
   it('should return the cube of a fraction', function() {
     var a = fraction(0.5);
-    assert(cube(a) instanceof math.type.Fraction);
+    assert(cube(a) instanceof index_indexjsjs.type.Fraction);
     assert.equal(cube(a).toString(), '0.125');
     assert.equal(a.toString(), '0.5');
   });
 
   it('should return the cube of a complex number', function() {
-    assert.deepEqual(cube(math.complex('2i')), math.complex('-8i'));
-    assert.deepEqual(cube(math.complex('2+3i')), math.complex('-46+9i'));
-    assert.deepEqual(cube(math.complex('2')), math.complex('8'));
+    assert.deepEqual(cube(index_indexjsjs.complex('2i')), index_indexjsjs.complex('-8i'));
+    assert.deepEqual(cube(index_indexjsjs.complex('2+3i')), index_indexjsjs.complex('-46+9i'));
+    assert.deepEqual(cube(index_indexjsjs.complex('2')), index_indexjsjs.complex('8'));
   });
 
   it('should return the cube of a unit', function() {
-    assert.equal(cube(math.unit('4 cm')).toString(), '64 cm^3');
-    assert.equal(cube(math.unit('-2 cm')).toString(), '-8 cm^3');
-    assert.equal(cube(math.unit('0 cm')).toString(), '0 cm^3');
+    assert.equal(cube(index_indexjsjs.unit('4 cm')).toString(), '64 cm^3');
+    assert.equal(cube(index_indexjsjs.unit('-2 cm')).toString(), '-8 cm^3');
+    assert.equal(cube(index_indexjsjs.unit('0 cm')).toString(), '0 cm^3');
   });
 
   it('should throw an error with strings', function() {
@@ -67,7 +66,7 @@ describe('cube', function() {
   });
 
   it('should LaTeX cube', function () {
-    var expression = math.parse('cube(2)');
+    var expression = index_indexjsjs.parse('cube(2)');
     assert.equal(expression.toTex(), '\\left(2\\right)^3');
   });
 

@@ -1,7 +1,6 @@
-var assert = require('assert'),
-error = require('../../../lib/error/index'),
-math = require('../../../index'),
-bellNumbers = math.bellNumbers;
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
+var error = require('../../../lib/error/index'), bellNumbers = index_indexjsjs.bellNumbers;
 
 describe('bellNumbers', function() {
 
@@ -12,15 +11,15 @@ describe('bellNumbers', function() {
   });
 
   it('should calculate the bellNumbers of n items with BigNumbers', function(){
-    assert.deepEqual(bellNumbers(math.bignumber(2)), math.bignumber(2));
-    assert.deepEqual(bellNumbers(math.bignumber(3)), math.bignumber(5));
+    assert.deepEqual(bellNumbers(index_indexjsjs.bignumber(2)), index_indexjsjs.bignumber(2));
+    assert.deepEqual(bellNumbers(index_indexjsjs.bignumber(3)), index_indexjsjs.bignumber(5));
   });
 
   it('should not work with non-integer and negative input', function() {
     assert.throws(function() {bellNumbers(0.5)}, TypeError);
     assert.throws(function() {bellNumbers(-1)}, TypeError);
-    assert.throws(function() {bellNumbers(math.bignumber(-3))}, TypeError);
-    assert.throws(function() {bellNumbers(math.bignumber(3.5))}, TypeError);
+    assert.throws(function() {bellNumbers(index_indexjsjs.bignumber(-3))}, TypeError);
+    assert.throws(function() {bellNumbers(index_indexjsjs.bignumber(3.5))}, TypeError);
   });
 
   it('should throw an error in case of non-integer input', function() {
@@ -37,7 +36,7 @@ describe('bellNumbers', function() {
   });
 
   it('should LaTeX bellNumbers', function () {
-    var expression = math.parse('bellNumbers(3)');
+    var expression = index_indexjsjs.parse('bellNumbers(3)');
     assert.equal(expression.toTex(), '\\mathrm{B}_{3}');
   });
 

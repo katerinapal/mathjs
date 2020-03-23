@@ -1,10 +1,7 @@
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
 // test bitXor
-var assert = require('assert'),
-    math = require('../../../index'),
-    matrix = math.matrix,
-    sparse = math.sparse,
-    bignumber = math.bignumber,
-    bitXor = math.bitXor;
+var matrix = index_indexjsjs.matrix, sparse = index_indexjsjs.sparse, bignumber = index_indexjsjs.bignumber, bitXor = index_indexjsjs.bitXor;
 
 describe('bitXor', function () {
 
@@ -24,9 +21,9 @@ describe('bitXor', function () {
   });
 
   it('should xor numbers and null', function () {
-    assert.equal(math.bitXor(null, null), 0);
-    assert.equal(math.bitXor(null, 1), 1);
-    assert.equal(math.bitXor(1, null), 1);
+    assert.equal(index_indexjsjs.bitXor(null, null), 0);
+    assert.equal(index_indexjsjs.bitXor(null, 1), 1);
+    assert.equal(index_indexjsjs.bitXor(1, null), 1);
   });
 
   it('should xor mixed numbers and booleans', function () {
@@ -61,9 +58,9 @@ describe('bitXor', function () {
   });
 
   it('should throw an error if used with a unit', function() {
-    assert.throws(function () {bitXor(math.unit('5cm'), 2);}, /TypeError: Unexpected type of argument/);
-    assert.throws(function () {bitXor(2, math.unit('5cm'));}, /TypeError: Unexpected type of argument/);
-    assert.throws(function () {bitXor(math.unit('2cm'), math.unit('5cm'));}, /TypeError: Unexpected type of argument/);
+    assert.throws(function () {bitXor(index_indexjsjs.unit('5cm'), 2);}, /TypeError: Unexpected type of argument/);
+    assert.throws(function () {bitXor(2, index_indexjsjs.unit('5cm'));}, /TypeError: Unexpected type of argument/);
+    assert.throws(function () {bitXor(index_indexjsjs.unit('2cm'), index_indexjsjs.unit('5cm'));}, /TypeError: Unexpected type of argument/);
   });
 
   it('should throw an error if the parameters are not integers', function () {
@@ -163,7 +160,7 @@ describe('bitXor', function () {
   });
 
   it('should LaTeX bitXor', function () {
-    var expression = math.parse('bitXor(2,3)');
+    var expression = index_indexjsjs.parse('bitXor(2,3)');
     assert.equal(expression.toTex(), '\\left(2\\underline{|}3\\right)');
   });
 });

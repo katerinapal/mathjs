@@ -1,7 +1,7 @@
-var assert = require('assert'),
-    array = require('../../lib/utils/array'),
-    resize = array.resize;
-    size = array.size;
+import assert from "assert";
+import * as libutilsarray_arrayjsjs from "../../lib/utils/array";
+var resize = libutilsarray_arrayjsjs.resize;
+size = libutilsarray_arrayjsjs.size;
 
 describe('util.array', function() {
 
@@ -65,7 +65,7 @@ describe('util.array', function() {
       var a = [];
 
       // resize with default value UNINITIALIZED
-      a = resize(a, [3], array.UNINITIALIZED);
+      a = resize(a, [3], libutilsarray_arrayjsjs.UNINITIALIZED);
       assert.deepEqual(a, arr(uninit, uninit, uninit));
     });
 
@@ -229,49 +229,49 @@ describe('util.array', function() {
   describe('squeeze', function () {
 
     it('should squeeze a scalar', function () {
-      assert.deepEqual(array.squeeze(2), 2);
-      assert.deepEqual(array.squeeze({}), {});
-      assert.deepEqual(array.squeeze('string'), 'string');
+      assert.deepEqual(libutilsarray_arrayjsjs.squeeze(2), 2);
+      assert.deepEqual(libutilsarray_arrayjsjs.squeeze({}), {});
+      assert.deepEqual(libutilsarray_arrayjsjs.squeeze('string'), 'string');
     });
 
     it('should squeeze an array', function () {
       // leave zero dimensions as is
-      assert.deepEqual(array.squeeze([]), []);
-      assert.deepEqual(array.squeeze([[]]), []);
-      assert.deepEqual(array.squeeze([[[]]]), []);
-      assert.deepEqual(array.squeeze([[[], []]]), [[], []]);
-      assert.deepEqual(array.squeeze([[[]], [[]]]), [[[]], [[]]]);
+      assert.deepEqual(libutilsarray_arrayjsjs.squeeze([]), []);
+      assert.deepEqual(libutilsarray_arrayjsjs.squeeze([[]]), []);
+      assert.deepEqual(libutilsarray_arrayjsjs.squeeze([[[]]]), []);
+      assert.deepEqual(libutilsarray_arrayjsjs.squeeze([[[], []]]), [[], []]);
+      assert.deepEqual(libutilsarray_arrayjsjs.squeeze([[[]], [[]]]), [[[]], [[]]]);
 
-      assert.deepEqual(array.squeeze(2), 2);
-      assert.deepEqual(array.squeeze([[2]]), 2);
-      assert.deepEqual(array.squeeze([[[2]]]), 2);
-      assert.deepEqual(array.squeeze([1, 2, 3]), [1, 2, 3]);
-      assert.deepEqual(array.squeeze([[1, 2, 3]]), [1, 2, 3]);
-      assert.deepEqual(array.squeeze([[[1, 2, 3]]]), [1, 2, 3]);
-      assert.deepEqual(array.squeeze([[1], [2], [3]]), [1, 2, 3]);
-      assert.deepEqual(array.squeeze([[1, 2], [3, 4]]), [[1, 2], [3, 4]]);
-      assert.deepEqual(array.squeeze([[[1, 2]], [[3, 4]]]), [[[1, 2]], [[3, 4]]]);
-      assert.deepEqual(array.squeeze([[[1, 2], [3, 4]]]), [[1, 2], [3, 4]]);
-      assert.deepEqual(array.squeeze([[[1], [2]], [[3], [4]]]), [[1, 2], [3, 4]]);
-      assert.deepEqual(array.squeeze([[[1]], [[2]], [[3]], [[4]]]), [1, 2, 3, 4]);
+      assert.deepEqual(libutilsarray_arrayjsjs.squeeze(2), 2);
+      assert.deepEqual(libutilsarray_arrayjsjs.squeeze([[2]]), 2);
+      assert.deepEqual(libutilsarray_arrayjsjs.squeeze([[[2]]]), 2);
+      assert.deepEqual(libutilsarray_arrayjsjs.squeeze([1, 2, 3]), [1, 2, 3]);
+      assert.deepEqual(libutilsarray_arrayjsjs.squeeze([[1, 2, 3]]), [1, 2, 3]);
+      assert.deepEqual(libutilsarray_arrayjsjs.squeeze([[[1, 2, 3]]]), [1, 2, 3]);
+      assert.deepEqual(libutilsarray_arrayjsjs.squeeze([[1], [2], [3]]), [1, 2, 3]);
+      assert.deepEqual(libutilsarray_arrayjsjs.squeeze([[1, 2], [3, 4]]), [[1, 2], [3, 4]]);
+      assert.deepEqual(libutilsarray_arrayjsjs.squeeze([[[1, 2]], [[3, 4]]]), [[[1, 2]], [[3, 4]]]);
+      assert.deepEqual(libutilsarray_arrayjsjs.squeeze([[[1, 2], [3, 4]]]), [[1, 2], [3, 4]]);
+      assert.deepEqual(libutilsarray_arrayjsjs.squeeze([[[1], [2]], [[3], [4]]]), [[1, 2], [3, 4]]);
+      assert.deepEqual(libutilsarray_arrayjsjs.squeeze([[[1]], [[2]], [[3]], [[4]]]), [1, 2, 3, 4]);
     });
 
     it('should adjust size when squeezing an array', function () {
       var a = [[[1], [2]], [[3], [4]]];
       var size = [2,2,1];
-      a = array.squeeze(a, size);
+      a = libutilsarray_arrayjsjs.squeeze(a, size);
       assert.deepEqual(a, [[1, 2], [3, 4]]);
       assert.deepEqual(size, [2,2]);
 
       a = [[1,2]];
       size = [1,2];
-      a = array.squeeze(a, size);
+      a = libutilsarray_arrayjsjs.squeeze(a, size);
       assert.deepEqual(a, [1,2]);
       assert.deepEqual(size, [2]);
 
       a = [[[1]], [[2]], [[3]], [[4]]];
       size = [4,1,1];
-      a = array.squeeze(a, size);
+      a = libutilsarray_arrayjsjs.squeeze(a, size);
       assert.deepEqual(a, [1, 2, 3, 4]);
       assert.deepEqual(size, [4]);
     });
@@ -281,46 +281,46 @@ describe('util.array', function() {
   describe('unsqueeze', function () {
 
     it('should unsqueeze a scalar', function () {
-      assert.deepEqual(array.unsqueeze(2, 0), 2);
-      assert.deepEqual(array.unsqueeze(2, 1), [2]);
-      assert.deepEqual(array.unsqueeze(2, 2), [[2]]);
-      assert.deepEqual(array.unsqueeze('string', 2), [['string']]);
+      assert.deepEqual(libutilsarray_arrayjsjs.unsqueeze(2, 0), 2);
+      assert.deepEqual(libutilsarray_arrayjsjs.unsqueeze(2, 1), [2]);
+      assert.deepEqual(libutilsarray_arrayjsjs.unsqueeze(2, 2), [[2]]);
+      assert.deepEqual(libutilsarray_arrayjsjs.unsqueeze('string', 2), [['string']]);
     });
 
     it('should ignore empty arrays in unsqueeze', function () {
       // should do nothing with empty arrays
-      assert.deepEqual(array.unsqueeze([], 0), []);
-      assert.deepEqual(array.unsqueeze([], 1), []);
-      assert.deepEqual(array.unsqueeze([], 2), []);
-      assert.deepEqual(array.unsqueeze([], 3), []);
-      assert.deepEqual(array.unsqueeze([[]], 0), [[]]);
-      assert.deepEqual(array.unsqueeze([[]], 1), [[]]);
-      assert.deepEqual(array.unsqueeze([[]], 2), [[]]);
-      assert.deepEqual(array.unsqueeze([[]], 3), [[]]);
+      assert.deepEqual(libutilsarray_arrayjsjs.unsqueeze([], 0), []);
+      assert.deepEqual(libutilsarray_arrayjsjs.unsqueeze([], 1), []);
+      assert.deepEqual(libutilsarray_arrayjsjs.unsqueeze([], 2), []);
+      assert.deepEqual(libutilsarray_arrayjsjs.unsqueeze([], 3), []);
+      assert.deepEqual(libutilsarray_arrayjsjs.unsqueeze([[]], 0), [[]]);
+      assert.deepEqual(libutilsarray_arrayjsjs.unsqueeze([[]], 1), [[]]);
+      assert.deepEqual(libutilsarray_arrayjsjs.unsqueeze([[]], 2), [[]]);
+      assert.deepEqual(libutilsarray_arrayjsjs.unsqueeze([[]], 3), [[]]);
     });
 
     it('should unsqueeze an array', function () {
-      assert.deepEqual(array.unsqueeze([1, 2, 3], 1), [1, 2, 3]);
-      assert.deepEqual(array.unsqueeze([1, 2, 3], 2), [[1], [2], [3]]);
-      assert.deepEqual(array.unsqueeze([1, 2, 3], 3), [[[1]], [[2]], [[3]]]);
-      assert.deepEqual(array.unsqueeze([1, 2, 3], 3, 1), [[[1], [2], [3]]]);
-      assert.deepEqual(array.unsqueeze([1, 2, 3], 3, 2), [[[1, 2, 3]]]);
+      assert.deepEqual(libutilsarray_arrayjsjs.unsqueeze([1, 2, 3], 1), [1, 2, 3]);
+      assert.deepEqual(libutilsarray_arrayjsjs.unsqueeze([1, 2, 3], 2), [[1], [2], [3]]);
+      assert.deepEqual(libutilsarray_arrayjsjs.unsqueeze([1, 2, 3], 3), [[[1]], [[2]], [[3]]]);
+      assert.deepEqual(libutilsarray_arrayjsjs.unsqueeze([1, 2, 3], 3, 1), [[[1], [2], [3]]]);
+      assert.deepEqual(libutilsarray_arrayjsjs.unsqueeze([1, 2, 3], 3, 2), [[[1, 2, 3]]]);
 
-      assert.deepEqual(array.unsqueeze([[1, 2], [3, 4]], 1), [[1, 2], [3, 4]]);
-      assert.deepEqual(array.unsqueeze([[1, 2], [3, 4]], 2), [[1, 2], [3, 4]]);
-      assert.deepEqual(array.unsqueeze([[1, 2], [3, 4]], 3), [[[1], [2]], [[3], [4]]]);
+      assert.deepEqual(libutilsarray_arrayjsjs.unsqueeze([[1, 2], [3, 4]], 1), [[1, 2], [3, 4]]);
+      assert.deepEqual(libutilsarray_arrayjsjs.unsqueeze([[1, 2], [3, 4]], 2), [[1, 2], [3, 4]]);
+      assert.deepEqual(libutilsarray_arrayjsjs.unsqueeze([[1, 2], [3, 4]], 3), [[[1], [2]], [[3], [4]]]);
     });
 
     it('should adjust size when unsqueezing an array', function () {
       var a = [[1, 2], [3, 4]];
       var size = [2,2];
-      array.unsqueeze(a, 3, 0, size);
+      libutilsarray_arrayjsjs.unsqueeze(a, 3, 0, size);
       assert.deepEqual(a, [[[1], [2]], [[3], [4]]]);
       assert.deepEqual(size, [2,2,1]);
 
       a = [1, 2, 3, 4];
       size = [4];
-      array.unsqueeze(a, 3, 0, size);
+      libutilsarray_arrayjsjs.unsqueeze(a, 3, 0, size);
       assert.deepEqual(a, [[[1]], [[2]], [[3]], [[4]]]);
       assert.deepEqual(size, [4,1,1]);
     });
@@ -330,10 +330,10 @@ describe('util.array', function() {
   describe('resize', function () {
 
     it('should test whether an object is an array', function () {
-      assert.equal(array.isArray([]), true);
-      assert.equal(array.isArray({}), false);
-      assert.equal(array.isArray(2), false);
-      assert.equal(array.isArray('string'), false);
+      assert.equal(libutilsarray_arrayjsjs.isArray([]), true);
+      assert.equal(libutilsarray_arrayjsjs.isArray({}), false);
+      assert.equal(libutilsarray_arrayjsjs.isArray(2), false);
+      assert.equal(libutilsarray_arrayjsjs.isArray('string'), false);
     });
 
   });
@@ -341,33 +341,33 @@ describe('util.array', function() {
   describe('validateIndex', function () {
 
     it('should validate whether an index contains integers', function () {
-      assert.equal(array.validateIndex(2), undefined);
-      assert.equal(array.validateIndex(10), undefined);
-      assert.throws(function () {array.validateIndex(2.3)}, /Index must be an integer/);
-      assert.throws(function () {array.validateIndex('str')}, /Index must be an integer/);
-      assert.throws(function () {array.validateIndex(true)}, /Index must be an integer/);
+      assert.equal(libutilsarray_arrayjsjs.validateIndex(2), undefined);
+      assert.equal(libutilsarray_arrayjsjs.validateIndex(10), undefined);
+      assert.throws(function () {libutilsarray_arrayjsjs.validateIndex(2.3)}, /Index must be an integer/);
+      assert.throws(function () {libutilsarray_arrayjsjs.validateIndex('str')}, /Index must be an integer/);
+      assert.throws(function () {libutilsarray_arrayjsjs.validateIndex(true)}, /Index must be an integer/);
     });
 
     it('should validate whether an index doesn\'t exceed the minimum 0', function () {
-      assert.equal(array.validateIndex(2), undefined);
-      assert.equal(array.validateIndex(0), undefined);
-      assert.throws(function () {array.validateIndex(-1)}, /Index out of range/);
-      assert.throws(function () {array.validateIndex(-100)}, /Index out of range/);
+      assert.equal(libutilsarray_arrayjsjs.validateIndex(2), undefined);
+      assert.equal(libutilsarray_arrayjsjs.validateIndex(0), undefined);
+      assert.throws(function () {libutilsarray_arrayjsjs.validateIndex(-1)}, /Index out of range/);
+      assert.throws(function () {libutilsarray_arrayjsjs.validateIndex(-100)}, /Index out of range/);
     });
 
     it('should validate whether an index doesn\'t exceed both minimum and maximum', function () {
-      assert.equal(array.validateIndex(0, 10), undefined);
-      assert.equal(array.validateIndex(4, 10), undefined);
-      assert.equal(array.validateIndex(9, 10), undefined);
-      assert.throws(function () {array.validateIndex(-1, 10)}, /Index out of range/);
-      assert.throws(function () {array.validateIndex(10, 10)}, /Index out of range/);
-      assert.throws(function () {array.validateIndex(11, 10)}, /Index out of range/);
-      assert.throws(function () {array.validateIndex(100, 10)}, /Index out of range/);
+      assert.equal(libutilsarray_arrayjsjs.validateIndex(0, 10), undefined);
+      assert.equal(libutilsarray_arrayjsjs.validateIndex(4, 10), undefined);
+      assert.equal(libutilsarray_arrayjsjs.validateIndex(9, 10), undefined);
+      assert.throws(function () {libutilsarray_arrayjsjs.validateIndex(-1, 10)}, /Index out of range/);
+      assert.throws(function () {libutilsarray_arrayjsjs.validateIndex(10, 10)}, /Index out of range/);
+      assert.throws(function () {libutilsarray_arrayjsjs.validateIndex(11, 10)}, /Index out of range/);
+      assert.throws(function () {libutilsarray_arrayjsjs.validateIndex(100, 10)}, /Index out of range/);
     });
 
     it('thrown IndexError should contain the right index, max, and min properties', function () {
       try {
-        array.validateIndex(4, 3);
+        libutilsarray_arrayjsjs.validateIndex(4, 3);
         assert.ok(false, 'should not reach this point');
       }
       catch(err) {
@@ -378,7 +378,7 @@ describe('util.array', function() {
       }
 
       try {
-        array.validateIndex(-1, 3);
+        libutilsarray_arrayjsjs.validateIndex(-1, 3);
         assert.ok(false, 'should not reach this point');
       }
       catch(err) {
@@ -389,7 +389,7 @@ describe('util.array', function() {
       }
 
       try {
-        array.validateIndex(-1);
+        libutilsarray_arrayjsjs.validateIndex(-1);
         assert.ok(false, 'should not reach this point');
       }
       catch(err) {
@@ -407,69 +407,69 @@ describe('util.array', function() {
 
     it('should validate whether all elements in a vector have correct size', function () {
       // valid vector with correct size
-      assert.equal(array.validate([], [0]), undefined);
-      assert.equal(array.validate([1], [1]), undefined);
-      assert.equal(array.validate([1,2,3], [3]), undefined);
+      assert.equal(libutilsarray_arrayjsjs.validate([], [0]), undefined);
+      assert.equal(libutilsarray_arrayjsjs.validate([1], [1]), undefined);
+      assert.equal(libutilsarray_arrayjsjs.validate([1,2,3], [3]), undefined);
 
       // valid matrix but wrong size
-      assert.throws(function () {array.validate([1,2,3], [2])}, /Dimension mismatch/);
-      assert.throws(function () {array.validate([1,2,3], [4])}, /Dimension mismatch/);
-      assert.throws(function () {array.validate([1,2,3], [])}, /Dimension mismatch/);
-      assert.throws(function () {array.validate([1,2,3], [3,2])}, /Dimension mismatch/);
+      assert.throws(function () {libutilsarray_arrayjsjs.validate([1,2,3], [2])}, /Dimension mismatch/);
+      assert.throws(function () {libutilsarray_arrayjsjs.validate([1,2,3], [4])}, /Dimension mismatch/);
+      assert.throws(function () {libutilsarray_arrayjsjs.validate([1,2,3], [])}, /Dimension mismatch/);
+      assert.throws(function () {libutilsarray_arrayjsjs.validate([1,2,3], [3,2])}, /Dimension mismatch/);
 
       // invalid vector
-      assert.throws(function () {array.validate([1,[2],3], [3])}, /Dimension mismatch/);
+      assert.throws(function () {libutilsarray_arrayjsjs.validate([1,[2],3], [3])}, /Dimension mismatch/);
     });
 
     it('should validate whether all elements in a 2d matrix have correct size', function () {
       // valid matrix with correct size
-      assert.equal(array.validate([[1,2],[3,4]], [2,2]), undefined);
-      assert.equal(array.validate([[1,2,3],[4,5,6]], [2,3]), undefined);
-      assert.equal(array.validate([[1,2],[3,4],[5,6]], [3,2]), undefined);
+      assert.equal(libutilsarray_arrayjsjs.validate([[1,2],[3,4]], [2,2]), undefined);
+      assert.equal(libutilsarray_arrayjsjs.validate([[1,2,3],[4,5,6]], [2,3]), undefined);
+      assert.equal(libutilsarray_arrayjsjs.validate([[1,2],[3,4],[5,6]], [3,2]), undefined);
 
       // valid matrix with wrong size
-      assert.throws(function () {array.validate([[1,2],[3,4]], [2,1])}, /Dimension mismatch/);
-      assert.throws(function () {array.validate([[1,2],[3,4]], [3,2])}, /Dimension mismatch/);
-      assert.throws(function () {array.validate([[1,2,3],[4,5,6]], [2,4])}, /Dimension mismatch/);
-      assert.throws(function () {array.validate([[1,2],[3,4],[5,6]], [4,3])}, /Dimension mismatch/);
+      assert.throws(function () {libutilsarray_arrayjsjs.validate([[1,2],[3,4]], [2,1])}, /Dimension mismatch/);
+      assert.throws(function () {libutilsarray_arrayjsjs.validate([[1,2],[3,4]], [3,2])}, /Dimension mismatch/);
+      assert.throws(function () {libutilsarray_arrayjsjs.validate([[1,2,3],[4,5,6]], [2,4])}, /Dimension mismatch/);
+      assert.throws(function () {libutilsarray_arrayjsjs.validate([[1,2],[3,4],[5,6]], [4,3])}, /Dimension mismatch/);
 
       // invalid matrix
-      assert.throws(function () {array.validate([[1,2],[3,4,5]], [2,2])}, /Dimension mismatch/);
-      assert.throws(function () {array.validate([[1,2],[3]], [2,2])}, /Dimension mismatch/);
-      assert.throws(function () {array.validate([[1,2],3], [2,2])}, /Dimension mismatch/);
-      assert.throws(function () {array.validate([1,2], [2,2])}, /Dimension mismatch/);
-      assert.throws(function () {array.validate([[[1,2],[3,4]]], [2,2])}, /Dimension mismatch/);
+      assert.throws(function () {libutilsarray_arrayjsjs.validate([[1,2],[3,4,5]], [2,2])}, /Dimension mismatch/);
+      assert.throws(function () {libutilsarray_arrayjsjs.validate([[1,2],[3]], [2,2])}, /Dimension mismatch/);
+      assert.throws(function () {libutilsarray_arrayjsjs.validate([[1,2],3], [2,2])}, /Dimension mismatch/);
+      assert.throws(function () {libutilsarray_arrayjsjs.validate([1,2], [2,2])}, /Dimension mismatch/);
+      assert.throws(function () {libutilsarray_arrayjsjs.validate([[[1,2],[3,4]]], [2,2])}, /Dimension mismatch/);
     });
 
     it('should validate whether all elements in a multi dimensional matrix have correct size', function () {
       // valid matrix with correct size
-      assert.equal(array.validate([[[1,2],[3,4]],[[5,6],[7,8]]], [2,2,2]), undefined);
-      assert.equal(array.validate([[[1,2,3],[4,5,6]],[[7,8,9],[10,11,12]]], [2,2,3]), undefined);
-      assert.equal(array.validate([[[1,2],[3,4],[5,6]],[[7,8],[9,10],[11,12]]], [2,3,2]), undefined);
-      assert.equal(array.validate([[[1,2],[3,4]],[[5,6],[7,8]],[[9,10],[11,12]]], [3,2,2]), undefined);
+      assert.equal(libutilsarray_arrayjsjs.validate([[[1,2],[3,4]],[[5,6],[7,8]]], [2,2,2]), undefined);
+      assert.equal(libutilsarray_arrayjsjs.validate([[[1,2,3],[4,5,6]],[[7,8,9],[10,11,12]]], [2,2,3]), undefined);
+      assert.equal(libutilsarray_arrayjsjs.validate([[[1,2],[3,4],[5,6]],[[7,8],[9,10],[11,12]]], [2,3,2]), undefined);
+      assert.equal(libutilsarray_arrayjsjs.validate([[[1,2],[3,4]],[[5,6],[7,8]],[[9,10],[11,12]]], [3,2,2]), undefined);
 
       // valid matrix with wrong size
-      assert.throws(function () {array.validate([[[1,2],[3,4]],[[5,6],[7,8]]], [2,2,3])}, /Dimension mismatch/);
-      assert.throws(function () {array.validate([[[1,2],[3,4]],[[5,6],[7,8]]], [2,2])}, /Dimension mismatch/);
-      assert.throws(function () {array.validate([[[1,2],[3,4]],[[5,6],[7,8]]], [2,2,2,2])}, /Dimension mismatch/);
-      assert.throws(function () {array.validate([[[1,2],[3,4]],[[5,6],[7,8]]], [3,2,2])}, /Dimension mismatch/);
-      assert.throws(function () {array.validate([[[1,2],[3,4]],[[5,6],[7,8]]], [2,3,2])}, /Dimension mismatch/);
+      assert.throws(function () {libutilsarray_arrayjsjs.validate([[[1,2],[3,4]],[[5,6],[7,8]]], [2,2,3])}, /Dimension mismatch/);
+      assert.throws(function () {libutilsarray_arrayjsjs.validate([[[1,2],[3,4]],[[5,6],[7,8]]], [2,2])}, /Dimension mismatch/);
+      assert.throws(function () {libutilsarray_arrayjsjs.validate([[[1,2],[3,4]],[[5,6],[7,8]]], [2,2,2,2])}, /Dimension mismatch/);
+      assert.throws(function () {libutilsarray_arrayjsjs.validate([[[1,2],[3,4]],[[5,6],[7,8]]], [3,2,2])}, /Dimension mismatch/);
+      assert.throws(function () {libutilsarray_arrayjsjs.validate([[[1,2],[3,4]],[[5,6],[7,8]]], [2,3,2])}, /Dimension mismatch/);
 
       // invalid matrix
-      assert.throws(function () {array.validate([[[1,2],[3,4]],[[5,6],[7,8,9]]], [2,2,2])}, /Dimension mismatch/);
-      assert.throws(function () {array.validate([[[1,2],[3,4]],[[5,6,6.5],[7,8]]], [2,2,2])}, /Dimension mismatch/);
-      assert.throws(function () {array.validate([[[1,2],[3,4]],[[5,6],7]], [2,2,2])}, /Dimension mismatch/);
-      assert.throws(function () {array.validate([[[1,2],[3,4]],[6,[7,8]]], [2,2,2])}, /Dimension mismatch/);
+      assert.throws(function () {libutilsarray_arrayjsjs.validate([[[1,2],[3,4]],[[5,6],[7,8,9]]], [2,2,2])}, /Dimension mismatch/);
+      assert.throws(function () {libutilsarray_arrayjsjs.validate([[[1,2],[3,4]],[[5,6,6.5],[7,8]]], [2,2,2])}, /Dimension mismatch/);
+      assert.throws(function () {libutilsarray_arrayjsjs.validate([[[1,2],[3,4]],[[5,6],7]], [2,2,2])}, /Dimension mismatch/);
+      assert.throws(function () {libutilsarray_arrayjsjs.validate([[[1,2],[3,4]],[6,[7,8]]], [2,2,2])}, /Dimension mismatch/);
     });
 
     it('should validate whether a variable contains a scalar', function () {
-      assert.equal(array.validate(2.3, []), undefined);
-      assert.equal(array.validate(new Date(), []), undefined);
-      assert.equal(array.validate({}, []), undefined);
+      assert.equal(libutilsarray_arrayjsjs.validate(2.3, []), undefined);
+      assert.equal(libutilsarray_arrayjsjs.validate(new Date(), []), undefined);
+      assert.equal(libutilsarray_arrayjsjs.validate({}, []), undefined);
 
-      assert.throws(function () {array.validate([], [])}, /Dimension mismatch/);
-      assert.throws(function () {array.validate([1,2,3], [])}, /Dimension mismatch/);
-      assert.throws(function () {array.validate([[1,2],[3,4]], [])}, /Dimension mismatch/);
+      assert.throws(function () {libutilsarray_arrayjsjs.validate([], [])}, /Dimension mismatch/);
+      assert.throws(function () {libutilsarray_arrayjsjs.validate([1,2,3], [])}, /Dimension mismatch/);
+      assert.throws(function () {libutilsarray_arrayjsjs.validate([[1,2],[3,4]], [])}, /Dimension mismatch/);
     });
 
   });
@@ -477,24 +477,24 @@ describe('util.array', function() {
   describe('flatten', function () {
 
     it('should flatten a scalar', function () {
-      assert.deepEqual(array.flatten(1), 1);
+      assert.deepEqual(libutilsarray_arrayjsjs.flatten(1), 1);
     });
 
     it('should flatten a 1 dimensional array', function () {
-      assert.deepEqual(array.flatten([1,2,3]), [1,2,3]);
+      assert.deepEqual(libutilsarray_arrayjsjs.flatten([1,2,3]), [1,2,3]);
     });
 
     it('should flatten a 2 dimensional array', function () {
-      assert.deepEqual(array.flatten([[1,2],[3,4]]), [1,2,3,4]);
+      assert.deepEqual(libutilsarray_arrayjsjs.flatten([[1,2],[3,4]]), [1,2,3,4]);
     });
 
     it('should flatten a 3 dimensional array', function () {
-      assert.deepEqual(array.flatten([[[1,2],[3,4]],[[5,6],[7,8]]]), [1,2,3,4,5,6,7,8]);
+      assert.deepEqual(libutilsarray_arrayjsjs.flatten([[[1,2],[3,4]],[[5,6],[7,8]]]), [1,2,3,4,5,6,7,8]);
     });
 
     it('should return a new array', function () {
       var input = [3,2,1];
-      var flat = array.flatten(input);
+      var flat = libutilsarray_arrayjsjs.flatten(input);
       flat.sort();
       assert.deepEqual(input, [3,2,1]);
     });

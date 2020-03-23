@@ -1,14 +1,7 @@
-var assert = require('assert'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    approx = require('../../../tools/approx'),
-    pi = math.pi,
-    complex = math.complex,
-    matrix = math.matrix,
-    unit = math.unit,
-    sech = math.sech,
-    bigmath = math.create({precision: 20}),
-    biggermath = math.create({number: 'BigNumber', precision: 21});
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
+import { approxjs as toolsapprox_approxjsjs } from "../../../tools/approx";
+var error = require('../../../lib/error/index'), pi = index_indexjsjs.pi, complex = index_indexjsjs.complex, matrix = index_indexjsjs.matrix, unit = index_indexjsjs.unit, sech = index_indexjsjs.sech, bigmath = index_indexjsjs.create({precision: 20}), biggermath = index_indexjsjs.create({number: 'BigNumber', precision: 21});
 
 describe('sech', function() {
   it('should return the sech of a boolean', function () {
@@ -51,8 +44,8 @@ describe('sech', function() {
     approx.equal(sech(unit('90deg')), 0.39853681533839);
     approx.equal(sech(unit('-45deg')), 0.75493970871413);
 
-    assert(sech(unit(math.bignumber(90), 'deg')).isBigNumber);
-    approx.equal(sech(unit(math.bignumber(90), 'deg')).toNumber(), 0.39853681533839);
+    assert(sech(unit(index_indexjsjs.bignumber(90), 'deg')).isBigNumber);
+    approx.equal(sech(unit(index_indexjsjs.bignumber(90), 'deg')).toNumber(), 0.39853681533839);
 
     approx.deepEqual(sech(unit(complex('2 + i'), 'rad')), complex(0.15117629826558, -0.22697367539372));
   });
@@ -81,7 +74,7 @@ describe('sech', function() {
   });
 
   it('should LaTeX sech', function () {
-    var expression = math.parse('sech(1)');
+    var expression = index_indexjsjs.parse('sech(1)');
     assert.equal(expression.toTex(), '\\mathrm{sech}\\left(1\\right)');
   });
 });

@@ -1,8 +1,7 @@
-var assert = require('assert'),
-    approx = require('../../../tools/approx'),
-    math = require('../../../index'),
-    bignumber = math.bignumber,
-    quantileSeq = math.quantileSeq;
+import assert from "assert";
+import { approxjs as toolsapprox_approxjsjs } from "../../../tools/approx";
+import { indexjs as index_indexjsjs } from "../../../index";
+var bignumber = index_indexjsjs.bignumber, quantileSeq = index_indexjsjs.quantileSeq;
 
 describe('quantileSeq', function() {
 
@@ -74,11 +73,11 @@ describe('quantileSeq', function() {
   });
 
   it('should return the quantileSeq of units', function() {
-    assert.deepEqual(quantileSeq([math.unit('5mm'), math.unit('15mm'), math.unit('10mm')], 0.5), math.unit('10mm'));
+    assert.deepEqual(quantileSeq([index_indexjsjs.unit('5mm'), index_indexjsjs.unit('15mm'), index_indexjsjs.unit('10mm')], 0.5), index_indexjsjs.unit('10mm'));
   });
 
   it('should return the quantileSeq from an 1d matrix', function() {
-    assert.equal(quantileSeq(math.matrix([2,4,6,8,10,12,14]), 0.25), 5);
+    assert.equal(quantileSeq(index_indexjsjs.matrix([2,4,6,8,10,12,14]), 0.25), 5);
   });
 
   it('should return the quantileSeq from a 2d array', function() {
@@ -96,14 +95,14 @@ describe('quantileSeq', function() {
   });
 
   it('should return the quantileSeq from a 2d matrix', function() {
-    approx.equal(quantileSeq(math.matrix([
+    approx.equal(quantileSeq(index_indexjsjs.matrix([
       [3.7, 2.7, 3.3],
       [1.3, 2.2, 3.1]
     ]), 0.75), 3.25);
   });
 
   it('should return the quantileSeq from an ascending 2d matrix', function() {
-    approx.equal(quantileSeq(math.matrix([
+    approx.equal(quantileSeq(index_indexjsjs.matrix([
       [1.3, 2.2, 2.7],
       [3.1, 3.3, 3.7]
     ]), 0.75, true), 3.25);
@@ -151,12 +150,12 @@ describe('quantileSeq', function() {
   });
 
   it('should throw an error if called with unsupported type of arguments', function() {
-    assert.throws(function () {quantileSeq([2,4,6,8,10,12,14], 0.25, 10)}, math.error.UnsupportedTypeError);
-    assert.throws(function () {quantileSeq([2,4,6,8,10,12,14], [0.25, 2])}, math.error.UnsuppoError);
-    assert.throws(function () {quantileSeq('A', 'C', 'B')}, math.error.UnsupportedTypeError);
-    assert.throws(function () {quantileSeq(true, false, true)}, math.error.UnsupportedTypeError);
-    assert.throws(function () {quantileSeq(0, 'B')}, math.error.UnsupportedTypeError);
-    assert.throws(function () {quantileSeq(math.complex(2,3), math.complex(-1,2))}, TypeError);
+    assert.throws(function () {quantileSeq([2,4,6,8,10,12,14], 0.25, 10)}, index_indexjsjs.error.UnsupportedTypeError);
+    assert.throws(function () {quantileSeq([2,4,6,8,10,12,14], [0.25, 2])}, index_indexjsjs.error.UnsuppoError);
+    assert.throws(function () {quantileSeq('A', 'C', 'B')}, index_indexjsjs.error.UnsupportedTypeError);
+    assert.throws(function () {quantileSeq(true, false, true)}, index_indexjsjs.error.UnsupportedTypeError);
+    assert.throws(function () {quantileSeq(0, 'B')}, index_indexjsjs.error.UnsupportedTypeError);
+    assert.throws(function () {quantileSeq(index_indexjsjs.complex(2,3), index_indexjsjs.complex(-1,2))}, TypeError);
   });
 
   it('should throw error for bad probabilities and splits', function() {
