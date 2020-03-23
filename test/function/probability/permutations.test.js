@@ -1,7 +1,6 @@
-var assert = require('assert'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    permutations = math.permutations;
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
+var error = require('../../../lib/error/index'), permutations = index_indexjsjs.permutations;
 
 describe('permutations', function() {
 
@@ -15,15 +14,15 @@ describe('permutations', function() {
   });
 
   it('should calculate the permutations of a BigNumber', function() {
-    assert.deepEqual(permutations(math.bignumber(4)), math.bignumber(24));
-    assert.deepEqual(permutations(math.bignumber(5)), math.bignumber(120));
-    assert.deepEqual(permutations(math.bignumber(8)), math.bignumber(40320));
+    assert.deepEqual(permutations(index_indexjsjs.bignumber(4)), index_indexjsjs.bignumber(24));
+    assert.deepEqual(permutations(index_indexjsjs.bignumber(5)), index_indexjsjs.bignumber(120));
+    assert.deepEqual(permutations(index_indexjsjs.bignumber(8)), index_indexjsjs.bignumber(40320));
   });
 
   it('should calculate the permutations of a BigNumber, taking k at a time', function() {
-    assert.deepEqual(permutations(math.bignumber(5), math.bignumber(4)), math.bignumber(120));
-    assert.deepEqual(permutations(math.bignumber(6), math.bignumber(3)), math.bignumber(120));
-    assert.deepEqual(permutations(math.bignumber(9), math.bignumber(8)), math.bignumber(362880));
+    assert.deepEqual(permutations(index_indexjsjs.bignumber(5), index_indexjsjs.bignumber(4)), index_indexjsjs.bignumber(120));
+    assert.deepEqual(permutations(index_indexjsjs.bignumber(6), index_indexjsjs.bignumber(3)), index_indexjsjs.bignumber(120));
+    assert.deepEqual(permutations(index_indexjsjs.bignumber(9), index_indexjsjs.bignumber(8)), index_indexjsjs.bignumber(362880));
   });
 
   it('should calculate the permutations of a number, taking k at a time', function() {
@@ -34,7 +33,7 @@ describe('permutations', function() {
 
   it('should fail loudly when k is larger than x', function() {
       assert.throws(function(){permutations(5, 6);}, TypeError);
-      assert.throws(function(){permutations(math.bignumber(5), math.bignumber(6));}, TypeError);
+      assert.throws(function(){permutations(index_indexjsjs.bignumber(5), index_indexjsjs.bignumber(6));}, TypeError);
   });
 
   it('should not accept negative or non-integer arguments', function() {
@@ -42,9 +41,9 @@ describe('permutations', function() {
       assert.throws(function(){permutations(-12, 6);}, TypeError);
       assert.throws(function(){permutations(4.5, 2);}, TypeError);
       assert.throws(function(){permutations(4, 0.5);}, TypeError);
-      assert.throws(function(){permutations(math.bignumber(-12), -6);}, TypeError);
-      assert.throws(function(){permutations(math.bignumber(12.5), math.bignumber(6));}, TypeError);
-      assert.throws(function(){permutations(math.bignumber(12.5), math.pi);}, TypeError);
+      assert.throws(function(){permutations(index_indexjsjs.bignumber(-12), -6);}, TypeError);
+      assert.throws(function(){permutations(index_indexjsjs.bignumber(12.5), index_indexjsjs.bignumber(6));}, TypeError);
+      assert.throws(function(){permutations(index_indexjsjs.bignumber(12.5), index_indexjsjs.pi);}, TypeError);
   });
 
   it('should not accept more than two arguments', function() {
@@ -58,7 +57,7 @@ describe('permutations', function() {
   });
 
   it('should LaTeX permutations', function () {
-    var expression = math.parse('permutations(2)');
+    var expression = index_indexjsjs.parse('permutations(2)');
     assert.equal(expression.toTex(), '\\mathrm{permutations}\\left(2\\right)');
   });
 

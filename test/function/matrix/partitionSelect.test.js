@@ -1,8 +1,8 @@
-var assert = require('assert');
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
 var error = require('../../../lib/error/index');
-var math = require('../../../index');
-var matrix = math.matrix;
-var partitionSelect = math.partitionSelect;
+var matrix = index_indexjsjs.matrix;
+var partitionSelect = index_indexjsjs.partitionSelect;
 
 describe('partitionSelect', function() {
 
