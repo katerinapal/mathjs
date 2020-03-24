@@ -1,49 +1,62 @@
-import assert from "assert";
-import { indexjs as index_indexjsjs } from "../../../index";
-var isPrime = index_indexjsjs.isPrime;
-var bignumber = index_indexjsjs.bignumber;
-var complex = index_indexjsjs.complex;
+"use strict";
 
-describe('isPrime', function() {
+var _assert = require("assert");
 
-  it('should test whether a number is prime', function() {
-    assert.strictEqual(isPrime(0), false);
-    assert.strictEqual(isPrime(-0), false);
-    assert.strictEqual(isPrime(-1), false);
-    assert.strictEqual(isPrime(1), false);
-    assert.strictEqual(isPrime(2), true);
-    assert.strictEqual(isPrime(3), true);
-    assert.strictEqual(isPrime(5), true);
-    assert.strictEqual(isPrime(7), true);
-    assert.strictEqual(isPrime(4), false);
-    assert.strictEqual(isPrime(100), false);
-    assert.strictEqual(isPrime(102), false);
-    assert.strictEqual(isPrime(999), false);
+var _assert2 = _interopRequireDefault(_assert);
+
+var _index = require("../../../index");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var isPrime = _index.indexjs.isPrime;
+var bignumber = _index.indexjs.bignumber;
+var complex = _index.indexjs.complex;
+
+describe('isPrime', function () {
+
+  it('should test whether a number is prime', function () {
+    _assert2.default.strictEqual(isPrime(0), false);
+    _assert2.default.strictEqual(isPrime(-0), false);
+    _assert2.default.strictEqual(isPrime(-1), false);
+    _assert2.default.strictEqual(isPrime(1), false);
+    _assert2.default.strictEqual(isPrime(2), true);
+    _assert2.default.strictEqual(isPrime(3), true);
+    _assert2.default.strictEqual(isPrime(5), true);
+    _assert2.default.strictEqual(isPrime(7), true);
+    _assert2.default.strictEqual(isPrime(4), false);
+    _assert2.default.strictEqual(isPrime(100), false);
+    _assert2.default.strictEqual(isPrime(102), false);
+    _assert2.default.strictEqual(isPrime(999), false);
   });
 
-  it('should test whether a BigNumber is prime', function() {
-    assert.strictEqual(isPrime(bignumber(0)), false);
-    assert.strictEqual(isPrime(bignumber(-0)), false);
-    assert.strictEqual(isPrime(bignumber(-1)), false);
-    assert.strictEqual(isPrime(bignumber(1)), false);
-    assert.strictEqual(isPrime(bignumber(2)), true);
-    assert.strictEqual(isPrime(bignumber(3)), true);
-    assert.strictEqual(isPrime(bignumber(5)), true);
-    assert.strictEqual(isPrime(bignumber(7)), true);
-    assert.strictEqual(isPrime(bignumber(4)), false);
-    assert.strictEqual(isPrime(bignumber(100)), false);
-    assert.strictEqual(isPrime(bignumber(102)), false);
-    assert.strictEqual(isPrime(bignumber(999)), false);
+  it('should test whether a BigNumber is prime', function () {
+    _assert2.default.strictEqual(isPrime(bignumber(0)), false);
+    _assert2.default.strictEqual(isPrime(bignumber(-0)), false);
+    _assert2.default.strictEqual(isPrime(bignumber(-1)), false);
+    _assert2.default.strictEqual(isPrime(bignumber(1)), false);
+    _assert2.default.strictEqual(isPrime(bignumber(2)), true);
+    _assert2.default.strictEqual(isPrime(bignumber(3)), true);
+    _assert2.default.strictEqual(isPrime(bignumber(5)), true);
+    _assert2.default.strictEqual(isPrime(bignumber(7)), true);
+    _assert2.default.strictEqual(isPrime(bignumber(4)), false);
+    _assert2.default.strictEqual(isPrime(bignumber(100)), false);
+    _assert2.default.strictEqual(isPrime(bignumber(102)), false);
+    _assert2.default.strictEqual(isPrime(bignumber(999)), false);
   });
 
-  it('should test isPrime element wise on an Array', function() {
-    assert.deepEqual(isPrime([0, 1, 2, 5, 9]), [false, false, true, true, false]);
+  it('should test isPrime element wise on an Array', function () {
+    _assert2.default.deepEqual(isPrime([0, 1, 2, 5, 9]), [false, false, true, true, false]);
   });
 
-  it('should throw an error in case of unsupported data types', function() {
-    assert.throws(function () {isPrime(complex(2, 3))}, /TypeError: Unexpected type of argument/);
-    assert.throws(function () {isPrime(new Date())}, /TypeError: Unexpected type of argument/);
-    assert.throws(function () {isPrime({})}, /TypeError: Unexpected type of argument/);
+  it('should throw an error in case of unsupported data types', function () {
+    _assert2.default.throws(function () {
+      isPrime(complex(2, 3));
+    }, /TypeError: Unexpected type of argument/);
+    _assert2.default.throws(function () {
+      isPrime(new Date());
+    }, /TypeError: Unexpected type of argument/);
+    _assert2.default.throws(function () {
+      isPrime({});
+    }, /TypeError: Unexpected type of argument/);
   });
-
 });
