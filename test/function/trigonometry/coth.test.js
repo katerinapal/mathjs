@@ -1,14 +1,7 @@
-var assert = require('assert'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    approx = require('../../../tools/approx'),
-    pi = math.pi,
-    complex = math.complex,
-    matrix = math.matrix,
-    unit = math.unit,
-    coth = math.coth,
-    bigmath = math.create({precision: 20}),
-    biggermath = math.create({number: 'BigNumber', precision: 21});
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
+import { approxjs as toolsapprox_approxjsjs } from "../../../tools/approx";
+var error = {}, pi = index_indexjsjs.pi, complex = index_indexjsjs.complex, matrix = index_indexjsjs.matrix, unit = index_indexjsjs.unit, coth = index_indexjsjs.coth, bigmath = index_indexjsjs.create({precision: 20}), biggermath = index_indexjsjs.create({number: 'BigNumber', precision: 21});
 
 describe('coth', function() {
   it('should return the coth of a boolean', function () {
@@ -50,10 +43,10 @@ describe('coth', function() {
     approx.equal(coth(unit('90deg')), 1.0903314107274);
     approx.equal(coth(unit('-45deg')), -1.5248686188221);
 
-    assert(coth(unit(math.bignumber(90), 'deg')).isBigNumber);
-    approx.equal(coth(unit(math.bignumber(90), 'deg')).toNumber(), 1.0903314107274);
+    assert(coth(unit(index_indexjsjs.bignumber(90), 'deg')).isBigNumber);
+    approx.equal(coth(unit(index_indexjsjs.bignumber(90), 'deg')).toNumber(), 1.0903314107274);
 
-    approx.deepEqual(coth(math.unit(complex('2 + i'), 'rad')), complex(0.98432922645819, -0.032797755533753));
+    approx.deepEqual(coth(index_indexjsjs.unit(complex('2 + i'), 'rad')), complex(0.98432922645819, -0.032797755533753));
   });
 
   it('should throw an error if called with an invalid unit', function() {
@@ -80,7 +73,7 @@ describe('coth', function() {
   });
 
   it('should LaTeX coth', function () {
-    var expression = math.parse('coth(1)');
+    var expression = index_indexjsjs.parse('coth(1)');
     assert.equal(expression.toTex(), '\\coth\\left(1\\right)');
   });
 });

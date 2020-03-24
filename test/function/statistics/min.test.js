@@ -1,10 +1,10 @@
-var assert = require('assert');
-var math = require('../../../index');
-var BigNumber = math.type.BigNumber;
-var Complex = math.type.Complex;
-var DenseMatrix = math.type.DenseMatrix;
-var Unit = math.type.Unit;
-var min = math.min;
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
+var BigNumber = index_indexjsjs.type.BigNumber;
+var Complex = index_indexjsjs.type.Complex;
+var DenseMatrix = index_indexjsjs.type.DenseMatrix;
+var Unit = index_indexjsjs.type.Unit;
+var min = index_indexjsjs.min;
 
 describe('min', function() {
 
@@ -89,7 +89,7 @@ describe('min', function() {
 
   it('should throw an error when called multiple arrays or matrices', function() {
     assert.throws(function () {min([1,2], [3,4])}, /Scalar values expected/);
-    assert.throws(function () {min(math.matrix([1,2]), math.matrix([3,4]))}, /Scalar values expected/);
+    assert.throws(function () {min(index_indexjsjs.matrix([1,2]), index_indexjsjs.matrix([3,4]))}, /Scalar values expected/);
   });
 
   it('should throw an error if called a dimension out of range', function() {
@@ -107,7 +107,7 @@ describe('min', function() {
   });
 
   it('should LaTeX min', function () {
-    var expression = math.parse('min(1,2,3)');
+    var expression = index_indexjsjs.parse('min(1,2,3)');
     assert.equal(expression.toTex(), '\\min\\left(1,2,3\\right)');
   });
 

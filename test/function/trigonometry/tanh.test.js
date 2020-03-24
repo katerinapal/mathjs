@@ -1,13 +1,7 @@
-var assert = require('assert'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    approx = require('../../../tools/approx'),
-    pi = math.pi,
-    complex = math.complex,
-    matrix = math.matrix,
-    unit = math.unit,
-    tanh = math.tanh,
-    bigmath = math.create({number: 'BigNumber', precision: 20});
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
+import { approxjs as toolsapprox_approxjsjs } from "../../../tools/approx";
+var error = {}, pi = index_indexjsjs.pi, complex = index_indexjsjs.complex, matrix = index_indexjsjs.matrix, unit = index_indexjsjs.unit, tanh = index_indexjsjs.tanh, bigmath = index_indexjsjs.create({number: 'BigNumber', precision: 20});
 
 describe('tanh', function() {
   it('should return the tanh of a boolean', function () {
@@ -61,8 +55,8 @@ describe('tanh', function() {
     approx.equal(tanh(unit('90deg')), 0.91715233566727);
     approx.equal(tanh(unit('-45deg')), -0.65579420263267);
 
-    assert(tanh(unit(math.bignumber(90), 'deg')).isBigNumber);
-    approx.equal(tanh(unit(math.bignumber(90), 'deg')).toNumber(), 0.91715233566727);
+    assert(tanh(unit(index_indexjsjs.bignumber(90), 'deg')).isBigNumber);
+    approx.equal(tanh(unit(index_indexjsjs.bignumber(90), 'deg')).toNumber(), 0.91715233566727);
 
     approx.deepEqual(tanh(unit(complex('2 + i'), 'rad')), complex(1.0147936161466, 0.033812826079897));
   });
@@ -91,7 +85,7 @@ describe('tanh', function() {
   });
 
   it('should LaTeX tanh', function () {
-    var expression = math.parse('tanh(1)');
+    var expression = index_indexjsjs.parse('tanh(1)');
     assert.equal(expression.toTex(), '\\tanh\\left(1\\right)');
   });
 });

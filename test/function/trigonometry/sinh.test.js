@@ -1,12 +1,12 @@
-var assert = require('assert');
-var error = require('../../../lib/error/index');
-var math = require('../../../index');
-var approx = require('../../../tools/approx');
-var complex = math.complex;
-var matrix = math.matrix;
-var unit = math.unit;
-var sinh = math.sinh;
-var bigmath = math.create({number: 'BigNumber', precision: 20});
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
+import { approxjs as toolsapprox_approxjsjs } from "../../../tools/approx";
+var error = {};
+var complex = index_indexjsjs.complex;
+var matrix = index_indexjsjs.matrix;
+var unit = index_indexjsjs.unit;
+var sinh = index_indexjsjs.sinh;
+var bigmath = index_indexjsjs.create({number: 'BigNumber', precision: 20});
 
 var EPSILON = 1e-14;
 
@@ -76,8 +76,8 @@ describe('sinh', function() {
     approx.equal(sinh(unit('90deg')), 2.3012989023073, EPSILON);
     approx.equal(sinh(unit('-45deg')), -0.86867096148601, EPSILON);
 
-    assert(sinh(unit(math.bignumber(90), 'deg')).isBigNumber);
-    approx.equal(sinh(unit(math.bignumber(90), 'deg')).toNumber(), 2.3012989023073, EPSILON);
+    assert(sinh(unit(index_indexjsjs.bignumber(90), 'deg')).isBigNumber);
+    approx.equal(sinh(unit(index_indexjsjs.bignumber(90), 'deg')).toNumber(), 2.3012989023073, EPSILON);
 
     approx.deepEqual(sinh(unit(complex('2 + i'), 'rad')), complex(1.9596010414216, 3.1657785132162), EPSILON);
   });
@@ -106,7 +106,7 @@ describe('sinh', function() {
   });
 
   it('should LaTeX sinh', function () {
-    var expression = math.parse('sinh(1)');
+    var expression = index_indexjsjs.parse('sinh(1)');
     assert.equal(expression.toTex(), '\\sinh\\left(1\\right)');
   });
 });

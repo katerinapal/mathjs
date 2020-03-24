@@ -1,8 +1,7 @@
-// test chain
-var assert = require('assert');
-var approx = require('../../../tools/approx');
-var math = require('../../../index');
-var Chain = math.type.Chain;
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
+var approx = {};
+var Chain = index_indexjsjs.type.Chain;
 
 describe('Chain', function() {
 
@@ -12,30 +11,30 @@ describe('Chain', function() {
   });
 
   it('should have a property isChain', function () {
-    var a = new math.type.Chain(5);
+    var a = new index_indexjsjs.type.Chain(5);
     assert.strictEqual(a.isChain, true);
   });
 
   it('should have a property type', function () {
-    var a = new math.type.Chain(5);
+    var a = new index_indexjsjs.type.Chain(5);
     assert.strictEqual(a.type, 'Chain');
   });
 
   it('should not contain constants, only functions', function() {
     assert(typeof Chain.pi, 'undefined');
 
-    var chain = new Chain(math.bignumber(3));
+    var chain = new Chain(index_indexjsjs.bignumber(3));
 
     assert(typeof chain.pi, 'undefined');
     assert(typeof chain.sin, 'function');
   });
 
   it('should chain operations with matrices', function() {
-    assert.deepEqual(new Chain(math.matrix([[1,2],[3,4]]))
-        .subset(math.index(0,0), 8)
-        .multiply(3).done(), math.matrix([[24, 6], [9, 12]]));
+    assert.deepEqual(new Chain(index_indexjsjs.matrix([[1,2],[3,4]]))
+        .subset(index_indexjsjs.index(0,0), 8)
+        .multiply(3).done(), index_indexjsjs.matrix([[24, 6], [9, 12]]));
     assert.deepEqual(new Chain([[1,2],[3,4]])
-        .subset(math.index(0,0), 8)
+        .subset(index_indexjsjs.index(0,0), 8)
         .multiply(3).done(), [[24, 6], [9, 12]]);
   });
 
@@ -56,7 +55,7 @@ describe('Chain', function() {
   });
 
   it('should create a proxy for imported functions', function() {
-    math.import({hello: function (a) { return a + '!'}});
+    index_indexjsjs.import({hello: function (a) { return a + '!'}});
     var a = new Chain('hello').hello().done();
     assert.strictEqual(a, 'hello!');
   });

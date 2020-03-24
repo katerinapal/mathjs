@@ -1,8 +1,7 @@
-var assert = require('assert'),
-    approx = require('../../../tools/approx'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    factorial = math.factorial;
+import assert from "assert";
+import { equal as toolsapprox_equaljs } from "../../../tools/approx";
+import { indexjs as index_indexjsjs } from "../../../index";
+var error = {}, factorial = index_indexjsjs.factorial;
 
 describe('factorial', function() {
 
@@ -18,7 +17,7 @@ describe('factorial', function() {
   });
 
   it('should calculate the factorial of a bignumber', function() {
-    var bigmath = math.create({number: 'BigNumber', precision: 5});
+    var bigmath = index_indexjsjs.create({number: 'BigNumber', precision: 5});
     var bigfactorial = bigmath.factorial;
     var bignumber = bigmath.bignumber;
 
@@ -58,7 +57,7 @@ describe('factorial', function() {
   });
 
   it('should calculate the factorial of each element in a matrix', function() {
-    assert.deepEqual(factorial(math.matrix([0,1,2,3,4,5])), math.matrix([1,1,2,6,24,120]));
+    assert.deepEqual(factorial(index_indexjsjs.matrix([0,1,2,3,4,5])), index_indexjsjs.matrix([1,1,2,6,24,120]));
   });
 
   it('should calculate the factorial of each element in an array', function() {
@@ -66,21 +65,21 @@ describe('factorial', function() {
   });
 
   it('should calculate the factorial of a non-integer', function() {
-    approx.equal(factorial(1.5), 1.32934038817913702047362561);
-    approx.equal(factorial(7.5), 14034.40729348);
+    toolsapprox_equaljs(factorial(1.5), 1.32934038817913702047362561);
+    toolsapprox_equaljs(factorial(7.5), 14034.40729348);
   });
 
   it('should throw error if called with negative number', function() {
     assert.throws(function() { factorial(-1); }, /Value must be non-negative/);
     assert.throws(function() { factorial(-1.5); }, /Value must be non-negative/);
 
-    assert.throws(function() { factorial(math.bignumber(-1)); }, /Value must be non-negative/);
-    assert.throws(function() { factorial(math.bignumber(-1.5)); }, /Value must be non-negative/);
-    assert.throws(function() { factorial(math.bignumber(-Infinity)); }, /Value must be non-negative/);
+    assert.throws(function() { factorial(index_indexjsjs.bignumber(-1)); }, /Value must be non-negative/);
+    assert.throws(function() { factorial(index_indexjsjs.bignumber(-1.5)); }, /Value must be non-negative/);
+    assert.throws(function() { factorial(index_indexjsjs.bignumber(-Infinity)); }, /Value must be non-negative/);
   });
 
   it('should throw an error if called with non-integer bignumber', function() {
-    assert.throws(function() { factorial(math.bignumber(1.5)); });
+    assert.throws(function() { factorial(index_indexjsjs.bignumber(1.5)); });
   });
 
   it('should throw en error if called with invalid number of arguments', function() {
@@ -94,7 +93,7 @@ describe('factorial', function() {
   });
 
   it('should LaTeX factorial', function () {
-    var expression = math.parse('factorial(6)');
+    var expression = index_indexjsjs.parse('factorial(6)');
     assert.equal(expression.toTex(), '\\left(6\\right)!');
   });
 
