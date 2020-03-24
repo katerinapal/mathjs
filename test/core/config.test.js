@@ -1,5 +1,5 @@
-var assert = require('assert');
-var math = require('../../index');
+import assert from "assert";
+var math = {};
 
 describe('config', function() {
   // TODO: test function config

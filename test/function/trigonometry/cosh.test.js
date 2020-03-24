@@ -1,13 +1,7 @@
-var assert = require('assert'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    approx = require('../../../tools/approx'),
-    pi = math.pi,
-    complex = math.complex,
-    matrix = math.matrix,
-    unit = math.unit,
-    cosh = math.cosh,
-    bigmath = math.create({number: 'BigNumber', precision: 20});
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
+import { approxjs as toolsapprox_approxjsjs } from "../../../tools/approx";
+var error = {}, pi = index_indexjsjs.pi, complex = index_indexjsjs.complex, matrix = index_indexjsjs.matrix, unit = index_indexjsjs.unit, cosh = index_indexjsjs.cosh, bigmath = index_indexjsjs.create({number: 'BigNumber', precision: 20});
 
 describe('cosh', function() {
   it('should return the cosh of a boolean', function () {
@@ -61,10 +55,10 @@ describe('cosh', function() {
     approx.equal(cosh(unit('90deg')), 2.5091784786581);
     approx.equal(cosh(unit('-45deg')), 1.324609089252);
 
-    assert(cosh(unit(math.bignumber(90), 'deg')).isBigNumber);
-    approx.equal(cosh(unit(math.bignumber(90), 'deg')).toNumber(), 2.5091784786581);
+    assert(cosh(unit(index_indexjsjs.bignumber(90), 'deg')).isBigNumber);
+    approx.equal(cosh(unit(index_indexjsjs.bignumber(90), 'deg')).toNumber(), 2.5091784786581);
 
-    approx.deepEqual(cosh(math.unit(complex('2 + i'), 'rad')), complex(2.0327230070197, 3.0518977991518));
+    approx.deepEqual(cosh(index_indexjsjs.unit(complex('2 + i'), 'rad')), complex(2.0327230070197, 3.0518977991518));
   });
 
   it('should throw an error if called with an invalid unit', function() {
@@ -91,7 +85,7 @@ describe('cosh', function() {
   });
 
   it('should LaTeX cosh', function () {
-    var expression = math.parse('cosh(1)');
+    var expression = index_indexjsjs.parse('cosh(1)');
     assert.equal(expression.toTex(), '\\cosh\\left(1\\right)');
   });
 });

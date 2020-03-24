@@ -1,13 +1,12 @@
-// test error messages for deprecated functions
-var assert = require('assert');
-var math = require('../index');
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../index";
 
 describe('deprecated stuff', function() {
 
   it('should throw a deprecation error when using UpdateNode', function () {
 
     assert.throws(function () {
-      new math.expression.node.UpdateNode();
+      new index_indexjsjs.expression.node.UpdateNode();
     }, /UpdateNode is deprecated/);
 
   })

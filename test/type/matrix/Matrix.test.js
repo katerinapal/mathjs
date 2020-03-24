@@ -1,6 +1,6 @@
-var assert = require('assert');
-var math = require('../../../index');
-var Matrix = math.type.Matrix;
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
+var Matrix = index_indexjsjs.type.Matrix;
 
 describe('matrix', function() {
 

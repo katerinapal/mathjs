@@ -1,7 +1,6 @@
-var assert = require('assert'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    combinations = math.combinations;
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
+var error = {}, combinations = index_indexjsjs.combinations;
 
 describe('combinations', function() {
 
@@ -14,10 +13,10 @@ describe('combinations', function() {
   });
 
   it('should calculate the combinations of n items taken k at a time with BigNumbers', function() {
-      assert.deepEqual(combinations(math.bignumber(7), math.bignumber(5)), math.bignumber(21));
-      assert.deepEqual(combinations(math.bignumber(20), math.bignumber(15)), math.bignumber(15504));
-      assert.deepEqual(combinations(math.bignumber(63), math.bignumber(7)), math.bignumber(553270671));
-      assert.deepEqual(combinations(math.bignumber(25), math.bignumber(6)), math.bignumber(177100));
+      assert.deepEqual(combinations(index_indexjsjs.bignumber(7), index_indexjsjs.bignumber(5)), index_indexjsjs.bignumber(21));
+      assert.deepEqual(combinations(index_indexjsjs.bignumber(20), index_indexjsjs.bignumber(15)), index_indexjsjs.bignumber(15504));
+      assert.deepEqual(combinations(index_indexjsjs.bignumber(63), index_indexjsjs.bignumber(7)), index_indexjsjs.bignumber(553270671));
+      assert.deepEqual(combinations(index_indexjsjs.bignumber(25), index_indexjsjs.bignumber(6)), index_indexjsjs.bignumber(177100));
   });
 
   it('should not work with non-integer and negative input', function() {
@@ -26,9 +25,9 @@ describe('combinations', function() {
       assert.throws(function() {combinations(0.5, 3)}, TypeError);
       assert.throws(function() {combinations(4, 0.5)}, TypeError);
       assert.throws(function() {combinations(3, 5)}, TypeError);
-      assert.throws(function() {combinations(math.bignumber(3), math.bignumber(5))}, TypeError);
-      assert.throws(function() {combinations(math.bignumber(3.5), math.bignumber(-3))}, TypeError);
-      assert.throws(function() {combinations(math.bignumber(3.5), 1/3)}, TypeError);
+      assert.throws(function() {combinations(index_indexjsjs.bignumber(3), index_indexjsjs.bignumber(5))}, TypeError);
+      assert.throws(function() {combinations(index_indexjsjs.bignumber(3.5), index_indexjsjs.bignumber(-3))}, TypeError);
+      assert.throws(function() {combinations(index_indexjsjs.bignumber(3.5), 1/3)}, TypeError);
   });
 
   it('should not work with the wrong number or type of arguments', function() {
@@ -37,7 +36,7 @@ describe('combinations', function() {
   });
 
   it('should LaTeX combinations', function () {
-    var expression = math.parse('combinations(3,2)');
+    var expression = index_indexjsjs.parse('combinations(3,2)');
     assert.equal(expression.toTex(), '\\binom{3}{2}');
   });
 

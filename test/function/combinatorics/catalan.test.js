@@ -1,7 +1,6 @@
-var assert = require('assert'),
-error = require('../../../lib/error/index'),
-math = require('../../../index'),
-catalan = math.catalan;
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
+var error = {}, catalan = index_indexjsjs.catalan;
 
 describe('catalan', function() {
 
@@ -12,15 +11,15 @@ describe('catalan', function() {
   });
 
   it('should calculate the nth catalan number with BigNumbers', function(){
-    assert.deepEqual(catalan(math.bignumber(7)), math.bignumber(429));
-    assert.deepEqual(catalan(math.bignumber(13)), math.bignumber(742900));
+    assert.deepEqual(catalan(index_indexjsjs.bignumber(7)), index_indexjsjs.bignumber(429));
+    assert.deepEqual(catalan(index_indexjsjs.bignumber(13)), index_indexjsjs.bignumber(742900));
   });
 
   it('should not work with non-integer and negative input', function() {
     assert.throws(function() {catalan(0.5)}, TypeError);
     assert.throws(function() {catalan(-1)}, TypeError);
-    assert.throws(function() {catalan(math.bignumber(-3))}, TypeError);
-    assert.throws(function() {catalan(math.bignumber(3.5))}, TypeError);
+    assert.throws(function() {catalan(index_indexjsjs.bignumber(-3))}, TypeError);
+    assert.throws(function() {catalan(index_indexjsjs.bignumber(3.5))}, TypeError);
   });
 
   it('should throw an error in case of non-integer input', function() {
@@ -37,7 +36,7 @@ describe('catalan', function() {
   });
 
   it('should LaTeX catalan', function () {
-    var expression = math.parse('catalan(3)');
+    var expression = index_indexjsjs.parse('catalan(3)');
     assert.equal(expression.toTex(), '\\mathrm{C}_{3}');
   });
 

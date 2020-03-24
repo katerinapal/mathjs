@@ -1,14 +1,14 @@
-var assert = require('assert');
-var math = require('../../../index');
-var approx = require('../../../tools/approx');
-var pi = math.pi;
-var acos = math.acos;
-var cos = math.cos;
-var complex = math.complex;
-var matrix = math.matrix;
-var unit = math.unit;
-var bigmath = math.create({number: 'BigNumber', precision: 20});
-var mathPredictable = math.create({predictable: true});
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
+import { approxjs as toolsapprox_approxjsjs } from "../../../tools/approx";
+var pi = index_indexjsjs.pi;
+var acos = index_indexjsjs.acos;
+var cos = index_indexjsjs.cos;
+var complex = index_indexjsjs.complex;
+var matrix = index_indexjsjs.matrix;
+var unit = index_indexjsjs.unit;
+var bigmath = index_indexjsjs.create({number: 'BigNumber', precision: 20});
+var mathPredictable = index_indexjsjs.create({predictable: true});
 var acosBig = bigmath.acos;
 var cosBig = bigmath.cos;
 var Big = bigmath.bignumber;
@@ -110,7 +110,7 @@ describe('acos', function() {
   });
 
   it('should LaTeX acos', function () {
-    var expression = math.parse('acos(1)');
+    var expression = index_indexjsjs.parse('acos(1)');
     assert.equal(expression.toTex(), '\\cos^{-1}\\left(1\\right)');
   });
 

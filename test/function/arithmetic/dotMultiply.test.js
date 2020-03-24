@@ -1,16 +1,8 @@
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
+import { approxjs as toolsapprox_approxjsjs } from "../../../tools/approx";
 // test dotMultiply (element-wise multiply)
-var assert = require('assert'),
-    math = require('../../../index'),
-    approx = require('../../../tools/approx'),
-    error = require('../../../lib/error/index'),
-    dotMultiply = math.dotMultiply,
-    divide = math.divide,
-    matrix = math.matrix,
-    sparse = math.sparse,
-    complex = math.complex,
-    range = math.range,
-    i = math.i,
-    unit = math.unit;
+var error = {}, dotMultiply = index_indexjsjs.dotMultiply, divide = index_indexjsjs.divide, matrix = index_indexjsjs.matrix, sparse = index_indexjsjs.sparse, complex = index_indexjsjs.complex, range = index_indexjsjs.range, i = index_indexjsjs.i, unit = index_indexjsjs.unit;
 
 describe('dotMultiply', function() {
 
@@ -183,7 +175,7 @@ describe('dotMultiply', function() {
   });
   
   it('should LaTeX dotMultiply', function () {
-    var expression = math.parse('dotMultiply([1,2],[3,4])');
+    var expression = index_indexjsjs.parse('dotMultiply([1,2],[3,4])');
     assert.equal(expression.toTex(), '\\left(\\begin{bmatrix}1\\\\2\\\\\\end{bmatrix}.\\cdot\\begin{bmatrix}3\\\\4\\\\\\end{bmatrix}\\right)');
   });
 });

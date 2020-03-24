@@ -1,13 +1,13 @@
-var assert = require('assert');
-var error = require('../../lib/error/index');
+import assert from "assert";
+import { indexjs as liberrorindex_indexjsjs } from "../../lib/error/index";
 
 describe('index.js', function () {
 
   it('should contain error factory functions', function () {
-    assert(Array.isArray(error));
-    assert(error[0].name, 'ArgumentsError');
-    assert(error[1].name, 'DimensionError');
-    assert(error[2].name, 'IndexError');
+    assert(Array.isArray(liberrorindex_indexjsjs));
+    assert(liberrorindex_indexjsjs[0].name, 'ArgumentsError');
+    assert(liberrorindex_indexjsjs[1].name, 'DimensionError');
+    assert(liberrorindex_indexjsjs[2].name, 'IndexError');
   });
 
 });
