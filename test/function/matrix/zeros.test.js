@@ -1,77 +1,75 @@
-import assert from "assert";
-import { indexjs as index_indexjsjs } from "../../../index";
-// test zeros
-var zeros = index_indexjsjs.zeros, matrix = index_indexjsjs.matrix;
+"use strict";
 
-describe('zeros', function() {
+var _assert = require("assert");
+
+var _assert2 = _interopRequireDefault(_assert);
+
+var _index = require("../../../index");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// test zeros
+var zeros = _index.indexjs.zeros,
+    matrix = _index.indexjs.matrix;
+
+describe('zeros', function () {
 
   it('should create an empty matrix', function () {
-    assert.deepEqual(zeros(), matrix());
-    assert.deepEqual(zeros([]), []);
-    assert.deepEqual(zeros(matrix([])), matrix());
+    _assert2.default.deepEqual(zeros(), matrix());
+    _assert2.default.deepEqual(zeros([]), []);
+    _assert2.default.deepEqual(zeros(matrix([])), matrix());
   });
-    
+
   it('should create an empty matrix, sparse', function () {
-    assert.deepEqual(zeros('sparse'), matrix('sparse'));
-    assert.deepEqual(zeros([], 'sparse'), matrix([], 'sparse'));
-    assert.deepEqual(zeros(matrix([]), 'sparse'), matrix('sparse'));
+    _assert2.default.deepEqual(zeros('sparse'), matrix('sparse'));
+    _assert2.default.deepEqual(zeros([], 'sparse'), matrix([], 'sparse'));
+    _assert2.default.deepEqual(zeros(matrix([]), 'sparse'), matrix('sparse'));
   });
-  
+
   it('should create a vector with zeros', function () {
-    assert.deepEqual(zeros(3), matrix([0,0,0]));
-    assert.deepEqual(zeros(matrix([4])), matrix([0,0,0,0]));
-    assert.deepEqual(zeros([4]), [0,0,0,0]);
-    assert.deepEqual(zeros(0), matrix([]));
+    _assert2.default.deepEqual(zeros(3), matrix([0, 0, 0]));
+    _assert2.default.deepEqual(zeros(matrix([4])), matrix([0, 0, 0, 0]));
+    _assert2.default.deepEqual(zeros([4]), [0, 0, 0, 0]);
+    _assert2.default.deepEqual(zeros(0), matrix([]));
   });
 
   it('should create a matrix with bignumber zeros', function () {
-    var zero = index_indexjsjs.bignumber(0);
-    var three = index_indexjsjs.bignumber(3);
-    assert.deepEqual(zeros(three), matrix([zero,zero,zero]));
-    assert.deepEqual(zeros([three]), [zero,zero,zero]);
+    var zero = _index.indexjs.bignumber(0);
+    var three = _index.indexjs.bignumber(3);
+    _assert2.default.deepEqual(zeros(three), matrix([zero, zero, zero]));
+    _assert2.default.deepEqual(zeros([three]), [zero, zero, zero]);
   });
 
   it('should create a 2D matrix with zeros from an array', function () {
-    assert.deepEqual(zeros(2,3), matrix([[0,0,0],[0,0,0]]));
-    assert.deepEqual(zeros(3,2), matrix([[0,0],[0,0],[0,0]]));
-    assert.deepEqual(zeros([3,2]), [[0,0],[0,0],[0,0]]);
+    _assert2.default.deepEqual(zeros(2, 3), matrix([[0, 0, 0], [0, 0, 0]]));
+    _assert2.default.deepEqual(zeros(3, 2), matrix([[0, 0], [0, 0], [0, 0]]));
+    _assert2.default.deepEqual(zeros([3, 2]), [[0, 0], [0, 0], [0, 0]]);
   });
 
   it('should create a matrix with zeros from a matrix', function () {
-    assert.deepEqual(zeros(matrix([3])), matrix([0,0,0]));
-    assert.deepEqual(zeros(matrix([3,2])), matrix([[0,0],[0,0],[0,0]]));
+    _assert2.default.deepEqual(zeros(matrix([3])), matrix([0, 0, 0]));
+    _assert2.default.deepEqual(zeros(matrix([3, 2])), matrix([[0, 0], [0, 0], [0, 0]]));
   });
 
   it('should create a 3D matrix with zeros', function () {
-    var res = [
-      [
-        [0,0,0,0],
-        [0,0,0,0],
-        [0,0,0,0]
-      ],
-      [
-        [0,0,0,0],
-        [0,0,0,0],
-        [0,0,0,0]
-      ]
-    ];
+    var res = [[[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]], [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]];
 
-    assert.deepEqual(zeros(2,3,4), matrix(res));
-    assert.deepEqual(zeros(matrix([2,3,4])), matrix(res));
-    assert.deepEqual(zeros([2,3,4]), res);
+    _assert2.default.deepEqual(zeros(2, 3, 4), matrix(res));
+    _assert2.default.deepEqual(zeros(matrix([2, 3, 4])), matrix(res));
+    _assert2.default.deepEqual(zeros([2, 3, 4]), res);
   });
 
   // TODO: test setting `matrix`
 
   it('should create a matrix with zeros with the same size as original matrix', function () {
     var a = matrix([[1, 2, 3], [4, 5, 6]]);
-    assert.deepEqual(zeros(index_indexjsjs.size(a)).size(), a.size());
+    _assert2.default.deepEqual(zeros(_index.indexjs.size(a)).size(), a.size());
   });
 
   // TODO: test with invalid input
 
   it('should LaTeX zeros', function () {
-    var expression = index_indexjsjs.parse('zeros(2,3)');
-    assert.equal(expression.toTex(), '\\mathrm{zeros}\\left(2,3\\right)');
+    var expression = _index.indexjs.parse('zeros(2,3)');
+    _assert2.default.equal(expression.toTex(), '\\mathrm{zeros}\\left(2,3\\right)');
   });
 });
