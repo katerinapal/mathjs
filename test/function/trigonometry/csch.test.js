@@ -1,9 +1,25 @@
-import assert from "assert";
-import { indexjs as index_indexjsjs } from "../../../index";
-import { approxjs as toolsapprox_approxjsjs } from "../../../tools/approx";
-var error = {}, pi = index_indexjsjs.pi, complex = index_indexjsjs.complex, matrix = index_indexjsjs.matrix, unit = index_indexjsjs.unit, csch = index_indexjsjs.csch, bigmath = index_indexjsjs.create({precision: 20}), biggermath = index_indexjsjs.create({number: 'BigNumber', precision: 22});
+"use strict";
 
-describe('csch', function() {
+var _assert = require("assert");
+
+var _assert2 = _interopRequireDefault(_assert);
+
+var _index = require("../../../index");
+
+var _approx = require("../../../tools/approx");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var error = {},
+    pi = _index.indexjs.pi,
+    complex = _index.indexjs.complex,
+    matrix = _index.indexjs.matrix,
+    unit = _index.indexjs.unit,
+    csch = _index.indexjs.csch,
+    bigmath = _index.indexjs.create({ precision: 20 }),
+    biggermath = _index.indexjs.create({ number: 'BigNumber', precision: 22 });
+
+describe('csch', function () {
   it('should return the csch of a boolean', function () {
     approx.equal(csch(true), 0.85091812823932);
     approx.equal(csch(false), Number.POSITIVE_INFINITY);
@@ -13,7 +29,7 @@ describe('csch', function() {
     approx.equal(csch(null), Number.POSITIVE_INFINITY);
   });
 
-  it('should return the csch of a number', function() {
+  it('should return the csch of a number', function () {
     approx.equal(csch(0), Number.POSITIVE_INFINITY);
     approx.equal(csch(pi), 0.086589537530047);
     approx.equal(csch(1), 0.85091812823932);
@@ -23,60 +39,68 @@ describe('csch', function() {
     approx.equal(csch(-1e-22), Number.NEGATIVE_INFINITY);
   });
 
-  it('should return the csch of a bignumber', function() {
+  it('should return the csch of a bignumber', function () {
     var cschBig = bigmath.csch;
     var Big = bigmath.bignumber;
 
-    assert.deepEqual(cschBig(Big(0)).toString(), 'Infinity');
-    assert.deepEqual(cschBig(Big(1)), Big('0.85091812823932154512'));
-    assert.deepEqual(cschBig(Big(2)), Big('0.27572056477178320776'));
-    assert.deepEqual(cschBig(Big(3)), Big('0.099821569668822732851'));
+    _assert2.default.deepEqual(cschBig(Big(0)).toString(), 'Infinity');
+    _assert2.default.deepEqual(cschBig(Big(1)), Big('0.85091812823932154512'));
+    _assert2.default.deepEqual(cschBig(Big(2)), Big('0.27572056477178320776'));
+    _assert2.default.deepEqual(cschBig(Big(3)), Big('0.099821569668822732851'));
 
     /* Pass in extra digits to pi. */
-    assert.deepEqual(cschBig(biggermath.pi).toString(), '0.086589537530046941828');
+    _assert2.default.deepEqual(cschBig(biggermath.pi).toString(), '0.086589537530046941828');
   });
 
-  it('should return the csch of a complex number', function() {
+  it('should return the csch of a complex number', function () {
     approx.deepEqual(csch(complex('1')), complex(0.85091812823932, 0));
     approx.deepEqual(csch(complex('i')), complex(0, -1.1883951057781));
     approx.deepEqual(csch(complex('2 + i')), complex(0.14136302161241, -0.22837506559969));
   });
 
-  it('should return the csch of an angle', function() {
+  it('should return the csch of an angle', function () {
     approx.equal(csch(unit('90deg')), 0.4345372080947);
     approx.equal(csch(unit('-45deg')), -1.1511838709208);
 
-    assert(csch(unit(index_indexjsjs.bignumber(90), 'deg')).isBigNumber);
-    approx.equal(csch(unit(index_indexjsjs.bignumber(90), 'deg')).toNumber(), 0.4345372080947);
+    (0, _assert2.default)(csch(unit(_index.indexjs.bignumber(90), 'deg')).isBigNumber);
+    approx.equal(csch(unit(_index.indexjs.bignumber(90), 'deg')).toNumber(), 0.4345372080947);
 
     approx.deepEqual(csch(unit(complex('2 + i'), 'rad')), complex(0.14136302161241, -0.22837506559969));
   });
 
-  it('should throw an error if called with an invalid unit', function() {
-    assert.throws(function () {csch(unit('5 celsius'))});
+  it('should throw an error if called with an invalid unit', function () {
+    _assert2.default.throws(function () {
+      csch(unit('5 celsius'));
+    });
   });
 
-  it('should throw an error if called with a string', function() {
-    assert.throws(function () {csch('string')});
+  it('should throw an error if called with a string', function () {
+    _assert2.default.throws(function () {
+      csch('string');
+    });
   });
 
   var csch123 = [0.85091812823932, 0.27572056477178, 0.099821569668823];
 
-  it('should return the csch of each element of an array', function() {
-    approx.deepEqual(csch([1,2,3]), csch123);
+  it('should return the csch of each element of an array', function () {
+    approx.deepEqual(csch([1, 2, 3]), csch123);
   });
 
-  it('should return the csch of each element of a matrix', function() {
-    approx.deepEqual(csch(matrix([1,2,3])), matrix(csch123));
+  it('should return the csch of each element of a matrix', function () {
+    approx.deepEqual(csch(matrix([1, 2, 3])), matrix(csch123));
   });
 
-  it('should throw an error in case of invalid number of arguments', function() {
-    assert.throws(function () {csch()}, /TypeError: Too few arguments/);
-    assert.throws(function () {csch(1, 2)}, /TypeError: Too many arguments/);
+  it('should throw an error in case of invalid number of arguments', function () {
+    _assert2.default.throws(function () {
+      csch();
+    }, /TypeError: Too few arguments/);
+    _assert2.default.throws(function () {
+      csch(1, 2);
+    }, /TypeError: Too many arguments/);
   });
 
   it('should LaTeX csch', function () {
-    var expression = index_indexjsjs.parse('csch(1)');
-    assert.equal(expression.toTex(), '\\mathrm{csch}\\left(1\\right)');
+    var expression = _index.indexjs.parse('csch(1)');
+    _assert2.default.equal(expression.toTex(), '\\mathrm{csch}\\left(1\\right)');
   });
 });

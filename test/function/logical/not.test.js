@@ -1,94 +1,109 @@
-import assert from "assert";
-import { indexjs as index_indexjsjs } from "../../../index";
-var bignumber = index_indexjsjs.bignumber;
-var complex = index_indexjsjs.complex;
-var matrix = index_indexjsjs.matrix;
-var unit = index_indexjsjs.unit;
-var not = index_indexjsjs.not;
-var FunctionNode = index_indexjsjs.expression.node.FunctionNode;
-var ConstantNode = index_indexjsjs.expression.node.ConstantNode;
-var SymbolNode = index_indexjsjs.expression.node.SymbolNode;
+"use strict";
+
+var _assert = require("assert");
+
+var _assert2 = _interopRequireDefault(_assert);
+
+var _index = require("../../../index");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var bignumber = _index.indexjs.bignumber;
+var complex = _index.indexjs.complex;
+var matrix = _index.indexjs.matrix;
+var unit = _index.indexjs.unit;
+var not = _index.indexjs.not;
+var FunctionNode = _index.indexjs.expression.node.FunctionNode;
+var ConstantNode = _index.indexjs.expression.node.ConstantNode;
+var SymbolNode = _index.indexjs.expression.node.SymbolNode;
 
 describe('not', function () {
 
   it('should not numbers correctly', function () {
-    assert.strictEqual(not(1), false);
-    assert.strictEqual(not(-1), false);
-    assert.strictEqual(not(1.23e+100), false);
-    assert.strictEqual(not(-1.0e-100), false);
-    assert.strictEqual(not(1.0e-100), false);
-    assert.strictEqual(not(Infinity), false);
-    assert.strictEqual(not(-Infinity), false);
-    assert.strictEqual(not(0), true);
-    assert.strictEqual(not(NaN), true);
+    _assert2.default.strictEqual(not(1), false);
+    _assert2.default.strictEqual(not(-1), false);
+    _assert2.default.strictEqual(not(1.23e+100), false);
+    _assert2.default.strictEqual(not(-1.0e-100), false);
+    _assert2.default.strictEqual(not(1.0e-100), false);
+    _assert2.default.strictEqual(not(Infinity), false);
+    _assert2.default.strictEqual(not(-Infinity), false);
+    _assert2.default.strictEqual(not(0), true);
+    _assert2.default.strictEqual(not(NaN), true);
   });
 
   it('should not complex numbers', function () {
-    assert.strictEqual(not(complex(1, 1)), false);
-    assert.strictEqual(not(complex(0, 1)), false);
-    assert.strictEqual(not(complex(1, 0)), false);
-    assert.strictEqual(not(complex(0, 0)), true);
-    assert.strictEqual(not(complex()), true);
-    assert.strictEqual(not(complex(0)), true);
-    assert.strictEqual(not(complex(1)), false);
+    _assert2.default.strictEqual(not(complex(1, 1)), false);
+    _assert2.default.strictEqual(not(complex(0, 1)), false);
+    _assert2.default.strictEqual(not(complex(1, 0)), false);
+    _assert2.default.strictEqual(not(complex(0, 0)), true);
+    _assert2.default.strictEqual(not(complex()), true);
+    _assert2.default.strictEqual(not(complex(0)), true);
+    _assert2.default.strictEqual(not(complex(1)), false);
   });
 
   it('should not booleans', function () {
-    assert.strictEqual(not(true), false);
-    assert.strictEqual(not(false), true);
+    _assert2.default.strictEqual(not(true), false);
+    _assert2.default.strictEqual(not(false), true);
   });
 
   it('should not null', function () {
-    assert.strictEqual(not(null), true);
+    _assert2.default.strictEqual(not(null), true);
   });
 
   it('should not bignumbers', function () {
-    assert.strictEqual(not(bignumber(1)), false);
-    assert.strictEqual(not(bignumber(-1)), false);
-    assert.strictEqual(not(bignumber(0)), true);
-    assert.strictEqual(not(bignumber(NaN)), true);
-    assert.strictEqual(not(bignumber('1e+10')), false);
-    assert.strictEqual(not(bignumber('-1.0e-100')), false);
-    assert.strictEqual(not(bignumber('1.0e-100')), false);
-    assert.strictEqual(not(bignumber(Infinity)), false);
-    assert.strictEqual(not(bignumber(-Infinity)), false);
+    _assert2.default.strictEqual(not(bignumber(1)), false);
+    _assert2.default.strictEqual(not(bignumber(-1)), false);
+    _assert2.default.strictEqual(not(bignumber(0)), true);
+    _assert2.default.strictEqual(not(bignumber(NaN)), true);
+    _assert2.default.strictEqual(not(bignumber('1e+10')), false);
+    _assert2.default.strictEqual(not(bignumber('-1.0e-100')), false);
+    _assert2.default.strictEqual(not(bignumber('1.0e-100')), false);
+    _assert2.default.strictEqual(not(bignumber(Infinity)), false);
+    _assert2.default.strictEqual(not(bignumber(-Infinity)), false);
   });
 
   it('should not units', function () {
-    assert.strictEqual(not(unit('100cm')), false);
-    assert.strictEqual(not(unit('0 inch')), true);
-    assert.strictEqual(not(unit('1m')), false);
-    assert.strictEqual(not(unit('m')), true);
-    assert.strictEqual(not(unit('-10inch')), false);
+    _assert2.default.strictEqual(not(unit('100cm')), false);
+    _assert2.default.strictEqual(not(unit('0 inch')), true);
+    _assert2.default.strictEqual(not(unit('1m')), false);
+    _assert2.default.strictEqual(not(unit('m')), true);
+    _assert2.default.strictEqual(not(unit('-10inch')), false);
 
-    assert.strictEqual(not(unit(bignumber(1), 'm')), false);
-    assert.strictEqual(not(unit(bignumber(0), 'm')), true);
+    _assert2.default.strictEqual(not(unit(bignumber(1), 'm')), false);
+    _assert2.default.strictEqual(not(unit(bignumber(0), 'm')), true);
   });
 
   it('should not arrays', function () {
-    assert.deepEqual(not([0, 10]), [true, false]);
-    assert.deepEqual(not([]), []);
+    _assert2.default.deepEqual(not([0, 10]), [true, false]);
+    _assert2.default.deepEqual(not([]), []);
   });
 
   it('should not matrices', function () {
-    assert.deepEqual(not(matrix([0, 10])), matrix([true, false]));
-    assert.deepEqual(not(matrix([])), matrix([]));
+    _assert2.default.deepEqual(not(matrix([0, 10])), matrix([true, false]));
+    _assert2.default.deepEqual(not(matrix([])), matrix([]));
   });
 
   it('should throw an error in case of invalid number of arguments', function () {
-    assert.throws(function () {not()}, /TypeError: Too few arguments/);
-    assert.throws(function () {not(1, 2)}, /TypeError: Too many arguments/);
+    _assert2.default.throws(function () {
+      not();
+    }, /TypeError: Too few arguments/);
+    _assert2.default.throws(function () {
+      not(1, 2);
+    }, /TypeError: Too many arguments/);
   });
 
   it('should throw an error in case of invalid type if arguments', function () {
-    assert.throws(function () {not(new Date())}, /TypeError: Unexpected type of argument/);
-    assert.throws(function () {not({})}, /TypeError: Unexpected type of argument/);
+    _assert2.default.throws(function () {
+      not(new Date());
+    }, /TypeError: Unexpected type of argument/);
+    _assert2.default.throws(function () {
+      not({});
+    }, /TypeError: Unexpected type of argument/);
   });
 
   it('should LaTeX not', function () {
     var c = new ConstantNode(1);
     var node = new FunctionNode(new SymbolNode('not'), [c]);
-    assert.equal(node.toTex(), '\\neg\\left(1\\right)');
+    _assert2.default.equal(node.toTex(), '\\neg\\left(1\\right)');
   });
-
 });

@@ -1,77 +1,90 @@
-import assert from "assert";
-import { indexjs as index_indexjsjs } from "../../../index";
-var isNaN = index_indexjsjs.isNaN;
-var bignumber = index_indexjsjs.bignumber;
-var fraction = index_indexjsjs.fraction;
-var complex = index_indexjsjs.complex;
-var Unit = index_indexjsjs.type.Unit;
-var Fraction = index_indexjsjs.type.Fraction;
+"use strict";
 
-describe('isNegative', function() {
+var _assert = require("assert");
 
-  it('should test whether a number is NaN', function() {
-    assert.strictEqual(isNaN(0), false);
-    assert.strictEqual(isNaN(2), false);
-    assert.strictEqual(isNaN(-3), false);
-    assert.strictEqual(isNaN(Infinity), false);
-    assert.strictEqual(isNaN(-Infinity), false);
-    assert.strictEqual(isNaN(NaN), true);
+var _assert2 = _interopRequireDefault(_assert);
+
+var _index = require("../../../index");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var isNaN = _index.indexjs.isNaN;
+var bignumber = _index.indexjs.bignumber;
+var fraction = _index.indexjs.fraction;
+var complex = _index.indexjs.complex;
+var Unit = _index.indexjs.type.Unit;
+var Fraction = _index.indexjs.type.Fraction;
+
+describe('isNegative', function () {
+
+  it('should test whether a number is NaN', function () {
+    _assert2.default.strictEqual(isNaN(0), false);
+    _assert2.default.strictEqual(isNaN(2), false);
+    _assert2.default.strictEqual(isNaN(-3), false);
+    _assert2.default.strictEqual(isNaN(Infinity), false);
+    _assert2.default.strictEqual(isNaN(-Infinity), false);
+    _assert2.default.strictEqual(isNaN(NaN), true);
   });
 
-  it('should test whether a boolean is NaN', function() {
-    assert.strictEqual(isNaN(true), false);
-    assert.strictEqual(isNaN(false), false);
+  it('should test whether a boolean is NaN', function () {
+    _assert2.default.strictEqual(isNaN(true), false);
+    _assert2.default.strictEqual(isNaN(false), false);
   });
 
-  it('should test whether a BigNumber is NaN', function() {
-    assert.strictEqual(isNaN(bignumber(0)), false);
-    assert.strictEqual(isNaN(bignumber(2)), false);
-    assert.strictEqual(isNaN(bignumber(-3)), false);
-    assert.strictEqual(isNaN(bignumber(Infinity)), false);
-    assert.strictEqual(isNaN(bignumber(-Infinity)), false);
-    assert.strictEqual(isNaN(bignumber(NaN)), true);
+  it('should test whether a BigNumber is NaN', function () {
+    _assert2.default.strictEqual(isNaN(bignumber(0)), false);
+    _assert2.default.strictEqual(isNaN(bignumber(2)), false);
+    _assert2.default.strictEqual(isNaN(bignumber(-3)), false);
+    _assert2.default.strictEqual(isNaN(bignumber(Infinity)), false);
+    _assert2.default.strictEqual(isNaN(bignumber(-Infinity)), false);
+    _assert2.default.strictEqual(isNaN(bignumber(NaN)), true);
   });
 
-  it('should test whether a Fraction is NaN', function() {
-    assert.strictEqual(isNaN(fraction(2)), false);
-    assert.strictEqual(isNaN(fraction(-3)), false);
-    assert.strictEqual(isNaN(fraction(0)), false);
+  it('should test whether a Fraction is NaN', function () {
+    _assert2.default.strictEqual(isNaN(fraction(2)), false);
+    _assert2.default.strictEqual(isNaN(fraction(-3)), false);
+    _assert2.default.strictEqual(isNaN(fraction(0)), false);
   });
 
-  it('should test whether a unit is NaN', function() {
-    assert.strictEqual(isNaN(new Unit(0, 'm')), false);
-    assert.strictEqual(isNaN(new Unit(0, 'kB')), false);
-    assert.strictEqual(isNaN(new Unit(5, 'cm')), false);
-    assert.strictEqual(isNaN(new Unit(-3, 'inch')), false);
-    assert.strictEqual(isNaN(new Unit(NaN, 'inch')), true);
+  it('should test whether a unit is NaN', function () {
+    _assert2.default.strictEqual(isNaN(new Unit(0, 'm')), false);
+    _assert2.default.strictEqual(isNaN(new Unit(0, 'kB')), false);
+    _assert2.default.strictEqual(isNaN(new Unit(5, 'cm')), false);
+    _assert2.default.strictEqual(isNaN(new Unit(-3, 'inch')), false);
+    _assert2.default.strictEqual(isNaN(new Unit(NaN, 'inch')), true);
   });
 
   it('should test whether a complex number contains NaN', function () {
-    assert.strictEqual(isNaN(complex(0, 0)), false);
-    assert.strictEqual(isNaN(complex(NaN, 0)), false);
-    assert.strictEqual(isNaN(complex(0, NaN)), false);
-    assert.strictEqual(isNaN(complex(NaN, NaN)), true);
+    _assert2.default.strictEqual(isNaN(complex(0, 0)), false);
+    _assert2.default.strictEqual(isNaN(complex(NaN, 0)), false);
+    _assert2.default.strictEqual(isNaN(complex(0, NaN)), false);
+    _assert2.default.strictEqual(isNaN(complex(NaN, NaN)), true);
   });
 
-  it('should test whether a string contains a NaN', function() {
-    assert.strictEqual(isNaN('2'), false);
-    assert.strictEqual(isNaN('-2'), false);
-    assert.strictEqual(isNaN('0'), false);
-    assert.throws(function () {isNaN('NaN')}, /Error: Cannot convert "NaN" to a number/);
-    assert.strictEqual(isNaN(''), false);
+  it('should test whether a string contains a NaN', function () {
+    _assert2.default.strictEqual(isNaN('2'), false);
+    _assert2.default.strictEqual(isNaN('-2'), false);
+    _assert2.default.strictEqual(isNaN('0'), false);
+    _assert2.default.throws(function () {
+      isNaN('NaN');
+    }, /Error: Cannot convert "NaN" to a number/);
+    _assert2.default.strictEqual(isNaN(''), false);
   });
 
-  it('should test isNegative element wise on an Array', function() {
-    assert.deepEqual(isNaN([0, 5, -2, NaN]), [false, false, false, true]);
+  it('should test isNegative element wise on an Array', function () {
+    _assert2.default.deepEqual(isNaN([0, 5, -2, NaN]), [false, false, false, true]);
   });
 
-  it('should test isNegative element wise on a Matrix', function() {
-    assert.deepEqual(isNaN(index_indexjsjs.matrix([0, 5, -2, NaN])), index_indexjsjs.matrix([false, false, false, true]));
+  it('should test isNegative element wise on a Matrix', function () {
+    _assert2.default.deepEqual(isNaN(_index.indexjs.matrix([0, 5, -2, NaN])), _index.indexjs.matrix([false, false, false, true]));
   });
 
-  it('should throw an error in case of unsupported data types', function() {
-    assert.throws(function () {isNaN(new Date())}, /TypeError: Unexpected type of argument/);
-    assert.throws(function () {isNaN({})}, /TypeError: Unexpected type of argument/);
+  it('should throw an error in case of unsupported data types', function () {
+    _assert2.default.throws(function () {
+      isNaN(new Date());
+    }, /TypeError: Unexpected type of argument/);
+    _assert2.default.throws(function () {
+      isNaN({});
+    }, /TypeError: Unexpected type of argument/);
   });
-
 });
