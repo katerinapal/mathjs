@@ -1,13 +1,7 @@
-var assert = require('assert'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    approx = require('../../../tools/approx'),
-    pi = math.pi,
-    complex = math.complex,
-    matrix = math.matrix,
-    unit = math.unit,
-    sin = math.sin,
-    bigmath = math.create({precision: 242});
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
+import { approxjs as toolsapprox_approxjsjs } from "../../../tools/approx";
+var error = {}, pi = index_indexjsjs.pi, complex = index_indexjsjs.complex, matrix = index_indexjsjs.matrix, unit = index_indexjsjs.unit, sin = index_indexjsjs.sin, bigmath = index_indexjsjs.create({precision: 242});
 
 describe('sin', function() {
   it('should return the sine of a boolean', function () {
@@ -88,8 +82,8 @@ describe('sin', function() {
     approx.equal(sin(unit('45deg')), 0.707106781186548);
     approx.equal(sin(unit('-45deg')), -0.707106781186548);
 
-    assert(sin(unit(math.bignumber(45), 'deg')).isBigNumber);
-    approx.equal(sin(unit(math.bignumber(45), 'deg')).toNumber(), 0.707106781186548);
+    assert(sin(unit(index_indexjsjs.bignumber(45), 'deg')).isBigNumber);
+    approx.equal(sin(unit(index_indexjsjs.bignumber(45), 'deg')).toNumber(), 0.707106781186548);
 
     approx.deepEqual(sin(unit(complex('1+i'), 'rad')), complex(1.298457581415977, 0.634963914784736));
   });
@@ -118,7 +112,7 @@ describe('sin', function() {
   });
 
   it('should LaTeX sin', function () {
-    var expression = math.parse('sin(0.5)');
+    var expression = index_indexjsjs.parse('sin(0.5)');
     assert.equal(expression.toTex(), '\\sin\\left(0.5\\right)');
   });
 

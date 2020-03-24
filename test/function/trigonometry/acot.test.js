@@ -1,17 +1,7 @@
-var assert = require('assert'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    approx = require('../../../tools/approx'),
-    pi = math.pi,
-    complex = math.complex,
-    matrix = math.matrix,
-    unit = math.unit,
-    acot = math.acot,
-    cot = math.cot,
-    bigmath = math.create({number: 'BigNumber', precision: 20}),
-    acotBig = bigmath.acot,
-    cotBig = bigmath.cot,
-    Big = bigmath.bignumber;
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
+import { approxjs as toolsapprox_approxjsjs } from "../../../tools/approx";
+var error = {}, pi = index_indexjsjs.pi, complex = index_indexjsjs.complex, matrix = index_indexjsjs.matrix, unit = index_indexjsjs.unit, acot = index_indexjsjs.acot, cot = index_indexjsjs.cot, bigmath = index_indexjsjs.create({number: 'BigNumber', precision: 20}), acotBig = bigmath.acot, cotBig = bigmath.cot, Big = bigmath.bignumber;
 
 describe('acot', function() {
   it('should return the arccot of a boolean', function () {
@@ -114,7 +104,7 @@ describe('acot', function() {
   });
 
   it('should LaTeX acot', function () {
-    var expression = math.parse('acot(2)');
+    var expression = index_indexjsjs.parse('acot(2)');
     assert.equal(expression.toTex(), '\\cot^{-1}\\left(2\\right)');
   });
 

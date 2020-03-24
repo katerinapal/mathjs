@@ -1,12 +1,12 @@
-var assert = require('assert'),
-    approx = require('../tools/approx'),
-    math = require('../index');
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../index";
+var approx = {};
 
 describe('factory', function() {
 
   it('should get a default instance of mathjs', function() {
-    assert.strictEqual(typeof math, 'object');
-    assert.deepEqual(math.config(), {
+    assert.strictEqual(typeof index_indexjsjs, 'object');
+    assert.deepEqual(index_indexjsjs.config(), {
       matrix: 'Matrix',
       number: 'number',
       precision: 64,
@@ -16,7 +16,7 @@ describe('factory', function() {
   });
 
   it('should create an instance of math.js with custom configuration', function() {
-    var math1 = math.create({
+    var math1 = index_indexjsjs.create({
       matrix: 'Array',
       number: 'BigNumber'
     });
@@ -32,26 +32,26 @@ describe('factory', function() {
   });
 
   it('two instances of math.js should be isolated from each other', function() {
-    var math1 = math.create();
-    var math2 = math.create({
+    var math1 = index_indexjsjs.create();
+    var math2 = index_indexjsjs.create({
       matrix: 'Array'
     });
 
-    assert.notStrictEqual(math, math1);
-    assert.notStrictEqual(math, math2);
+    assert.notStrictEqual(index_indexjsjs, math1);
+    assert.notStrictEqual(index_indexjsjs, math2);
     assert.notStrictEqual(math1, math2);
     assert.notDeepEqual(math1.config(), math2.config());
-    assert.notDeepEqual(math.config(), math2.config());
+    assert.notDeepEqual(index_indexjsjs.config(), math2.config());
 
     // changing config should not affect the other
     math1.config({number: 'BigNumber'});
-    assert.strictEqual(math.config().number, 'number');
+    assert.strictEqual(index_indexjsjs.config().number, 'number');
     assert.strictEqual(math1.config().number, 'BigNumber');
     assert.strictEqual(math2.config().number, 'number');
   });
 
   it('should apply configuration using the config function', function() {
-    var math1 = math.create();
+    var math1 = index_indexjsjs.create();
 
     var config = math1.config();
     assert.deepEqual(config, {
@@ -73,7 +73,7 @@ describe('factory', function() {
     Object.create = undefined; // fake missing Object.create function
 
     assert.throws(function () {
-      var math1 = math.create();
+      var math1 = index_indexjsjs.create();
     }, /ES5 not supported/);
 
     // restore Object.create

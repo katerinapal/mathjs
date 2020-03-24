@@ -1,10 +1,10 @@
-var assert = require('assert');
-var math = require('../../../index');
-var BigNumber = math.type.BigNumber;
-var Complex = math.type.Complex;
-var DenseMatrix = math.type.DenseMatrix;
-var Unit = math.type.Unit;
-var max = math.max;
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
+var BigNumber = index_indexjsjs.type.BigNumber;
+var Complex = index_indexjsjs.type.Complex;
+var DenseMatrix = index_indexjsjs.type.DenseMatrix;
+var Unit = index_indexjsjs.type.Unit;
+var max = index_indexjsjs.max;
 
 describe('max', function() {
 
@@ -80,7 +80,7 @@ describe('max', function() {
 
   it('should throw an error when called multiple arrays or matrices', function() {
     assert.throws(function () {max([1,2], [3,4])}, /Scalar values expected/);
-    assert.throws(function () {max(math.matrix([1,2]), math.matrix([3,4]))}, /Scalar values expected/);
+    assert.throws(function () {max(index_indexjsjs.matrix([1,2]), index_indexjsjs.matrix([3,4]))}, /Scalar values expected/);
   });
 
   it('should throw an error if called a dimension out of range', function() {
@@ -98,7 +98,7 @@ describe('max', function() {
   });
 
   it('should LaTeX max', function () {
-    var expression = math.parse('max(1,2,3)');
+    var expression = index_indexjsjs.parse('max(1,2,3)');
     assert.equal(expression.toTex(), '\\max\\left(1,2,3\\right)');
   });
 

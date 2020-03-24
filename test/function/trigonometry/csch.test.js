@@ -1,14 +1,7 @@
-var assert = require('assert'),
-    error = require('../../../lib/error/index'),
-    math = require('../../../index'),
-    approx = require('../../../tools/approx'),
-    pi = math.pi,
-    complex = math.complex,
-    matrix = math.matrix,
-    unit = math.unit,
-    csch = math.csch,
-    bigmath = math.create({precision: 20}),
-    biggermath = math.create({number: 'BigNumber', precision: 22});
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
+import { approxjs as toolsapprox_approxjsjs } from "../../../tools/approx";
+var error = {}, pi = index_indexjsjs.pi, complex = index_indexjsjs.complex, matrix = index_indexjsjs.matrix, unit = index_indexjsjs.unit, csch = index_indexjsjs.csch, bigmath = index_indexjsjs.create({precision: 20}), biggermath = index_indexjsjs.create({number: 'BigNumber', precision: 22});
 
 describe('csch', function() {
   it('should return the csch of a boolean', function () {
@@ -53,8 +46,8 @@ describe('csch', function() {
     approx.equal(csch(unit('90deg')), 0.4345372080947);
     approx.equal(csch(unit('-45deg')), -1.1511838709208);
 
-    assert(csch(unit(math.bignumber(90), 'deg')).isBigNumber);
-    approx.equal(csch(unit(math.bignumber(90), 'deg')).toNumber(), 0.4345372080947);
+    assert(csch(unit(index_indexjsjs.bignumber(90), 'deg')).isBigNumber);
+    approx.equal(csch(unit(index_indexjsjs.bignumber(90), 'deg')).toNumber(), 0.4345372080947);
 
     approx.deepEqual(csch(unit(complex('2 + i'), 'rad')), complex(0.14136302161241, -0.22837506559969));
   });
@@ -83,7 +76,7 @@ describe('csch', function() {
   });
 
   it('should LaTeX csch', function () {
-    var expression = math.parse('csch(1)');
+    var expression = index_indexjsjs.parse('csch(1)');
     assert.equal(expression.toTex(), '\\mathrm{csch}\\left(1\\right)');
   });
 });

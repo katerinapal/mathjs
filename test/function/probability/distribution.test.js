@@ -1,12 +1,13 @@
-var assert = require('assert');
-var error = require('../../../lib/error/index');
-var seed = require('seed-random');
-var _ = require('underscore');
-var math = require('../../../index');
-math.import(require('../../../lib/function/probability/distribution'));
+import assert from "assert";
+import { indexjs as liberrorindex_indexjsjs } from "../../../lib/error/index";
+import seed from "seed-random";
+import _ from "underscore";
+import { indexjs as index_indexjsjs } from "../../../index";
+import * as libfunctionprobabilitydistribution_obj from "../../../lib/function/probability/distribution";
+index_indexjsjs.import(libfunctionprobabilitydistribution_obj);
 
-var Matrix = math.type.Matrix;
-var distribution = math.distribution;
+var Matrix = index_indexjsjs.type.Matrix;
+var distribution = index_indexjsjs.distribution;
 
 var assertApproxEqual = function(testVal, val, tolerance) {
   var diff = Math.abs(val - testVal);
@@ -95,8 +96,8 @@ describe('distribution', function () {
       // Collect all values in one array
       matrices.forEach(function(matrix) {
         assert(Array.isArray(matrix));
-        assert.deepEqual(math.size(matrix), size);
-        math.forEach(matrix, function(val) {
+        assert.deepEqual(index_indexjsjs.size(matrix), size);
+        index_indexjsjs.forEach(matrix, function(val) {
           picked.push(val);
         })
       });
@@ -117,8 +118,8 @@ describe('distribution', function () {
       // Collect all values in one array
       matrices.forEach(function(matrix) {
         assert(Array.isArray(matrix));
-        assert.deepEqual(math.size(matrix), size);
-        math.forEach(matrix, function(val) {
+        assert.deepEqual(index_indexjsjs.size(matrix), size);
+        index_indexjsjs.forEach(matrix, function(val) {
           picked.push(val);
         })
       });
@@ -130,7 +131,7 @@ describe('distribution', function () {
     it('should pick uniformly distributed random matrix, with elements in [0, 1]', function() {
       var picked = [],
           matrices = [],
-          size = math.matrix([2, 3, 4]);
+          size = index_indexjsjs.matrix([2, 3, 4]);
 
       _.times(100, function() {
         matrices.push(uniformDistrib.random(size));
@@ -160,8 +161,8 @@ describe('distribution', function () {
 
       // Collect all values in one array
       matrices.forEach(function(matrix) {
-        assert.deepEqual(math.size(matrix), size);
-        math.forEach(matrix, function(val) {
+        assert.deepEqual(index_indexjsjs.size(matrix), size);
+        index_indexjsjs.forEach(matrix, function(val) {
           picked.push(val);
         })
       });
@@ -174,7 +175,7 @@ describe('distribution', function () {
       assert.throws(function() { uniformDistrib.random(1, 2, 3, 6); });
 
       assert.throws( function () {uniformDistrib.random('str', 10)} );
-      assert.throws( function () {uniformDistrib.random(math.bignumber(-10), 10)} );
+      assert.throws( function () {uniformDistrib.random(index_indexjsjs.bignumber(-10), 10)} );
     });
 
   });
@@ -202,8 +203,8 @@ describe('distribution', function () {
 
       // Collect all values in one array
       matrices.forEach(function(matrix) {
-        assert.deepEqual(math.size(matrix), size);
-        math.forEach(matrix, function(val) {
+        assert.deepEqual(index_indexjsjs.size(matrix), size);
+        index_indexjsjs.forEach(matrix, function(val) {
           picked.push(val)
         });
       });
@@ -235,23 +236,23 @@ describe('distribution', function () {
       });
 
       count = _.filter(picked, function(val) { return val === 11 }).length;
-      assert.equal(math.round(count/picked.length, 1), 0.2);
+      assert.equal(index_indexjsjs.round(count/picked.length, 1), 0.2);
 
       count = _.filter(picked, function(val) { return val === 22 }).length;
-      assert.equal(math.round(count/picked.length, 1), 0.2);
+      assert.equal(index_indexjsjs.round(count/picked.length, 1), 0.2);
 
       count = _.filter(picked, function(val) { return val === 33 }).length;
-      assert.equal(math.round(count/picked.length, 1), 0.2);
+      assert.equal(index_indexjsjs.round(count/picked.length, 1), 0.2);
 
       count = _.filter(picked, function(val) { return val === 44 }).length;
-      assert.equal(math.round(count/picked.length, 1), 0.2);
+      assert.equal(index_indexjsjs.round(count/picked.length, 1), 0.2);
 
       count = _.filter(picked, function(val) { return val === 55 }).length;
-      assert.equal(math.round(count/picked.length, 1), 0.2);
+      assert.equal(index_indexjsjs.round(count/picked.length, 1), 0.2);
     });
 
     it('should pick numbers from the given matrix following an uniform distribution', function() {
-      var possibles = math.matrix([11, 22, 33, 44, 55]),
+      var possibles = index_indexjsjs.matrix([11, 22, 33, 44, 55]),
           picked = [],
           count;
 
@@ -260,24 +261,24 @@ describe('distribution', function () {
       });
 
       count = _.filter(picked, function(val) { return val === 11 }).length;
-      assert.equal(math.round(count/picked.length, 1), 0.2);
+      assert.equal(index_indexjsjs.round(count/picked.length, 1), 0.2);
 
       count = _.filter(picked, function(val) { return val === 22 }).length;
-      assert.equal(math.round(count/picked.length, 1), 0.2);
+      assert.equal(index_indexjsjs.round(count/picked.length, 1), 0.2);
 
       count = _.filter(picked, function(val) { return val === 33 }).length;
-      assert.equal(math.round(count/picked.length, 1), 0.2);
+      assert.equal(index_indexjsjs.round(count/picked.length, 1), 0.2);
 
       count = _.filter(picked, function(val) { return val === 44 }).length;
-      assert.equal(math.round(count/picked.length, 1), 0.2);
+      assert.equal(index_indexjsjs.round(count/picked.length, 1), 0.2);
 
       count = _.filter(picked, function(val) { return val === 55 }).length;
-      assert.equal(math.round(count/picked.length, 1), 0.2);
+      assert.equal(index_indexjsjs.round(count/picked.length, 1), 0.2);
     });
 
     it('should throw an error when providing a multi dimensional matrix', function() {
       assert.throws(function () {
-        uniformDistrib.pickRandom(math.matrix([[1,2], [3,4]]));
+        uniformDistrib.pickRandom(index_indexjsjs.matrix([[1,2], [3,4]]));
       }, /Only one dimensional vectors supported/);
     });
   });
@@ -317,20 +318,20 @@ describe('distribution', function () {
 
   it('created random functions should throw an error in case of wrong number of arguments', function() {
     var dist = distribution('uniform');
-    assert.throws(function () {dist.random([2,3], 10, 100, 12); }, error.ArgumentsError);
-    assert.throws(function () {dist.randomInt([2,3], 10, 100, 12); }, error.ArgumentsError);
-    assert.throws(function () {dist.pickRandom(); }, error.ArgumentsError);
-    assert.throws(function () {dist.pickRandom([], 23); }, error.ArgumentsError);
+    assert.throws(function () {dist.random([2,3], 10, 100, 12); }, liberrorindex_indexjsjs.ArgumentsError);
+    assert.throws(function () {dist.randomInt([2,3], 10, 100, 12); }, liberrorindex_indexjsjs.ArgumentsError);
+    assert.throws(function () {dist.pickRandom(); }, liberrorindex_indexjsjs.ArgumentsError);
+    assert.throws(function () {dist.pickRandom([], 23); }, liberrorindex_indexjsjs.ArgumentsError);
   });
 
   it('created random functions should throw an error in case of wrong type of arguments', function() {
     var dist = distribution('uniform');
-    assert.throws(function () {dist.pickRandom(23); }, error.TypeError);
+    assert.throws(function () {dist.pickRandom(23); }, liberrorindex_indexjsjs.TypeError);
     // TODO: more type testing...
   });
 
   it('should LaTeX distribution', function () {
-    var expression = math.parse('distribution("normal")');
+    var expression = index_indexjsjs.parse('distribution("normal")');
     assert.equal(expression.toTex(), '\\mathrm{distribution}\\left(\\mathtt{"normal"}\\right)');
   });
 });

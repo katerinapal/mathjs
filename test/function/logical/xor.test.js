@@ -1,12 +1,7 @@
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
 // test xor
-var assert = require('assert'),
-    math = require('../../../index'),
-    bignumber = math.bignumber,
-    complex = math.complex,
-    matrix = math.matrix,
-    sparse = math.sparse,
-    unit = math.unit,
-    xor = math.xor;
+var bignumber = index_indexjsjs.bignumber, complex = index_indexjsjs.complex, matrix = index_indexjsjs.matrix, sparse = index_indexjsjs.sparse, unit = index_indexjsjs.unit, xor = index_indexjsjs.xor;
 
 describe('xor', function () {
 
@@ -210,7 +205,7 @@ describe('xor', function () {
   });
 
   it('should LaTeX xor', function () {
-    var expression = math.parse('xor(1,2)');
+    var expression = index_indexjsjs.parse('xor(1,2)');
     assert.equal(expression.toTex(), '\\left(1\\veebar2\\right)');
   });
 });

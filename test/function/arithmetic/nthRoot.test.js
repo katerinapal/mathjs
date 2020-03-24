@@ -1,13 +1,12 @@
-// test nthRoot
-var assert = require('assert');
-var approx = require('../../../tools/approx');
-var math = require('../../../index');
-var matrix = math.matrix;
-var sparse = math.sparse;
-var unit = math.unit;
-var nthRoot = math.nthRoot;
-var big = math.bignumber;
-var complex = math.complex;
+import assert from "assert";
+import { approxjs as toolsapprox_approxjsjs } from "../../../tools/approx";
+import { indexjs as index_indexjsjs } from "../../../index";
+var matrix = index_indexjsjs.matrix;
+var sparse = index_indexjsjs.sparse;
+var unit = index_indexjsjs.unit;
+var nthRoot = index_indexjsjs.nthRoot;
+var big = index_indexjsjs.bignumber;
+var complex = index_indexjsjs.complex;
 
 
 describe('nthRoot', function() {
@@ -204,7 +203,7 @@ describe('nthRoot', function() {
   });
 
   it('should LaTeX nthRoot', function () {
-    var expression = math.parse('nthRoot(8,3)');
+    var expression = index_indexjsjs.parse('nthRoot(8,3)');
     assert.equal(expression.toTex(), '\\sqrt[3]{8}');
   });
 });

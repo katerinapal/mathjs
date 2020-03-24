@@ -1,16 +1,16 @@
-var assert = require('assert');
-var error = require('../../../lib/error/index');
-var math = require('../../../index');
-var approx = require('../../../tools/approx');
-var pi = math.pi;
-var asec = math.asec;
-var sec = math.sec;
-var complex = math.complex;
-var matrix = math.matrix;
-var unit = math.unit;
-var bigmath = math.create({number: 'BigNumber', precision: 20});
-var biggermath = math.create({precision: 21});
-var predmath = math.create({predictable: true});
+import assert from "assert";
+import { indexjs as index_indexjsjs } from "../../../index";
+import { approxjs as toolsapprox_approxjsjs } from "../../../tools/approx";
+var error = {};
+var pi = index_indexjsjs.pi;
+var asec = index_indexjsjs.asec;
+var sec = index_indexjsjs.sec;
+var complex = index_indexjsjs.complex;
+var matrix = index_indexjsjs.matrix;
+var unit = index_indexjsjs.unit;
+var bigmath = index_indexjsjs.create({number: 'BigNumber', precision: 20});
+var biggermath = index_indexjsjs.create({precision: 21});
+var predmath = index_indexjsjs.create({predictable: true});
 var asecBig = bigmath.asec;
 var Big = bigmath.bignumber;
 
@@ -118,7 +118,7 @@ describe('asec', function() {
   });
 
   it('should LaTeX asec', function () {
-    var expression = math.parse('asec(2)');
+    var expression = index_indexjsjs.parse('asec(2)');
     assert.equal(expression.toTex(), '\\sec^{-1}\\left(2\\right)');
   });
 
